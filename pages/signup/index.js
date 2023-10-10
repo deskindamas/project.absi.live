@@ -6,6 +6,8 @@ import { useRouter } from "next/router";
 import styles from "../../components/componentsStyling/customerStyles.module.css";
 import Image from "next/image";
 import Link from "next/link";
+import axios from "axios";
+import url from "@/URL";
 
 const SignUp = () => {
   //   const navigate = useNavigate();
@@ -22,13 +24,28 @@ const SignUp = () => {
     e.preventDefault();
   }
 
-  function sellerSubmit(e) {
+  async function sellerSubmit(e) {
     e.preventDefault();
+    // try{
+    //   const response = await axios.post(`${url}/api/seller/register` , {
+    //     name : sellerUserNameRef.current.value , 
+    //     phone_number : sellerNumberRef.current.value , 
+    //     location :  ,
+    //     city : sellerCity , 
+    //   })
+    // }catch{
+
+    // }
+
   }
 
   const handleCityChange = (value) => {
     setSellerCity(value);
   };
+
+  function handleData (data) {
+    console.log(data) ;
+  }
 
   return (
     <>
@@ -65,7 +82,7 @@ const SignUp = () => {
               className="outline-none border-b-2 bg-[#FD6500] border-white placeholder:text-white w-full transition-all duration-700 text-white "
               placeholder="Phone Number"
             />
-            <Locations />
+            <Locations onLocation = {handleData} />
             <button
               className="px-2 py-1 border-2 bg-white text-[#FD6500] rounded-lg hover:bg-gray-200 "
               type="submit"
@@ -101,22 +118,22 @@ const SignUp = () => {
             Register as a seller
           </p>
           <form
-            onSubmit={customerSubmit}
+            onSubmit={sellerSubmit}
             className="w-full flex flex-col gap-6"
           >
             <input
-              id="customerusername"
+              id="sellerusername"
               type="text"
               // value={email}
-              ref={customerUserNameRef}
+              ref={sellerUserNameRef}
               className="outline-none border-b-2 bg-[#FD6500] border-white placeholder:text-white w-full transition-all duration-700 text-white "
               placeholder="Username"
             />
             <input
-              id="customernumber"
+              id="sellernumber"
               type="text"
               // value={email}
-              ref={customerNumberRef}
+              ref={sellerNumberRef}
               className="outline-none border-b-2 bg-[#FD6500] border-white placeholder:text-white w-full transition-all duration-700 text-white "
               placeholder="Phone Number"
             />
@@ -130,7 +147,7 @@ const SignUp = () => {
                 <option className="text-black" key={'ريف دمشق'} value={'ريف دمشق'}>ريف دمشق</option>
               </select>
             </div>
-            <Locations />
+            <Locations onLocation = {handleData} />
             <button
               className="px-2 py-1 border-2 bg-white text-[#FD6500] rounded-lg hover:bg-gray-200 "
               type="submit"

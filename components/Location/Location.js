@@ -22,7 +22,7 @@ const center = {
   lng: 36.276527,
 };
 
-const Locations = () => {
+const Locations = ({onLocation}) => {
   const [coordinates, setCoordinates] = useState({ lat: 0, lng: 0 });
   const [address, setAddress] = useState("");
   let google;
@@ -70,6 +70,7 @@ const Locations = () => {
     geocoder.geocode({ location: coordinates }, (results, status) => {
       if (status === google.maps.GeocoderStatus.OK) {
         const address = results[0].formatted_address;
+          onLocation({ address, lng: longitude, lat: latitude });
         setAddress(address);
       }
     });
