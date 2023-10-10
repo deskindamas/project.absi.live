@@ -15,6 +15,7 @@ const SignUp = () => {
   const sellerNumberRef = useRef();
   const [sellerCity, setSellerCity] = useState();
   const [registeree, setRegisteree] = useState(1); // 1 for customer 2 for seller
+  
   const router = useRouter();
 
   function customerSubmit(e) {
@@ -33,7 +34,7 @@ const SignUp = () => {
     <>
       <div className="h-screen w-screen bg-[#FD6500]">
         {/* // customer register */}
-        <div className="flex flex-col justify-start items-center gap-12 mx-auto px-4 pt-28 w-fit ">
+        { <div className={`flex flex-col justify-start ${registeree === 1 ? ` block transform animate-[wiggle_1s_ease-in-out_infinite] ` : `hidden  translate-x-[-1200px] `} transition-all duration-900 items-center gap-12 mx-auto px-4 pt-28 w-fit`}>
           <Image
             src={Logo}
             alt="Logo"
@@ -86,9 +87,9 @@ const SignUp = () => {
               </Link>
             </p>
           </div>
-        </div>
+        </div>}
         {/* // seller register */}
-        {/* <div className="flex flex-col justify-start items-center gap-12 mx-auto px-4 pt-28 w-fit ">
+        { <div className={`flex flex-col justify-start ${registeree === 2 ? ` block transform translate-x-0` : `hidden translate-x-[-1200px] `} transition-all duration-700 items-center gap-12 mx-auto px-4 pt-28 w-fit`}>
           <Image
             src={Logo}
             alt="Logo"
@@ -151,7 +152,7 @@ const SignUp = () => {
               </Link>
             </p>
           </div>
-        </div> */}
+        </div>}
       </div>
     </>
   );
