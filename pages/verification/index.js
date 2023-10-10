@@ -29,7 +29,7 @@ const Code = () => {
           characterSelected: "character--selected",
             }}
       /> 
-       <div className='row'>
+       {/* <div className='row'>
         <div className='col-md-4'>
 
         </div>
@@ -41,7 +41,7 @@ const Code = () => {
          <div className='col-md-4'>
             
         </div>
-       </div>
+       </div> */}
         </div>
         </div>
       </div>

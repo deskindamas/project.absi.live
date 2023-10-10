@@ -1,12 +1,13 @@
 import React, { Fragment } from "react";
 // import "../Component/css/style.css";
-import { Container, Card, Row } from "react-bootstrap";
 import { RiFilePaper2Line } from "react-icons/ri";
 import { BsCurrencyDollar } from "react-icons/bs";
 import { BsBox } from "react-icons/bs";
 import image1 from '../../public/images/card1.jpg';
 import image2 from '../../public/images/card2.jpg';
 import image3 from '../../public/images/card3.jpg';
+import withLayout from "@/components/wrapping components/WrappingSellerLayout";
+import Image from "next/image";
 
 const Home = () => {
   const icons = [
@@ -39,53 +40,56 @@ const Home = () => {
 
   return (
     <Fragment>
-      <div className="content ">
+       <div className="content ">
         <div className="home" style={{ marginLeft: "20px" }}>
-          <Container className="p-4">
+          <div className="container p-4">
             <h4 style={{ marginBottom: "30px", fontSize: "30px" }}>
-              {" "}
               Dashboard
             </h4>
-            <Row style={{ marginRight: "20px" }}>
-              {icons.map((icons, index) => (
-                <div className="col-md-4">
-                  <Card text={"dark"} className="card">
-                    <Card.Body>
-                      <div className="row">
-                        <div className="col-md-7">
-                          <Card.Title
-                            style={{
-                              fontWeight: "500",
-                              color: "rgba(58, 71, 84, 1)",
-                            }}
-                          >
-                            {icons.title}{" "}
-                          </Card.Title>
-                          <Card.Text
-                            style={{
-                              marginLeft: "5px",
-                              fontSize: "18px",
-                              marginTop: "30px",
-                              color: "#ff6600",
-                            }}
-                          >
-                            {" "}
-                            20 %
-                          </Card.Text>
-                        </div>
-                        <div className="col-md-5">
-                          <img
-                            src={icons.image}
-                            style={{ width: "100px", height: "100px" }}
-                          />
-                        </div>
-                      </div>
-                    </Card.Body>
-                  </Card>
+             
+             <div className='cards mr-6'>
+               <div class="grid grid-cols-4 gap-4">
+             {icons.map((icons, index) => ( 
+            <div className='card' text={"dark"} >
+            <div className='card-body'>
+              <div className="row">
+                <div className="col-md-7">
+                  <div className='card-title'
+                    style={{
+                      fontWeight: "500",
+                      color: "rgba(58, 71, 84, 1)",
+                    }}
+                  >
+                    {icons.title}{" "}
+                  </div>
+                  <div className='card-text'
+                    style={{
+                      marginLeft: "5px",
+                      fontSize: "18px",
+                      marginTop: "30px",
+                      color: "#ff6600",
+                    }}
+                  >
+                    {" "}
+                    20 %
+                  </div>
                 </div>
-              ))}
-            </Row>
-            <div className="">
+                <div className="col-md-5">
+                  {/* <img
+                    src={icons.image}
+                    style={{ width: "100px", height: "100px" }}
+                  /> */}
+                  <Image src={icons.image} />
+                </div>
+              </div>
+            </div>
+            </div>
+            ))}
+          </div>
+             </div>
+
+
+            {/* <div className="">
               <table className="table table-striped table-sm">
                 <thead className="thead-light">
                   <tr>
@@ -97,12 +101,14 @@ const Home = () => {
                 </thead>
                 <tbody></tbody>
               </table>
-            </div>
-          </Container>
+            </div> */}
+          </div>
         </div>
-      </div>
+      </div> 
+
     </Fragment>
   );
 };
 
-export default Home;
+// export default Home;
+export default withLayout(Home) ;
