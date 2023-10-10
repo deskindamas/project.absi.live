@@ -77,15 +77,6 @@ const Locations = () => {
 
   return (
     <div>
-      {/* <TEInput
-        onClick={functionopenpopuplocation}
-        value={address}
-        type="address"
-        id="InputAddress"
-        label="Address"
-        className="mb-4"
-      ></TEInput> */}
-
       <input
         onClick={functionopenpopuplocation}
         value={address}
