@@ -10,6 +10,7 @@ import withLayout from "@/components/wrapping components/WrappingSellerLayout";
 import Image from "next/image";
 
 const Home = () => {
+
   const icons = [
     {
       title: "Total Orders",
@@ -37,48 +38,60 @@ const Home = () => {
       ),
     },
   ];
+    
+
+  const products = [
+    {  
+      id :1 ,
+      name: "lorem1",
+      image: image1,
+      price : '25',
+    },
+    {
+      id : 2 ,
+      name: "lorem2",
+      image: image2,
+      price : '35',
+    },
+    {
+      id : 3 ,
+      name: "lorem3",
+      image: image3,
+      price : '45',
+    },
+    {
+      id : 4,
+      name: "lorem3",
+      image: image3,
+      price : '45',
+    },
+  ];
 
   return (
     <Fragment>
        <div className="content ">
         <div className="home" style={{ marginLeft: "20px" }}>
           <div className="container p-4">
-            <h4 style={{ marginBottom: "30px", fontSize: "30px" }}>
+            <h4 style={{ marginBottom: "30px", fontSize: "30px" , color :"#ff6600"}}>
               Dashboard
             </h4>
              
              <div className='cards mr-6'>
-               <div class="grid grid-cols-4 gap-4">
+               <div class="grid md:grid-cols-3 grid-col-1 gap-3">
              {icons.map((icons, index) => ( 
-            <div className='card' text={"dark"} >
+            <div className='card shadow p-9' text={"dark"} >
             <div className='card-body'>
-              <div className="row">
-                <div className="col-md-7">
-                  <div className='card-title'
-                    style={{
-                      fontWeight: "500",
-                      color: "rgba(58, 71, 84, 1)",
-                    }}
-                  >
+              <div className="grid grid-cols-2 gap-2">
+                <div className='pr-6'>
+                  <div className='card-title pb-7 text-2xl text-neutral-800 h-20'>
                     {icons.title}{" "}
                   </div>
-                  <div className='card-text'
-                    style={{
-                      marginLeft: "5px",
-                      fontSize: "18px",
-                      marginTop: "30px",
-                      color: "#ff6600",
-                    }}
-                  >
+                  <div className='card-text pt-6 text-xl'>
                     {" "}
                     20 %
                   </div>
                 </div>
-                <div className="col-md-5">
-                  {/* <img
-                    src={icons.image}
-                    style={{ width: "100px", height: "100px" }}
-                  /> */}
+                <div>
                   <Image src={icons.image} />
                 </div>
               </div>
@@ -89,19 +102,35 @@ const Home = () => {
              </div>
 
 
-            {/* <div className="">
-              <table className="table table-striped table-sm">
-                <thead className="thead-light">
-                  <tr>
-                    <th>Id</th>
-                    <th>Product Name</th>
-                    <th>Image</th>
-                    <th>Price </th>
-                  </tr>
-                </thead>
-                <tbody></tbody>
-              </table>
-            </div> */}
+            <div className="">
+            <table className="table w-full mt-24">
+                        <thead className="bg-slate-300 h-10">
+                            <tr>
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>Image</th>
+                                <th>Price </th>
+                                <th>Details</th>
+                            </tr>
+                        </thead>
+                        <tbody className='w-full items-center text-center'>
+                        
+                          {products.map((names,index)=>
+                           <tr key={index}>
+                               <td>{names.id}</td>
+                              <td>{names.name}</td>
+                              <td className = "w-16" ><Image src={names.image} className=''/></td>
+                              {/* <td>{names.image}</td> */}
+                              <td>{names.price}</td>
+                              <td><button className='bg-slate-300 pl-5 pr-5 p-1 text-black rounded-sm'
+                               onClick={(e)=>showDetail(names.id)} data-toggle="modal" data-target="#myModal">Details</button></td>
+                           </tr>
+                           )}
+                        </tbody>
+                    </table>
+                    
+            </div>
+
           </div>
         </div>
       </div> 

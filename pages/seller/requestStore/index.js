@@ -1,11 +1,7 @@
 import React, { useState, useRef, useEffect, Fragment } from "react";
-// import "../Component/imageupload/imageupload.css";
-// import UploadImg from "../Component/images/choose_file - Copy.png";
 import UploadImg from '../../../public/images/choose_file - Copy.png';
-// import "../Component/css/style.css";
 import styles from '../../../components/componentsStyling/sellerStyles.module.css' ;
-// import LogoRequest from "../Component/images/tawasylogo.png";
-import LogoRequest from '../../../public/images/tawasylogo.png';
+import LogoRequest from '../../../public/images/tawasylogowhite.png';
 import { AiOutlineLinkedin } from "react-icons/ai";
 import {
   Button,
@@ -20,14 +16,12 @@ import {
   Stack,
   TextField,
 } from "@mui/material";
-// import CloseIcon from "@mui/icons-material/Close";
 import { MdClose } from "react-icons/md";
-// import ImageUpload from "../Component/imageupload/imageupload";
 import ImageUpload from "@/components/ImageUpload/ImageUpload";
+import Image from "next/image";
 import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
-// import Test from "../Component/test";
 import Locations from "@/components/Location/Location";
-// import styles from '../../../components/componentsStyling/sellerStyles.module.css';
+
 
 const RequestStore = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -71,39 +65,35 @@ const RequestStore = () => {
 
   return (
     <Fragment>
-      <div className={styles[`form-request`]}>
+      <div className={styles[`form-request`]} style={{backgroundColor:"#ff6600" }}>
         <div className="container">
-          <div className="row header-request">
-            <div className="col-md-5"></div>
-            <div className="col-md-7">
-              <img
+          <div className="row header-request w-full">
+            <div className="flex justify-center items-center pt-16 pb-7">
+              <Image
                 src={LogoRequest}
-                height="80px"
-                width="140px"
-                style={{ marginTop: "20px" }}
+                className='w-72 '
               />
             </div>
           </div>
 
-          <div className="row">
-            <div className="col-md-2"></div>
+          <div className="grid md:grid-cols-3 grid-col-1 gap-3 ">
             <div className="col-md-8">
               {/* <Test /> */}
               {/* <Locations/> */}
             </div>
           </div>
-          <form style={{ paddingBottom: "60px" }}>
-            <div className="row">
-              <div className="col-md-2"></div>
-              <div className="col-md-4">
+
+          <form className='pl-20 pr-20'>
+            <div className="grid md:grid-cols-2 grid-col-1 gap-2 text-zinc-50 ">
+              <div>
                 <div>
-                  <label>Name Arabic </label>
-                  <input type="text" placeholder="Name(Arabic)" required />
+                  <label className ='text-xl' htmlfor='name'  >Name Arabic </label>
+                  <input id = 'name' className='mb-7 text-zinc-500 pl-2 outline-none ' type="text" placeholder="Name(Arabic)" required />
                 </div>
                 <div>
                   <label>Opening Time</label>
                   <br />
-                  <input
+                  <input className='mb-7 text-zinc-500 pl-2 outline-none' 
                     type="time"
                     placeholder="Enter Opening Time "
                     required
@@ -114,7 +104,7 @@ const RequestStore = () => {
                   <label>Opening Days</label>
                   <br />
                   <div className="print-value">
-                    <input
+                    <input  className='mb-7 text-zinc-500 pl-2 outline-none' 
                       onClick={functionopenpopup}
                       variant="contained"
                       type="text"
@@ -126,7 +116,7 @@ const RequestStore = () => {
                 <div>
                   <label>Area</label>
                   <br />
-                  <input type="text" placeholder=" Area" required />
+                  <input className='mb-7 text-zinc-500 pl-2 outline-none' type="text" placeholder=" Area" required />
                 </div>
 
                 <div>
@@ -136,35 +126,18 @@ const RequestStore = () => {
                     <ImageUpload />
                   </div>
                 </div>
-
-                <div>
-                  <button
-                    onClick={handleLogin}
-                    style={{
-                      backgroundColor: "#ff6600",
-                      color: "white",
-                      padding: "10px 15px",
-                      border: "none",
-                      width: "100%",
-                      borderRadius: "5px",
-                      marginTop: "43px",
-                    }}
-                  >
-                    Submit Request
-                  </button>
-                </div>
               </div>
 
-              <div className="col-md-4">
+              <div >
                 <div>
                   <label>Name English </label>
-                  <input type="text" placeholder="Name(English)" required />
+                  <input className='mb-7 text-zinc-500 pl-2 outline-none' type="text" placeholder="Name(English)" required />
                 </div>
 
                 <div>
                   <label>Closing Time</label>
                   <br />
-                  <input
+                  <input className='mb-7 text-zinc-500 pl-2 outline-none' 
                     type="time"
                     placeholder="Enter Closing Time "
                     required
@@ -174,7 +147,7 @@ const RequestStore = () => {
                 <div>
                   <label>Store Type</label>
                   <br />
-                  <select className="form-select" aria-label="Store Type">
+                  <select className="form-select mb-7 h-[40px] w-full text-zinc-500 pl-2 outline-none" aria-label="Store Type">
                     <option>restaurant</option>
                     <option value="pharmacy">pharmacy</option>
                     <option value="Market">Market</option>
@@ -184,7 +157,7 @@ const RequestStore = () => {
                 <div>
                   <label>Street</label>
                   <br />
-                  <input type="text" placeholder=" street" required />
+                  <input className='mb-7 outline-none'  type="text" placeholder=" street" required />
                 </div>
 
                 <div>
@@ -193,13 +166,13 @@ const RequestStore = () => {
                   <div>
                     <div onClick={handleImageClick}>
                       {imag ? (
-                        <img
+                        <Image
                           src={URL.createObjectURL(imag)}
                           alt="upload image"
                           style={{ width: "100px", height: "100px" }}
                         />
                       ) : (
-                        <img
+                        <Image
                           src={UploadImg}
                           alt="upload image"
                           style={{ width: "200px", height: "45px" }}
@@ -215,9 +188,14 @@ const RequestStore = () => {
                   </div>
                 </div>
               </div>
-
-              <div className="col-md-2"></div>
             </div>
+            
+            <div className='flex items-center justify-center' >
+                  <button className = 'px-2 py-1 bg-white rounded-md hover:bg-gray-200 text-[#FD6500] '
+                    onClick={handleLogin} >
+                    Submit Request
+                  </button>
+                </div>
           </form>
 
           <Dialog open={open} onClose={closepopup} fullWidth maxWidth="sm">
