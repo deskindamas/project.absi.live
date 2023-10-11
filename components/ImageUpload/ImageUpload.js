@@ -2,6 +2,7 @@ import React, { useState , useRef} from 'react';
 // import '../imageupload/imageupload.css';
 // import UploadImg from '../images/choose_file - Copy.png';
 import UploadImg from '../../public/images/choose_file - Copy.png' ;
+import Image from 'next/image';
 
 const ImageUpload = () => {
     
@@ -22,8 +23,8 @@ const ImageUpload = () => {
         <div>
     <div onClick={handleImageClick}>
     { imag ?
-           <img src={URL.createObjectURL(imag)} alt='upload image' style={{width:"100px", height:'100%'}}/> : 
-        <img src={UploadImg} alt='upload image' style={{width:"200px", height:'45px'}}/>
+           <Image src={URL.createObjectURL(imag)} alt='upload image' style={{width:"100px", height:'100%'}}/> : 
+        <Image src={UploadImg} alt='upload image' style={{width:"200px", height:'45px'}}/>
     }
     <input type='file' ref={inputRef} onChange={handleImageChange} style={{display:'none'}}/>
     </div>
