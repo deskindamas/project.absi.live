@@ -1,7 +1,8 @@
 import React from 'react';
 // import Layout from './Layout';
 // import Sidebar from '../sidebars/Sidebar';
-import Sidebar from '../SideBars/SellerSideBar';
+// import Sidebar from '../SideBars/SellerSideBar';
+import Sidebar from '../sidebars/SellerSideBar';
 
 const withLayout = (WrappedComponent) => {
   return (props) => (
