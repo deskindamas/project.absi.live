@@ -1,52 +1,92 @@
 import React, { useRef, useState } from "react";
-// import axios from '../Pages/api/axios';
 import axios from "axios";
-// import url from "@/URL";
 import url from "@/URL";
-// import Logo from '../Component/images/tawasylogo.png';
 import Logo from "../../public/images/tawasylogo.png";
 import Image from "next/image";
 import Link from "next/link";
-// import '@/styles/globals.css'
+import { toast } from "react-toastify";
+import { Ring } from "@uiball/loaders";
+import { useRouter } from "next/router";
 
 const Login = () => {
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
   const NumberRef = useRef();
+  const router = useRouter();
   const [selectedRole, setSelectedRole] = useState(1); // 1 for customer 2 for seller
-
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
   const handleLogin = async (e) => {
     e.preventDefault();
-
-    // setIsLoggedIn(true);
-    // window.location.href = "/code";
-
-    try {
-      const response = await axios.post(
-        `${url}`,
-        {
-          email,
-          password,
+    setIsLoading(true);
+    if (selectedRole === 2) {
+      // seller login
+      try {
+        const response = await axios.post(`${url}/api/seller/login`, {
+          phone_number: NumberRef.current.value,
+        });
+        if (response.status !== 200) {
+          throw new Error(response);
         }
-      );
-
-      if (response.data.success) {
-        // Handle successful login
-        console.log("Logged in successfully");
-        console.log("Token:", response.data.token);
-        window.location.href = "/layout";
-      } else {
-        // Handle login failure
-        console.log("Login failed");
+        setIsLoading(false);
+        // console.log(response);
+        localStorage.setItem("number", NumberRef.current.value);
+        localStorage.setItem("user", "seller");
+        localStorage.setItem("registered", false);
+        router.push("/verification");
+      } catch (error) {
+        toast.error(error.response.data.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+        setIsLoading(false);
+        // console.log(error);
       }
-    } catch (error) {
-      console.error("Error during login:", error);
+    } else if (selectedRole === 1) {
+      // customer login
+      try {
+        const response = await axios.post(`${url}/api/customer/login`, {
+          phone_number: NumberRef.current.value,
+        });
+        if (response.status !== 200) {
+          throw new Error(response);
+        }
+        setIsLoading(false);
+        console.log(response);
+        localStorage.setItem("number", NumberRef.current.value);
+        localStorage.setItem("user", "customer");
+        localStorage.setItem("registered", false);
+        router.push("/verification");
+      } catch (error) {
+        toast.error(error.response.data.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+        setIsLoading(false);
+        // console.log(error);
+      }
     }
   };
 
   function handleRoleChange(event) {
     setSelectedRole(Number(event.target.value));
+  }
+
+  function handleKeyDown(event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      handleLogin(event);
+    }
   }
 
   return (
@@ -60,13 +100,14 @@ const Login = () => {
       <form
         onSubmit={handleLogin}
         className="flex flex-col justify-start items-center gap-9 w-full max-w-md p-4 md:w-[70%] lg:w-[50%] xl:w-[40%] 2xl:w-[30%] mx-auto "
+        onKeyDown={handleKeyDown}
       >
         {/* <label className="label" ><span style={{paddingRight:"10px"}}>Phone:</span> */}
         <input
-          type="text"
+          type="number"
           // value={email}
           ref={NumberRef}
-          onChange={(e) => setEmail(e.target.value)}
+          // onChange={(e) => setEmail(e.target.value)}
           className="outline-none border-b-2 border-gray-300 focus:border-[#FD6500] placeholder:text-gray-300 w-full transition-all duration-700"
           placeholder="Number"
         />
@@ -122,10 +163,24 @@ const Login = () => {
           className="text-white bg-orange-500 rounded-md text-lg block px-5 py-2 mx-auto border-2 border-white hover:bg-orange-600 transition-all duration-300"
           onClick={handleLogin}
         >
-          Login
+          {isLoading == true ? (
+            <div className="flex justify-center items-center">
+              <Ring size={25} lineWeight={5} speed={2} color="white" />
+            </div>
+          ) : (
+            "Login"
+          )}
         </button>
       </form>
-      <div>You have an existing account ? <Link href={'/signup'} className="text-orange-500 border-b-2 border-orange-500" >SignUp</Link></div>      
+      <div>
+        You have an existing account ?{" "}
+        <Link
+          href={"/signup"}
+          className="text-orange-500 border-b-2 border-orange-500"
+        >
+          SignUp
+        </Link>
+      </div>
     </div>
   );
 };
