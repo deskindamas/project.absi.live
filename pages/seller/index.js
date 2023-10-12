@@ -1,5 +1,4 @@
-import React, { Fragment } from "react";
-// import "../Component/css/style.css";
+import React, { Fragment, useEffect } from "react";
 import { RiFilePaper2Line } from "react-icons/ri";
 import { BsCurrencyDollar } from "react-icons/bs";
 import { BsBox } from "react-icons/bs";
@@ -8,8 +7,18 @@ import image2 from '../../public/images/card2.jpg';
 import image3 from '../../public/images/card3.jpg';
 import withLayout from "@/components/wrapping components/WrappingSellerLayout";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 const Home = () => {
+  const router = useRouter();
+  // useEffect(() => {
+  //   const registered = localStorage.getItem(registered);
+  //   if(registered === true ){
+  //     router.push('/seller/requestStore') ;
+  //   }else if(registered === false){
+  //     router
+  //   }
+  // } , []);
 
   const icons = [
     {
