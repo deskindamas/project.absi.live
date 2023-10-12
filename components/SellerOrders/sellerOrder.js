@@ -1,77 +1,19 @@
-import withLayout from '@/components/wrapping components/WrappingSellerLayout';
-import React , { useEffect, useState } from 'react';
-import { Dialog , DialogTitle, DialogContent , Stack , DialogActions} from '@mui/material';
-import MdClose from "react-icons/md";
-import styles from '../../../components/componentsStyling/sellerStyles.module.css'
-import SellerOrders from '@/components/SellerOrders/sellerOrder';
-
-const Orders = () => {
-   
-  const[record,setRecord] = useState([])
-
-   const getData = () =>
-   {
-       fetch('https://jsonplaceholder.typicode.com/users/')
-       .then(resposne=> resposne.json())
-       .then(res=>setRecord(res))
-   }
- 
-   useEffect(() => {
-      getData();
-   },[])
-   
-   const [open, openchange] = useState(false);
-
-   const [modeldata,setModeldata] = useState({
-    id:'',
-    ProductName:'',
-    Quantity:'',
-    Price:'',
-    Final :''
-   })
 
 
-   const closepopup = () => {
-     openchange(false);
-   };
-   
-   const showDetail = (id) =>
-   {
-    openchange(true);
-     fetch(`https://jsonplaceholder.typicode.com/users/${id}`)
-     .then(resposne=> resposne.json())
-     .then(res=>setModeldata(res))
-   }
- 
-    return (
-   <div className='page-orders'>
-    <div className='container'>
-     <div className='px-5 py-5'>
-     <h2 className='text-2xl text-stone-500'> Check More Records of Orders </h2>
-     </div>
+function SellerOrders ({orders}){
+   return <>
+  <tr key={orders.id} className='even:bg-zinc-200 odd:bg-zinc-300 text-center'>
+           <td className='pb-5 pt-5'>{orders.id}</td>
+           <td className='pb-5'>{orders.name}</td>
+             <td className='pb-5'>{orders.username}</td>
+          <td className='pb-5'>{orders.email}</td>
+           <td className='pb-5'>{orders.website}</td>
+             <td className='pb-5'><button className='bg-transparent border-b-2 border-[#ff6600] '
+              >Details</button></td>
+              </tr>
 
-    <div className='w-full '>
-    <table className="table w-full ">
-      <thead className="bg-zinc-200 h-8 ">
-        <tr className='border-b-[#ff6600]'>
-        <th>Id</th>
-        <th>Status</th>
-        <th>Date</th>
-         <th>Total </th>
-          <th>Coupon</th>
-          <th>Show Details</th>
-           </tr>
-           </thead>
-            <tbody className='text-xl'>
-          {record.map((names,index)=>
-           <SellerOrders orders= {names} />
-                           )}
-              </tbody>
-     </table> 
-     </div>
-
-
-              <Dialog open={open} onClose={closepopup} fullWidth >
+    
+          {/* <Dialog open={open} onClose={closepopup} fullWidth >
               <DialogTitle className='flex justify-between'>
              <h4 >اسم المحل:</h4>
              <h6> تاريخ الطلب :</h6> 
@@ -133,12 +75,7 @@ const Orders = () => {
             <button type="button" className="bg-red-700 px-8 py-3 text-white" data-dismiss="modal">Reject</button>
               <button type="button" className="bg-lime-950 px-8 py-3 text-white" data-dismiss="modal">Accept</button>
             </DialogActions>
-              </Dialog>
-               </div>
-              </div>
-
-    )
+              </Dialog> */}
+   </>
 }
- 
- 
-export default withLayout(Orders) ;
+export default SellerOrders
