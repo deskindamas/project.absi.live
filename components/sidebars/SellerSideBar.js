@@ -51,16 +51,16 @@ export default function Sidebar(props) {
 
             <Accordion showDivider={false} className="w-full" >
       <AccordionItem startContent={<BsCartCheckFill style={{marginRight:'30px',width:"25px" , height:"25px"}}/> }
-       className={`text-zinc-100 outline-none mb-7 mt-3 w-full text-lg text-left `} 
+       className={`text-zinc-100 outline-none mb-1 mt-2 w-full text-lg text-left `} 
         key="1" title="Orders"
      indicator = {({ isOpen }) => (isOpen ? <FiChevronDown className={`stroke-orange-50`} /> : <FiChevronRight />)} >
            <ul>
 
            <li className={`pt-3`}>
-     <Link className="flex items-center p-2 space-x-3 rounded-md text-gray-100"  href="/" >
+     <button className="flex items-center p-2 space-x-3 rounded-md text-gray-100" onClick = {() => {}} >
         <MdPendingActions  className="block text-[20px] text-white " />
         <p className="hidden md:block"  > Pending Orders</p>
-        </Link>
+        </button>
         </li>
 
         <li className={`pt-3`}>
@@ -86,13 +86,14 @@ export default function Sidebar(props) {
       </AccordionItem>
           
 
-      <AccordionItem startContent={<BsBox style={{marginRight:'30px',width:"25px" , height:"25px"}}/> } className={`text-zinc-100 outline-none mb-6`}  key="2" aria-label="Products" title="Products" indicator = {({ isOpen }) => (isOpen ? <FiChevronDown className={`text-zinc-100`} /> : <FiChevronRight className={`text-zinc-100`} />)} >
+      <AccordionItem startContent={<BsBox style={{marginRight:'30px',width:"25px" , height:"25px"}}/> }
+       className={`text-zinc-100 outline-none mb-4`}  key="2" aria-label="Products" title="Products" indicator = {({ isOpen }) => (isOpen ? <FiChevronDown className={`text-zinc-100`} /> : <FiChevronRight className={`text-zinc-100`} />)} >
       <ul>
       <li className={`pt-3`}>
-     <Link className="flex items-center p-2 space-x-3 rounded-md text-gray-100"  href="/" >
+     <button className="flex items-center p-2 space-x-3 rounded-md text-gray-100"  onClick = { () => {router.push({pathname : '/seller/products' , query : `pending products`})}} >
         <MdPendingActions  className="block text-[20px] text-white " />
         <p className="hidden md:block"  > Pending Products</p>
-        </Link>
+        </button>
         </li>
         <li className={`pt-3`}>
      <Link className="flex items-center p-2 space-x-3 rounded-md text-gray-100"  href="/">
