@@ -27,11 +27,22 @@ const Login = () => {
           throw new Error(response);
         }
         setIsLoading(false);
-        // console.log(response);
+        console.log(`seller response`);
+        console.log(response);
         localStorage.setItem("number", NumberRef.current.value);
         localStorage.setItem("user", "seller");
         localStorage.setItem("registered", false);
         router.push("/verification");
+        toast.success(response.data.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
       } catch (error) {
         toast.error(error.response.data.message, {
           position: "top-right",
@@ -104,13 +115,30 @@ const Login = () => {
       >
         {/* <label className="label" ><span style={{paddingRight:"10px"}}>Phone:</span> */}
         <input
-          type="number"
+          type="text"
           // value={email}
           ref={NumberRef}
           // onChange={(e) => setEmail(e.target.value)}
-          className="outline-none border-b-2 border-gray-300 focus:border-[#FD6500] placeholder:text-gray-300 w-full transition-all duration-700"
+          className="outline-none appearance-none border-b-2 border-gray-300 focus:border-[#FD6500] placeholder:text-gray-300 w-full transition-all duration-700"
           placeholder="Number"
+          inputMode="numeric" 
+          pattern="[0-9]*"
         />
+        <style jsx>{`
+          /* Chrome, Safari, Edge, Opera */
+          .appearance-none::-webkit-outer-spin-button,
+          .appearance-none::-webkit-inner-spin-button {
+            @apply appearance-none;
+            -webkit-appearance: none;
+            margin: 0;
+          }
+
+          /* Firefox */
+          .appearance-none[type="number"] {
+            @apply appearance-none;
+            -moz-appearance: textfield;
+          }
+        `}</style>
         <div className="flex flex-col justify-start items-start gap-2 w-[80%]">
           <label htmlFor="login" className=" text-lg font-medium ">
             Login as a:

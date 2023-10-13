@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { Ring } from "@uiball/loaders";
+import TawasyLoader from "../UI/tawasyLoader";
 
 const withAuth = (WrappedComponent) => {
   return (props) => {
@@ -24,8 +25,9 @@ const withAuth = (WrappedComponent) => {
     return isAuthenticated ? (
       <WrappedComponent {...props} />
     ) : (
-      <div className="w-full h-screen flex flex-col justify-center items-center">
-          <Ring size={40} lineWeight={5} speed={2} color="#ff6600" />
+      <div className="w-full h-screen ">
+          {/* <Ring size={40} lineWeight={5} speed={2} color="#ff6600" /> */}
+          <TawasyLoader/>
         </div>
     );
   };
