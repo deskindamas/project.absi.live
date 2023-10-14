@@ -140,7 +140,7 @@ const SignUp = () => {
                 className="outline-none border-b-2 bg-skin-primary border-white placeholder:text-white w-full transition-all duration-700 text-white "
                 placeholder="Phone Number"
               />
-              <Locations onLocation={handleData} />
+              <Locations onLocation={handleData} className={"mb-4 outline-none bg-transparent border-b-2 border-white text-white w-full cursor-pointer placeholder:text-white "} />
               <button
                 className="px-2 py-1 border-2 bg-white text-skin-primary rounded-lg hover:bg-gray-200 "
                 type="submit"
@@ -230,7 +230,7 @@ const SignUp = () => {
                   </option>
                 </select>
               </div>
-              <Locations onLocation={handleData} />
+              <Locations onLocation={handleData} className={"mb-4 outline-none bg-transparent border-b-2 border-white text-white w-full cursor-pointer placeholder:text-white "} />
               <button
                 className="px-2 py-1 border-2 bg-white text-skin-primary rounded-lg hover:bg-gray-200 "
                 type="submit"

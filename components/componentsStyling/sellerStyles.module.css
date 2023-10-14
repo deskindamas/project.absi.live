@@ -358,24 +358,24 @@
    .slider.round:before {
     border-radius: 50%;
   }
-  .form-request  label{
+  /* .form-request  label{
     font-size:20px;
     margin-left: 5px;
     font-weight: 600;
     padding-bottom: 20px;
-  }
-  .form-request  input{
+  } */
+  /* .form-request  input{
     width: 100%;
     border: 1px solid rgb(209, 209, 209);
     border-radius: 3px;
     height: 40px;
-  }
+  } */
   
-  .form-request {
+  /* .form-request {
     width:100%;
-    height: 100vh;
+    height: 100%;
     overflow: scroll;
-  }
+  } */
   
   .shard-product .image-store{
    width: 100%;

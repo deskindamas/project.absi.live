@@ -22,7 +22,7 @@ const center = {
   lng: 36.276527,
 };
 
-const Locations = ({onLocation}) => {
+const Locations = ({onLocation , className}) => {
   const [coordinates, setCoordinates] = useState({ lat: 0, lng: 0 });
   const [address, setAddress] = useState("");
   let google;
@@ -85,7 +85,7 @@ const Locations = ({onLocation}) => {
         id="InputAddress"
         label="Address"
         placeholder="Address"
-        className="mb-4 outline-none bg-transparent border-b-2 border-white text-white w-full cursor-pointer placeholder:text-white "
+        className={className}
       />
 
       <Dialog
