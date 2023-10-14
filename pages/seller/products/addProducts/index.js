@@ -2,11 +2,15 @@ import withLayout from "@/components/wrapping components/WrappingSellerLayout"
 import React, { useState , useEffect } from 'react';
 import AddProduct from "@/components/product/AddProduct/AddSellerProduct";
 import {TfiShoppingCartFull } from "react-icons/tfi";
+import TotalAddProduct from "@/components/product/SellerTotalAddProduct/TotalAddProduct";
+import { Dialog, DialogContent, DialogTitle, Stack } from "@mui/material";
+import { MdClose } from "react-icons/md";
+import style from '../../../../components/componentsStyling/sellerStyles.module.css'
 
  function AddProducts () {
+     
 
     const [users, setUsers] = useState([]);
-    const [count , setcount]= useState(0);
     const getUsers = async () => {
         const response = await fetch("https://api.github.com/users");
         const FinalData = await response.json();
@@ -17,10 +21,22 @@ import {TfiShoppingCartFull } from "react-icons/tfi";
         getUsers();
     }, []);
 
-     const  handleIncrement = () => (
-        setcount(count + 1)
-    )
 
+    const [open, openchange] = useState(false);
+
+    const functionopenpopup=()=>{
+        openchange(true);
+        
+    }
+    const closepopup=()=>{
+      openchange(false);
+  }
+  const transitionBuilder = (animationValues) => {
+    const translateX = animationValues.animationProgress * 100;
+    return {
+      transform: `translateX(${translateX}%)`,
+    };
+  };
 
  return <div className='md:px-16'>
     <div className='flex justify-between py-10'>
@@ -57,7 +73,7 @@ import {TfiShoppingCartFull } from "react-icons/tfi";
          }
            </div>
 
-           <button >
+           <button onClick={functionopenpopup}>
               <div  style={{
                 color:'white',
                 padding:'10px',
@@ -69,7 +85,41 @@ import {TfiShoppingCartFull } from "react-icons/tfi";
               </button>
 
            </div>   
+           
 
+           <Dialog    
+           transitionDuration={500}
+        transitionBuilder={transitionBuilder}
+         fullWidth maxWidth='xl' open={open}  onClose={closepopup} >
+              <DialogTitle className='flex justify-between'>
+             <h4 className='text-2xl '> Total Select Product:</h4>
+              <MdClose onClick={closepopup} className='w-[35px] h-[35px]'/>
+              </DialogTitle>
+              <hr/>
+              <DialogContent>
+              <Stack spacing={2} margin={2}>
+              <div className=" mt-5">
+                    <table className="table w-full" >
+                        <thead className="text-xl">
+                            <tr>
+                                <th className='pb-4'>Product Name</th>
+                                <th className='pb-4'>Image</th>
+                                <th className='pb-4'>Active</th>
+                                <th className='pb-4'>Price </th>
+                                <th className='pb-4'> </th>
+                            </tr>
+                        </thead>
+                        <tbody className='text-lg font-normal text-gray-700 text-center'>
+                        
+                          {users.map((curElem)=>
+                             <TotalAddProduct selectproduct = {curElem}/> 
+                           )}
+                        </tbody>
+                    </table>
+                </div>
+              </Stack>          
+            </DialogContent>
+              </Dialog>
           
       </div> 
 

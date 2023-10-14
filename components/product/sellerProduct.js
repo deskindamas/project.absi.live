@@ -51,14 +51,14 @@ function SellerProduct ({product}) {
           <td className="px-4 py-4">{product.updated}</td>
           <td className="px-4 py-4">{product.quantity}</td>
           <td>{product.price}</td>
-          <td class="px-4 py-4">
-          <div class="flex-col lg:flex-row lg:space-x-2 items-center space-y-2 lg:space-y-0">
+          <td className="px-4 py-4">
+          <div className="flex-col lg:flex-row lg:space-x-2 items-center space-y-2 lg:space-y-0">
           <button onClick={()=>setIsEditing(true)} 
-           class="items-center px-2 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none">
+           className="items-center px-2 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none">
              <FiEdit/>
             </button>
              <button
-             class="items-center px-2 py-2 text-white bg-red-500 rounded-md hover:bg-red-600 focus:outline-none">
+             className="items-center px-2 py-2 text-white bg-red-500 rounded-md hover:bg-red-600 focus:outline-none">
             <RiDeleteBin6Line/>
             </button>
            </div>

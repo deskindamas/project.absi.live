@@ -194,63 +194,21 @@ function Products () {
         <tbody className="text-lg font-normal text-gray-700 text-center">
         {/* {tablecontent.map((names,index)=> */}
         {data.map((names,index)=>
-        //   <tr key={index} className="py-10 bg-gray-100 hover:bg-gray-200 font-medium">
-        //     <td className="px-4 py-4">{names.id}</td>
-        //   <td className="px-4 py-4">{names.name}</td>
-        //   <td className="px-4 py-4">{names.desc}</td>
-        //   <td className="px-4 py-4">{names.category}</td>
-        //   <td className="px-4 py-4">{names.image}</td>
-        //   <td onClick={() => handleClick(names.id)}>
-        //                       {isToggled[names.id] ? (
-        //                     <BsToggleOff
-        //                       style={{
-        //                         width: "18px",
-        //                         height: "25px",
-        //                         color: "#ff6600",
-        //                       }}
-        //                     />
-        //                   ) : (
-        //                     <BsToggleOn
-        //                       style={{
-        //                         width: "18px",
-        //                         height: "25px",
-        //                         color: "#ff6600",
-        //                       }}
-        //                     />
-        //                   )}
-        //                       </td>
-        //   <td className="px-4 py-4">{names.brand}</td>
-        //   <td className="px-4 py-4">{names.created}</td>
-        //   <td className="px-4 py-4">{names.updated}</td>
-        //   <td className="px-4 py-4">{names.quantity}</td>
-        //   <td>{names.price}</td>
-        //   <td class="px-4 py-4">
-        //   <div class="flex-col lg:flex-row lg:space-x-2 items-center space-y-2 lg:space-y-0">
-        //   <button onClick={(e)=>editPrice(names.id)} 
-        //    class="items-center px-2 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none">
-        //     <FiEdit/>
-        //     </button>
-        //      <button
-        //      class="items-center px-2 py-2 text-white bg-red-500 rounded-md hover:bg-red-600 focus:outline-none">
-        //     <RiDeleteBin6Line/>
-        //     </button>
-        //    </div>
-        //     </td>
-        //   </tr>
+      
         <SellerProduct product = {names} />
         )}
 
         </tbody>
       </table>
     </div>
-    <div class="flex flex-col items-center w-full px-4 py-4 text-sm text-gray-500 justify-center mx-auto">
-      <div class="flex items-center justify-between space-x-2">
-        <a href="#" class="hover:text-gray-600">Previous</a>
-        <div class="flex flex-row space-x-1">
-          <div class="flex px-2 py-px text-white bg-blue-400 border border-blue-400">1</div>
-          <div class="flex px-2 py-px border border-blue-400 hover:bg-blue-400 hover:text-white">2</div>
+    <div className="flex flex-col items-center w-full px-4 py-4 text-sm text-gray-500 justify-center mx-auto">
+      <div className="flex items-center justify-between space-x-2">
+        <a href="#" className="hover:text-gray-600">Previous</a>
+        <div className="flex flex-row space-x-1">
+          <div className="flex px-2 py-px text-white bg-blue-400 border border-blue-400">1</div>
+          <div className="flex px-2 py-px border border-blue-400 hover:bg-blue-400 hover:text-white">2</div>
         </div>
-        <a href="#" class="hover:text-gray-600">Next</a>
+        <a href="#" className="hover:text-gray-600">Next</a>
       </div>
     </div>
   </div>

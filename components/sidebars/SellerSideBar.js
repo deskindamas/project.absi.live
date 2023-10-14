@@ -27,15 +27,12 @@ export default function Sidebar(props) {
         className={`top-0 bottom-0 right-0 w-[20%]  bg-[#ff6600] shadow duration-300 pl-2`}
       > 
         <div className="space-y-3">
-          <div className=" px-14 items-center">
-            <Image src={Logo} className="pt-6 pb-3 md:w-44 w-10"  />
+          <div className=" flex justify-center">
+            <Image  src={Logo} className="items-center pt-6 pb-3 md:w-44 w-10"  />
           </div>
-          {/* <Image src={Logo} className="px-0 w-10 sm:block"/> */}
-          <div className="pl-20 items-center">
-          <Image src={ProfileLogo} style={{marginBottom:'10px'}} alt="Logo" width={120} height={75} />
-          </div>
+
           <div className="flex-1">
-            <ul className="pt-5 pb-4 space-y-1 text-lg font-normal" >
+            <ul className="pb-5 pt-[90px] space-y-1 text-lg font-normal" >
 
             <li className="rounded-sm pb-3" >
                 <Link
