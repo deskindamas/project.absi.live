@@ -17,7 +17,7 @@ function SellerStore({store}) {
     }
  
     return <>
-  <div className="bg-white shadow mb-10 mx-2 md:px-3 pt-3 pb-6" key={store.id}>
+  <div className="bg-white mb-10 mx-2 md:px-3 pt-3 pb-6 border-2 shadow-xl border-slate-200 rounded-lg " key={store.id}>
      <div className="card_inner">
 
     <div className='w-[250px] mx-auto my-2 '>
