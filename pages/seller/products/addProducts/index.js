@@ -7,14 +7,33 @@ import { useRouter } from "next/router";
 import createAxiosInstance from "@/API";
 import { useQuery } from "react-query";
 import TawasyLoader from "@/components/UI/tawasyLoader";
+import TotalAddProduct from "@/components/product/SellerTotalAddProduct/TotalAddProduct";
+import { Dialog, DialogContent, DialogTitle, Stack } from "@mui/material";
+import { MdClose } from "react-icons/md";
+
+const users = [
+  {
+    id : 1
+  },
+  {
+    id : 2
+  },
+  {
+    id : 3
+  },
+];
 
 function AddProducts() {
-  const router = useRouter() ;
+  const router = useRouter();
   const Api = createAxiosInstance(router);
-  const {data , isLoading , isError , error} = useQuery('sharedProducts' , fetchSharedProducts , {staleTime : Infinity , refetchOnMount : true , refetchOnWindowFocus : false}) ;
+  const { data, isLoading, isError, error } = useQuery(
+    "sharedProducts",
+    fetchSharedProducts,
+    { staleTime: Infinity, refetchOnMount: true, refetchOnWindowFocus: false }
+  );
 
-  async function fetchSharedProducts () {
-    return await Api.get(`api/seller/approved-products`); 
+  async function fetchSharedProducts() {
+    return await Api.get(`api/seller/approved-products`);
   }
 
   // const [users, setUsers] = useState([]);
@@ -25,19 +44,31 @@ function AddProducts() {
   //   setUsers(FinalData);
   // };
 
-  // useEffect(() => {
-  //   getUsers();
-  // }, []);
+  const [open, openchange] = useState(false);
 
-  // const handleIncrement = () => setcount(count + 1);
+  const functionopenpopup = () => {
+    console.log(`selected products`);
+    openchange(true);
+  };
+  const closepopup = () => {
+    openchange(false);
+  };
+  const transitionBuilder = (animationValues) => {
+    const translateX = animationValues.animationProgress * 100;
+    return {
+      transform: `translateX(${translateX}%)`,
+    };
+  };
 
-  if(isLoading){
-    return <div className="w-full h-full" >
-      <TawasyLoader width = {400} height={400} />
-    </div>
+  if (isLoading) {
+    return (
+      <div className="w-full h-full">
+        <TawasyLoader width={400} height={400} />
+      </div>
+    );
   }
 
-  if(data){
+  if (data) {
     console.log(`shared products`);
     console.log(data.data.approvedProducts);
   }
@@ -67,6 +98,10 @@ function AddProducts() {
           />
         </div>
 
+        <div className="px-2 py-1 bg-red-500" onClick={functionopenpopup} >
+          cart
+        </div>
+
         <Link
           href={"/seller/products/addNewProduct"}
           className="bg-[#ff6600] px-9 py-3 text-white"
@@ -84,27 +119,86 @@ function AddProducts() {
       </select>
 
       <div className="container">
-        { data && <div class="grid md:grid-cols-3 grid-col-1 gap-4 ">
-          {data.data.approvedProducts.map((curElem) => {
-            return <AddProduct addproduct={curElem} />;
-          })}
-        </div>}
-
-        <button>
+        {data && (
+          <div class="grid md:grid-cols-3 grid-col-1 gap-4 ">
+            {data.data.approvedProducts.map((curElem) => {
+              return <AddProduct addproduct={curElem} />;
+            })}
+          </div>
+        )}
+        {/* <button>
           <div
+          onClick={functionopenpopup}
             style={{
               color: "white",
               padding: "10px",
-              zIndex: "999",
+              // zIndex: "999",
               position: "fixed",
               bottom: "10px",
               left: "10px",
+              background : "#ff6600"
             }}
           >
-            <TfiShoppingCartFull className="bg-zinc-500 w-[60px] h-[60px] rounded-[50%] p-[15px]" />{" "}
+            sdsd 
+            <TfiShoppingCartFull className="bg-skin-primary w-[60px] h-[60px] rounded-[50%] p-[15px]" onClick={functionopenpopup} />{" "}
           </div>
-        </button>
+        </button> */}
+
+        {/* </div>    */}
+
+        <Dialog
+          transitionDuration={500}
+          transitionBuilder={transitionBuilder}
+          fullWidth
+          maxWidth="xl"
+          open={open}
+          onClose={closepopup}
+        >
+          <DialogTitle className="flex justify-between">
+            <h4 className="text-2xl "> Total Select Product:</h4>
+            <MdClose onClick={closepopup} className="w-[35px] h-[35px]" />
+          </DialogTitle>
+          <hr />
+          <DialogContent>
+            <Stack spacing={2} margin={2}>
+              <div className=" mt-5">
+                <table className="table w-full">
+                  <thead className="text-xl">
+                    <tr>
+                      <th className="pb-4">Product Name</th>
+                      <th className="pb-4">Image</th>
+                      <th className="pb-4">Active</th>
+                      <th className="pb-4">Price </th>
+                      <th className="pb-4"> </th>
+                    </tr>
+                  </thead>
+                  <tbody className="text-lg font-normal text-gray-700 text-center">
+                    {users.map((curElem) => (
+                      <TotalAddProduct selectproduct={curElem} />
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </Stack>
+          </DialogContent>
+        </Dialog>
       </div>
+
+      <button onClick={functionopenpopup} >
+        <div
+          style={{
+            color: "white",
+            padding: "10px",
+            zIndex: "999",
+            position: "fixed",
+            bottom: "10px",
+            left: "10px",
+          }}
+        >
+          <TfiShoppingCartFull className="bg-skin-primary w-[60px] h-[60px] rounded-[50%] p-[15px]" />{" "}
+        </div>
+      </button>
+      {/* </div> */}
     </div>
   );
 }

@@ -32,19 +32,10 @@ export default function Sidebar(props) {
         className={`top-0 bottom-0 right-0 w-[20%]  bg-[#ff6600] shadow duration-300 pl-2`}
       >
         <div className="space-y-3">
-          <div className=" px-14 items-center">
-            <Image src={Logo} className="pt-6 pb-3 md:w-44 w-10" />
+          <div className=" flex justify-center">
+            <Image  src={Logo} className="items-center pt-6 pb-3 md:w-44 w-10"  />
           </div>
-          {/* <Image src={Logo} className="px-0 w-10 sm:block"/> */}
-          <div className="pl-20 items-center">
-            <Image
-              src={ProfileLogo}
-              style={{ marginBottom: "10px" }}
-              alt="Logo"
-              width={120}
-              height={75}
-            />
-          </div>
+
           <div className="flex-1">
             <ul className="pt-5 pb-4 space-y-1 text-lg font-normal">
               <li className="rounded-sm pb-3">
@@ -145,7 +136,7 @@ export default function Sidebar(props) {
                   }
                 >
                   <ul>
-                    <li className={`pt-3`}>
+                    {/* <li className={`pt-3`}>
                       <button
                         className="flex items-center p-2 space-x-3 rounded-md text-gray-100"
                         onClick={() => {
@@ -158,7 +149,7 @@ export default function Sidebar(props) {
                         <MdPendingActions className="block text-[20px] text-white " />
                         <p className="hidden md:block"> Pending Products</p>
                       </button>
-                    </li>
+                    </li> */}
                     <li className={`pt-3`}>
                       <button
                         className="flex items-center p-2 space-x-3 rounded-md text-gray-100"

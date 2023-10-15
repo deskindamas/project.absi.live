@@ -77,33 +77,6 @@ function SellerProduct({ product , refetch }) {
       const response = await Api.delete(
         `api/seller/store/${storeId}/product/${product.id}`
       );
-      // const route = router.query.type;
-      // switch (route) {
-      //   case `disabledProducts`:
-      //     router.push({
-      //       pathname: "/seller/products",
-      //       query: { type: "disabledProducts" },
-      //     });
-      //     break;
-      //   case `activeProducts`:
-      //     router.push({
-      //       pathname: "/seller/products",
-      //       query: { type: "activeProducts" },
-      //     });
-      //     break;
-      //   case `allProducts`:
-      //     router.push({
-      //       pathname: "/seller/products",
-      //       query: { type: "allProducts" },
-      //     });
-      //     break;
-      //   case undefined:
-      //     router.push({
-      //       pathname: "/seller/products",
-      //       query: { type: "allProducts" },
-      //     });
-      //     break;
-      // }
         refetch() ;
       setIsDeleting(false);
       setDeleting(false);

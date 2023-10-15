@@ -221,24 +221,6 @@ function Products() {
               اضافة منتج جديد
             </Link>
           </div>
-          {/* <ul className="flex flex-row space-x-2 sm:space-x-6 md:space-x-12 mt-4 mx-4 items-center border-b border-gray-300 overflow-auto text-sm">
-            <li class=" text-blue-500 group text-lg">
-              <a href="#">All Products</a>
-              <div className="h-1 bg-blue-500 scale-x-0 group-hover:scale-100 transition-transform origin-left rounded-full duration-300 ease-out"></div>
-            </li>
-            <li className="group text-lg">
-              <a href="#">Pending Products</a>
-              <div className="h-1 bg-blue-500 scale-x-0 group-hover:scale-100 transition-transform origin-left rounded-full duration-300 ease-out"></div>
-            </li>
-            <li className="group text-lg">
-              <a href="#">Disabled Products</a>
-              <div className="h-1 bg-blue-500 scale-x-0 group-hover:scale-100 transition-transform origin-left rounded-full duration-300 ease-out"></div>
-            </li>
-            <li className="group text-lg">
-              <a href="#">Active Products</a>
-              <div className="h-1 bg-blue-500 scale-x-0 group-hover:scale-100 transition-transform origin-left rounded-full duration-300 ease-out"></div>
-            </li>
-          </ul> */}
           <div className="flex flex-col sm:flex-row justify-center space-y-2 sm:space-y-0 sm:justify-between w-full px-4 mb-2 mt-4 items-center ">
             <div className="flex bg-gray-100 w-full sm:w-2/5 items-center rounded-lg">
               <svg
@@ -299,59 +281,7 @@ function Products() {
               <p>There are no products in this category</p>
             </div>
           )}
-
-          {/* <div class="flex flex-col items-center w-full px-4 py-4 text-sm text-gray-500 justify-center mx-auto">
-            <div class="flex items-center justify-between space-x-2">
-              <a href="#" class="hover:text-gray-600">
-                Previous
-              </a>
-              <div class="flex flex-row space-x-1">
-                <div class="flex px-2 py-px text-white bg-blue-400 border border-blue-400">
-                  1
-                </div>
-                <div class="flex px-2 py-px border border-blue-400 hover:bg-blue-400 hover:text-white">
-                  2
-                </div>
-              </div>
-              <a href="#" class="hover:text-gray-600">
-                Next
-              </a>
-            </div>
-          </div> */}
         </div>
-
-        <Dialog open={open} onClose={closepopup} fullWidth>
-          <DialogTitle className="flex justify-between">
-            <h4>Edit Product:</h4>
-          </DialogTitle>
-          <hr />
-          <DialogContent>
-            <Stack spacing={2} margin={2}>
-              <input
-                className="mb-7 text-zinc-500 pl-2 outline-none border-b-2"
-                type="numbere"
-                placeholder=" السعر الجديد"
-                required
-              />
-            </Stack>
-          </DialogContent>
-          <DialogActions>
-            <button
-              type="button"
-              className="bg-lime-950 px-8 py-3 text-white"
-              data-dismiss="modal"
-            >
-              Save
-            </button>
-            <button
-              type="button"
-              className="bg-zinc-500 px-8 py-3 text-white"
-              data-dismiss="modal"
-            >
-              Cancel
-            </button>
-          </DialogActions>
-        </Dialog>
       </div>
     </div>
   );
