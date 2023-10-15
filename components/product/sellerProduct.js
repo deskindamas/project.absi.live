@@ -1,93 +1,253 @@
 import { BsToggleOff, BsToggleOn } from "react-icons/bs";
 import { FiEdit } from "react-icons/fi";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import React, { useState , useEffect , useRef } from 'react';
-import { Dialog, DialogActions, DialogContent, DialogTitle, Stack } from "@mui/material";
+import React, { useState, useEffect, useRef } from "react";
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Stack,
+} from "@mui/material";
+import { useRouter } from "next/router";
+import createAxiosInstance from "@/API";
+import { Ring } from "@uiball/loaders";
 
-function SellerProduct ({product}) {
+function SellerProduct({ product , refetch }) {
+  const [isToggled, setIsToggled] = useState(product.availability);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editingAvailability, setEditingAvailability] = useState(false);
+  const [editingPrice, setEditingPrice] = useState(false);
+  const [price, setPrice] = useState(product.price);
+  const newPrice = useRef();
+  const router = useRouter();
+  const Api = createAxiosInstance(router);
+  const storeId = localStorage.getItem("Sid");
 
-    const [isToggled , setIsToggled] = useState(product.available);
-    const [isEditing , setIsEditing] = useState(false) ;
-    const newPrice = useRef();
-
-    function handleAvailable () {
-        setIsToggled(!isToggled) ; 
+  async function handleAvailable() {
+    setEditingAvailability(true);
+    let availability;
+    try {
+      if (isToggled == true) {
+        availability = false;
+      } else if (isToggled == false) {
+        availability = true;
+      }
+      const response = await Api.put(
+        `api/seller/store/${storeId}/product/${product.id}/availability`,
+        {
+          availability: availability,
+        }
+      );
+      console.log(`availability change`);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+      setEditingAvailability(false);
+      return;
     }
+    setIsToggled(availability);
+    setIsToggled(!isToggled);
+    setEditingAvailability(false);
+  }
 
-    function savePrice () {
-        // connecting to the data base 
-        
-        setIsEditing(false);
+  async function savePrice() {
+    setEditingPrice(true);
+    try {
+      const response = await Api.put(
+        `api/seller/store/${storeId}/product/${product.id}/price`,
+        {
+          price: newPrice.current.value,
+        }
+      );
+      setPrice(newPrice.current.value);
+      setIsEditing(false);
+    } catch (error) {
+      console.log(error);
     }
+    setIsEditing(false);
+    setEditingPrice(false);
+  }
 
-    return <>
-        <tr key={product.id} className="py-10 bg-gray-100 hover:bg-gray-200 font-medium">
-            <td className="px-4 py-4">{product.id}</td>
-          <td className="px-4 py-4">{product.name}</td>
-          <td className="px-4 py-4">{product.desc}</td>
-          <td className="px-4 py-4">{product.category}</td>
-          <td className="px-4 py-4">{product.image}</td>
-          <td onClick={handleAvailable}>
-                              {isToggled !== true ? (
-                            <BsToggleOff
-                              style={{
-                                width: "18px",
-                                height: "25px",
-                                color: "#ff6600",
-                              }}
-                            />
-                          ) : (
-                            <BsToggleOn
-                              style={{
-                                width: "18px",
-                                height: "25px",
-                                color: "#ff6600",
-                              }}
-                            />
-                          )}
-                              </td>
-          <td className="px-4 py-4">{product.brand}</td>
-          <td className="px-4 py-4">{product.created}</td>
-          <td className="px-4 py-4">{product.updated}</td>
-          <td className="px-4 py-4">{product.quantity}</td>
-          <td>{product.price}</td>
-          <td className="px-4 py-4">
-          <div className="flex-col lg:flex-row lg:space-x-2 items-center space-y-2 lg:space-y-0">
-          <button onClick={()=>setIsEditing(true)} 
-           className="items-center px-2 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none">
-             <FiEdit/>
-            </button>
-             <button
-             className="items-center px-2 py-2 text-white bg-red-500 rounded-md hover:bg-red-600 focus:outline-none">
-            <RiDeleteBin6Line/>
-            </button>
-           </div>
-            </td>
-          </tr>
+  async function deleteProduct() {
+    setDeleting(true);
+    try {
+      const response = await Api.delete(
+        `api/seller/store/${storeId}/product/${product.id}`
+      );
+        refetch() ;
+      setIsDeleting(false);
+      setDeleting(false);
+    } catch (error) {
+      setIsDeleting(false);
+      setDeleting(false);
+      console.log(error);
+    }
+  }
 
-          <Dialog open={isEditing} onClose={() => {setIsEditing(false)}} fullWidth >
-              <DialogTitle className='flex justify-between'>
-             <h4 >Edit Product:</h4>
-              </DialogTitle>
-              <hr/>
-              <DialogContent>
-              <Stack spacing={2} margin={2}>
-              <input className='mb-7 text-zinc-500 pl-2 outline-none border-b-2' 
-                    type="numbere"
-                    placeholder=" السعر الجديد"
-                    ref={newPrice}
-                    defaultValue = {product.price}
-                    required
-                  />
-              </Stack>
-            </DialogContent>
-            <DialogActions>
-            <button type="button" className="bg-lime-950 px-8 py-3 text-white" data-dismiss="modal" onClick={savePrice} >Save</button>
-              <button type="button" className="bg-zinc-500 px-8 py-3 text-white" data-dismiss="modal" onClick={() => {setIsEditing(false)}} >Cancel</button>
-            </DialogActions>
-              </Dialog>
+  return (
+    <>
+      <tr
+        key={product.id}
+        className="py-10 bg-gray-100 hover:bg-gray-200 font-medium"
+      >
+        <td className="px-4 py-4">{product.id}</td>
+        <td className="px-4 py-4">{product.name}</td>
+        <td className="px-4 py-4">{product.description}</td>
+        <td className="px-4 py-4">{product.category}</td>
+        <td className="px-4 py-4">
+          <img src={product.image} alt="photo" />
+        </td>
+        <td onClick={handleAvailable} className="  ">
+          {editingAvailability ? (
+            <div className="w-min h-min mx-auto ">
+              <Ring size={15} lineWeight={5} speed={2} color="#ff6600" />
+            </div>
+          ) : isToggled ? (
+            <BsToggleOn
+              className="cursor-pointer"
+              style={{
+                width: "18px",
+                height: "25px",
+                color: "#ff6600",
+                margin: `auto`,
+              }}
+            />
+          ) : (
+            <BsToggleOff
+              className="cursor-pointer"
+              style={{
+                width: "18px",
+                height: "25px",
+                color: "#ff6600",
+                margin: `auto`,
+              }}
+            />
+          )}
+        </td>
+        <td className="px-4 py-4">{product.brand.name}</td>
+        <td className="px-4 py-4">{product.sold_quantity}</td>
+        <td>{price}</td>
+        <td class="px-4 py-4">
+          <div class="flex-col lg:flex-row lg:space-x-2 items-center space-y-2 lg:space-y-0">
+            <button
+              onClick={() => setIsEditing(true)}
+              class="items-center px-2 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none"
+            >
+              <FiEdit />
+            </button>
+            <button
+              class="items-center px-2 py-2 text-white bg-red-500 rounded-md hover:bg-red-600 focus:outline-none"
+              onClick={() => {
+                setIsDeleting(true);
+              }}
+            >
+              <RiDeleteBin6Line />
+            </button>
+          </div>
+        </td>
+      </tr>
+
+      <Dialog
+        open={isEditing}
+        onClose={() => {
+          setIsEditing(false);
+        }}
+        fullWidth
+      >
+        <DialogTitle className="flex justify-between border-b-2 border-black ">
+          <h4 className="">Edit Product: {product.name}</h4>
+        </DialogTitle>
+        <DialogContent>
+          <Stack spacing={1} margin={3}>
+            <input
+              className="mb-7 text-black placeholder:text-zinc-500 pl-2 outline-none border-b-2 focus:border-skin-primary transition-all duration-700"
+              type="numbere"
+              placeholder={price}
+              ref={newPrice}
+              required
+            />
+          </Stack>
+        </DialogContent>
+        <DialogActions>
+          <button
+            type="button"
+            className="bg-lime-950 px-8 py-3 text-white rounded-lg "
+            data-dismiss="modal"
+            onClick={savePrice}
+          >
+            {editingPrice == true ? (
+              <div className="flex justify-center items-center">
+                <Ring size={25} lineWeight={5} speed={2} color="white" />
+              </div>
+            ) : (
+              "Save"
+            )}
+          </button>
+          <button
+            type="button"
+            className="bg-zinc-500 px-8 py-3 text-white rounded-lg"
+            data-dismiss="modal"
+            onClick={() => {
+              setIsEditing(false);
+            }}
+          >
+            Cancel
+          </button>
+        </DialogActions>
+      </Dialog>
+
+      <Dialog
+        open={isDeleting}
+        onClose={() => {
+          setIsDeleting(false);
+        }}
+        fullWidth
+      >
+        <DialogTitle className="flex justify-between border-b-2 border-black ">
+          <h4 className="">Delete Product:</h4>
+        </DialogTitle>
+        <DialogContent>
+          <Stack spacing={1} margin={3}>
+            <div className="flex flex-col justify-start items-start w-full ">
+              <p className="text-lg ">
+                Are you sure you want to delete this product from your store ?
+              </p>
+              <p className="text-xl">{product.name}</p>
+            </div>
+          </Stack>
+        </DialogContent>
+        <DialogActions>
+          <button
+            type="button"
+            className="bg-green-700 px-8 py-3 text-white rounded-lg "
+            data-dismiss="modal"
+            onClick={deleteProduct}
+          >
+            {deleting == true ? (
+              <div className="flex justify-center items-center">
+                <Ring size={25} lineWeight={5} speed={2} color="white" />
+              </div>
+            ) : (
+              "Yes"
+            )}
+          </button>
+          <button
+            type="button"
+            className="bg-zinc-500 px-8 py-3 text-white rounded-lg"
+            data-dismiss="modal"
+            onClick={() => {
+              setIsDeleting(false);
+            }}
+          >
+            Cancel
+          </button>
+        </DialogActions>
+      </Dialog>
     </>
-
+  );
 }
 
-export default SellerProduct ;
+export default SellerProduct;

@@ -11,11 +11,27 @@ import { useRouter } from "next/router";
 import createAxiosInstance from "@/API";
 import { useState } from "react";
 import TawasyLoader from "@/components/UI/tawasyLoader";
+import { useQuery } from "react-query";
 
 const Home = () => {
   const router = useRouter();
   const Api = createAxiosInstance(router);
-  const [isLoading , setIsLoading ] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // const {
+  //   data,
+  //   isLoading: statisticsLoading,
+  //   isError,
+  //   error,
+  // } = useQuery(`dashboard statistics`, fetchDashboardStatistics, {
+  //   staleTime: Infinity,
+  //   refetchOnMount: true,
+  //   refetchOnWindowFocus: false,
+  // });
+
+  // async function fetchDashboardStatistics ()  {
+  //   return await Api.get(``) ;
+  // }
 
   useEffect(() => {
     async function initialStoreStatus() {
@@ -26,11 +42,14 @@ const Home = () => {
             router.replace("/seller/requestStore");
             break;
 
-          case "Approved":
+          case "approved":
+            console.log(`approved store`);
+            localStorage.setItem("Sid", response2.data.store_id);
             router.replace(`/seller`);
             break;
 
           case "pending":
+            localStorage.setItem("Sid", data.data.store_id);
             router.replace(`/seller/pendingStore`);
             break;
         }
@@ -39,7 +58,7 @@ const Home = () => {
       }
       setIsLoading(false);
     }
-    initialStoreStatus() ;
+    initialStoreStatus();
   }, []);
 
   const icons = [
@@ -97,10 +116,12 @@ const Home = () => {
     },
   ];
 
-  if(isLoading == true){
-    return <div className="w-screen h-screen" >
-      <TawasyLoader/>
-    </div>
+  if (isLoading == true) {
+    return (
+      <div className="w-full h-full">
+        <TawasyLoader />
+      </div>
+    );
   }
 
   return (
