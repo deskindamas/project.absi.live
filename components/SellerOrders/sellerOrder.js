@@ -1,91 +1,256 @@
-import React , { useEffect, useState } from 'react';
-import { Dialog , DialogTitle, DialogContent , Stack , DialogActions} from '@mui/material';
+import React, { useEffect, useRef, useState } from "react";
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  Stack,
+  DialogActions,
+} from "@mui/material";
 import MdClose from "react-icons/md";
+import { useRouter } from "next/router";
+import createAxiosInstance from "@/API";
+import TawasyLoader from "../UI/tawasyLoader";
+import { Ring } from "@uiball/loaders";
 
-function SellerOrders ({orders}){
-
+function SellerOrders({ orders, refetch }) {
   const [open, openchange] = useState(false);
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
+  const [orderDetails, setOrderDetails] = useState();
+  const Api = createAxiosInstance(router);
+  const [rejecting, setRejecting] = useState(false);
+  const [accepting, setAccepting] = useState(false);
+  const reasonRef = useRef();
 
-  const functionopenpopup=()=>{
-      openchange(true);
-      
+  async function fetchOrderDetails() {
+    setIsLoading(true);
+    try {
+      const response = await Api.get(`/api/seller/order/${orders.order_id}`);
+      console.log(response.data.order);
+      setOrderDetails(response.data.order);
+      setIsLoading(false);
+    } catch (error) {}
   }
-  const closepopup=()=>{
+
+  const functionopenpopup = async () => {
+    openchange(true);
+    await fetchOrderDetails();
+  };
+  const closepopup = () => {
     openchange(false);
-}
-   return <>
-  <tr key={orders.id}  className='even:bg-zinc-200 odd:bg-zinc-50 text-center'>
-           <td className='pb-5 pt-5'>{orders.id}</td>
-           <td className='pb-5'>{orders.name}</td>
-             <td className='pb-5'>{orders.username}</td>
-          <td className='pb-5'>{orders.email}</td>
-           <td className='pb-5'>{orders.website}</td>
-             <td className='pb-5'><button onClick={functionopenpopup} className='bg-transparent border-b-2 border-[#ff6600] '
-              >Details</button></td>
-              </tr>
+  };
 
-        
-              <Dialog open={open} onClose={closepopup} fullWidth maxWidth='md' >
-              <DialogTitle className='flex justify-between'>
-             <h4 >اسم المحل:</h4>
-             <h6> تاريخ الطلب :</h6> 
-              </DialogTitle>
-              <hr/>
-              <DialogContent>
-              <Stack spacing={2} margin={2}>
-              <table className="table w-full" >
-                        <thead className="bg-zinc-200 h-8">
-                            <tr className='text-xl'>
-                                <th className='pb-2 pt-2'>#</th>
-                                <th className='pb-2 pt-2'>اسم المنتج</th>
-                                <th className='pb-2 pt-2'>الكمية</th>
-                                <th className='pb-2 pt-2'>السعر</th>
-                                <th className='pb-2 pt-2'>الاجمالي</th>
-                               
-                            </tr>
-                        </thead>
-                        <tbody className='text-center text-xl'>
-                        <tr className='text-center'>
-                         <td className='pb-2 pt-2'>1</td> 
-                         <td className='pb-2 pt-2'>lorem</td> 
-                         <td className='pb-2 pt-2'>22</td> 
-                         <td className='pb-2 pt-2'>400</td> 
-                         <td className='pb-2 pt-2'>450</td> 
-                         </tr>
-                        </tbody>
-                    </table>
+  const declinedOrders = router.query.type == "rejectedOrders" ? true : false;
 
-                    <div className='grid md:grid-cols-2 grid-col-1 gap-2 text-xl' >
+  function convertDate(date) {
+    const refined = new Date(date);
+    const year = refined.getFullYear();
+    const month = refined.getMonth() + 1;
+    const day = refined.getDate();
+    const finalDate = `${year}-${month}-${day}`;
+    return finalDate;
+  }
 
-             <div>
-             <p className = 'py-5' > الكمية الإجمالية : </p>
-            
-             <label className = 'py-5' for="freeform ">ما هو سبب رفضك للطلب ؟</label>
-              <br/>
-             <textarea  id="freeform" name="freeform" rows="4" placeholder='ادخل السبب هنا ' className='w-full mt-4 shadow p-3 py-5'>
-             
-             </textarea>
+  function convertMoney(money) {
+    const total = money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    const finalTotal = `${total}`;
+    return finalTotal;
+  }
 
-              </div>
+  async function acceptOrder() {
+    setAccepting(true);
+    try {
+      const response = await Api.post(
+        `/api/seller/accept-decline-order/${orders.order_id}`,
+        {
+          action: "accept",
+        }
+      );
+      refetch();
+      setAccepting(false);
+      openchange(false);
+    } catch (error) {
+      console.log(error);
+      setAccepting(false);
+      openchange(false);
+    }
+    setAccepting(false);
+    openchange(false);
+  }
 
-               <div >
-                <p className = 'py-1'>
-                  السعر الكلي : </p>
-                <p className = 'py-1'> تكلفة التوصيل : </p>
-                <p className = 'py-1'> الحسم: </p>
-                <p className = 'py-1'> الاجمالي : </p>
-                 </div>
+  async function rejectOrder() {
+    setRejecting(true);
+    try {
+      const response = await Api.post(
+        `/api/seller/accept-decline-order/${orders.order_id}`,
+        {
+          action: "decline",
+          reason: reasonRef.current.value,
+        }
+      );
+      refetch();
+      setRejecting(false);
+      openchange(false);
+    } catch (error) {
+      console.log(error);
+      setRejecting(false);
+      openchange(false);
+    }
+    setRejecting(false);
+    openchange(false);
+  }
 
+  return (
+    <>
+      <tr
+        key={orders.id}
+        className="even:bg-zinc-200 odd:bg-zinc-50 text-center"
+      >
+        <td className="pb-5 pt-5">{orders.order_id}</td>
+        <td className="pb-5">{orders.status}</td>
+        <td className="pb-5">{convertDate(orders.date)}</td>
+        <td className="pb-5">{convertMoney(orders.final_price)}</td>
+        <td
+          className={`pb-5 ${
+            orders.used_coupon == true ? `text-green-500` : `text-red-500`
+          } `}
+        >
+          {orders.used_coupon == true ? `Yes` : `No`}
+        </td>
+        {declinedOrders === true && <td className="pb-5"> {orders.reason} </td>}
+        <td className="pb-5">
+          <button
+            onClick={functionopenpopup}
+            className="bg-transparent border-b-2 border-[#ff6600] "
+          >
+            Details
+          </button>
+        </td>
+      </tr>
+
+      <Dialog open={open} onClose={closepopup} fullWidth maxWidth="lg">
+        {isLoading !== true && orderDetails && (
+          <DialogTitle className="flex justify-between mx-auto border-b-2 border-skin-primary ">
+            <h4>Store name: {orderDetails.store_name} </h4>
+            <h4>Order Status: {orderDetails.status} </h4>
+            <h6>Order Date: {convertDate(orderDetails.date)}</h6>
+            <h6>Order Id: {orderDetails.order_id}</h6>
+          </DialogTitle>
+        )}
+        <DialogContent>
+          {isLoading === true ? (
+            <div className="w-full h-full">
+              <TawasyLoader width={300} height={300} />
+            </div>
+          ) : (
+            <Stack spacing={2} margin={2}>
+              <table className="table w-full">
+                <thead className="bg-zinc-200 h-8">
+                  <tr className="text-xl">
+                    <th className="pb-2 pt-2">Prodcut name</th>
+                    <th className="pb-2 pt-2">Quantity</th>
+                    <th className="pb-2 pt-2">Price</th>
+                    <th className="pb-2 pt-2">Total</th>
+                  </tr>
+                </thead>
+                <tbody className="text-center text-xl">
+                  {orderDetails?.order_details.map((product) => {
+                    return (
+                      <tr className="text-center">
+                        <td className="pb-2 pt-2">{product.product_name}</td>
+                        <td className="pb-2 pt-2">{product.quantity}</td>
+                        <td className="pb-2 pt-2">{product.price}</td>
+                        <td className="pb-2 pt-2">{product.line_total}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+
+              <div className="flex flex-col justify-start items-start gap-3 text-xl w-full ">
+                <div className="w-full">
+                  <p
+                    className={`py-1 border-b-2 border-skin-primary flex justify-between items-center `}
+                  >
+                    Coupon :
+                    <p
+                      className={`${
+                        orderDetails?.coupon == true
+                          ? `text-green-500`
+                          : `text-red-500`
+                      } pr-5 `}
+                    >
+                      {orderDetails?.coupon == true ? `Yes` : `No`}
+                    </p>
+                  </p>
+                  <p className="py-1 border-b-2 border-skin-primary flex justify-between items-center">
+                    Total Quantity :
+                    <p className="pr-5">{orderDetails?.total_quantity}</p>
+                  </p>
+                  <p className="py-1 border-b-2 border-skin-primary flex justify-between items-center">
+                    Discount :<p className="pr-5">{orderDetails?.discount}</p>
+                  </p>
+                  <p className="py-1 border-b-2 border-skin-primary flex justify-between items-center">
+                    Total Price :
+                    <p className="pr-5">{orderDetails?.total_price}</p>
+                  </p>
+                  <p className="py-1 border-b-2 border-skin-primary flex justify-between items-center">
+                    Final Price :
+                    <p className="pr-5">{orderDetails?.final_price}</p>
+                  </p>
                 </div>
-              </Stack>
-           
-            </DialogContent>
-            <DialogActions>
-            <button type="button" className="bg-red-700 px-8 py-3 text-white" data-dismiss="modal">Reject</button>
-              <button type="button" className="bg-lime-950 px-8 py-3 text-white" data-dismiss="modal">Accept</button>
+              </div>
+            </Stack>
+          )}
+        </DialogContent>
+        {isLoading !== true &&
+          orderDetails &&
+          orderDetails.status === `pending` && (
+            <DialogActions className="grid md:grid-cols-2 grid-cols-1 ">
+              <div className="flex justify-start items-center gap-3">
+                <label className="pt-1" for="freeform ">
+                  Reason of Rejection :
+                </label>
+                <textarea
+                  id="freeform"
+                  name="freeform"
+                  rows="2"
+                  ref={reasonRef}
+                  placeholder="Reason"
+                  className="w-max shadow h-[50px] p-3 outline-none focus:outline-skin-primary transition-all duration-700 rounded-lg "
+                ></textarea>
+              </div>
+              <button
+                className="bg-red-700 px-8 py-3 hover:bg-red-600 text-white rounded-lg "
+                data-dismiss="modal"
+                onClick={rejectOrder}
+              >
+                {rejecting == true ? (
+                  <div className="flex justify-center items-center">
+                    <Ring size={25} lineWeight={5} speed={2} color="white" />
+                  </div>
+                ) : (
+                  "Reject"
+                )}
+              </button>
+              <button
+                type="button"
+                onClick={acceptOrder}
+                className="bg-lime-950 px-8 hover:bg-lime-800 py-3 text-white rounded-lg"
+                data-dismiss="modal"
+              >
+                {accepting == true ? (
+                  <div className="flex justify-center items-center">
+                    <Ring size={25} lineWeight={5} speed={2} color="white" />
+                  </div>
+                ) : (
+                  "Accept"
+                )}
+              </button>
             </DialogActions>
-              </Dialog>
-
-   </>
+          )}
+      </Dialog>
+    </>
+  );
 }
-export default SellerOrders
+export default SellerOrders;

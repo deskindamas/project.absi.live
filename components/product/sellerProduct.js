@@ -127,7 +127,7 @@ function SellerProduct({ product , refetch }) {
             />
           )}
         </td>
-        <td className="px-4 py-4">{product.brand.name}</td>
+        <td className="px-4 py-4">{product.brand && product.brand}</td>
         <td className="px-4 py-4">{product.sold_quantity}</td>
         <td>{price}</td>
         <td class="px-4 py-4">

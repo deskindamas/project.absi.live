@@ -13,13 +13,13 @@ import { MdClose } from "react-icons/md";
 
 const users = [
   {
-    id : 1
+    id: 1,
   },
   {
-    id : 2
+    id: 2,
   },
   {
-    id : 3
+    id: 3,
   },
 ];
 
@@ -36,6 +36,9 @@ function AddProducts() {
     return await Api.get(`api/seller/approved-products`);
   }
 
+  const [selectedProducts, setSelectedProducts] = useState();
+  const [loadingSelected, setLoadingSelected] = useState(false);
+
   // const [users, setUsers] = useState([]);
   // const [count, setcount] = useState(0);
   // const getUsers = async () => {
@@ -46,10 +49,21 @@ function AddProducts() {
 
   const [open, openchange] = useState(false);
 
-  const functionopenpopup = () => {
-    console.log(`selected products`);
+  async function fetchSelectedProducts() {
+    setLoadingSelected(true);
+    try {
+      const response = await Api.get(`api/seller/selected-products`);
+      console.log(response);
+      setSelectedProducts(response.data.selected_products);
+      setLoadingSelected(false);
+    } catch (error) {}
+  }
+
+  const functionopenpopup = async () => {
     openchange(true);
+    await fetchSelectedProducts();
   };
+
   const closepopup = () => {
     openchange(false);
   };
@@ -97,11 +111,6 @@ function AddProducts() {
             placeholder="Search a product "
           />
         </div>
-
-        <div className="px-2 py-1 bg-red-500" onClick={functionopenpopup} >
-          cart
-        </div>
-
         <Link
           href={"/seller/products/addNewProduct"}
           className="bg-[#ff6600] px-9 py-3 text-white"
@@ -149,42 +158,79 @@ function AddProducts() {
         <Dialog
           transitionDuration={500}
           transitionBuilder={transitionBuilder}
+          className="h-full"
           fullWidth
           maxWidth="xl"
           open={open}
           onClose={closepopup}
         >
           <DialogTitle className="flex justify-between">
-            <h4 className="text-2xl "> Total Select Product:</h4>
+            <h4 className="text-2xl "> Selected Products:</h4>
             <MdClose onClick={closepopup} className="w-[35px] h-[35px]" />
           </DialogTitle>
           <hr />
           <DialogContent>
-            <Stack spacing={2} margin={2}>
-              <div className=" mt-5">
-                <table className="table w-full">
-                  <thead className="text-xl">
-                    <tr>
-                      <th className="pb-4">Product Name</th>
-                      <th className="pb-4">Image</th>
-                      <th className="pb-4">Active</th>
-                      <th className="pb-4">Price </th>
-                      <th className="pb-4"> </th>
-                    </tr>
-                  </thead>
-                  <tbody className="text-lg font-normal text-gray-700 text-center">
-                    {users.map((curElem) => (
-                      <TotalAddProduct selectproduct={curElem} />
-                    ))}
-                  </tbody>
-                </table>
+            {loadingSelected == false ? (
+              <Stack spacing={2} margin={2}>
+                {selectedProducts && !selectedProducts.message ? (
+                  selectedProducts.length > 0 ? (
+                    <div className=" mt-5">
+                      <table className="table w-full" border={4}>
+                        <thead className="text-xl">
+                          <tr>
+                            <th className="pb-4">Id</th>
+                            <th className="pb-4">Product Name</th>
+                            <th className="pb-4">Description</th>
+                            <th className="pb-4">Brand</th>
+                            <th className="pb-4">Category</th>
+                            <th className="pb-4">Available</th>
+                            <th className="pb-4">Image</th>
+                            <th className="pb-4">Price </th>
+                            <th className="pb-4"> </th>
+                          </tr>
+                        </thead>
+                        <tbody className="text-lg font-normal text-gray-700 text-center">
+                          {selectedProducts.map((curElem) => (
+                            <TotalAddProduct
+                              selectproduct={curElem}
+                              refetch={async () => {
+                                await fetchSelectedProducts();
+                              }}
+                            />
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  ) : (
+                    <div className="w-full h-full flex justify-center items-center text-center">
+                      <p>
+                        You did not select any product to add to your store yet.
+                      </p>
+                    </div>
+                  )
+                ) : (
+                  <div className="w-full h-full flex justify-center items-center text-center">
+                    <p>
+                      You did not select any product to add to your store yet.
+                    </p>
+                  </div>
+                )}
+              </Stack>
+            ) : (
+              <div className="w-full h-full">
+                <TawasyLoader width={350} height={350} />
               </div>
-            </Stack>
+            )}
           </DialogContent>
         </Dialog>
       </div>
 
-      <button onClick={functionopenpopup} >
+      <button
+        onClick={(e) => {
+          e.preventDefault();
+          functionopenpopup();
+        }}
+      >
         <div
           style={{
             color: "white",

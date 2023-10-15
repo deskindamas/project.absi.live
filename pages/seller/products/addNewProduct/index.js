@@ -78,7 +78,7 @@ const AddNewProduct = () => {
       } , {
         headers: { "Content-Type": `multipart/form-data` },
       });
-      router.push("/seller/products");
+      router.push("/seller/addProducts");
     } catch (error) {
       console.log(error);
     }
