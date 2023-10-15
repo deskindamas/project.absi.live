@@ -12,15 +12,12 @@ import { useRouter } from "next/router";
 import createAxiosInstance from "@/API";
 
 const Code = () => {
-  // const [isLoggedIn, setIsLoggedIn] = useState(false);
-  // const number = localStorage.getItem('number');
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const verifyNumber = useRef();
   const Api = createAxiosInstance(router) ; 
 
   const handleVerify = async (e) => {
-    // console.log(verifyNumber.current.value);
     e.preventDefault();
     const number = localStorage.getItem(`number`);
     setIsLoading(true);
@@ -31,71 +28,29 @@ const Code = () => {
           phone_number: number,
           verification_code: verifyNumber.current.value,
         });
-        console.log(response);
         localStorage.removeItem("number");
         localStorage.setItem("AT", response.data.token);
-        // try {
-        //   // we need to request the store state to know where to redirect the user
-        //   // const token = localStorage.getItem('AT') ;
-        //   const token = response.data.token ;
-        //   const response2 = await axios.get(`${url}/api/seller/store/status`, {
-        //     headers: { 'Authorization': `Bearer ${token}` },
-        //   });
-        //   if (response2.status !== 200) {
-        //     throw new Error(response);
-        //   }
-        //   // console.log(`store status response`);
-        //   // console.log(response2.data);
-        //   switch (response2.data.message) {
-        //   case 'Store not found' : 
-        //     router.replace('/seller/requestStore');
-        //   break;
-
-        //   case 'Approved' : 
-        //     router.replace(`/seller`);
-        //   break;
-
-        //   case 'Pending' :
-        //     router.replace(`/seller/pendingStore`);
-        //   break;
-        //   }
-        // } catch (error) {
-        //   // console.log(`store status error`)
-        //   console.log(error);
-        // }
-        ////////////////////////////////////////////////////////////////////////////////////////////////// 
         try {
-          // we need to request the store state to know where to redirect the user
-          // const token = localStorage.getItem('AT') ;
-          // const token = response.data.token ;
-          console.log(`before status Api `);
           const response2 = await Api.get(`/api/seller/store/status`);
-          console.log(`after status Api`);
-          // if (response2.status !== 200) {
-            console.log(`response2`);
-            console.log(response2);
-          //   throw new Error(response);
-          // }
-          // console.log(`store status response`);
-          // console.log(response2.data);
+          console.log(`response in verification status`);
           switch (response2.data.status) {
           case 'Store not found' : 
             router.replace('/seller/requestStore');
           break;
 
-          case 'Approved' : 
-            router.replace(`/seller`);
+          case 'approved' : 
+          localStorage.setItem('Sid' , response2.data.store_id);
+          router.replace(`/seller`);
           break;
 
           case 'pending' :
+          localStorage.setItem('Sid' , response2.data.store_id);
             router.replace(`/seller/pendingStore`);
           break;
           }
         } catch (error) {
-          // console.log(`store status error`)
           console.log(error);
         }
-        //////////////////////////////////////////////////////////////////////////////////////////////////
         setIsLoading(false);
         if (response.status !== 200) {
           throw new Error(response);
@@ -112,7 +67,6 @@ const Code = () => {
           theme: "colored",
         });
         setIsLoading(false);
-        // console.log(error);
       }
     } else if (user === "customer") {
       try {
@@ -120,7 +74,6 @@ const Code = () => {
           phone_number: number,
           verify_code: verifyNumber.current.value,
         });
-        // console.log(response);
         localStorage.removeItem("number");
         localStorage.setItem("AT", response.data.token);
         router.replace("/");
@@ -140,7 +93,6 @@ const Code = () => {
           theme: "colored",
         });
         setIsLoading(false);
-        // console.log(error);
       }
     }
   };
@@ -151,8 +103,6 @@ const Code = () => {
       handleVerify(e);
     }
   }
-
-  // console.log(verifyNumber.current.value);
 
   return (
     <Fragment>

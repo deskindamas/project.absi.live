@@ -51,7 +51,7 @@ const createAxiosInstance = (router) => {
   axiosInstance.interceptors.response.use(
     (response) => {
       // Show success notification
-      if(response.config.method === 'post'){
+      if(response.config.method === 'post' || response.config.method === 'put'){
           toast.success(response.data.message || "Request successful", {
             position: "top-right",
             autoClose: 5000,
@@ -87,7 +87,7 @@ const createAxiosInstance = (router) => {
           // Example: router.push('/login');
         } else {
           // Show error notification for other status codes
-          toast.error(error.response.data.message || "Request failed" , {
+          toast.error(error.response.data.message || error.response.data.error || "Request failed" , {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,

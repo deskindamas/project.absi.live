@@ -84,7 +84,6 @@ const Login = () => {
           theme: "colored",
         });
         setIsLoading(false);
-        // console.log(error);
       }
     }
   };
@@ -113,16 +112,14 @@ const Login = () => {
         className="flex flex-col justify-start items-center gap-9 w-full max-w-md p-4 md:w-[70%] lg:w-[50%] xl:w-[40%] 2xl:w-[30%] mx-auto "
         onKeyDown={handleKeyDown}
       >
-        {/* <label className="label" ><span style={{paddingRight:"10px"}}>Phone:</span> */}
         <input
           type="text"
-          // value={email}
           ref={NumberRef}
-          // onChange={(e) => setEmail(e.target.value)}
           className="outline-none appearance-none border-b-2 border-gray-300 focus:border-[#FD6500] placeholder:text-gray-300 w-full transition-all duration-700"
           placeholder="Number"
           inputMode="numeric" 
           pattern="[0-9]*"
+          required
         />
         <style jsx>{`
           /* Chrome, Safari, Edge, Opera */

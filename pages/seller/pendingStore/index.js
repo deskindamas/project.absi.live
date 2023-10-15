@@ -3,25 +3,24 @@ import Logo from "../../../public/images/tawasylogo.png";
 import { AiOutlineStop } from "react-icons/ai";
 import { useQuery } from "react-query";
 import { useEffect } from "react";
-import axios from "axios";
-import url from "@/URL";
 import TawasyLoader from "@/components/UI/tawasyLoader";
 import { useRouter } from "next/router";
+import createAxiosInstance from "@/API";
 
 function pendingPage() {
   let token;
-
-  useEffect(() => {
-    const at = localStorage.getItem("AT");
-    token = at;
-  }, [token]);
-
   const router = useRouter() ;
+  const Api = createAxiosInstance(router);
+
+
+  // useEffect(() => {
+  //   const at = localStorage.getItem("AT");
+  //   token = at;
+  // }, [token]);
+
 
   function getStoreStatus() {
-    return axios.get(`${url}/api/seller/store/status`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    return Api.get(`/api/seller/store/status`);
   }
   const { data, isLoading, isError, error } = useQuery(
     `StoreStatus`,
@@ -30,7 +29,8 @@ function pendingPage() {
   );
 
   if (data) {
-    if(data.data.status && data.data.status === "Approved"){
+    if(data.data.status && data.data.status === "approved"){
+      localStorage.setItem('Sid' , data.data.store_id);
       router.replace(`/seller`);
     }
   }
