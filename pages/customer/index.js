@@ -1,11 +1,12 @@
-import TawasyLoader from "@/components/UI/tawasyLoader";
+import { ResponsiveCarousel } from "@/components/CarouselCustomer/carousel";
+import withLayoutCustomer from "@/components/wrapping components/WrappingCustomerLayout";
 
 function CustomerPage (){
 
-    return <div className="w-screen h-screen" >
-        {/* <TawasyLoader/> */}
+    return <div className="w-full h-full" >
+     <ResponsiveCarousel/>
     </div>
 
 }
 
-export default CustomerPage ;
+export default withLayoutCustomer(CustomerPage) ;

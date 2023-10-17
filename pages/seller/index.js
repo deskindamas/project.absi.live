@@ -18,20 +18,6 @@ const Home = () => {
   const Api = createAxiosInstance(router);
   const [isLoading, setIsLoading] = useState(true);
 
-  // const {
-  //   data,
-  //   isLoading: statisticsLoading,
-  //   isError,
-  //   error,
-  // } = useQuery(`dashboard statistics`, fetchDashboardStatistics, {
-  //   staleTime: Infinity,
-  //   refetchOnMount: true,
-  //   refetchOnWindowFocus: false,
-  // });
-
-  // async function fetchDashboardStatistics ()  {
-  //   return await Api.get(``) ;
-  // }
 
   useEffect(() => {
     async function initialStoreStatus() {

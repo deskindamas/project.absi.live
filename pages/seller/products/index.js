@@ -240,7 +240,7 @@ function Products() {
               <input
                 className="w-full bg-gray-100 outline-none border-transparent focus:border-transparent focus:ring-0 rounded-lg text-sm h-10"
                 type="text"
-                placeholder="Search a product "
+                placeholder=" a product "
               />
             </div>
             <div className="flex-row space-x-2 items-center ">

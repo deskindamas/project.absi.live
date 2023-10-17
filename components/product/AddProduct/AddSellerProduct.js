@@ -60,14 +60,7 @@ function AddProduct({ addproduct }) {
                   <AiOutlinePlus
                     onClick={saveProduct}
                     className="cursor-pointer shadow md:w-[30px] md:h-[30px] bg-skin-primary text-white md:p-[5px] rounded-full w-[30px] h-[25px] md:[px-0] md:[mx-0] px-1 mx-2 "
-                    // style={{
-                    //   width: "30px",
-                    //   height: "30px",
-                    //   backgroundColor: "#ff6600",
-                    //   color: "white",
-                    //   padding: "5px",
-                    //   borderRadius: "50%",
-                    // }}
+  
                   />
                 ) : (
                   <div className="bg-skin-primary p-[5px] rounded-full">
