@@ -23,6 +23,7 @@ export default function Sidebar(props) {
   function logOut() {
     localStorage.removeItem("AT");
     localStorage.removeItem("user");
+    // localStorage.removeItem("Sid");
     router.replace("/login");
   }
 
@@ -219,7 +220,7 @@ export default function Sidebar(props) {
 
               <li className="rounded-sm pb-3">
                 <Link
-                  href="/"
+                  href="/seller/store"
                   className="flex items-center pl-2 space-x-3 pt-2 rounded-md text-gray-100"
                 >
                   <IoStorefrontSharp className="block text-[20px] text-white " />

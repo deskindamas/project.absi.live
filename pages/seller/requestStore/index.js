@@ -157,13 +157,15 @@ const RequestStore = () => {
     ///////////////////////////////////////////////////////////////////////////////
     try {
       const response = await Api.post(
-        `/api/seller/store`,
+        `/api/seller/create-store`,
         {
           name_en: EnNameRef.current.value,
           name_ar: ArNameRef.current.value,
           address: address.address,
           street: streetRef.current.value,
           area: areaRef.current.value,
+          longitude : address.lng , 
+          latitude :  address.lat ,
           image: image,
           logo: logo,
           opening_time: openTimeRef.current.value,
@@ -178,6 +180,7 @@ const RequestStore = () => {
       setSubmitting(false);
       console.log(`request store`);
       console.log(response);
+      router.replace('/seller/pendingStore') ;
     } catch (error) {
       setSubmitting(false);
       console.log(error);

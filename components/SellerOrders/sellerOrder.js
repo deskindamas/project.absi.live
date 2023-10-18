@@ -12,6 +12,21 @@ import createAxiosInstance from "@/API";
 import TawasyLoader from "../UI/tawasyLoader";
 import { Ring } from "@uiball/loaders";
 
+export function convertMoney(money) {
+  const total = money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  const finalTotal = `${total}`;
+  return finalTotal;
+}
+
+export function convertDate(date) {
+  const refined = new Date(date);
+  const year = refined.getFullYear();
+  const month = refined.getMonth() + 1;
+  const day = refined.getDate();
+  const finalDate = `${year}-${month}-${day}`;
+  return finalDate;
+}
+
 function SellerOrders({ orders, refetch }) {
   const [open, openchange] = useState(false);
   const router = useRouter();
@@ -41,21 +56,6 @@ function SellerOrders({ orders, refetch }) {
   };
 
   const declinedOrders = router.query.type == "rejectedOrders" ? true : false;
-
-  function convertDate(date) {
-    const refined = new Date(date);
-    const year = refined.getFullYear();
-    const month = refined.getMonth() + 1;
-    const day = refined.getDate();
-    const finalDate = `${year}-${month}-${day}`;
-    return finalDate;
-  }
-
-  function convertMoney(money) {
-    const total = money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    const finalTotal = `${total}`;
-    return finalTotal;
-  }
 
   async function acceptOrder() {
     setAccepting(true);
@@ -193,6 +193,10 @@ function SellerOrders({ orders, refetch }) {
                   <p className="py-1 border-b-2 border-skin-primary flex justify-between items-center">
                     Total Price :
                     <p className="pr-5">{orderDetails?.total_price}</p>
+                  </p>
+                  <p className="py-1 border-b-2 border-skin-primary flex justify-between items-center">
+                    Delivery Fee :
+                    <p className="pr-5">{orderDetails?.delivery_price}</p>
                   </p>
                   <p className="py-1 border-b-2 border-skin-primary flex justify-between items-center">
                     Final Price :

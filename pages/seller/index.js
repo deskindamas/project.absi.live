@@ -42,6 +42,7 @@ const Home = () => {
     async function initialStoreStatus() {
       try {
         const response2 = await Api.get(`/api/seller/store/status`);
+        console.log(response2);
         switch (response2.data.status) {
           case "Store not found":
             router.replace("/seller/requestStore");
@@ -54,9 +55,12 @@ const Home = () => {
             break;
 
           case "pending":
-            localStorage.setItem("Sid", data.data.store_id);
+            localStorage.setItem("Sid", response2.data.store_id);
             router.replace(`/seller/pendingStore`);
             break;
+          // default :
+          // console.log(`default in switch seller status /seller`);
+          // break;
         }
       } catch (error) {
         console.log(error);
@@ -65,61 +69,6 @@ const Home = () => {
     }
     initialStoreStatus();
   }, []);
-
-  // const icons = [
-  //   {
-  //     title: "Total Orders",
-  //     image: image1,
-  //     icon: (
-  //       <RiFilePaper2Line
-  //         style={{ width: "25px", height: "25px", color: "#ff6600" }}
-  //       />
-  //     ),
-  //   },
-  //   {
-  //     title: "Total Sales",
-  //     image: image2,
-  //     icon: (
-  //       <BsCurrencyDollar
-  //         style={{ width: "25px", height: "25px", color: "#ff6600" }}
-  //       />
-  //     ),
-  //   },
-  //   {
-  //     title: "Total Products",
-  //     image: image3,
-  //     icon: (
-  //       <BsBox style={{ width: "25px", height: "25px", color: "#ff6600" }} />
-  //     ),
-  //   },
-  // ];
-
-  // const products = [
-  //   {
-  //     id: 1,
-  //     name: "lorem1",
-  //     image: image1,
-  //     price: "25",
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "lorem2",
-  //     image: image2,
-  //     price: "35",
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "lorem3",
-  //     image: image3,
-  //     price: "45",
-  //   },
-  //   {
-  //     id: 4,
-  //     name: "lorem3",
-  //     image: image3,
-  //     price: "45",
-  //   },
-  // ];
 
   if (dashboardData) {
     console.log(`dashboard data`);
@@ -149,11 +98,47 @@ const Home = () => {
               Main Dashboard
             </h4>
             {/* // Statistics cards  */}
-            <div className="flex flex-wrap" >
-            {dashboardData &&
+            <div className="flex flex-wrap ">
+              {/* {dashboardData &&
               Object.entries(dashboardData.data).map(([key, value]) => (
                 <DashboardCard key={key} name={key} value={value} />
-              ))}
+              ))} */}
+              <DashboardCard
+                key={dashboardData.data.totalAvailableProducts}
+                name={`Total Available Products`}
+                value={dashboardData.data.totalAvailableProducts}
+                color = {`bg-emerald-600`}
+              />
+              <DashboardCard
+                key={dashboardData.data.totalOrders}
+                name={`Total Orders`}
+                value={dashboardData.data.totalOrders}
+                color = {`bg-sky-400`}
+              />
+              <DashboardCard
+                key={dashboardData.data.totalPendingOrders}
+                name={`Total Pending Orders`}
+                color = {`bg-yellow-400`}
+                value={dashboardData.data.totalPendingOrders}
+              />
+              <DashboardCard
+                key={dashboardData.data.totalProducts}
+                name={`Total Products`}
+                color = {`bg-teal-500`}
+                value={dashboardData.data.totalProducts}
+              />
+              <DashboardCard
+                key={dashboardData.data.totalSales}
+                name={`Total Sales`}
+                color = {`bg-green-500`}
+                value={dashboardData.data.totalSales}
+              />
+              <DashboardCard
+                key={dashboardData.data.totalUnavailableProducts}
+                name={`Total Unavailable Products`}
+                color = {`bg-red-800`}
+                value={dashboardData.data.totalUnavailableProducts}
+              />
             </div>
           </div>
         </div>

@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+// const defaultTheme = require("tailwindcss/defaultTheme");
 module.exports = {
   content: [
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
@@ -10,11 +11,15 @@ module.exports = {
   ],
   theme: {
     extend: {
-      colors: {
+      colors: { 
         skin: {
           primary: "#ff6600",
           darkprimary: "",
         },
+      },
+      fontFamily: {
+        'mohave': ['Mohave', 'sans-serif'],
+        'montserrat': ['Montserrat', 'sans-serif'],
       },
     },
   },
