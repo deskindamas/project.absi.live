@@ -12,17 +12,37 @@ import createAxiosInstance from "@/API";
 import { useState } from "react";
 import TawasyLoader from "@/components/UI/tawasyLoader";
 import { useQuery } from "react-query";
+import { Card } from "@mui/material";
+import DashboardCard from "@/components/UI/dashboardCard";
 
 const Home = () => {
   const router = useRouter();
   const Api = createAxiosInstance(router);
   const [isLoading, setIsLoading] = useState(true);
+  const {
+    data: dashboardData,
+    isLoading: dataLoading,
+    isError,
+    error,
+  } = useQuery(`dashboard`, fetchDashboard, {
+    staleTime: 300000,
+    refetchOnMount: true,
+    refetchOnWindowFocus: false,
+  });
 
+  async function fetchDashboard() {
+    try {
+      return await Api.get(`/api/seller/dashboard`);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   useEffect(() => {
     async function initialStoreStatus() {
       try {
         const response2 = await Api.get(`/api/seller/store/status`);
+        console.log(response2);
         switch (response2.data.status) {
           case "Store not found":
             router.replace("/seller/requestStore");
@@ -35,9 +55,12 @@ const Home = () => {
             break;
 
           case "pending":
-            localStorage.setItem("Sid", data.data.store_id);
+            localStorage.setItem("Sid", response2.data.store_id);
             router.replace(`/seller/pendingStore`);
             break;
+          // default :
+          // console.log(`default in switch seller status /seller`);
+          // break;
         }
       } catch (error) {
         console.log(error);
@@ -47,62 +70,12 @@ const Home = () => {
     initialStoreStatus();
   }, []);
 
-  const icons = [
-    {
-      title: "Total Orders",
-      image: image1,
-      icon: (
-        <RiFilePaper2Line
-          style={{ width: "25px", height: "25px", color: "#ff6600" }}
-        />
-      ),
-    },
-    {
-      title: "Total Sales",
-      image: image2,
-      icon: (
-        <BsCurrencyDollar
-          style={{ width: "25px", height: "25px", color: "#ff6600" }}
-        />
-      ),
-    },
-    {
-      title: "Total Products",
-      image: image3,
-      icon: (
-        <BsBox style={{ width: "25px", height: "25px", color: "#ff6600" }} />
-      ),
-    },
-  ];
+  if (dashboardData) {
+    console.log(`dashboard data`);
+    console.log(dashboardData);
+  }
 
-  const products = [
-    {
-      id: 1,
-      name: "lorem1",
-      image: image1,
-      price: "25",
-    },
-    {
-      id: 2,
-      name: "lorem2",
-      image: image2,
-      price: "35",
-    },
-    {
-      id: 3,
-      name: "lorem3",
-      image: image3,
-      price: "45",
-    },
-    {
-      id: 4,
-      name: "lorem3",
-      image: image3,
-      price: "45",
-    },
-  ];
-
-  if (isLoading == true) {
+  if (isLoading == true || dataLoading == true) {
     return (
       <div className="w-full h-full">
         <TawasyLoader />
@@ -114,7 +87,7 @@ const Home = () => {
     <Fragment>
       <div className="content ">
         <div className="home" style={{ marginLeft: "20px" }}>
-          <div className="container p-4">
+          <div className="flex flex-col justify-start gap-3 p-4 mt-5 ">
             <h4
               style={{
                 marginBottom: "30px",
@@ -122,67 +95,50 @@ const Home = () => {
                 color: "#ff6600",
               }}
             >
-              Dashboard
+              Main Dashboard
             </h4>
             {/* // Statistics cards  */}
-            <div className="cards mr-6">
-              <div class="grid md:grid-cols-3 grid-col-1 gap-3">
-                {icons.map((icons, index) => (
-                  <div className="card shadow p-9 text-black ">
-                    <div className="card-body">
-                      <div className="grid grid-cols-2 gap-2">
-                        <div className="pr-6">
-                          <div className="card-title pb-7 text-2xl text-neutral-800 h-20">
-                            {icons.title}{" "}
-                          </div>
-                          <div className="card-text pt-6 text-xl">20 %</div>
-                        </div>
-                        <div>
-                          <Image src={icons.image} />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* //lower table  */}
-            <div className="">
-              <table className="table w-full mt-24">
-                <thead className="bg-slate-300 h-10">
-                  <tr>
-                    <th>Id</th>
-                    <th>Name</th>
-                    <th>Image</th>
-                    <th>Price </th>
-                    <th>Details</th>
-                  </tr>
-                </thead>
-                <tbody className="w-full items-center text-center">
-                  {products.map((names, index) => (
-                    <tr key={index}>
-                      <td>{names.id}</td>
-                      <td>{names.name}</td>
-                      <td className="w-16">
-                        <Image src={names.image} className="" />
-                      </td>
-                      {/* <td>{names.image}</td> */}
-                      <td>{names.price}</td>
-                      <td>
-                        <button
-                          className="bg-slate-300 pl-5 pr-5 p-1 text-black rounded-sm"
-                          onClick={(e) => showDetail(names.id)}
-                          data-toggle="modal"
-                          data-target="#myModal"
-                        >
-                          Details
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+            <div className="flex flex-wrap ">
+              {/* {dashboardData &&
+              Object.entries(dashboardData.data).map(([key, value]) => (
+                <DashboardCard key={key} name={key} value={value} />
+              ))} */}
+              <DashboardCard
+                key={dashboardData.data.totalAvailableProducts}
+                name={`Total Available Products`}
+                value={dashboardData.data.totalAvailableProducts}
+                color = {`bg-emerald-600`}
+              />
+              <DashboardCard
+                key={dashboardData.data.totalOrders}
+                name={`Total Orders`}
+                value={dashboardData.data.totalOrders}
+                color = {`bg-sky-400`}
+              />
+              <DashboardCard
+                key={dashboardData.data.totalPendingOrders}
+                name={`Total Pending Orders`}
+                color = {`bg-yellow-400`}
+                value={dashboardData.data.totalPendingOrders}
+              />
+              <DashboardCard
+                key={dashboardData.data.totalProducts}
+                name={`Total Products`}
+                color = {`bg-teal-500`}
+                value={dashboardData.data.totalProducts}
+              />
+              <DashboardCard
+                key={dashboardData.data.totalSales}
+                name={`Total Sales`}
+                color = {`bg-green-500`}
+                value={dashboardData.data.totalSales}
+              />
+              <DashboardCard
+                key={dashboardData.data.totalUnavailableProducts}
+                name={`Total Unavailable Products`}
+                color = {`bg-red-800`}
+                value={dashboardData.data.totalUnavailableProducts}
+              />
             </div>
           </div>
         </div>

@@ -218,10 +218,10 @@ function Products() {
               href={"/seller/products/addProducts"}
               className="px-4 py-2 text-white bg-[#ff6600] rounded-md hover:bg-[#ff6600] focus:outline-none"
             >
-              اضافة منتج جديد
+              Add Product to store
             </Link>
           </div>
-          <div className="flex flex-col sm:flex-row justify-center space-y-2 sm:space-y-0 sm:justify-between w-full px-4 mb-2 mt-4 items-center ">
+          {/* <div className="flex flex-col sm:flex-row justify-center space-y-2 sm:space-y-0 sm:justify-between w-full px-4 mb-2 mt-4 items-center ">
             <div className="flex bg-gray-100 w-full sm:w-2/5 items-center rounded-lg">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -253,7 +253,7 @@ function Products() {
                 <option></option>
               </select>
             </div>
-          </div>
+          </div> */}
           {isLoading || isRefetching ? (
             <div className="w-full h-full">
               <TawasyLoader width={300} height={300} />

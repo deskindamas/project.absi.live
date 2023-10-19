@@ -23,6 +23,7 @@ export default function Sidebar(props) {
   function logOut() {
     localStorage.removeItem("AT");
     localStorage.removeItem("user");
+    // localStorage.removeItem("Sid");
     router.replace("/login");
   }
 
@@ -77,7 +78,12 @@ export default function Sidebar(props) {
                     <li className={`pt-3`}>
                       <button
                         className="flex items-center p-2 space-x-3 rounded-md text-gray-100"
-                        onClick={() => {}}
+                        onClick={() => {
+                          router.push({
+                            pathname: "/seller/orders",
+                            query: { type : "pendingOrders"},
+                          });
+                        }}
                       >
                         <MdPendingActions className="block text-[20px] text-white " />
                         <p className="hidden md:block"> Pending Orders</p>
@@ -85,31 +91,46 @@ export default function Sidebar(props) {
                     </li>
 
                     <li className={`pt-3`}>
-                      <Link
+                      <button
                         className="flex items-center p-2 space-x-3 rounded-md text-gray-100"
-                        href="/"
+                        onClick={() => {
+                          router.push({
+                            pathname: "/seller/orders",
+                            query: { type : "rejectedOrders"},
+                          });
+                        }}
                       >
                         <AiOutlineCloseCircle className="block text-[20px] text-white " />
                         <p className="hidden md:block">Rejected Orders</p>
-                      </Link>
+                      </button>
                     </li>
                     <li className={`pt-3`}>
-                      <Link
+                      <button
                         className="flex items-center p-2 space-x-3 rounded-md text-gray-100"
-                        href="/"
+                        onClick={() => {
+                          router.push({
+                            pathname: "/seller/orders",
+                            query: { type : "acceptedOrders"},
+                          });
+                        }}
                       >
                         <AiOutlineCarryOut className="block text-[20px] text-white " />
                         <p className="hidden md:block">Accepted Orders</p>
-                      </Link>
+                      </button>
                     </li>
                     <li className={`pt-3`}>
-                      <Link
+                      <button
                         className="flex items-center p-2 space-x-3 rounded-md text-gray-100"
-                        href="/"
+                        onClick={() => {
+                          router.push({
+                            pathname: "/seller/orders",
+                            query: { type : "allOrders"},
+                          });
+                        }}
                       >
                         <BsBox className="block text-[20px] text-white " />
                         <p className="hidden md:block">All Orders</p>
-                      </Link>
+                      </button>
                     </li>
                   </ul>
                 </AccordionItem>
@@ -199,7 +220,7 @@ export default function Sidebar(props) {
 
               <li className="rounded-sm pb-3">
                 <Link
-                  href="/"
+                  href="/seller/store"
                   className="flex items-center pl-2 space-x-3 pt-2 rounded-md text-gray-100"
                 >
                   <IoStorefrontSharp className="block text-[20px] text-white " />

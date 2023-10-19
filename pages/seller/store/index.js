@@ -1,95 +1,159 @@
-import React, {useState , useEffect } from 'react';
-import withLayout from '@/components/wrapping components/WrappingSellerLayout';
-import SellerStore from '@/components/SellerStore/sellerStore';
-import Logo from '../../../public/images/logo-store.jpg';
-import Image from 'next/image';
-import Storeimage from '../../../public/images/storeimage.jpg';
-import FilterCategories from '@/components/SellerStore/filterCategory/filterCategories';
-import styles from '../../../components/componentsStyling/sellerStyles.module.css';
+import React, { useState, useEffect } from "react";
+import withLayout from "@/components/wrapping components/WrappingSellerLayout";
+import SellerStore from "@/components/SellerStore/sellerStore";
+import Logo from "../../../public/images/logo-store.jpg";
+import Image from "next/image";
+import Storeimage from "../../../public/images/storeimage.jpg";
+import FilterCategories from "@/components/SellerStore/filterCategory/filterCategories";
+// import styles from "../../../components/componentsStyling/sellerStyles.module.css";
+import { useRouter } from "next/router";
+import createAxiosInstance from "@/API";
+import { useQuery } from "react-query";
+import TawasyLoader from "@/components/UI/tawasyLoader";
+import styles from "../../../components/componentsStyling/sellerStorePage.module.css";
 
 const Store = () => {
- 
-    const categories = [
-      {
-        name : 'lorem1'
-      },
-      {
-         name : 'lorem2'
-      },
-      {
-       
-        name : 'lorem3'
-      },
-      {
-        
-        name : 'lorem4'
-      },
-      {
-       
-        name : 'lorem5'
-      },
-      {
-  
-        name : 'lorem6'
-      },
-      {
-    
-        name : 'lorem7'
-      },
-    ]
+  const router = useRouter();
+  const Api = createAxiosInstance(router);
+  const {
+    data: sellerStoreData,
+    isLoading,
+    isError,
+    error,
+    refetch , 
+    isRefetching, 
+  } = useQuery(`sellerStore`, fetchSellerStoreData, {
+    staleTime: Infinity,
+    refetchOnMount: true,
+    refetchOnWindowFocus: false,
+  });
 
-  const [users, setUsers] = useState([]);
-  const getUsers = async () => {
-      const response = await fetch("https://api.github.com/users");
-      const FinalData = await response.json();
-      setUsers(FinalData)
+  async function fetchSellerStoreData() {
+    const response = await Api.get(`/api/seller/store/products`);
+    return response.data.data;
   }
 
-  useEffect(() => {
-      getUsers();
-  }, []);
+  const [selectedCategory, setSelectedCategory] = useState(null);
 
-  
+  const onSelectCategory = (categoryName) => {
+    setSelectedCategory(categoryName);
+  };
+
+  useEffect(() => {
+    // Set the default category to the first category when data is available
+    if (sellerStoreData && sellerStoreData.categories.length > 0) {
+      setSelectedCategory(sellerStoreData.categories[0].name);
+    }
+  }, [sellerStoreData]);
+
+  let selectedCategoryData;
+
+  if (sellerStoreData && selectedCategory) {
+    selectedCategoryData = sellerStoreData.category.find(
+      (category) => category.name === selectedCategory
+    );
+    console.log(selectedCategoryData);
+  }
+
+  if (isLoading) {
+    return (
+      <div className="w-full h-full">
+        <TawasyLoader width={700} height={700} />
+      </div>
+    );
+  }
+
+  function convertTo12HourFormat(time24) {
+    const timeParts = time24.split(":");
+    const dateObj = new Date(0, 0, 0, timeParts[0], timeParts[1], timeParts[2]);
+    let hours = dateObj.getHours();
+    const minutes = dateObj.getMinutes();
+    const ampm = hours >= 12 ? "PM" : "AM";
+    hours = hours % 12 || 12;
+    const time12 = `${hours}:${minutes.toLocaleString("en-US", {
+      minimumIntegerDigits: 2,
+    })} ${ampm}`;
+
+    return time12;
+  }
 
   return (
-           <div className="md:px-7 w-full h-full flex flex-col justify-start items-center ">
-              <div className=' relative w-full box-content' >
-                 <Image className='w-full 'src={Storeimage} alt='store'/>
-                <div className='pb-6'>
-                <Image className=' shadow absolute z-10 md:bottom-20  right-10 rounded-full' src={Logo} alt='store'/>
-                <h1 className='text-5xl font-semibold text-white absolute z-10 md:bottom-20  left-10 outline-black outline-2' >Super Star</h1>
-                </div>
-              </div>
-              <div className='flex justify-start w-full pb-5'>
-              <h2 className='items-start text-xl text-gray-600 font-medium'>Opening Time :   <span className='text-gray-400'> 10 : 00 AM</span> </h2>
-              </div>
-              <div className='flex justify-start w-full pb-5'>
-              <h2 className='items-start text-xl text-gray-600 font-medium'>Closing Time :   <span className='text-gray-400'> 10 : 00 AM</span> </h2>
-              </div>
-              <div className='flex justify-start w-full pb-16'>
-              <h2 className='items-start text-xl text-gray-600 font-medium'>Opening Days :   <span className='text-gray-400'> Sunday , Monday , Tuesday ,Wednesday , Thursday</span> </h2>
-              </div>
-              <div className='flex justify-center bg-gray-200 w-full pt-3 pb-3 mb-10'>
-              <ul className='flex flex-wrap items-center'>
-          {categories.map((category) => {
-            return (
-            <FilterCategories  key={categories?.name} categories={category}   />
-            );
-          })}
-        </ul>
-              </div>
-              <div className="grid md:grid-cols-3 sm:grid-cols-1 grid-col-1 gap-4 ">
-              {
-                users.map((curElem) => {
-                return (
-                 <SellerStore store = {curElem} />
-                   )
-                })
-                }
-                   </div>
-             </div>   
+    <div className="md:px-7 w-full h-full flex flex-col justify-start items-center ">
+      {sellerStoreData && (
+        <div className=" relative w-full box-content">
+          {/* <Image className="w-full " src={sellerStoreData.store.image} alt="store" width={130} height={130} /> */}
+          <Image className="w-full " src={Storeimage} alt="store" />
+          <div className="pb-6">
+            <Image
+              className=" shadow absolute z-10 md:bottom-20  right-10 rounded-full outline-none outline-2 outline-skin-primary "
+              src={Logo}
+              alt="store"
+            />
+            {/* <Image
+            className=" shadow absolute z-10 md:bottom-20  right-10 rounded-full"
+            src={sellerStoreData.store.logo}
+            alt="store"
+            width={1480}
+            height={563}
+          /> */}
+            <h1 className={styles.storeName}>{sellerStoreData.store.name}</h1>
+          </div>
+        </div>
+      )}
+
+      <div className="flex flex-col justify-around items-stretch w-full">
+        <div className="flex justify-around items-center border-b-2 border-skin-primary py-2 my-2">
+          <div className="flex justify-start items-center w-full gap-2 px-4   ">
+            <h2 className="text-2xl text-skin-primary font-medium  ">
+              Opening Time :
+            </h2>
+            <span className="text-gray-400 text-2xl  ">
+              {" "}
+              {convertTo12HourFormat(sellerStoreData.store.opening_time)}
+            </span>
+          </div>
+          <div className="flex justify-start items-center w-full gap-2 px-4  ">
+            <h2 className="text-2xl text-skin-primary font-medium  ">
+              Closing Time :
+            </h2>
+            <span className="text-gray-400 text-2xl  ">
+              {convertTo12HourFormat(sellerStoreData.store.closing_time)}
+            </span>
+          </div>
+        </div>
+        <div className="flex justify-center items-center w-full pb-5">
+          <h2 className="items-start text-xl text-gray-600 font-medium">
+            Opening Days :
+            {sellerStoreData.store.opening_days?.map((day, index) => {
+              return (
+                <span className="text-gray-400 uppercase px-2">
+                  {index !== sellerStoreData.store.opening_days.length -1 ? `${day} ,` : day}
+                </span>
+              );
+            })}
+          </h2>
+          <div> </div>
+        </div>
+      </div>
+
+      <div className="flex justify-center bg-gray-200 w-full pt-3 pb-3 mb-10">
+        {sellerStoreData && (
+          <FilterCategories
+            categories={sellerStoreData?.categories}
+            selectedCategory={selectedCategory}
+            onSelectCategory={onSelectCategory}
+          />
+        )}
+      </div>
+      <div className="grid md:grid-cols-3 sm:grid-cols-1 grid-col-1 gap-4 ">
+        {sellerStoreData &&
+          selectedCategoryData &&
+          selectedCategoryData.products.map((product) => (
+            <SellerStore store={product} refetch = {() => {refetch();}} />
+          ))}
+      </div>
+    </div>
   );
 };
 
-
-  export default  withLayout(Store);
+export default withLayout(Store);

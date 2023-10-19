@@ -49,24 +49,37 @@ function AddProduct({ addproduct }) {
             <div>
               <div className="flex justify-between items-center md:w-[80%] w-[90%] mx-auto  ">
                 <div className="flex flex-wrap gap-2">
-                  <div className=" px-2 bg-white border-2 border-skin-primary rounded-2xl text-skin-primary  text-start  flex justify-center items-center ">
-                    {addproduct.category}
-                  </div>
-                  <div className=" px-2 bg-white border-2 w-max border-skin-primary rounded-2xl text-skin-primary flex justify-center items-center ">
-                    {addproduct.brand}
-                  </div>
+                  {addproduct.category && (
+                    <div className=" px-2 bg-white border-2 border-skin-primary rounded-2xl text-skin-primary  text-start  flex justify-center items-center ">
+                      {addproduct.category}
+                    </div>
+                  )}
+                  {addproduct.brand && (
+                    <div className=" px-2 bg-white border-2 w-max border-skin-primary rounded-2xl text-skin-primary flex justify-center items-center ">
+                      {addproduct.brand}
+                    </div>
+                  )}
                 </div>
-                {!isLoading ? (
+                {addproduct.message &&
+                addproduct.message == "Product found in another store type." ? (
+                  <div className="text-red-500">
+                    This Product is not compatible with you store type{" "}
+                  </div>
+                ) : !isLoading ? (
                   <AiOutlinePlus
                     onClick={saveProduct}
                     className="cursor-pointer shadow md:w-[30px] md:h-[30px] bg-skin-primary text-white md:p-[5px] rounded-full w-[30px] h-[25px] md:[px-0] md:[mx-0] px-1 mx-2 "
+<<<<<<< HEAD
+=======
   
+>>>>>>> cfefcb1e9f633385cfcdd511888f7a876c7d5496
                   />
                 ) : (
                   <div className="bg-skin-primary p-[5px] rounded-full">
                     <Ring size={20} lineWeight={5} speed={2} color="white" />
                   </div>
                 )}
+                {}
               </div>
             </div>
           </div>

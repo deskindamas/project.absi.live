@@ -31,6 +31,8 @@ const SignUp = () => {
         name: customerUserNameRef.current.value,
         phone_number: customerNumberRef.current.value,
         location: address.address,
+        longitude :address.lat ,
+        latitude : address.lng 
       });
       if (response.status !== 200) {
         throw new Error(response);
@@ -66,6 +68,8 @@ const SignUp = () => {
         name: sellerUserNameRef.current.value,
         phone_number: sellerNumberRef.current.value,
         location: sellerCity,
+        longitude :address.lat ,
+        latitude : address.lng ,
         city: sellerCity,
       });
       if (response.status !== 200) {
@@ -97,6 +101,8 @@ const SignUp = () => {
   };
 
   function handleData(data) {
+    console.log(`address`) ;
+    console.log(data);
     setAddress(data) ;
   }
 

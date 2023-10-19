@@ -1,9 +1,17 @@
+import TiltCard from "@/components/UI/TileCard";
+import TawasyLoader from "@/components/UI/tawasyLoader";
+import image from "../../public/images/supermarket.jpeg";
+import StoreComponent from "@/components/customerCommponents/StoreComponent";
+import StoreTypeComponent from "@/components/customerCommponents/StoreTypeComponent/StoreTypeComponent";
+import Image from "next/image";
 import { ResponsiveCarousel } from "@/components/CarouselCustomer/carousel";
 import withLayoutCustomer from "@/components/wrapping components/WrappingCustomerLayout";
 import Image from "next/image";
 import image from '../../public/images/146.png'
 
-function CustomerPage (){
+function CustomerPage() {
+  // return (
+   
 
     const cards=[
         {
@@ -51,7 +59,7 @@ function CustomerPage (){
     </div>
 
     </div>
-
+  // );
 }
 
 export default withLayoutCustomer(CustomerPage) ;
