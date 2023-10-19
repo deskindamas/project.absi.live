@@ -12,8 +12,8 @@ const Footer =() => {
         <div className='bg-[#262626]  bottom-0 w-full pb-10 pt-5'>
           <div >
         <div className='flex justify-center pb-5 text-gray-400'>
-        <Link className='mr-16' href='#'>Contact us</Link>
-         <Link className='mr-16' href='#'>Privacy Policy</Link>
+        <Link className='mr-[5%]' href='#'>Contact us</Link>
+         <Link className='mr-[5%]' href='#'>Privacy Policy</Link>
          <Link href='#'>Terms and Conditions</Link>
       
         </div>
