@@ -6,15 +6,37 @@ import StoreTypeComponent from "@/components/customerCommponents/StoreTypeCompon
 import Image from "next/image";
 import { ResponsiveCarousel } from "@/components/CarouselCustomer/carousel";
 import withLayoutCustomer from "@/components/wrapping components/WrappingCustomerLayout";
+import Head from "next/head";
 
 function CustomerPage() {
-  // return (
-   
+  return (
+    <>
+      <Head>
+        <title>Tawasy Shopping</title>
+        <meta />
+      </Head>
+      <div className="w-full h-full">
+        <div className="flex flex-col justify-start items-center h-full w-full gap-4 py-4 ">
+          <div className="mx-auto w-full py-12 ">
+            <ResponsiveCarousel />
+          </div>
 
-    return <div className="w-full h-full" >
-     <ResponsiveCarousel/>
-    </div>
-  // );
+          <div className=" font-mohave text-4xl text-skin-primary py-5 ">
+            Discover Our Store Types
+          </div>
+          <div className=" w-[70%] h-[60%] grid grid-cols md:grid-cols-4 sm:grid-cols-3  grid-cols-1 gap-y-6 gap-x-6 py-14 ">
+            <StoreTypeComponent/>
+            <StoreTypeComponent/>
+            <StoreTypeComponent/>
+            <StoreTypeComponent/>
+            <StoreTypeComponent/>
+            <StoreTypeComponent/>
+            <StoreTypeComponent/>
+          </div>
+        </div>
+      </div>
+    </>
+  );
 }
 
-export default withLayoutCustomer(CustomerPage) ;
+export default withLayoutCustomer(CustomerPage);

@@ -6,33 +6,18 @@ import { BsFillBagFill } from "react-icons/bs";
 import Cart from "../CartCustomer/cart";
 import styles from "../../components/componentsStyling/sellerStyles.module.css";
 
-
 function Navbar() {
   const [showCartSidebar, setShowCartSidebar] = useState(false);
-  // const [translationX, setTranslationX] = useState(1425);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // const handleCartClick = () => {
-  //   setShowCartSidebar(!showCartSidebar);
-
-  //   const timer = setInterval(() => {
-  //     setElapsedTime(elapsedTime + 10);
-  //   }, 10);
-
-  //   return () => {
-  //     clearInterval(timer);
-  //   };
-  // };
-  const [elapsedTime, setElapsedTime] = useState(0);
-
-  // useEffect(() => {
-  //   const timer = setInterval(() => {
-  //     setElapsedTime((prev) => prev + 10);
-  //   }, 10);
-
-  //   return () => {
-  //     clearInterval(timer);
-  //   };
-  // }, []);
+  useEffect(() => {
+    const token = localStorage.getItem("AT");
+    if (token) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, []);
 
   const handleCartButtonClick = () => {
     setShowCartSidebar(true);
@@ -56,9 +41,9 @@ function Navbar() {
                 stroke="currentColor"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                 />
               </svg>
@@ -70,34 +55,24 @@ function Navbar() {
             </div>
           </div>
           <div className="flex">
-            <Link className="text-white mr-4 mt-1" href="">
-              Orders
-            </Link>
-            <div>
-              <Link href="" onClick={handleCartButtonClick}>
-                <BsFillBagFill className="text-white w-[20px] h-[20px] mt-2 mr-3" />
+            { isLoggedIn == true && <div className="flex items-center" >
+              <Link className="text-white mr-4" href="">
+                Orders
               </Link>
-            </div>
+              <button onClick={handleCartButtonClick}>
+                <BsFillBagFill className="text-white w-[20px] h-[20px]  mr-3" />
+              </button>
+            </div>}
             <button className="text-white border-white px-3 py-1 rounded-sm mr-3">
               Become A Seller
             </button>
-            <button className="text-white border-[1px] border-white px-3 py-1 rounded-md">
+            <button className="text-white border-[1px] border-white px-3 hover:bg-white hover:text-skin-primary py-1 rounded-md">
               Login
             </button>
           </div>
-
         </div>
       </div>
-      {
-        <div >
-          {showCartSidebar && (
-            <Cart 
-              show={showCartSidebar}
-              onClose={() => setShowCartSidebar(false)}
-            />
-          )}
-        </div>
-      }
+      <Cart show={showCartSidebar} onClose={() => setShowCartSidebar(false)} />
     </>
   );
 }

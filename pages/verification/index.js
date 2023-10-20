@@ -76,7 +76,7 @@ const Code = () => {
         });
         localStorage.removeItem("number");
         localStorage.setItem("AT", response.data.token);
-        router.replace("/");
+        router.replace("/customer");
         setIsLoading(false);
         if (response.status !== 200) {
           throw new Error(response);

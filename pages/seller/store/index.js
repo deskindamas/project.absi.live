@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import withLayout from "@/components/wrapping components/WrappingSellerLayout";
 import SellerStore from "@/components/SellerStore/sellerStore";
-import Logo from "../../../public/images/logo-store.jpg";
+// import Logo from "../../../public/images/logo-store.jpg";
+import Logo from '../../../public/images/lego.png'
 import Image from "next/image";
 import Storeimage from "../../../public/images/storeimage.jpg";
 import FilterCategories from "@/components/SellerStore/filterCategory/filterCategories";
@@ -85,7 +86,7 @@ const Store = () => {
           <Image className="w-full " src={Storeimage} alt="store" />
           <div className="pb-6">
             <Image
-              className=" shadow absolute z-10 md:bottom-20  right-10 rounded-full outline-none outline-2 outline-skin-primary "
+              className=" shadow absolute z-10 md:bottom-20  right-10 rounded-full outline-none outline-2 w-[10%] h-[25%] outline-skin-primary object-cover "
               src={Logo}
               alt="store"
             />
