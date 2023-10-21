@@ -6,8 +6,8 @@ import StoreTypeComponent from "@/components/customerCommponents/StoreTypeCompon
 import Image from "next/image";
 import { ResponsiveCarousel } from "@/components/CarouselCustomer/carousel";
 import withLayoutCustomer from "@/components/wrapping components/WrappingCustomerLayout";
-import Image from "next/image";
-import image from '../../public/images/146.png'
+// import Image from "next/image";
+// import image from '../../public/images/146.png'
 
 function CustomerPage() {
   // return (

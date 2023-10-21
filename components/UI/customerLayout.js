@@ -5,7 +5,7 @@ function CustomerLayout(props) {
   return (
     <div className="w-screen h-screen">
       <Navbar />
-      <div className="pt-[3.5%]" >{props.children}</div>
+      <div className="pt-[4%]" >{props.children}</div>
       <Footer />
     </div>
   );
