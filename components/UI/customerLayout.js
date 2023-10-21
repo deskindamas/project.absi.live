@@ -3,9 +3,9 @@ import Navbar from "../NavbarCustomer/navbar";
 
 function CustomerLayout(props) {
   return (
-    <div className="w-screen h-screen">
+    <div >
       <Navbar/>
-      <div className="pt-[60px]" >{props.children}</div>
+      <div className="pt-[60px] mx-auto" >{props.children}</div>
       <Footer />
     </div>
   );

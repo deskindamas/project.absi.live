@@ -18,7 +18,7 @@ function CustomerPage() {
       <div className="w-full h-full">
         <div className="flex flex-col justify-start items-center h-full w-full gap-4 ">
           <div className="mx-auto w-full  ">
-            <ResponsiveCarousel />
+            <ResponsiveCarousel/>
           </div>
 
           <div className=" font-mohave text-4xl text-skin-primary py-5 ">
