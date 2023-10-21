@@ -20,7 +20,7 @@ function Navbar(props) {
 
   return (
     <>
-        <div className="flex bg-skin-primary justify-around  pt-2 pb-2 w-full  z-20 fixed ">
+        <div className="flex bg-skin-primary justify-around  h-[60px] pt-2 pb-2 w-full  z-20 fixed ">
           <div className="flex justify-start md:pl-16 pl-1 md:w-[50%] w-[20%] h-full ">
             <Image src={TawasyLogo} alt="logo" className="md:w-[15%] w-[100%] h-[100%]" />
           </div>       
