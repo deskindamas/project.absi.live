@@ -21,7 +21,7 @@ function Home() {
         router.replace("/customer");
       }
     } else {
-      router.replace("/login");
+      router.replace("/customer" , '/');
     }
     setIsLoading(false);
   }, []);

@@ -1,17 +1,23 @@
-import image from "../../../public/images/supermarket.jpeg";
+import Link from "next/link";
+import image from "../../../public/images/storetype.png";
 import Image from "next/image";
 // import image from "../../../public/images/flowers.jpeg";
 
-function StoreTypeComponent() {
-  console.log(image);
-
+function StoreTypeComponent({ photo, text }) {
   return (
-    <div className=" relative w-[100%] h-max object-contain mx-auto">
-      <Image src={image} alt="image" className="" />
-      <div className="absolute md:top-28 md:left-2 md:text-5xl top-16 left-1 text-3xl font-mohave text-skin-primary ">
-        Super Market
-      </div>
-    </div>
+    <Link href={"#"}  className="relative">
+      <Image
+        src={image}
+        // src="https://himenobaraen.jp/wp-content/uploads/rosa_chinensis.jpg"
+        width={0}
+        height={0}
+        sizes="100vw"
+        style={{ width: "100%", height: "auto" }} // optional
+      />
+      <h2 className=" absolute inset-0 flex items-center pl-2 justify-start  z-10 lg:text-[200%] md:text-[100%] text-[175%] font-mohave text-skin-primary h-full ">
+        Restaurant
+      </h2>
+    </Link>
   );
 }
 

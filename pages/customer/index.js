@@ -6,60 +6,37 @@ import StoreTypeComponent from "@/components/customerCommponents/StoreTypeCompon
 import Image from "next/image";
 import { ResponsiveCarousel } from "@/components/CarouselCustomer/carousel";
 import withLayoutCustomer from "@/components/wrapping components/WrappingCustomerLayout";
-// import Image from "next/image";
-// import image from '../../public/images/146.png'
+import Head from "next/head";
 
 function CustomerPage() {
-  // return (
-   
+  return (
+    <>
+      <Head>
+        <title>Tawasy Shopping</title>
+        <meta />
+      </Head>
+      <div className="w-full h-full">
+        <div className="flex flex-col justify-start items-center h-full w-full gap-4 ">
+          <div className="mx-auto w-full  ">
+            <ResponsiveCarousel />
+          </div>
 
-    const cards=[
-        {
-            images : image,
-            title : 'Restaurants',
-        },
-        {
-            images : image,
-            title : 'Restaurants',
-        },
-        {
-            images : image,
-            title : 'Restaurants',
-        },
-        {
-            images : image,
-            title : 'Restaurants',
-        },    {
-            images : image,
-            title : 'Restaurants',
-        },
-
-        {
-            images : image,
-            title : 'Restaurants',
-        },
-    ]
-
-    return <div className="w-full h-full" >
-     <ResponsiveCarousel/>
-
-     <div className=" relative w-[100%] h-max object-contain mx-auto">
-    <div className="grid md:grid-cols-4 grid-col-2">
-    {cards.map((card) => ( 
-          <>  
-          <div className="relative">
-         <h2 className=" flex items-start justify-start absolute  md:text-4xl text-3xl font-mohave text-skin-primary ">
-           {card.title}
-         </h2>  
-           <Image src={card.images} alt="image" className="" />
-           </div>
-         </>
-     ))}
-    </div>
-    </div>
-
-    </div>
-  // );
+          <div className=" font-mohave text-4xl text-skin-primary py-5 ">
+            Discover Our Store Types
+          </div>
+          <div className=" w-[70%] h-[60%] grid grid-cols md:grid-cols-4 sm:grid-cols-3  grid-cols-1 gap-y-6 gap-x-6 pb-4 ">
+            <StoreTypeComponent/>
+            <StoreTypeComponent/>
+            <StoreTypeComponent/>
+            <StoreTypeComponent/>
+            <StoreTypeComponent/>
+            <StoreTypeComponent/>
+            <StoreTypeComponent/>
+          </div>
+        </div>
+      </div>
+    </>
+  );
 }
 
-export default withLayoutCustomer(CustomerPage) ;
+export default withLayoutCustomer(CustomerPage);
