@@ -4,10 +4,14 @@ import TawasyLogo from "../.../../../public/images/tawasylogowhite.png";
 import Link from "next/link";
 import { BsFillBagFill } from "react-icons/bs";
 import Cart from "../CartCustomer/cart";
+import { CgProfile } from "react-icons/cg";
 import styles from "../../components/componentsStyling/sellerStyles.module.css";
 import { propTypesSelected } from "@material-tailwind/react/types/components/select";
+import { useRouter } from "next/router";
 
 function Navbar() {
+
+  const router = useRouter();
   const [showCartSidebar, setShowCartSidebar] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -43,6 +47,10 @@ function Navbar() {
               </Link>
               <button onClick={handleCartButtonClick}>
                 <BsFillBagFill className="text-white w-[20px] h-[20px]  " />
+              </button>
+
+              <button onClick={() => {router.push(`/customer/MyProfile`)}}>
+                <CgProfile className="text-white w-[25px] h-[25px] mb-[-3px]" />
               </button>
             </div>
           )}

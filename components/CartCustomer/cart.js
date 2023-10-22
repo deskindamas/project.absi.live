@@ -31,7 +31,7 @@ const Cart = ({ onClose, show, className }) => {
     },
     {
       id: 3,
-      image: Item,
+      image: photo,
       name: "Suger",
       price: "190",
       total: "410",
@@ -50,8 +50,8 @@ const Cart = ({ onClose, show, className }) => {
     <div
       className={`fixed flex top-[7%] z-50 right-0 h-full  bg-transparent transition-all duration-700 ${show == false ? `w-0` : `w-full` } `}
     >
-      <div className="w-[60%] bg-transparent " onClick={onClose}></div>
-      <div className={`w-[40%] bg-white`}>
+      <div className="md:w-[60%] w-0 bg-transparent " onClick={onClose}></div>
+      <div className={`md:w-[40%] w-[100%] bg-white`}>
         <div className="">
           <div className="flex px-4 bg-gray-50 justify-between pt-3 pb-3">
             <h3 className="flex font-medium text-xl text-gray-600 ml-2 select-none ">
