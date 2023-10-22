@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 import createAxiosInstance from "@/API";
 import { useQuery } from "react-query";
 import TawasyLoader from "@/components/UI/tawasyLoader";
+import ProductCustomer from "@/components/ProductsCustomer/products";
 
 function Products() {
   const router = useRouter();
@@ -170,43 +171,44 @@ function Products() {
 
         <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 grid-col-1 gap-4 ">
           {products?.map((product) => (
-            <div key={product.id} className="mb-4">
-              <div
-                className="bg-white overflow-hidden drop-shadow-md rounded-lg
-                w-80  items-center justify-center"
-              >
-                <div className="w-full bg-cover overflow-hidden">
-                  <Image
-                    src={product.image}
-                    className="w-full h-64 transform transition duration-1000 hover:scale-125 hover:rotate-2  "
-                  />
-                </div>
-                <div className=" mt-4 px-4 py-4">
-                  <div className="flex justify-between mb-2">
-                    <h3 className="text-gray-600 text-2xl font-medium ">
-                      {product.name}
-                    </h3>
-                    <p className="text-gray-800 text-lg font-medium ">
-                      {product.price} s.p
-                    </p>
-                  </div>
-                  <p className="text-gray-700 text-base font-light py-3">
-                    {product.descraption}
-                  </p>
-                  <div className="flex justify-center items-center py-4">
-                    <button
-                      className="items-center py-2 
-                     w-full text-sm font-medium 
-                      text-center text-gray-900 
-                      bg-white rounded-full border 
-                      border-[#ff6600] hover:bg-[#ff6600] hover:text-white transition-all duration-500 "
-                    >
-                      Add To Cart
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
+            // <div key={product.id} className="mb-4">
+            //   <div
+            //     className="bg-white overflow-hidden drop-shadow-md rounded-lg
+            //     w-80  items-center justify-center"
+            //   >
+            //     <div className="w-full bg-cover overflow-hidden">
+            //       <Image
+            //         src={product.image}
+            //         className="w-full h-64 transform transition duration-1000 hover:scale-125 hover:rotate-2  "
+            //       />
+            //     </div>
+            //     <div className=" mt-4 px-4 py-4">
+            //       <div className="flex justify-between mb-2">
+            //         <h3 className="text-gray-600 text-2xl font-medium ">
+            //           {product.name}
+            //         </h3>
+            //         <p className="text-gray-800 text-lg font-medium ">
+            //           {product.price} s.p
+            //         </p>
+            //       </div>
+            //       <p className="text-gray-700 text-base font-light py-3">
+            //         {product.descraption}
+            //       </p>
+            //       <div className="flex justify-center items-center py-4">
+            //         <button
+            //           className="items-center py-2 
+            //          w-full text-sm font-medium 
+            //           text-center text-gray-900 
+            //           bg-white rounded-full border 
+            //           border-[#ff6600] hover:bg-[#ff6600] hover:text-white transition-all duration-500 "
+            //         >
+            //           Add To Cart
+            //         </button>
+            //       </div>
+            //     </div>
+            //   </div>
+            // </div>
+            <ProductCustomer product = {product}/>
           ))}
         </div>
       </div>

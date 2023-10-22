@@ -8,7 +8,7 @@ const ContactUs = () => {
   return (
     <div className='w-full h-full'>
     <div style={{ 
-       backgroundImage:  `url(${Contact})` ,
+       backgroundImage:  `url(/images/contactus3.jpg)` ,
        backgroundRepeat:"no-repeat", 
        backgroundSize:"cover" ,
         backgroundPosition:"center center"

@@ -1,7 +1,5 @@
-// import { Carousel, Typography, Button } from "@material-tailwind/react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-// export {Carousel , Typography , Button} from '../UI/materialCarousel';
 
 export function ResponsiveCarousel() {
   return (
