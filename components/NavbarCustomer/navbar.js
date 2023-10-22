@@ -13,7 +13,8 @@ function Navbar() {
 
   useEffect(() => {
     const token = localStorage.getItem("AT");
-    if (token) {
+    const user = localStorage.getItem(`user`);
+    if (token && user && user == `customer`) {
       setIsLoggedIn(true);
     } else {
       setIsLoggedIn(false);
@@ -26,34 +27,34 @@ function Navbar() {
 
   return (
     <>
-      <div className="flex bg-skin-primary justify-around  pt-2 pb-2 w-full h-[60px]  z-20 fixed ">
-        <div className="flex justify-start md:pl-16 pl-1 md:w-[50%] w-[20%] h-full ">
+      <div className="flex bg-skin-primary justify-around h-[60px] pt-2 pb-2 w-full  z-20 fixed ">
+        <div className="flex justify-start md:pl-16 md:w-[50%] w-[20%] h-full pl-10 ">
           <Image
             src={TawasyLogo}
             alt="logo"
             className="md:w-[15%] w-[100%] h-[100%]"
           />
         </div>
-        <div className="md:w-[50%] w-[80%] flex justify-center">
+        <div className="md:w-[50%] w-[80%] flex justify-end items-center px-10">
           {isLoggedIn == true && (
-            <div className="flex items-center">
-              <Link className="text-white mr-4" href="">
-                Orders
+            <div className="flex items-center gap-4 ">
+              <Link className="text-white" href="/customer/Orders">
+                My Orders
               </Link>
               <button onClick={handleCartButtonClick}>
-                <BsFillBagFill className="text-white w-[20px] h-[20px]  mr-3" />
+                <BsFillBagFill className="text-white w-[20px] h-[20px]  " />
               </button>
             </div>
           )}
-          <Link className="text-white md:mr-6 mr-2 mt-[10px]" href="">
+          {/* <Link className="text-white md:mr-6 mr-2 mt-[10px]" href="#">
             Become A Seller
-          </Link>
+          </Link> */}
           {/* <button className="text-white border-white px-3 py-1 rounded-sm mr-3">
               Become A Seller
             </button> */}
-          <button className="text-white border-[1px] border-white md:px-6 px-1 py-1 rounded-md">
+          { isLoggedIn == false && <Link href={'/login'} className="text-white h-[80%] flex items-center justify-center border-[1px] border-white md:px-6 px-1 hover:bg-white hover:text-skin-primary rounded-md justify-self-end">
             Login
-          </button>
+          </Link>}
         </div>
       </div>
       <Cart show={showCartSidebar} onClose={() => setShowCartSidebar(false)} />

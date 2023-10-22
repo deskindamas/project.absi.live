@@ -3,10 +3,12 @@ import Navbar from "../NavbarCustomer/navbar";
 
 function CustomerLayout(props) {
   return (
-    <div >
-      <Navbar/>
-      <div className="pt-[60px] mx-auto" >{props.children}</div>
-      <Footer />
+    <div className="w-screen h-screen flex flex-col justify-between shrink-0 ">
+      <Navbar />
+      <div className="pt-[3.5%]">{props.children}</div>
+      <div className="bottom-0" >
+        <Footer />
+      </div>
     </div>
   );
 }
