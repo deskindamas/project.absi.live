@@ -51,12 +51,12 @@ const Footer =() => {
         <div className='text-white items-center text-center'>
         <h2 className='mb-3 text-skin-primary'>Menu</h2> 
         <ul>
-        <li className='mb-2'><Link href='#'> Damascus - Kafarsouseh</Link></li>
+        <li className='mb-2'><Link href='#'>Syria , Damascus</Link></li>
         <li className='mb-2'><Link href='#'>+963987000888</Link></li>
-        <li className='mb-2'><Link href='#'>Tawasyme@info.com</Link></li>
+        <li className='mb-2'><Link href='#'>sales@tawasyme.com</Link></li>
         <div className='mt-4'>
          <ul className='flex justify-center'>
-         <li className='mr-2'><Link href='#'><FaTelegram className='w-[20px] h-[20px]'/> </Link></li>
+         <li className='mr-2'><Link href='https://t.me/tawasyshopping'><FaTelegram className='w-[20px] h-[20px]'/> </Link></li>
           <li className='mr-2'><Link href='#'><BsFillTelephoneFill className='w-[20px] h-[20px]'/> </Link></li>
           <li className='mr-2'><Link href='#'><BsFacebook className='w-[20px] h-[20px]'/> </Link></li>
           <li className='mr-2'><Link href='#'><BsInstagram className='w-[20px] h-[20px]'/> </Link></li>
