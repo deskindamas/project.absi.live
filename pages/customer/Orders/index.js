@@ -2,9 +2,11 @@ import createAxiosInstance from "@/API";
 import OrdersCustomer from "@/components/OrdersCustomer/orders";
 import TawasyLoader from "@/components/UI/tawasyLoader";
 import withLayoutCustomer from "@/components/wrapping components/WrappingCustomerLayout";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import React from "react";
 import { useQuery } from "react-query";
+import grayLogo from '../../../public/images/logo-tawasy--gray.png' ;
 
 const Orders = () => {
   const router = useRouter();
@@ -95,16 +97,20 @@ const Orders = () => {
             </div>
           </form>
         </div> */}
-        {orders && orders.data.orders.length > 1 ? (
+        {orders && orders.data.orders && orders.data.orders.length > 1 ? (
           <div className="grid md:grid-cols-3 sm:grid-cols-1 grid-col-1 gap-4 ">
             {orders.data.orders.map((order) => {
               return <OrdersCustomer order={order} />;
             })}
           </div>
         ) : (
-          <div className="w-full h-dull flex justify-center items-center text-2xl text-gray-600 ">
-            {" "}
-            You have no orders yet{" "}
+          <div className="w-full h-full flex justify-center items-center text-2xl text-gray-600 ">
+            <Image
+              src={grayLogo}
+              alt="gray Tawasy"
+              className="w-[60%] h-auto "
+            />
+            You have no orders yet.
           </div>
         )}
       </div>

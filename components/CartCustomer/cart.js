@@ -18,6 +18,7 @@ import createAxiosInstance from "@/API";
 import { useQuery } from "react-query";
 import TawasyLoader from "../UI/tawasyLoader";
 import { Ring } from "@uiball/loaders";
+import grayLogo from "../../public/images/logo-tawasy--gray.png";
 
 const Cart = ({ onClose, show, className }) => {
   const router = useRouter();
@@ -42,16 +43,16 @@ const Cart = ({ onClose, show, className }) => {
     } catch (error) {}
   }
 
-  async function applyCoupon () {
+  async function applyCoupon() {
     setApplying(true);
-    try{
+    try {
       // const response = await Api.post(`/api/customer/cart/apply-coupon` , {
       //   coupon_code : couponRef.current.value ,
-      //   cart_id : 
+      //   cart_id :
       // })
       // refetch();
       setApplying(false);
-    }catch(error){
+    } catch (error) {
       setApplying(false);
     }
     setApplying(false);
@@ -74,7 +75,7 @@ const Cart = ({ onClose, show, className }) => {
     },
     {
       id: 3,
-      image: Item,
+      image: photo,
       name: "Suger",
       price: "190",
       total: "410",
@@ -106,11 +107,24 @@ const Cart = ({ onClose, show, className }) => {
           <div className="w-full h-full">
             <TawasyLoader width={300} height={300} />
           </div>
-        ) : cart &&
-          Array.isArray(cart.data.cart) &&
-          Array(cart.data.cart).length < 1 ? (
-          <div className="flex flex-col justify-center items-center">
-            Your cart is Empty , go and buy some products
+        ) : cart && Array.isArray(cart.data.cart) ? (
+          <div className="flex flex-col justify-start items-center w-full h-full ">
+            <div className="flex w-full px-4 bg-gray-50 justify-between pt-3 pb-3">
+              <h3 className="flex font-medium text-xl text-gray-600 ml-2 select-none ">
+                <BsFillBagFill className=" w-[25px] h-[25px] text-skin-primary mr-2" />
+                Shopping Cart
+              </h3>
+              <AiOutlineClose
+                className="mr-2 w-[25px] h-[25px] text-gray-600 hover:text-red-500 cursor-pointer "
+                onClick={onClose}
+              />
+            </div>
+            <Image
+              src={grayLogo}
+              alt="gray Tawasy"
+              className="w-[60%] h-auto "
+            />
+            Your cart is Empty , Go and buy some products.
           </div>
         ) : (
           cart && (
@@ -132,6 +146,7 @@ const Cart = ({ onClose, show, className }) => {
                 } `}
               >
                 {cart &&
+                  cart.data.cart.lines &&
                   cart.data.cart.lines.map((item) => (
                     <CartProduct
                       product={item}
@@ -157,11 +172,12 @@ const Cart = ({ onClose, show, className }) => {
                       ref={couponRef}
                       placeholder="Enter code"
                     />
-                    <button className="w-[20%] bg-skin-primary pt-2 pb-2 rounded-lg hover:bg-white border-2 border-white hover:text-skin-primary hover:border-2 hover:border-skin-primary text-white box-border "
+                    <button
+                      className="w-[20%] bg-skin-primary pt-2 pb-2 rounded-lg hover:bg-white border-2 border-white hover:text-skin-primary hover:border-2 hover:border-skin-primary text-white box-border "
                       onClick={applyCoupon}
                     >
                       {Applying ? (
-                        <div className="flex justify-center items-center" >
+                        <div className="flex justify-center items-center">
                           <Ring
                             size={23}
                             lineWeight={5}
