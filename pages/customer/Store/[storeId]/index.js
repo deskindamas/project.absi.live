@@ -10,205 +10,176 @@ import createAxiosInstance from "@/API";
 import { useQuery } from "react-query";
 import TawasyLoader from "@/components/UI/tawasyLoader";
 import ProductCustomer from "@/components/ProductsCustomer/products";
+import { convertTo12HourFormat } from "@/pages/seller/store";
+import styles from '../../../../components/componentsStyling/sellerStorePage.module.css' ;
 
 function Products() {
   const router = useRouter();
   const Api = createAxiosInstance(router);
-  const [storeId , setStoreId] = useState();
+  const [storeId, setStoreId] = useState();
   const {
     data: store,
     isLoading,
     isError,
     error,
-  } = useQuery([`storePage` , storeId], fetchStorePage, {
+  } = useQuery([`storePage`, storeId], fetchStorePage, {
     staleTime: 1,
     refetchOnMount: true,
     refetchOnWindowFocus: false,
-    enabled : Boolean(storeId) == true ,
+    enabled: Boolean(storeId) == true,
   });
+  const [selectedCategory, setSelectedCategory] = useState(null);
+
+  const onSelectCategory = (categoryName) => {
+    setSelectedCategory(categoryName);
+  };
 
   useEffect(() => {
-    const bb = router.query.storeId ;
-    if(bb){
+    const bb = router.query.storeId;
+    if (bb) {
       setStoreId(bb);
     }
-  } , [router.query.storeId])
+  }, [router.query.storeId]);
 
+  useEffect(() => {
+    if (store && store.data.categories.length > 0) {
+      setSelectedCategory(store.data.categories[0].name);
+    }
+  }, [store]);
+  
   async function fetchStorePage() {
     try {
-      return await Api.get(`/api/stores-with-products/${storeId}`)
+      return await Api.get(`/api/stores-with-products/${storeId}`);
     } catch {}
   }
 
-  const categories = [
-    {
-      name: "lorem1",
-    },
-    {
-      name: "lorem2",
-    },
-    {
-      name: "lorem3",
-    },
-    {
-      name: "lorem4",
-    },
-    {
-      name: "lorem5",
-    },
-    {
-      name: "lorem6",
-    },
-    {
-      name: "lorem7",
-    },
-  ];
+  if (isLoading) {
+    return (
+      <div className="w-full h-full">
+        <TawasyLoader width={400} height={400} />
+      </div>
+    );
+  }
 
-  const products = [
-    {
-      id: 1,
-      image: ItemProduct,
-      name: "Lorem1",
-      price: "1400 ",
-      descraption:
-        "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.....",
-    },
-    {
-      id: 2,
-      image: ItemProduct,
-      name: "Lorem2",
-      price: "1500 ",
-      descraption:
-        "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.....",
-    },
-    {
-      id: 3,
-      image: ItemProduct,
-      name: "Lorem3",
-      price: "1600 ",
-      descraption:
-        "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.....",
-    },
-    {
-      id: 4,
-      image: ItemProduct,
-      name: "Lorem4",
-      price: "1400 ",
-      descraption:
-        "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.....",
-    },
-    {
-      id: 5,
-      image: ItemProduct,
-      name: "Lorem5",
-      price: "1500 ",
-      descraption:
-        "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.....",
-    },
-    {
-      id: 6,
-      image: ItemProduct,
-      name: "Lorem6",
-      price: "1600 ",
-      descraption:
-        "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.....",
-    },
-    {
-      id: 7,
-      image: ItemProduct,
-      name: "Lorem7",
-      price: "1700 ",
-      descraption:
-        "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.....",
-    },
-  ];
 
-  if(isLoading){
-    return <div className="w-full h-full" >
-      <TawasyLoader width={400} height={400}/>
-    </div>
+
+  let selectedCategoryData;
+
+  if (store && selectedCategory) {
+    selectedCategoryData = store.data.category.find(
+      (category) => category.name === selectedCategory
+    );
+    console.log(selectedCategoryData);
+  }
+
+  if (store) {
+    console.log(store.data);
+    console.log(`asdasd`);
+    console.log(JSON.parse(store.data.store.opening_days));
   }
 
   return (
     <div>
       <div className=" w-full h-full flex flex-col justify-start items-center ">
-        <div className=" relative lg:h-[400px] md:h-[300px] h-auto w-full box-border ">
-          <Image
-            // className=" "
-            src={Storeimage}
-            alt="store"
-            width={0}
-            height={0}
-            sizes="100vw"
-            style={{ width: "100%", height: "100%" }} // optional
-            className={`w-full h-full object-cover select-none pointer-events-none `}
-          />
-          {/* <div className='pb-6'> */}
-          <Image
-            className=" shadow absolute z-10 lg:bottom-10 md:bottom-5 sm:bottom-3 bottom-1 right-10 rounded-full"
-            src={Logo}
-            alt="store"
-            width={0}
-            height={0}
-            sizes="100vw"
-            style={{ width: "auto", height: "50%" }}
-          />
-          <h1 className="lg:text-5xl md:text-3xl text-xl font-medium text-white absolute z-10 lg:bottom-20 md:bottom-10 sm:bottom-5 bottom-5  left-10 outline-black outline-2">
-            Super Star
-          </h1>
-          {/* </div> */}
-        </div>
+        {store && (
+          <div className=" relative lg:h-[400px] md:h-[300px] h-auto w-full box-border ">
+            <Image
+              // className=" "
+              src={store.data.store.image}
+              // src={Storeimage}
+              // src={Storeimage}
+              alt="store"
+              width={0}
+              height={0}
+              sizes="100vw"
+              style={{ width: "100%", height: "100%" }} // optional
+              className={`w-full h-full object-cover select-none pointer-events-none `}
+            />
+            {/* <div className='pb-6'> */}
+            <Image
+              className=" shadow absolute z-10 lg:bottom-10 md:bottom-5 sm:bottom-3 bottom-1 right-10 rounded-full"
+              src={store.data.store.logo}
+              // src={Logo}
+              // src={Logo}
+              alt="store"
+              width={0}
+              height={0}
+              sizes="100vw"
+              style={{ width: "auto", height: "50%" }}
+            />
+            <h1 className={styles.storeName}>
+              {store.data.store.name}
+            </h1>
+            {/* </div> */}
+          </div>
+        )}
+
+        {store && (
+          <div className="flex flex-col justify-around items-stretch w-full pb-5">
+            <div className="md:flex md:justify-around flex flex-col justify-around items-start md:items-center gap-3 ">
+              <div className="flex justify-start items-center w-full gap-2 px-4   ">
+                <h2 className="md:text-2xl text-lg text-skin-primary font-medium  ">
+                  Opening Time :
+                </h2>
+                <span className="text-gray-400 md:text-2xl text-lg  ">
+                  {convertTo12HourFormat(store.data.store.opening_time)}
+                  {/* 8520 */}
+                </span>
+              </div>
+              <div className="flex justify-start items-center w-full gap-2 px-4  ">
+                <h2 className="md:text-2xl text-lg text-skin-primary font-medium  ">
+                  Closing Time :
+                </h2>
+                <span className="text-gray-400 md:text-2xl text-lg  ">
+                  {convertTo12HourFormat(store.data.store.closing_time)}
+                  {/* 645654 */}
+                </span>
+              </div>
+              <div className="flex flex-col md:flex-row justify-start items-center w-full gap-2 px-4  ">
+                <h2 className="md:text-2xl text-lg text-skin-primary font-medium  ">
+                  Address :
+                </h2>
+                <span className="text-gray-400 md:text-2xl text-base  ">
+                  {store.data.store.location}
+                </span>
+              </div>
+              <div className="flex flex-col md:flex-row justify-start items-center gap-2 w-full px-4">
+                <h2 className="md:text-2xl text-lg text-skin-primary font-medium">
+                  Opening Days :
+                  {JSON.parse(store.data.store.opening_days)?.map(
+                    (day, index) => {
+                      return (
+                        <span className="text-gray-400 px-2">
+                          {index !== store.data.store.opening_days.length - 1
+                            ? `${day} ,`
+                            : day}
+                        </span>
+                      );
+                    }
+                  )}
+                </h2>
+              </div>
+            </div>
+          </div>
+        )}
 
         <div className="flex justify-center bg-gray-200 w-full pt-3 pb-3 mb-10">
           <ul className="flex flex-wrap items-center">
-            {/* {categories?.map((category) => {
-            return (
-            <FilterCategories  key={categories?.name} categories={category}   />
-            );
-          })} */}
+          {store && (
+          <FilterCategories
+            categories={store.data?.categories}
+            selectedCategory={selectedCategory}
+            onSelectCategory={onSelectCategory}
+          />
+        )}
           </ul>
         </div>
 
         <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 grid-col-1 gap-4 ">
-          {products?.map((product) => (
-            // <div key={product.id} className="mb-4">
-            //   <div
-            //     className="bg-white overflow-hidden drop-shadow-md rounded-lg
-            //     w-80  items-center justify-center"
-            //   >
-            //     <div className="w-full bg-cover overflow-hidden">
-            //       <Image
-            //         src={product.image}
-            //         className="w-full h-64 transform transition duration-1000 hover:scale-125 hover:rotate-2  "
-            //       />
-            //     </div>
-            //     <div className=" mt-4 px-4 py-4">
-            //       <div className="flex justify-between mb-2">
-            //         <h3 className="text-gray-600 text-2xl font-medium ">
-            //           {product.name}
-            //         </h3>
-            //         <p className="text-gray-800 text-lg font-medium ">
-            //           {product.price} s.p
-            //         </p>
-            //       </div>
-            //       <p className="text-gray-700 text-base font-light py-3">
-            //         {product.descraption}
-            //       </p>
-            //       <div className="flex justify-center items-center py-4">
-            //         <button
-            //           className="items-center py-2 
-            //          w-full text-sm font-medium 
-            //           text-center text-gray-900 
-            //           bg-white rounded-full border 
-            //           border-[#ff6600] hover:bg-[#ff6600] hover:text-white transition-all duration-500 "
-            //         >
-            //           Add To Cart
-            //         </button>
-            //       </div>
-            //     </div>
-            //   </div>
-            // </div>
-            <ProductCustomer product = {product}/>
+        {store &&
+          selectedCategoryData &&
+          selectedCategoryData.products.map((product) => (
+            <ProductCustomer product = {product} />
           ))}
         </div>
       </div>

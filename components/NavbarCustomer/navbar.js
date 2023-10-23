@@ -27,12 +27,12 @@ function Navbar() {
 
   return (
     <>
-      <div className="flex bg-skin-primary justify-around h-[60px] pt-2 pb-2 w-full  z-20 fixed ">
-        <div className="flex justify-start md:pl-16 md:w-[50%] w-[20%] h-full pl-10 ">
+      <div className="flex bg-skin-primary justify-around lg:h-[80px] md:h-[60px] sm:h-[50px] h-[40px] pt-2 pb-2 w-full  z-20 fixed ">
+        <div className="flex justify-start md:pl-16 md:w-[50%] w-[20%] h-auto pl-10 ">
           <Image
             src={TawasyLogo}
             alt="logo"
-            className="md:w-[15%] w-[100%] h-[100%]"
+            className="md:w-[15%] w-[100%] h-auto"
           />
         </div>
         <div className="md:w-[50%] w-[80%] flex justify-end items-center px-10">

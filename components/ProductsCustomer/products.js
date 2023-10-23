@@ -9,16 +9,25 @@ import {
   Stack,
 } from "@mui/material";
 import { MdClose } from "react-icons/md";
+import { useRouter } from "next/router";
+import createAxiosInstance from "@/API";
+import { Ring } from "@uiball/loaders";
 
 function ProductCustomer({ product }) {
-  const [open, openchange] = useState(false);
-
-  const functionopenpopup = async () => {
-    openchange(true);
-  };
-  const closepopup = () => {
-    openchange(false);
-  };
+  const [adding, setAdding] = useState(false);
+  const router = useRouter();
+  const Api = createAxiosInstance(router);
+  async function addToCart() {
+    setAdding(true);
+    try {
+      const response = await Api.post(`/api/customer/cart/add`, {
+        product_id: product.id,
+        store_id: router.query.storeId,
+      });
+      setAdding(false);
+    } catch (error) {}
+    setAdding(false);
+  }
 
   return (
     <>
@@ -29,7 +38,6 @@ function ProductCustomer({ product }) {
         >
           <div className="w-full bg-cover overflow-hidden">
             <Image
-              onClick={functionopenpopup}
               src={product.image}
               className="w-full h-60 transform transition duration-1000 hover:scale-125 hover:rotate-2  "
               width={0}
@@ -39,40 +47,41 @@ function ProductCustomer({ product }) {
             />
           </div>
           <div className=" mt-4 px-4 py-4">
-            <div className="flex justify-between mb-2">
+            <div className="flex flex-col justify-start items-start mb-2 gap-3">
               <h3 className="text-gray-600 text-2xl font-medium ">
                 {product.name}
               </h3>
-              <p className="text-gray-800 text-lg font-medium ">
+              <p className="text-skin-primary text-2xl font-medium ">
                 {product.price} s.p
               </p>
             </div>
             <div className="flex flex-wrap w-[100%] gap-2 mb-2">
-                  <h3 className="text-gray-600 text-lg font-medium ">
-                    {product.name}
-                  </h3>
-                  <p className="text-gray-600 text-lg font-medium ">
-                    {product.name}
-                  </p>
-                </div>
+              {product.brand && (
+                <h3 className="text-skin-primary text-md font-medium border-2 border-skin-primary px-2 py-1 rounded-full ">
+                  {product.brand}
+                </h3>
+              )}
+            </div>
             <p className="text-gray-700 text-base font-light py-3">
-              {product.descraption}
+              {product.description}
             </p>
             <div className="flex justify-center items-center py-4">
               <button
-                className="items-center py-2 
-         w-full text-sm font-medium 
-          text-center text-gray-900 
-          bg-white rounded-full border 
-          border-[#ff6600] hover:bg-[#ff6600] hover:text-white transition-all duration-500 "
+                onClick={addToCart}
+                className="items-center py-2 w-full text-sm font-medium text-center text-gray-900 bg-white rounded-full border border-[#ff6600] hover:bg-[#ff6600] hover:text-white transition-all duration-500 "
               >
-                Add To Cart
+                {adding == true ? (
+                  <div className="w-full h-full flex justify-center" >
+                    <Ring size={20} lineWeight={5} speed={2} color="#ff6600" />
+                  </div>
+                ) : (
+                  `Add To Cart`
+                )}
               </button>
             </div>
           </div>
         </div>
       </div>
-
     </>
   );
 }
