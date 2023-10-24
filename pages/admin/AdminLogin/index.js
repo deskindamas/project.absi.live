@@ -1,14 +1,15 @@
 import React, { useRef, useState } from "react";
 import axios from "axios";
 import url from "@/URL";
-import Logo from "../../public/images/tawasylogo.png";
+import Logo from "../../../public/images/tawasylogo.png";
 import Image from "next/image";
 import Link from "next/link";
 import { toast } from "react-toastify";
 import { Ring } from "@uiball/loaders";
 import { useRouter } from "next/router";
 
-const Login = () => {
+const AdminLogin = () => {
+    
   const NumberRef = useRef();
   const router = useRouter();
   const [selectedRole, setSelectedRole] = useState(1); // 1 for customer 2 for seller
@@ -44,7 +45,7 @@ const Login = () => {
           theme: "colored",
         });
       } catch (error) {
-        toast.error(error.response.data.message || `Request failed`, {
+        toast.error(error.response.data.message, {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -73,7 +74,7 @@ const Login = () => {
         localStorage.setItem("registered", false);
         router.push("/verification");
       } catch (error) {
-        toast.error(error.response.data.message || `Request failed`, {
+        toast.error(error.response.data.message, {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -104,7 +105,7 @@ const Login = () => {
       <Image src={Logo} alt="Logo" width={400} height={290} className="mx-3" />
       <div>
         <h3 className="text-xl text-black font-medium">
-          Login using your Phone Number
+          Login using your Email And Password
         </h3>
       </div>
       <form
@@ -116,9 +117,16 @@ const Login = () => {
           type="text"
           ref={NumberRef}
           className="outline-none appearance-none border-b-2 border-gray-300 focus:border-[#FD6500] placeholder:text-gray-300 w-full transition-all duration-700"
-          placeholder="Number"
-          inputMode="numeric" 
-          pattern="[0-9]*"
+          placeholder="Email"
+          inputMode="email" 
+          required
+        />
+              <input
+          type="password"
+          ref={NumberRef}
+          className="outline-none appearance-none border-b-2 border-gray-300 focus:border-[#FD6500] placeholder:text-gray-300 w-full transition-all duration-700"
+          placeholder="password"
+          inputMode="password" 
           required
         />
         <style jsx>{`
@@ -136,53 +144,7 @@ const Login = () => {
             -moz-appearance: textfield;
           }
         `}</style>
-        <div className="flex flex-col justify-start items-start gap-2 w-[80%]">
-          <label htmlFor="login" className=" text-lg font-medium ">
-            Login as a:
-          </label>
-          <ul className="grid w-full gap-6 md:grid-cols-2 ">
-            <li>
-              <input
-                type="radio"
-                id="customer"
-                name="hosting"
-                value={1}
-                className="hidden peer"
-                required
-                checked={selectedRole === 1}
-                onChange={handleRoleChange}
-              />
-              <label
-                for="customer"
-                className="inline-flex items-center justify-center w-full px-3 py-2 text-gray-500 bg-white border border-gray-500 rounded-lg cursor-pointer peer-checked:border-orange-500 peer-checked:text-orange-500 hover:text-gray-600 hover:bg-gray-100 transition-all duration-500"
-              >
-                <div className="block">
-                  <div className="w-full text-lg font-semibold">Customer</div>
-                </div>
-              </label>
-            </li>
-            <li>
-              <input
-                type="radio"
-                id="seller"
-                name="hosting"
-                value={2}
-                className="hidden peer"
-                required
-                checked={selectedRole === 2}
-                onChange={handleRoleChange}
-              />
-              <label
-                for="seller"
-                className="inline-flex items-center justify-center w-full px-3 py-2 text-gray-500 bg-white border border-gray-500 rounded-lg cursor-pointer peer-checked:border-orange-500 peer-checked:text-orange-500 hover:text-gray-600 hover:bg-gray-100 transition-all duration-500"
-              >
-                <div className="block">
-                  <div className="w-full text-lg font-semibold">Seller</div>
-                </div>
-              </label>
-            </li>
-          </ul>
-        </div>
+
         <button
           type="submit"
           className="text-white bg-orange-500 rounded-md text-lg block px-5 py-2 mx-auto border-2 border-white hover:bg-orange-600 transition-all duration-300"
@@ -197,17 +159,9 @@ const Login = () => {
           )}
         </button>
       </form>
-      <div>
-        You have an existing account ?{" "}
-        <Link
-          href={"/signup"}
-          className="text-orange-500 border-b-2 border-orange-500"
-        >
-          SignUp
-        </Link>
-      </div>
+  
     </div>
   );
 };
 
-export default Login;
+export default AdminLogin;

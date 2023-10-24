@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Link from "next/link";
 import Logo from "../../public/images/tawasylogowhite.png";
-import ProfileLogo from "../../public/images/profile-removebg-preview.png";
 import Image from "next/image";
 import { Accordion, AccordionItem } from "@nextui-org/react";
 import {
@@ -14,9 +13,12 @@ import { BsCartCheckFill, BsBox, BsColumns } from "react-icons/bs";
 import { CiLogout } from "react-icons/ci";
 import { MdPendingActions, MdOutlineDisabledVisible } from "react-icons/md";
 import { useRouter } from "next/router";
-import { IoStorefrontSharp } from "react-icons/io5";
+import { TbBrandShopee, TbCategory2 } from "react-icons/tb";
+import { RiCoupon2Line } from "react-icons/ri";
+import { FaStore } from "react-icons/fa";
 
-export default function Sidebar(props) {
+export default function SidebarAdmin(props) {
+
   const [open, setOpen] = useState(false);
   const router = useRouter();
 
@@ -24,14 +26,14 @@ export default function Sidebar(props) {
     localStorage.removeItem("AT");
     localStorage.removeItem("user");
     // localStorage.removeItem("Sid");
-    router.replace("/login");
+    router.replace("/admin/AdminLogin");
   }
 
   return (
     <div className="w-full h-full ">
       <div
         style={{ position: "fixed", overflow: "auto" }}
-        className={`top-0 bottom-0 left-0 w-[20%]  bg-[#ff6600] shadow duration-300 pl-2`}
+        className={`top-0 bottom-0 right-0 w-[20%]  bg-[#ff6600] shadow duration-300 pl-2`}
       >
         <div className="space-y-3">
           <div className=" flex justify-center">
@@ -42,7 +44,7 @@ export default function Sidebar(props) {
             <ul className="pt-5 pb-4 space-y-1 text-lg font-normal">
               <li className="rounded-sm pb-3">
                 <Link
-                  href="/seller"
+                  href="/admin"
                   className="flex items-center pl-2 space-x-3 rounded-md text-gray-100"
                 >
                   <BsColumns className="block text-[20px] text-white " />
@@ -80,7 +82,7 @@ export default function Sidebar(props) {
                         className="flex items-center p-2 space-x-3 rounded-md text-gray-100"
                         onClick={() => {
                           router.push({
-                            pathname: "/seller/orders",
+                            pathname: "/admin/Orders/PendingOrders",
                             query: { type : "pendingOrders"},
                           });
                         }}
@@ -95,7 +97,7 @@ export default function Sidebar(props) {
                         className="flex items-center p-2 space-x-3 rounded-md text-gray-100"
                         onClick={() => {
                           router.push({
-                            pathname: "/seller/orders",
+                            pathname: "/admin/Orders/RejectedOrders",
                             query: { type : "rejectedOrders"},
                           });
                         }}
@@ -109,7 +111,7 @@ export default function Sidebar(props) {
                         className="flex items-center p-2 space-x-3 rounded-md text-gray-100"
                         onClick={() => {
                           router.push({
-                            pathname: "/seller/orders",
+                            pathname: "/admin/Orders/AcceptedOrders",
                             query: { type : "acceptedOrders"},
                           });
                         }}
@@ -123,7 +125,7 @@ export default function Sidebar(props) {
                         className="flex items-center p-2 space-x-3 rounded-md text-gray-100"
                         onClick={() => {
                           router.push({
-                            pathname: "/seller/orders",
+                            pathname: "/admin/Orders/AllOrders",
                             query: { type : "allOrders"},
                           });
                         }}
@@ -145,7 +147,7 @@ export default function Sidebar(props) {
                       }}
                     />
                   }
-                  className={`text-zinc-100 outline-none mb-4`}
+                  className={`text-zinc-100 outline-none mb-2`}
                   key="2"
                   aria-label="Products"
                   title="Products"
@@ -158,32 +160,89 @@ export default function Sidebar(props) {
                   }
                 >
                   <ul>
-                    {/* <li className={`pt-3`}>
-                      <button
-                        className="flex items-center p-2 space-x-3 rounded-md text-gray-100"
-                        onClick={() => {
-                          router.push({
-                            pathname: "/seller/products",
-                            query: { type : `pendingProducts`},
-                          });
-                        }}
-                      >
-                        <MdPendingActions className="block text-[20px] text-white " />
-                        <p className="hidden md:block"> Pending Products</p>
-                      </button>
-                    </li> */}
+                 
                     <li className={`pt-3`}>
                       <button
                         className="flex items-center p-2 space-x-3 rounded-md text-gray-100"
                         onClick={() => {
                           router.push({
                             pathname: "/seller/products",
-                            query: { type : "disabledProducts"},
+                            query: { type : "PendingProducts"},
                           });
                         }}
                       >
                         <MdOutlineDisabledVisible className="block text-[20px] text-white " />
-                        <p className="hidden md:block">Disabled Products</p>
+                        <p className="hidden md:block">Pending Products</p>
+                      </button>
+                    </li>
+                    <li className={`pt-3`}>
+                      <button
+                        className="flex items-center p-2 space-x-3 rounded-md text-gray-100"
+                        onClick={() => {
+                          router.push({
+                            pathname: "/admin/Products/ShareProduct",
+                            query: { type :"activeProducts"},
+                          });
+                        }}
+                      >
+                        <AiTwotoneEye className="block text-[20px] text-white " />
+                        <p className="hidden md:block">Share Products</p>
+                      </button>
+                    </li>
+                    <li className={`pt-3`}>
+                      <button
+                        className="flex items-center p-2 space-x-3 rounded-md text-gray-100"
+                        onClick={() => {
+                          router.push({
+                            pathname: "/admin/Products/AllProducts",
+                            query: { type : "allProducts"},
+                          });
+                        }}
+                      >
+                        <BsBox className="block text-[20px] text-white " />
+                        <p className="hidden md:block">All Products</p>
+                      </button>
+                    </li>
+                  </ul>
+                </AccordionItem>
+
+
+                <AccordionItem
+                  startContent={
+                    <FaStore
+                      style={{
+                        marginRight: "30px",
+                        width: "25px",
+                        height: "25px",
+                      }}
+                    />
+                  }
+                  className={`text-zinc-100 outline-none mb-3`}
+                  key="3"
+                  aria-label="Stores"
+                  title="Stores"
+                  indicator={({ isOpen }) =>
+                    isOpen ? (
+                      <FiChevronDown className={`text-zinc-100`} />
+                    ) : (
+                      <FiChevronRight className={`text-zinc-100`} />
+                    )
+                  }
+                >
+                  <ul>
+                 
+                    <li className={`pt-3`}>
+                      <button
+                        className="flex items-center p-2 space-x-3 rounded-md text-gray-100"
+                        onClick={() => {
+                          router.push({
+                            pathname: "/seller/products",
+                            query: { type : "PendingProducts"},
+                          });
+                        }}
+                      >
+                        <MdOutlineDisabledVisible className="block text-[20px] text-white " />
+                        <p className="hidden md:block">Pending Store</p>
                       </button>
                     </li>
                     <li className={`pt-3`}>
@@ -197,7 +256,7 @@ export default function Sidebar(props) {
                         }}
                       >
                         <AiTwotoneEye className="block text-[20px] text-white " />
-                        <p className="hidden md:block">Active Products</p>
+                        <p className="hidden md:block">Active Store</p>
                       </button>
                     </li>
                     <li className={`pt-3`}>
@@ -211,32 +270,68 @@ export default function Sidebar(props) {
                         }}
                       >
                         <BsBox className="block text-[20px] text-white " />
-                        <p className="hidden md:block">All Products</p>
+                        <p className="hidden md:block">All Store</p>
                       </button>
                     </li>
                   </ul>
                 </AccordionItem>
+
               </Accordion>
 
               <li className="rounded-sm pb-3">
                 <Link
-                  href="/seller/store"
-                  className="flex items-center pl-2 space-x-3 pt-2 rounded-md text-gray-100"
+                  href="/admin/Coupons"
+                  className="flex items-center pl-2 space-x-3 pt-2 pb-1 rounded-md text-gray-100"
                 >
-                  <IoStorefrontSharp className="block text-[20px] text-white " />
+                  <RiCoupon2Line className="block text-[25px] text-white " />
                   <p className="hidden md:block" style={{ marginLeft: "43px" }}>
-                    Store
+                  Coupons
                   </p>
                 </Link>
               </li>
 
-         
+              <li className="rounded-sm pb-3">
+                <Link
+                  href="/admin/Brands"
+                  className="flex items-center pl-2 space-x-3 pt-2 pb-1 rounded-md text-gray-100"
+                >
+                  <TbBrandShopee className="block text-[25px] text-white " />
+                  <p className="hidden md:block" style={{ marginLeft: "43px" }}>
+                  Brands
+                  </p>
+                </Link>
+              </li>
+               
+              <li className="rounded-sm pb-3">
+                <Link
+                  href="/admin/StoreTypes"
+                  className="flex items-center pl-2 space-x-3 pt-2 pb-1 rounded-md text-gray-100"
+                >
+                  <FaStore className="block text-[25px] text-white " />
+                  <p className="hidden md:block" style={{ marginLeft: "43px" }}>
+                  Store Types
+                  </p>
+                </Link>
+              </li>
+                 
+              <li className="rounded-sm pb-3">
+                <Link
+                  href="/admin/Categories"
+                  className="flex items-center pl-2 space-x-3 pt-2 pb-1 rounded-md text-gray-100"
+                >
+                  <TbCategory2 className="block text-[25px] text-white " />
+                  <p className="hidden md:block" style={{ marginLeft: "43px" }}>
+                  Categories
+                  </p>
+                </Link>
+              </li>
+
               <li className="rounded-sm pb-3">
                 <button
                   className="flex items-center pl-2 pt-3 space-x-3 rounded-md text-gray-100"
                   onClick={logOut}
                 >
-                  <CiLogout className="block text-[20px] text-white" />
+                  <CiLogout className="block text-[25px] text-white" />
                   <p className="hidden md:block" style={{ marginLeft: "43px" }}>
                     Logout
                   </p>

@@ -153,11 +153,13 @@ function Products() {
             sizes="100vw"
             style={{ width: "auto", height: "50%" }}
           />
-          <h1 className="lg:text-5xl md:text-3xl text-xl font-medium text-white absolute z-10 lg:bottom-20 md:bottom-10 sm:bottom-5 bottom-5  left-10 outline-black outline-2">
-            Super Star
-          </h1>
           {/* </div> */}
         </div>
+        <div className="w-full h-full">
+          <h1 className="lg:text-4xl md:text-2xl text-xl font-medium text-gray-600 py-6 text-center">
+            Super Star
+          </h1>
+          </div>
 
         <div className="flex justify-center bg-gray-200 w-full pt-3 pb-3 mb-10">
           <ul className="flex flex-wrap items-center">

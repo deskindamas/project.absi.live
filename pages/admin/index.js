@@ -1,9 +1,181 @@
-function AdminPage (){
+import withLayoutAdmin from "@/components/UI/adminLayout";
+import React from "react";
+import { BiSolidUserDetail } from "react-icons/bi";
+import { BsBox, BsFillCartCheckFill } from "react-icons/bs";
+import { FaStore } from "react-icons/fa";
+import { FaUsersBetweenLines } from "react-icons/fa6";
+import { MdOutlinePendingActions, MdOutlineStorefront, MdRestore } from "react-icons/md";
 
-    return <div>
-        adminpage
+function AdminPage (){
+ 
+    const icons = [
+        {
+          title: "Total Customers",
+          icon: (
+            <BiSolidUserDetail
+              style={{ width: "25px", height: "25px", color: "#ff6600" }}
+            />
+          ),
+        },
+        {
+          title: "Total Sellers",
+          icon: (
+            <FaUsersBetweenLines
+              style={{ width: "25px", height: "25px", color: "#ff6600" }}
+            />
+          ),
+        },
+        {
+          title: "Total Products",
+          icon: (
+            <BsBox style={{ width: "25px", height: "25px", color: "#ff6600" }} />
+          ),
+        },
+        {
+          title: "Total Stores",
+          icon: (
+            <FaStore style={{ width: "25px", height: "25px", color: "#ff6600" }} />
+          ),
+        },
+        {
+          title: "Total Store Types",
+          icon: (
+            <MdOutlineStorefront
+              style={{ width: "25px", height: "25px", color: "#ff6600" }}
+            />
+          ),
+        },
+        {
+          title: "Total Orders",
+          icon: (
+            <BsFillCartCheckFill
+              style={{ width: "25px", height: "25px", color: "#ff6600" }}
+            />
+          ),
+        },
+        {
+          title: "Pending Store Requests",
+          icon: (
+            <MdOutlinePendingActions
+              style={{ width: "25px", height: "25px", color: "#ff6600" }}
+            />
+          ),
+        },
+        {
+          title: "Pending  Requests",
+          icon: (
+            <MdRestore
+              style={{ width: "25px", height: "25px", color: "#ff6600" }}
+            />
+          ),
+        },
+      ];
+
+    return <>
+    <div className="md:px-10">
+     <h1 className="py-6 text-2xl">Dashboard</h1> 
+     <div className="grid md:grid-cols-3 sm:grid-cols-1 grid-col-1 gap-4">
+     
+        <div className="border-2 border-gray-400 py-4 px-5 rounded-md">
+        <div className="flex justify-between pb-4">
+        <div><h2 className="text-xl">Total Customers</h2></div>
+        <div className="text-skin-primary w-[25px] h-[25px]">
+        <BiSolidUserDetail
+              style={{ width: "25px", height: "25px", color: "#ff6600" }}
+            />
+        </div>
+        </div>
+        <div>
+        <p>50</p>
+        </div>
+        </div>
+         
+        <div className="border-2 border-gray-400 py-4 px-5 rounded-md">
+        <div className="flex justify-between pb-4">
+        <div><h2 className="text-xl">Total Sellers</h2></div>
+        <div className="text-skin-primary w-[25px] h-[25px]">
+        <FaUsersBetweenLines
+              style={{ width: "25px", height: "25px", color: "#ff6600" }}
+            />
+        </div>
+        </div>
+        <div>
+        <p>50</p>
+        </div>
+        </div>
+
+        <div className="border-2 border-gray-400 py-4 px-5 rounded-md">
+        <div className="flex justify-between pb-4">
+        <div><h2 className="text-xl">Total Products</h2></div>
+        <div className="text-skin-primary w-[25px] h-[25px]">
+        <BsBox style={{ width: "25px", height: "25px", color: "#ff6600" }} />
+        </div>
+        </div>
+        <div>
+        <p>50</p>
+        </div>
+        </div>
+
+        <div className="border-2 border-gray-400 py-4 px-5 rounded-md">
+        <div className="flex justify-between pb-4">
+        <div><h2 className="text-xl">Total Store Types</h2></div>
+        <div className="text-skin-primary w-[25px] h-[25px]">
+        <MdOutlineStorefront
+              style={{ width: "25px", height: "25px", color: "#ff6600" }}
+            />
+        </div>
+        </div>
+        <div>
+        <p>50</p>
+        </div>
+        </div>
+        
+        <div className="border-2 border-gray-400 py-4 px-5 rounded-md">
+        <div className="flex justify-between pb-4">
+        <div><h2 className="text-xl">Total Orders</h2></div>
+        <div className="text-skin-primary w-[25px] h-[25px]">
+        <BsFillCartCheckFill
+              style={{ width: "25px", height: "25px", color: "#ff6600" }}
+            />
+        </div>
+        </div>
+        <div>
+        <p>50</p>
+        </div>
+        </div>
+          
+        <div className="border-2 border-gray-400 py-4 px-5 rounded-md">
+        <div className="flex justify-between pb-4">
+        <div><h2 className="text-xl">Pending Store Requests</h2></div>
+        <div className="text-skin-primary w-[25px] h-[25px]">
+        <MdOutlinePendingActions
+              style={{ width: "25px", height: "25px", color: "#ff6600" }}
+            />
+        </div>
+        </div>
+        <div>
+        <p>50</p>
+        </div>
+        </div>
+
+        <div className="border-2 border-gray-400 py-4 px-5 rounded-md">
+        <div className="flex justify-between pb-4">
+        <div><h2 className="text-xl">Pending  Requests</h2></div>
+        <div className="text-skin-primary w-[25px] h-[25px]">
+        <MdRestore
+              style={{ width: "25px", height: "25px", color: "#ff6600" }}
+            />
+        </div>
+        </div>
+        <div>
+        <p>50</p>
+        </div>
+        </div>
+
+     </div>
     </div>
+    </>
 
 }
 
-export default AdminPage ;
+export default withLayoutAdmin(AdminPage) ;

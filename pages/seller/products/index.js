@@ -18,32 +18,7 @@ import { QueryClient, useQueryClient } from "react-query";
 import TawasyLoader from "@/components/UI/tawasyLoader";
 import Link from "next/link";
 
-// const data = [
-//   {
-//     id: 1,
-//     desc: "asdasd",
-//     name: "Leanne Graham",
-//     username: "desc",
-//     category: "Sincere@april.biz",
-//     image: "Kulas Light",
-//     available: true,
-//     quantity: "4",
-//     price: "92994",
-//     brand: "1-770-736-8031 x56442",
-//   },
-//   {
-//     id: 2,
-//     desc: "asdafda ssdfsadf sdafasdfsdf asd fsadfsadfs adfsadf sdfdbdsdfs hgjdsafgjkh afdsghjf dsaghjk jakhgsf dasasd",
-//     name: "Leannasdasdasde Graham",
-//     username: "desc",
-//     category: "Sincere@april.biz",
-//     image: "Kulas Light",
-//     available: false,
-//     quantity: "4",
-//     price: "92994",
-//     brand: "1-770-736-8031 x56442",
-//   },
-// ];
+
 
 const data = [
   {
@@ -126,8 +101,6 @@ function Products() {
     staleTime: 1,
     refetchOnMount: true,
     refetchOnWindowFocus: false,
-    // enabled: Boolean(productsType),
-    // enabled : loaded ,
     enabled: true,
   });
 
@@ -163,19 +136,9 @@ function Products() {
           return [];
         }
     }
-    // }else{
-    //   const alld = await Api.get(`api/seller/all-products`);
-    //   if (alld.data[`All Products`]) {
-    //     return alld.data[`All Products`];
-    //   } else {
-    //     return [];
-    //   }
-    // }
+
   }
 
-  // useEffect(() => {
-  //   refetch();
-  // } , [router])
 
   useEffect(() => {
     let vars = router.query.type;
@@ -221,39 +184,7 @@ function Products() {
               Add Product to store
             </Link>
           </div>
-          {/* <div className="flex flex-col sm:flex-row justify-center space-y-2 sm:space-y-0 sm:justify-between w-full px-4 mb-2 mt-4 items-center ">
-            <div className="flex bg-gray-100 w-full sm:w-2/5 items-center rounded-lg">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-4 w-4 mx-2"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                />
-              </svg>
-              <input
-                className="w-full bg-gray-100 outline-none border-transparent focus:border-transparent focus:ring-0 rounded-lg text-sm h-10"
-                type="text"
-                placeholder=" a product "
-              />
-            </div>
-            <div className="flex-row space-x-2 items-center ">
-              <select
-                className="border border-gray-300 rounded-md text-gray-600 px-2 pl-2 pr-8 bg-white hover:border-gray-400 focus:outline-none text-xs
-           focus:ring-0 h-10"
-              >
-                <option>Filter by</option>
-                <option></option>
-                <option></option>
-              </select>
-            </div>
-          </div> */}
+
           {isLoading || isRefetching ? (
             <div className="w-full h-full">
               <TawasyLoader width={300} height={300} />
