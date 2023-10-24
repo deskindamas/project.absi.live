@@ -5,7 +5,7 @@ function CustomerLayout(props) {
   return (
     <div className="w-screen h-screen flex flex-col justify-between shrink-0 ">
       <Navbar />
-      <div className="pt-[3.5%]">{props.children}</div>
+      <div className="lg:pt-[80px] md:pt-[60px] sm:pt-[50px] pt-[40px]">{props.children}</div>
       <div className="bottom-0" >
         <Footer />
       </div>

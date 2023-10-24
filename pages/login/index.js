@@ -31,7 +31,7 @@ const Login = () => {
         console.log(response);
         localStorage.setItem("number", NumberRef.current.value);
         localStorage.setItem("user", "seller");
-        localStorage.setItem("registered", false);
+        // localStorage.setItem("registered", false);
         router.push("/verification");
         toast.success(response.data.message, {
           position: "top-right",
@@ -70,8 +70,18 @@ const Login = () => {
         console.log(response);
         localStorage.setItem("number", NumberRef.current.value);
         localStorage.setItem("user", "customer");
-        localStorage.setItem("registered", false);
+        // localStorage.setItem("registered", false);
         router.push("/verification");
+        toast.success(response.data.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
       } catch (error) {
         toast.error(error.response.data.message || `Request failed`, {
           position: "top-right",

@@ -13,6 +13,20 @@ import { useQuery } from "react-query";
 import TawasyLoader from "@/components/UI/tawasyLoader";
 import styles from "../../../components/componentsStyling/sellerStorePage.module.css";
 
+export function convertTo12HourFormat(time24) {
+  const timeParts = time24.split(":");
+  const dateObj = new Date(0, 0, 0, timeParts[0], timeParts[1], timeParts[2]);
+  let hours = dateObj.getHours();
+  const minutes = dateObj.getMinutes();
+  const ampm = hours >= 12 ? "PM" : "AM";
+  hours = hours % 12 || 12;
+  const time12 = `${hours}:${minutes.toLocaleString("en-US", {
+    minimumIntegerDigits: 2,
+  })} ${ampm}`;
+
+  return time12;
+}
+
 const Store = () => {
   const router = useRouter();
   const Api = createAxiosInstance(router);
@@ -41,7 +55,6 @@ const Store = () => {
   };
 
   useEffect(() => {
-    // Set the default category to the first category when data is available
     if (sellerStoreData && sellerStoreData.categories.length > 0) {
       setSelectedCategory(sellerStoreData.categories[0].name);
     }
@@ -64,19 +77,7 @@ const Store = () => {
     );
   }
 
-  function convertTo12HourFormat(time24) {
-    const timeParts = time24.split(":");
-    const dateObj = new Date(0, 0, 0, timeParts[0], timeParts[1], timeParts[2]);
-    let hours = dateObj.getHours();
-    const minutes = dateObj.getMinutes();
-    const ampm = hours >= 12 ? "PM" : "AM";
-    hours = hours % 12 || 12;
-    const time12 = `${hours}:${minutes.toLocaleString("en-US", {
-      minimumIntegerDigits: 2,
-    })} ${ampm}`;
-
-    return time12;
-  }
+ 
 
   return (
     <div className="md:px-7 w-full h-full flex flex-col justify-start items-center ">

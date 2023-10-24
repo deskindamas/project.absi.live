@@ -1,47 +1,78 @@
+import createAxiosInstance from "@/API";
 import OrdersCustomer from "@/components/OrdersCustomer/orders";
+import TawasyLoader from "@/components/UI/tawasyLoader";
 import withLayoutCustomer from "@/components/wrapping components/WrappingCustomerLayout";
+import Image from "next/image";
+import { useRouter } from "next/router";
 import React from "react";
+import { useQuery } from "react-query";
+import grayLogo from '../../../public/images/logo-tawasy--gray.png' ;
 
 const Orders = () => {
-  
+  const router = useRouter();
+  const Api = createAxiosInstance(router);
+  const { data: orders, isLoading } = useQuery(`Orders`, fetchOrders, {
+    staleTime: 1,
+    refetchOnMount: true,
+    refetchOnWindowFocus: false,
+  });
+
+  async function fetchOrders() {
+    return await Api.get(`/api/customer/orders`);
+  }
+
   const orderdetails = [
     {
       id: 1,
       storeName: "lorem",
       status: "....",
       date: "12/3/2023",
-      totalPrice : "4000"
+      totalPrice: "4000",
     },
     {
       id: 2,
       storeName: "lorem2",
       status: "....",
       date: "12/4/2023",
-      totalPrice : "3000"
+      totalPrice: "3000",
     },
     {
       id: 3,
       storeName: "lorem3",
       status: "....",
       date: "12/5/2023",
-      totalPrice : "1500"
+      totalPrice: "1500",
     },
     {
       id: 3,
       storeName: "lorem3",
       status: "....",
       date: "12/5/2023",
-      totalPrice : "400"
+      totalPrice: "400",
     },
   ];
+
+  if (isLoading) {
+    return (
+      <div className="w-full h-full">
+        <TawasyLoader width={500} height={500} />
+      </div>
+    );
+  }
+
+  if (orders) {
+    console.log(orders);
+  }
 
   return (
     <>
       <div className="md:px-28 px-3 py-4">
         <div>
-          <h1 className="font-medium text-3xl mb-4 text-gray-500 my-">All Orders</h1>
+          <h1 className="font-medium text-3xl mb-4 text-gray-500 my-">
+            All Orders
+          </h1>
         </div>
-        <div className="flex justify-center items-center w-full">
+        {/* <div className="flex justify-center items-center w-full">
           <form className="w-full my-4">
             <div className="flex bg-gray-50 pt-1 pb-1 sm:w-2/5 items-center rounded-lg mb-4 mr-4 border-2">
               <svg
@@ -65,14 +96,23 @@ const Orders = () => {
               />
             </div>
           </form>
-        </div>
-        <div className="grid md:grid-cols-3 sm:grid-cols-1 grid-col-1 gap-4 ">
-          {orderdetails.map((order) => {
-            return (
-             <OrdersCustomer order={order}/>
-            );
-          })}
-        </div>
+        </div> */}
+        {orders && orders.data.orders && orders.data.orders.length > 1 ? (
+          <div className="grid md:grid-cols-3 sm:grid-cols-1 grid-col-1 gap-4 ">
+            {orders.data.orders.map((order) => {
+              return <OrdersCustomer order={order} />;
+            })}
+          </div>
+        ) : (
+          <div className="w-full h-full flex justify-center items-center text-2xl text-gray-600 ">
+            <Image
+              src={grayLogo}
+              alt="gray Tawasy"
+              className="w-[60%] h-auto "
+            />
+            You have no orders yet.
+          </div>
+        )}
       </div>
     </>
   );

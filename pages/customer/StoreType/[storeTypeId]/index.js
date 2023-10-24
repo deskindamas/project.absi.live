@@ -19,7 +19,7 @@ const StoreType = () => {
     isError,
     error,
   } = useQuery([`stores`, storeTypeId], fetchStores, {
-    staleTime: Infinity,
+    staleTime: 1,
     refetchOnMount: true,
     refetchOnWindowFocus: false,
     enabled: Boolean(storeTypeId) == true,
@@ -27,7 +27,7 @@ const StoreType = () => {
 
   async function fetchStores() {
     try{
-      return await Api.get(`/api/store-types/11`);
+      return await Api.get(`/api/store-types/${storeTypeId}`);
     }catch(error){
 
     }
