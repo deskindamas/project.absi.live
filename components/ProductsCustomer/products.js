@@ -8,15 +8,19 @@ import {
   DialogTitle,
   Stack,
 } from "@mui/material";
+import logo from '../../public/images/lego.png';
 import { MdClose } from "react-icons/md";
 import { useRouter } from "next/router";
 import createAxiosInstance from "@/API";
 import { Ring } from "@uiball/loaders";
+// import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 function ProductCustomer({ product }) {
   const [adding, setAdding] = useState(false);
   const router = useRouter();
   const Api = createAxiosInstance(router);
+  const {t} = useTranslation("");
   async function addToCart() {
     setAdding(true);
     try {
@@ -33,11 +37,12 @@ function ProductCustomer({ product }) {
     <>
       <div key={product.id} className="mb-4">
         <div
-          className="bg-white overflow-hidden drop-shadow-md rounded-lg
+          className="bg-white overflow-hidden drop-shadow-2xl rounded-lg
           w-80  items-center justify-center"
         >
           <div className="w-full bg-cover overflow-hidden">
             <Image
+              // src={logo}
               src={product.image}
               className="w-full h-60 transform transition duration-1000 hover:scale-125 hover:rotate-2  "
               width={0}
@@ -68,14 +73,14 @@ function ProductCustomer({ product }) {
             <div className="flex justify-center items-center py-4">
               <button
                 onClick={addToCart}
-                className="items-center py-2 w-full text-sm font-medium text-center text-gray-900 bg-white rounded-full border border-[#ff6600] hover:bg-[#ff6600] hover:text-white transition-all duration-500 "
+                className="items-center py-2 w-full text-sm font-medium text-center text-gray-900 bg-white rounded-full border border-[#ff6600] "
               >
                 {adding == true ? (
                   <div className="w-full h-full flex justify-center" >
                     <Ring size={20} lineWeight={5} speed={2} color="#ff6600" />
                   </div>
                 ) : (
-                  `Add To Cart`
+                  t("store.product.addToCart")
                 )}
               </button>
             </div>

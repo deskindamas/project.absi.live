@@ -1,0 +1,75 @@
+{
+    "orders" : {
+      "orders" : " الطلبات" , 
+        "allOrders" : "كل الطلبات" , 
+        "storeName" : "اسم المتجر" ,
+        "totalPrice" : "السعر الإجمالي", 
+        "status" : "الحالة",
+        "orderDetails" : {
+          "name" : "الاسم" ,
+          "date" : "التاريخ" , 
+          "quantity" : "الكمية",
+          "price" : "السعر" ,
+          "totalQuantity" : "الكمية الإجمالية" ,
+          "deliveryPrice" : "سعر التوصيل" ,
+          "discount" : "الحسم" , 
+          "finalPrice" : "السعر النهائي" ,
+          "reasonForCancel" : "سبب إلغاء الطلب" ,
+          "reason" : "السبب" ,
+          "cancelOrder" : "إلغاء الطلب" , 
+          "noOrders" : "ليس لديك أي طلبات بعد"
+        }
+    } ,
+    "nav" : {
+      "orders" : "طلباتي"
+    },
+    "profile": {
+      "myprofile": "حسابي",
+      "back" : "الرجوع" ,
+      "name" :"الاسم" , 
+      "phone" : "الرقم" ,
+      "address" : "العنوان" ,
+      "logout" : "تسجيل الخروج" 
+    },
+    "home" : {
+      "search" : "بحث" ,
+      "storeType" : "نوع متجر" , 
+      "storeTypes" : "أنواع المتاجر" , 
+      "category" : "تصنيف" ,
+      "brand" : "ماركة" ,
+      "discover" : "إكتشف أنواع متاجرنا" ,
+      "stores" : "متاجر" 
+    } , 
+    "store" : {
+      "openingTime" : "وقت فتح المتجر" ,
+      "closingTime" : "وقت إغلاق المتجر" ,
+      "address" : "العنوان" ,
+      "openingDays" : "الأيام المتاحة" ,
+      "search" :"بحث",
+      "product" : {
+        "addToCart" : "أضف للسلة"
+      } 
+    } ,
+    "submitOrder" : {
+      "submit" : "تأكيد الطلب" ,
+      "useExisting" : "استخدام عنواني" , 
+      "useNew" : "استخدام عنوان جديد" , 
+      "Note" : "ملاحظات" 
+    } , 
+    "footer" : {
+      "syria" : "دمشق , سوريا" , 
+      "home" : "الصفحة الرئيسية" , 
+      "aboutUs" : "عن تواصي" , 
+      "contactUS" : "تواصل معنا" , 
+      "terms" : "شروط و أحكام" ,
+      "privacy" : " سياسة الخصوصية "  ,
+      "copyrights" : "حقوق النشر محفوظة , تواصي"
+    } , 
+    "cart" : {
+      "emptyCart" : "سلة المشتريات الخاصة بك فارغة , املأها بالعديد من منجاتنا المختلفة" ,
+      "cart" : "السلة" , 
+      "cancel" : "الغاء" ,
+      "addCoupon" : "أضف قسيمة شراء" ,
+      "apply" : "إضافة"
+    }
+  }

@@ -1,73 +1,121 @@
-import React from 'react';
-import Logo from '../../public/images/tawasylogowhite.png';
-import Image from 'next/image';
-import Link from 'next/link';
-import { FaTelegram } from 'react-icons/fa';
-import { BsFacebook } from 'react-icons/bs';
-import { BsFillTelephoneFill ,BsInstagram} from 'react-icons/bs';
+import React from "react";
+import Logo from "../../public/images/tawasylogowhite.png";
+import Image from "next/image";
+import Link from "next/link";
+import { FaTelegram } from "react-icons/fa";
+import { BsFacebook } from "react-icons/bs";
+import { BsFillTelephoneFill, BsInstagram } from "react-icons/bs";
+import { MdCopyright } from "react-icons/md";
+import { useTranslation } from "next-i18next";
 
+const Footer = () => {
+  const { t } = useTranslation("");
 
-const Footer =() => {
   return (
-        <div className='bg-[#262626]  bottom-0 w-full pb-10 pt-5'>
-          <div >
-        <div className='md:flex md:justify-center items-center text-center pb-5 text-gray-400'>
-        <div className='mr-[2%] ml-[2%]'><Link className='my-2' href='#'>Contact us</Link></div>
-        <div className='mr-[5%] ml-[2%]'> <Link className='my-2' href='#'>Privacy Policy</Link> </div>
-        <div className='my-2'><Link href='#'>Terms and Conditions</Link> </div>
-        </div>
-        <hr/>
-        </div>
-        <div className='grid md:grid-cols-4 sm:grid-cols-1 grid-col-1 gap-4 px-20 py-10'>
-        <div className='items-center'>
-        <Image src={Logo} alt='logo' className='w-[40%] ml-24 mb-4'/>
-        <p className='text-white text-lg text-center'>Today, shopping has become more enjoyable after we were<br/> 
-          able to collect more than 400 important<br/> brands for you to shop from
-           </p>
+    <div className="bg-[#262626]  bottom-0 w-full">
+      <div className="grid md:grid-cols-3 sm:grid-cols-1 grid-col-1 gap-4 px-20 py-10">
+        <div className="items-center">
+          <Image src={Logo} alt="logo" className="w-[40%] mx-auto" />
+          <p className="text-white text-lg text-center">
+            Today, shopping has become more enjoyable after we were
+            <br />
+            able to collect more than 400 important
+            <br /> brands for you to shop from
+          </p>
         </div>
 
-        <div className='text-white items-center text-center'>
-        <h2 className='mb-4 text-skin-primary'>Menu</h2>
-        <ul className='text-xl'>
-        <li className='mb-2'><Link href='#'>Home</Link></li>
-        <li className='mb-2'><Link href='#'>Orders</Link></li>
-        <li className='mb-2'><Link href='#'>About Us</Link></li>
-        <li className='mb-2'><Link href='#'>Contact Us</Link></li>
-        </ul>
-        </div>
-          
-          
-        <div className='text-white items-center text-center'>
-        <h2 className='mb-4 text-skin-primary'>Lorem</h2>
-        <ul className='text-xl'>
-        <li className='mb-2'><Link href='#'>Home</Link></li>
-        <li className='mb-2'><Link href='#'>Orders</Link></li>
-        <li className='mb-2'><Link href='#'>About Us</Link></li>
-        <li className='mb-2'><Link href='#'>Contact Us</Link></li>
-        </ul>
-        </div>
-
-        <div className='text-white items-center text-center'>
-        <h2 className='mb-3 text-skin-primary'>Menu</h2> 
-        <ul className='text-xl'>
-        <li className='mb-2 '><Link href='#'>Syria , Damascus</Link></li>
-        <li className='mb-2'><Link href='#'>+963987000888</Link></li>
-        <li className='mb-2'><Link href='#'>sales@tawasyme.com</Link></li>
-        <div className='mt-4'>
-         <ul className='flex justify-center'>
-         <li className='mr-2'><Link href='https://t.me/tawasyshopping'><FaTelegram className='w-[25px] h-[25px]'/> </Link></li>
-          <li className='mr-2'><Link href='#'><BsFillTelephoneFill className='w-[25px] h-[25px]'/> </Link></li>
-          <li className='mr-2'><Link href='#'><BsFacebook className='w-[25px] h-[25px]'/> </Link></li>
-          <li className='mr-2'><Link href='#'><BsInstagram className='w-[25px] h-[25px]'/> </Link></li>
-         </ul>
-         </div>
-        </ul>
+        <div className="text-white items-center text-center">
+          {/* <h2 className="mb-4 text-skin-primary">Menu</h2> */}
+          <ul className="text-xl">
+            <li className="mb-2">
+              <Link href="/customer" className="hover:text-skin-primary">
+                {t("footer.home")}
+              </Link>
+            </li>
+            <li className="mb-2">
+              <Link href="/AboutUs" className="hover:text-skin-primary">
+                {t("footer.aboutUs")}
+              </Link>
+            </li>
+            <li className="mb-2">
+              <Link href="/ContactUs" className="hover:text-skin-primary">
+                {t("footer.contactUS")}
+              </Link>
+            </li>
+          </ul>
         </div>
 
+        <div className="text-white items-center text-center">
+          {/* <h2 className="mb-3 text-skin-primary">Menu</h2> */}
+          <ul className="text-xl">
+            <li className="mb-2 ">
+              <p>{t("footer.syria")}</p>
+            </li>
+            <li className="mb-2">
+              <p>+963987000888</p>
+            </li>
+            <li className="mb-2">
+              <p>sales@tawasyme.com</p>
+            </li>
+            <div className="mt-4">
+              <ul className="flex justify-center">
+                <li className="mr-2">
+                  <Link href="https://t.me/tawasyshopping">
+                    <FaTelegram className="w-[25px] h-[25px]" />{" "}
+                  </Link>
+                </li>
+                <li className="mr-2">
+                  {/* <Link href="#"> */}
+                  <BsFillTelephoneFill className="w-[25px] h-[25px]" />{" "}
+                  {/* </Link> */}
+                </li>
+                <li className="mr-2">
+                  <Link href="#">
+                    <BsFacebook className="w-[25px] h-[25px]" />{" "}
+                  </Link>
+                </li>
+                <li className="mr-2">
+                  <Link href="#">
+                    <BsInstagram className="w-[25px] h-[25px]" />{" "}
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </ul>
         </div>
+      </div>
+      <div>
+        <hr />
+        <div className="md:flex md:justify-center items-center gap-11 py-3 text-center text-gray-400">
+          <div className="flex justify-start items-center gap-1">
+            {t("footer.copyrights")}
+            <MdCopyright />
+          </div>
+          <div className="">
+            {/* <Link className=" border-b-2 border-transparent hover:text-skin-primary hover:border-skin-primary transition-all duration-500" href="/ContactUs">
+            {t("footer.contactUS")}
+            </Link> */}
+          </div>
+          <div className="">
+            <Link
+              href="/PrivacyPolicy"
+              className=" border-b-2 border-transparent hover:text-skin-primary hover:border-skin-primary transition-all duration-500"
+            >
+              {t("footer.privacy")}
+            </Link>
+          </div>
+          <div className="">
+            <Link
+              href="/TermsAndConditions"
+              className=" border-b-2 border-transparent hover:text-skin-primary hover:border-skin-primary transition-all duration-500"
+            >
+              {t("footer.terms")}
+            </Link>
+          </div>
         </div>
-  
-      );
-}
+      </div>
+    </div>
+  );
+};
 
 export default Footer;

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React from "react";
-import Logo from '../../../public/images/tawasylogo.png';
+import Logo from '../../public/images/tawasylogo.png';
 
 
 function TermsAndConditions (){

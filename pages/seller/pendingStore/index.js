@@ -25,7 +25,7 @@ function pendingPage() {
   const { data, isLoading, isError, error } = useQuery(
     `StoreStatus`,
     getStoreStatus,
-    { staleTime: 1, refetchOnMount: true, refetchOnWindowFocus: false  , refetchInterval : 30000}
+    { staleTime: 1, refetchOnMount: true, refetchOnWindowFocus: false  , refetchInterval : 300000}
   );
 
   if (data) {

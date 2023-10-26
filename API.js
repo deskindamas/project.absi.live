@@ -51,7 +51,7 @@ const createAxiosInstance = (router) => {
   axiosInstance.interceptors.response.use(
     (response) => {
       // Show success notification
-      if(response.config.method === 'post' || response.config.method === 'put' || response.config.method === 'delete'){
+      if((response.config.method === 'post' || response.config.method === 'put' || response.config.method === 'delete') && !response.config.noSuccessToast ){
           toast.success(response.data.message || "Request successful", {
             position: "top-right",
             autoClose: 5000,

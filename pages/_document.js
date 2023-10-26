@@ -1,16 +1,26 @@
-import { Html, Head, Main, NextScript } from 'next/document'
+// import { Html, Head, Main, NextScript } from 'next/document'
  
-export default function Document() {
+import Document, { Html, Main, NextScript, Head } from "next/document";
+
+function MyDocument({ locale, ...props }) {
+
+  const dir = locale === "ar" ? "rtl" : "ltr" ;
+
   return (
-    <Html lang="en">
+    <Html dir={dir} lang={locale}>
       <Head />
       <body>
         <Main />
         <NextScript />
-        <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
       </body>
     </Html>
-  )
+  );
 }
+
+MyDocument.getInitialProps = async (ctx) => {
+  const initialProps = await Document.getInitialProps(ctx);
+  return { ...initialProps, locale: ctx?.locale || "en" };
+};
+
+export default MyDocument;
+
