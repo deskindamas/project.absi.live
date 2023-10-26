@@ -32,8 +32,8 @@ export default function SidebarAdmin(props) {
   return (
     <div className="w-full h-full ">
       <div
-        style={{ position: "fixed", overflow: "auto" }}
-        className={`top-0 bottom-0 right-0 w-[20%]  bg-[#ff6600] shadow duration-300 pl-2`}
+        style={{ position: "fixed" }}
+        className={`top-0 overflow-y-auto overflow-x-hidden bottom-0 right-0 w-[20%]  bg-[#ff6600] shadow duration-300 pl-2`}
       >
         <div className="space-y-3">
           <div className=" flex justify-center">
@@ -83,7 +83,7 @@ export default function SidebarAdmin(props) {
                         onClick={() => {
                           router.push({
                             pathname: "/admin/Orders/PendingOrders",
-                            query: { type : "pendingOrders"},
+                          
                           });
                         }}
                       >
@@ -98,7 +98,6 @@ export default function SidebarAdmin(props) {
                         onClick={() => {
                           router.push({
                             pathname: "/admin/Orders/RejectedOrders",
-                            query: { type : "rejectedOrders"},
                           });
                         }}
                       >
@@ -112,7 +111,6 @@ export default function SidebarAdmin(props) {
                         onClick={() => {
                           router.push({
                             pathname: "/admin/Orders/AcceptedOrders",
-                            query: { type : "acceptedOrders"},
                           });
                         }}
                       >
@@ -126,7 +124,6 @@ export default function SidebarAdmin(props) {
                         onClick={() => {
                           router.push({
                             pathname: "/admin/Orders/AllOrders",
-                            query: { type : "allOrders"},
                           });
                         }}
                       >
@@ -166,8 +163,7 @@ export default function SidebarAdmin(props) {
                         className="flex items-center p-2 space-x-3 rounded-md text-gray-100"
                         onClick={() => {
                           router.push({
-                            pathname: "/seller/products",
-                            query: { type : "PendingProducts"},
+                            pathname: "/admin/Products/PendingProduct",
                           });
                         }}
                       >
@@ -181,7 +177,6 @@ export default function SidebarAdmin(props) {
                         onClick={() => {
                           router.push({
                             pathname: "/admin/Products/ShareProduct",
-                            query: { type :"activeProducts"},
                           });
                         }}
                       >
@@ -195,7 +190,6 @@ export default function SidebarAdmin(props) {
                         onClick={() => {
                           router.push({
                             pathname: "/admin/Products/AllProducts",
-                            query: { type : "allProducts"},
                           });
                         }}
                       >
@@ -236,7 +230,7 @@ export default function SidebarAdmin(props) {
                         className="flex items-center p-2 space-x-3 rounded-md text-gray-100"
                         onClick={() => {
                           router.push({
-                            pathname: "/seller/products",
+                            pathname: "/admin/Store/PendingStores",
                             query: { type : "PendingProducts"},
                           });
                         }}
@@ -250,7 +244,7 @@ export default function SidebarAdmin(props) {
                         className="flex items-center p-2 space-x-3 rounded-md text-gray-100"
                         onClick={() => {
                           router.push({
-                            pathname: "/seller/products",
+                            pathname: "/admin/Store/ActiveStores",
                             query: { type :"activeProducts"},
                           });
                         }}
@@ -264,8 +258,7 @@ export default function SidebarAdmin(props) {
                         className="flex items-center p-2 space-x-3 rounded-md text-gray-100"
                         onClick={() => {
                           router.push({
-                            pathname: "/seller/products",
-                            query: { type : "allProducts"},
+                            pathname: "/admin/Store/AllStore",
                           });
                         }}
                       >

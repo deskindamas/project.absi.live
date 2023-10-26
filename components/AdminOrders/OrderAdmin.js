@@ -122,7 +122,7 @@ function OrderAdmin({ names  }) {
         </DialogContent>
         
             <DialogActions className="grid md:grid-cols-2 grid-cols-1 ">
-
+            <button type="button" className="bg-gray-500 text-white px-14 py-2" data-dismiss="modal">Cancel</button>
             </DialogActions>
       </Dialog> 
     </>

@@ -9,119 +9,134 @@ import AdminProduct from "@/components/AdminProducts/productsAdmin";
 
 
 const tableheading = [
-    {
-      heading: "Name Ar",
-    },
-    {
-        heading: "Name En",
-      },
-    {
-      heading: "Desc Ar",
-    },
-    {
-        heading: "Desc En",
-      },
-    {
-      heading: "Category",
-    },
-    {
-      heading: "Image",
-    },
-    {
-      heading: "Status",
-    },
-    {
-      heading: "Brand",
-    },
-    {
-        heading: "Sku",
-      },
-      {
-        heading: "Ean Code",
-      },
-    {
-      heading: "Sort Order",
-    },
-    {
-      heading: "Created",
-    },
-    {
-      heading: "Updated",
-    },
-    {
-        heading: "Instores",
-      },
-      {
-        heading: "Action",
-      },
-  ];
+  {
+    heading: "Name Ar",
+  },
+  {
+    heading: "Name En",
+  },
+  {
+    heading: "Desc Ar",
+  },
+  {
+    heading: "Desc En",
+  },
+  {
+    heading: "Category",
+  },
+  {
+    heading: "Image",
+  },
+  {
+    heading: "Status",
+  },
+  {
+    heading: "Brand",
+  },
+  {
+    heading: "Sku",
+  },
+  {
+    heading: "Ean Code",
+  },
+  {
+    heading: "Quantity",
+  },
 
-  const products =[
-    {
-        id: 1,
-        nameAr:'lorem1',
-        nameEn:'lorem1',
-        descAr: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry',
-        descEn: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry',
-        category :'lorem',
-        image : item1 ,
-        status: 'lorem',
-        brand :"ldjdsjs" ,
-        sku :'37732',
-        code :"65444",
-        sortOrder : '5' ,
-        Created :"12/3/2022",
-        instores : '40000' 
-    },
-    {
-        id: 2,
-        name :'lorem2',
-        nameEn:'lorem1',
-        descAr: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry',
-        descEn: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry',
-        category :'lorem',
-        image : item1 ,
-        status: 'lorem',
-        brand :"ldjdsjs" ,
-        sku :'37732',
-        code :"65444",
-        sortOrder : '5' ,
-        Created :"12/3/2022",
-        instores : '40000' 
-    },
-    {
-        id: 3,
-        name :'lorem3',
-        nameEn:'lorem1',
-        descAr: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry',
-        descEn: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry',
-        category :'lorem',
-        image : item1 ,
-        status: 'lorem',
-        brand :"ldjdsjs" ,
-        sku :'37732',
-        code :"65444",
-        sortOrder : '5' ,
-        Created :"12/3/2022",
-        instores : '40000' 
-    },
-    {
-        id: 4,
-        name :'lorem4',
-        nameEn:'lorem1',
-        descAr: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry',
-        descEn: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry',
-        category :'lorem',
-        image : item1 ,
-        status: 'lorem',
-        brand :"ldjdsjs" ,
-        sku :'37732',
-        code :"65444",
-        sortOrder : '5' ,
-        Created :"12/3/2022",
-        instores : '40000' 
-    },
-  ]
+  {
+    heading: "Sort Order",
+  },
+  {
+    heading: "Created",
+  },
+  {
+    heading: "Updated",
+  },
+  {
+    heading: "Instores",
+  },
+  {
+    heading: "Action",
+  },
+];
+
+const products = [
+  {
+    id: 1,
+    nameAr: "lorem1",
+    nameEn: "lorem1",
+    descAr:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry",
+    descEn:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry",
+    category: "lorem",
+    image: item1,
+    status: "lorem",
+    brand: "ldjdsjs",
+    sku: "37732",
+    code: "65444",
+    sortOrder: "5",
+    Created: "12/3/2022",
+    Updated: "12/3/2022",
+    instores: "40000",
+  },
+  {
+    id: 2,
+    name: "lorem2",
+    nameEn: "lorem1",
+    descAr:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry",
+    descEn:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry",
+    category: "lorem",
+    image: item1,
+    status: "lorem",
+    brand: "ldjdsjs",
+    sku: "37732",
+    code: "65444",
+    sortOrder: "5",
+    quantity :"10",
+    Created: "12/3/2022",
+    Updated: "12/3/2022",
+    instores: "40000",
+  },
+  {
+    id: 3,
+    name: "lorem3",
+    nameEn: "lorem1",
+    descAr:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry",
+    descEn:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry",
+    category: "lorem",
+    image: item1,
+    status: "lorem",
+    brand: "ldjdsjs",
+    sku: "37732",
+    code: "65444",
+    sortOrder: "5",
+    Created: "12/3/2022",
+    instores: "40000",
+  },
+  {
+    id: 4,
+    name: "lorem4",
+    nameEn: "lorem1",
+    descAr:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry",
+    descEn:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry",
+    category: "lorem",
+    image: item1,
+    status: "lorem",
+    brand: "ldjdsjs",
+    sku: "37732",
+    code: "65444",
+    sortOrder: "5",
+    Created: "12/3/2022",
+    instores: "40000",
+  },
+];
 
 function ShareProductsAdmin() {
 

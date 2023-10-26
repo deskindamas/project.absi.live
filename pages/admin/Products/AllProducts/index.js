@@ -42,6 +42,10 @@ const tableheading = [
     heading: "Ean Code",
   },
   {
+    heading: "Quantity",
+  },
+
+  {
     heading: "Sort Order",
   },
   {
@@ -75,6 +79,7 @@ const products = [
     code: "65444",
     sortOrder: "5",
     Created: "12/3/2022",
+    Updated: "12/3/2022",
     instores: "40000",
   },
   {
@@ -92,7 +97,9 @@ const products = [
     sku: "37732",
     code: "65444",
     sortOrder: "5",
+    quantity :"10",
     Created: "12/3/2022",
+    Updated: "12/3/2022",
     instores: "40000",
   },
   {

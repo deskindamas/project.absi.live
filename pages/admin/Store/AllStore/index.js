@@ -54,7 +54,7 @@ const tableheading = [
   const stores =[
     {
         id: 1,
-        name_ar:'lorem1',
+        name_ar:'lorem1 abu khaled zein aldein sadkjiasd asdhjbas asdh bdb hashdc iujsxjc ',
         name_en:'lorem1',
         opening_time :'10:00',
         closing_time: '5:00',

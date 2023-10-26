@@ -14,9 +14,7 @@ const tableheading = [
     {
       heading: "Sort Order",
     },
-    {
-        heading: "Store Type",
-      },
+
       {
         heading: "Created At",
       },
@@ -211,6 +209,9 @@ function Categories() {
 
             </DialogActions>
       </Dialog> 
+
+
+
       </div>
     )
 }

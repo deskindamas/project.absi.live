@@ -5,6 +5,7 @@ import createAxiosInstance from "@/API";
 import Link from "next/link";
 import withLayoutAdmin from "@/components/UI/adminLayout";
 import AdminPendingProduct from "@/components/AdminProducts/PendingProductAdmin/PendingProduct";
+import AdminProduct from "@/components/AdminProducts/productsAdmin";
 
 
 
@@ -42,6 +43,12 @@ const tableheading = [
     {
       heading: "Sort Order",
     },
+    {
+      heading: "Created",
+    },
+    {
+      heading: "Updated",
+    },
       {
         heading: "Action",
       },
@@ -61,6 +68,9 @@ const tableheading = [
         sku :'37732',
         code :"65444",
         sortOrder : '5' ,
+        Created: "12/3/2022",
+        Updated: "12/3/2022",
+        instores: "40000",
     },
     {
         id: 2,
@@ -75,6 +85,8 @@ const tableheading = [
         sku :'37732',
         code :"65444",
         sortOrder : '5' ,
+        Created: "12/3/2022",
+        Updated: "12/3/2022",
     },
     {
         id: 3,
@@ -169,7 +181,7 @@ function PendingProductsAdmin() {
                 </thead>
                 <tbody className="text-lg font-normal text-gray-700 text-center">
                   {products.map((names) => {
-                    return <AdminPendingProduct product={names} key={names.id} refetch={() => {refetch();}} />;
+                    return <AdminProduct product={names} key={names.id} refetch={() => {refetch();}} />;
                   })}
                 </tbody>
               </table>

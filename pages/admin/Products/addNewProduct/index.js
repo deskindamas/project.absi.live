@@ -53,12 +53,25 @@ const AddNewProductAdmin = () => {
               </div>
 
               <div className="px-6 py-4">
+    
+              <select className="md:w-[400px] w-full  form-select outline-none bg-transparent border-b-2 border-gray-300 "
+            aria-label="Category"
+             name="category">
+             <option className="bg-white" value="">Select a store type</option>
+             <option className="bg-white" value="">Lorem1</option>
+             <option className="bg-white" value="">Lorem2</option>
+              <option className="bg-white" value="">Lorem3</option>
+              </select>
+              </div>
+
+              <div className="px-6 py-4">
                 <input
                   className="md:w-[400px] w-full border-b-2  outline-none  text-xl focus:border-skin-primary transition-all duration-700"
                   name="brand"
                   placeholder="brand"
                 />
               </div>
+
 
               <div className="px-6 py-4">
                 <input
@@ -95,7 +108,9 @@ const AddNewProductAdmin = () => {
                 </div>
               </div>
 
-              <div className="px-6 py-4">
+            </div>
+
+            <div className="w-full flex justify-center">
                 <button
                   className="bg-[#ff6600] text-white md:w-[400px] py-2 rounded-lg hover:bg-[#ff8800] "
                   type="submit"
@@ -103,7 +118,7 @@ const AddNewProductAdmin = () => {
                   Add Product
                 </button>
               </div>
-            </div>
+
           </div>
         </form>
       </div>
