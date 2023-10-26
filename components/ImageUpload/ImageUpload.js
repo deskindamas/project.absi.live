@@ -6,7 +6,7 @@ import Image from "next/image";
 
 const ImageUpload = (props) => {
   const inputRef = useRef(null);
-  const [imag, setimage] = useState("");
+  const [imag, setimage] = useState(props.defaultImage ? props.defaultImage :"");
 
   const handleImageClick = () => {
     inputRef.current.click();
@@ -27,7 +27,7 @@ const ImageUpload = (props) => {
         {imag ? (
           <div className="flex justify-start items-center w-full gap-6">
             <Image
-              src={URL.createObjectURL(imag)}
+              src={props.defaultImage && imag == props.defaultImage ? props.defaultImage : URL.createObjectURL(imag)}
               alt="upload image"
               width={props.width}
               height={props.height}

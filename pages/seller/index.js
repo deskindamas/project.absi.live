@@ -87,7 +87,7 @@ const Home = () => {
     <Fragment>
       <div className="content ">
         <div className="home" style={{ marginLeft: "20px" }}>
-          <div className="flex flex-col justify-start gap-3 p-4 mt-5 ">
+          { dashboardData && <div className="flex flex-col justify-start gap-3 p-4 mt-5 ">
             <h4
               style={{
                 marginBottom: "30px",
@@ -140,7 +140,7 @@ const Home = () => {
                 value={dashboardData.data.totalUnavailableProducts}
               />
             </div>
-          </div>
+          </div>}
         </div>
       </div>
     </Fragment>

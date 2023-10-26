@@ -180,7 +180,7 @@ function Products() {
                 </h2>
                 <span className="text-gray-400 md:text-2xl text-lg  ">
                   {convertTo12HourFormat(store.data.store.opening_time)}
-                  {/* 8520 */}
+    
                 </span>
               </div>
               <div className="flex justify-start items-center w-full gap-2 px-4  ">

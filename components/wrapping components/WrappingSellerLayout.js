@@ -7,12 +7,10 @@ import Sidebar from '../../components/SideBars/SellerSideBar';
 const withLayout = (WrappedComponent) => {
   return (props) => (
     <div className = ' w-screen h-screen' >
+    <Sidebar/>
     <div className =  ' w-[80%] h-full' >
 
      <WrappedComponent {...props}  />
-    </div>
-    <div>
-    <Sidebar/>
     </div>
       </div>
   );
