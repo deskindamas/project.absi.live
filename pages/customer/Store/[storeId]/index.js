@@ -78,16 +78,16 @@ function Products() {
       );
       const component =
         response.data.data.length < 1 ? (
-          <div className="w-max mx-auto" >{response.data.message}</div>
+          <div className="w-max mx-auto">{response.data.message}</div>
         ) : (
           <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 grid-col-1 gap-4 w-[70%] mx-auto">
-            { response.data.data.map((product) => {
-               return <ProductCustomer key={product.id} product={product} />;
-              })}
+            {response.data.data.map((product) => {
+              return <ProductCustomer key={product.id} product={product} />;
+            })}
           </div>
         );
-        setSearchedResults(component);
-        setSearching(false);
+      setSearchedResults(component);
+      setSearching(false);
       console.log(`product search`);
       console.log(response.data.data);
     } catch (error) {
@@ -134,17 +134,18 @@ function Products() {
                 alt: store.data.store.name,
               },
             ],
-            type: "store", 
+            type: "store",
             url: `https://tawasy.com/customer/Store/${storeId}`,
           }}
         />
       )}
       <div className=" w-full h-full flex flex-col justify-start items-center ">
         {store && (
-          <div className=" relative lg:h-[400px] md:h-[300px] h-auto w-full box-border ">
+          <div className=" relative lg:h-[400px] md:h-[300px] sm:h-[200px] h-[150px] w-full box-border ">
             <Image
               // className=" "
-              src={store.data.store.image}
+              src={store.data.store.logo}
+              // src={store.data.store.image}
               // src={Storeimage}
               // src={Storeimage}
               alt="store"
@@ -155,21 +156,26 @@ function Products() {
               className={`w-full h-full object-cover select-none pointer-events-none `}
             />
             {/* <div className='pb-6'> */}
+            {/* </div> */}
+          </div>
+        )}
+        { store && store.data &&
+          <div className="relative">
+          <div className=" absolute lg:bottom-10 md:bottom-5 lg:w-[200px] lg:h-[200px] md:w-[150px] md:h-[150px] sm:w-[100px] sm:h-[100px] w-[75px] h-[75px] " > 
             <Image
-              className=" shadow absolute z-10 lg:bottom-10 md:bottom-5 sm:bottom-3 bottom-1 right-10 rounded-full"
-              src={store.data.store.logo}
+              className=" shadow  object-cover sm:bottom-3 bottom-1 right-10 rounded-full  "
+              src={store.data.store.image}
               // src={Logo}
               // src={Logo}
               alt="store"
               width={0}
               height={0}
-              sizes="100vw"
-              style={{ width: "auto", height: "50%" }}
+              sizes="50vw"
+              style={{ width: "100%", height: "100%" }}
             />
-            <h1 className={styles.storeName}>{store.data.store.name}</h1>
-            {/* </div> */}
           </div>
-        )}
+          </div>
+      }
 
         {store && (
           <div className="flex flex-col justify-around items-stretch w-full pb-5">
@@ -180,12 +186,11 @@ function Products() {
                 </h2>
                 <span className="text-gray-400 md:text-2xl text-lg  ">
                   {convertTo12HourFormat(store.data.store.opening_time)}
-    
                 </span>
               </div>
               <div className="flex justify-start items-center w-full gap-2 px-4  ">
                 <h2 className="md:text-2xl text-lg text-skin-primary font-medium  ">
-                {t("store.closingTime")} :
+                  {t("store.closingTime")} :
                 </h2>
                 <span className="text-gray-400 md:text-2xl text-lg  ">
                   {convertTo12HourFormat(store.data.store.closing_time)}
@@ -194,7 +199,7 @@ function Products() {
               </div>
               <div className="flex flex-col md:flex-row justify-start items-center w-full gap-2 px-4  ">
                 <h2 className="md:text-2xl text-lg text-skin-primary font-medium  ">
-                {t("store.address")} :
+                  {t("store.address")} :
                 </h2>
                 <span className="text-gray-400 md:text-2xl text-base  ">
                   {store.data.store.location}
@@ -202,7 +207,7 @@ function Products() {
               </div>
               <div className="flex flex-col md:flex-row justify-start items-center gap-2 w-full px-4">
                 <h2 className="md:text-2xl text-lg text-skin-primary font-medium">
-                {t("store.openingDays")} :
+                  {t("store.openingDays")} :
                   {JSON.parse(store.data.store.opening_days)?.map(
                     (day, index) => {
                       return (
@@ -220,7 +225,10 @@ function Products() {
           </div>
         )}
 
-        <div className="w-[80%] flex justify-center items-center gap-2 mx-auto mb-7 " dir="ltr">
+        <div
+          className="w-[80%] flex justify-center items-center gap-2 mx-auto mb-7 "
+          dir="ltr"
+        >
           <div className="flex bg-gray-100 w-full sm:w-2/5 items-center rounded-lg px-2 border-2 border-transparent focus-within:border-skin-primary transition-all duration-700 ">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -284,16 +292,16 @@ function Products() {
           </div>
         )}
 
-        {inSearch == true && (
-          searching == true ? 
+        {inSearch == true &&
+          (searching == true ? (
             <div className="w-full h-full">
               <TawasyLoader width={300} height={300} />
             </div>
-          :
-          <div className="w-full min-h-[500px]">
-            {searchedResults && searchedResults}
-          </div>
-        )}
+          ) : (
+            <div className="w-full min-h-[500px]">
+              {searchedResults && searchedResults}
+            </div>
+          ))}
       </div>
     </div>
   );

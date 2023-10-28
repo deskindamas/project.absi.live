@@ -231,7 +231,7 @@ export default function SidebarAdmin(props) {
                         onClick={() => {
                           router.push({
                             pathname: "/admin/Store/PendingStores",
-                            query: { type : "PendingProducts"},
+                            // query: { type : "PendingProducts"},
                           });
                         }}
                       >
@@ -245,7 +245,7 @@ export default function SidebarAdmin(props) {
                         onClick={() => {
                           router.push({
                             pathname: "/admin/Store/ActiveStores",
-                            query: { type :"activeProducts"},
+                            // query: { type :"activeProducts"},
                           });
                         }}
                       >

@@ -7,86 +7,33 @@ import Link from "next/link";
 import { toast } from "react-toastify";
 import { Ring } from "@uiball/loaders";
 import { useRouter } from "next/router";
+import createAxiosInstance from "@/API";
 
 const AdminLogin = () => {
-    
-  const NumberRef = useRef();
+  // const NumberRef = useRef();
   const router = useRouter();
-  const [selectedRole, setSelectedRole] = useState(1); // 1 for customer 2 for seller
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  // const [selectedRole, setSelectedRole] = useState(1); // 1 for customer 2 for seller
   const [isLoading, setIsLoading] = useState(false);
+  const Api = createAxiosInstance(router);
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
   const handleLogin = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    if (selectedRole === 2) {
-      // seller login
-      try {
-        const response = await axios.post(`${url}/api/seller/login`, {
-          phone_number: NumberRef.current.value,
-        });
-        if (response.status !== 200) {
-          throw new Error(response);
-        }
-        setIsLoading(false);
-        console.log(`seller response`);
-        console.log(response);
-        localStorage.setItem("number", NumberRef.current.value);
-        localStorage.setItem("user", "seller");
-        localStorage.setItem("registered", false);
-        router.push("/verification");
-        toast.success(response.data.message, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        });
-      } catch (error) {
-        toast.error(error.response.data.message, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        });
-        setIsLoading(false);
-        // console.log(error);
-      }
-    } else if (selectedRole === 1) {
-      // customer login
-      try {
-        const response = await axios.post(`${url}/api/customer/login`, {
-          phone_number: NumberRef.current.value,
-        });
-        if (response.status !== 200) {
-          throw new Error(response);
-        }
-        setIsLoading(false);
-        console.log(response);
-        localStorage.setItem("number", NumberRef.current.value);
-        localStorage.setItem("user", "customer");
-        localStorage.setItem("registered", false);
-        router.push("/verification");
-      } catch (error) {
-        toast.error(error.response.data.message, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        });
-        setIsLoading(false);
-      }
+    try {
+      const response = await Api.post(`/api/admin/login`, {
+        email: emailRef.current.value,
+        password: passwordRef.current.value,
+      });
+      // console.log(response) ;
+      localStorage.setItem("AT", response.data.token);
+      setIsLoading(false);
+      router.push("/admin");
+    } catch (error) {
+      setIsLoading(false);
     }
+    setIsLoading(false);
   };
 
   function handleRoleChange(event) {
@@ -115,18 +62,18 @@ const AdminLogin = () => {
       >
         <input
           type="text"
-          ref={NumberRef}
+          ref={emailRef}
           className="outline-none appearance-none border-b-2 border-gray-300 focus:border-[#FD6500] placeholder:text-gray-300 w-full transition-all duration-700"
           placeholder="Email"
-          inputMode="email" 
+          inputMode="email"
           required
         />
-              <input
+        <input
           type="password"
-          ref={NumberRef}
+          ref={passwordRef}
           className="outline-none appearance-none border-b-2 border-gray-300 focus:border-[#FD6500] placeholder:text-gray-300 w-full transition-all duration-700"
           placeholder="password"
-          inputMode="password" 
+          inputMode="password"
           required
         />
         <style jsx>{`
@@ -159,7 +106,6 @@ const AdminLogin = () => {
           )}
         </button>
       </form>
-  
     </div>
   );
 };
