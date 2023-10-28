@@ -12,6 +12,7 @@ import TawasyLoader from "@/components/UI/tawasyLoader";
 import ProductCustomer from "@/components/ProductsCustomer/products";
 import { convertTo12HourFormat } from "@/pages/seller/store";
 import styles from '../../../../components/componentsStyling/sellerStorePage.module.css' ;
+import url from "@/URL";
 
 function Products() {
   const router = useRouter();
@@ -84,9 +85,8 @@ function Products() {
         {store && (
           <div className=" relative lg:h-[400px] md:h-[300px] h-auto w-full box-border ">
             <Image
-              // className=" "
-              src={store.data.store.image}
-              // src={Storeimage}
+              src = "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg"
+              // src={store.data.store.image}
               // src={Storeimage}
               alt="store"
               width={0}
@@ -95,24 +95,27 @@ function Products() {
               style={{ width: "100%", height: "100%" }} // optional
               className={`w-full h-full object-cover select-none pointer-events-none `}
             />
-            {/* <div className='pb-6'> */}
+            <div className="absolute z-10 lg:bottom-10 md:bottom-5 sm:bottom-3 bottom-1 md:right-10 right-2 flex justify-end md:w-[200px] w-[100px] md:h-[200px] h-[100px]">
             <Image
-              className=" shadow absolute z-10 lg:bottom-10 md:bottom-5 sm:bottom-3 bottom-1 right-10 rounded-full"
-              src={store.data.store.logo}
-              // src={Logo}
+              className=" shadow rounded-full md:w-[90%] md:h-[90%]"
+              src= 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg'
+              // src={store.data.store.logo}
               // src={Logo}
               alt="store"
               width={0}
               height={0}
               sizes="100vw"
-              style={{ width: "auto", height: "50%" }}
+              style={{ width: "auto", height: "auto" }}
             />
-            <h1 className={styles.storeName}>
-              {store.data.store.name}
-            </h1>
-            {/* </div> */}
+            </div>
           </div>
         )}
+
+        <div className="flex justify-start w-full ml-6">
+        <h1>
+         hgops;;pfl
+         </h1> 
+        </div>
 
         {store && (
           <div className="flex flex-col justify-around items-stretch w-full pb-5">

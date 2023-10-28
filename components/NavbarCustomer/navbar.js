@@ -36,7 +36,11 @@ function Navbar() {
           <Image
             src={TawasyLogo}
             alt="logo"
-            className="md:w-[15%] w-[100%] h-auto"
+            className="md:w-[20%] w-[100%] h-auto"
+            width={0}
+            height={0}
+            sizes="100vw"
+            style={{ width: "auto", height: "auto" }} 
           />
         </div>
         <div className="md:w-[50%] w-[80%] flex justify-end items-center px-10">
