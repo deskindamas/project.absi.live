@@ -11,43 +11,45 @@ import { useRouter } from "next/router";
 import createAxiosInstance from "@/API";
 import { useState } from "react";
 import { Ring } from "@uiball/loaders";
+import { useTranslation } from "next-i18next";
 
-function CartProduct({ product, storeid , refetch }) {
+function CartProduct({ product, storeid, refetch }) {
   const router = useRouter();
   const Api = createAxiosInstance(router);
+  const { t } = useTranslation("");
   const [isAdding, setIsAdding] = useState(false);
   const [isReducing, setIsReducing] = useState(false);
-//   const [quantity, setQuantity] = useState(product.quantity);
-    let quantity = product.quantity;
+  //   const [quantity, setQuantity] = useState(product.quantity);
+  let quantity = product.quantity;
 
   async function increaseQuantity() {
     setIsAdding(true);
     try {
-        const response = await Api.post(`/api/customer/cart/add` , {
-            product_id : product.product.id ,
-            store_id : storeid
-        });
-        console.log(response);
-        // setQuantity((prev) => {return prev+1});
-        refetch();
-        setIsAdding(false);
+      const response = await Api.post(`/api/customer/cart/add`, {
+        product_id: product.product.id,
+        store_id: storeid,
+      });
+      console.log(response);
+      // setQuantity((prev) => {return prev+1});
+      refetch();
+      setIsAdding(false);
     } catch (error) {
-        setIsAdding(false);
+      setIsAdding(false);
     }
     setIsAdding(false);
   }
 
   async function reduceQuantity() {
     setIsReducing(true);
-    try{
-        const response = await Api.post(`/api/customer/cart/remove` , {
-            product_id : product.product.id 
-        }) ;
-        console.log(response);
-        refetch();
-        setIsReducing(false);
-    }catch(error){
-        setIsReducing(false);
+    try {
+      const response = await Api.post(`/api/customer/cart/remove`, {
+        product_id: product.product.id,
+      });
+      console.log(response);
+      refetch();
+      setIsReducing(false);
+    } catch (error) {
+      setIsReducing(false);
     }
     setIsReducing(false);
   }
@@ -80,9 +82,10 @@ function CartProduct({ product, storeid , refetch }) {
         </div>
 
         <div className=" flex flex-col justify-center items-center gap-2 w-[30%]">
-          <p className=" text-skin-primary text-lg font-light">
-            Total : {convertMoney(product.lineTotal)} S.P
-          </p>
+          <div className=" text-skin-primary flex items-center text-lg font-light">
+            <div>{t("orders.totalPrice")} :</div>
+            <div>{convertMoney(product.lineTotal)} S.P</div>
+          </div>
           <div className="flex w-[70%] justify-around items-center">
             <button>
               {isReducing == true ? (

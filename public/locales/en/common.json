@@ -1,0 +1,76 @@
+{
+  "orders" : {
+    "orders" : "Orders" , 
+      "allOrders" : "All Orders" , 
+      "storeName" : "Store Name" ,
+      "totalPrice" : "Total Price", 
+      "status" : "Status",
+      "orderDetails" : {
+        "name" : "Name" ,
+        "date" : "Date" , 
+        "quantity" : "Quantity",
+        "price" : "Price" ,
+        "totalQuantity" : "Total Quantity" ,
+        "deliveryPrice" : "Delivery Price" ,
+        "discount" : "Discount" , 
+        "finalPrice" : "Final Price" ,
+        "reasonForCancel" : "Reason For cancelling the order. " ,
+        "reason" : "Reason" , 
+        "cancelOrder" : "Cancel Order" , 
+        "noOrders" : "You have no Orders Yet."
+      }
+  } ,
+    "nav" : {
+      "orders" : "My Orders" , 
+      "login" : "Login"
+    },
+    "profile": {
+      "myprofile": "My Profile",
+      "back" : "Back" ,
+      "name" :"Name" , 
+      "phone" : "Phone" ,
+      "address" : "Address" ,
+      "logout" : "LogOut" 
+    } , 
+    "home" : {
+      "search" : "Search" ,
+      "storeType" : "Store type" , 
+      "storeTypes" : "Store Types" , 
+      "category" : "Category" ,
+      "brand" : "Brand" ,
+      "discover" : "Discover Our Store Types" ,
+      "stores" : "Stores" 
+    } , 
+    "store" : {
+      "openingTime" : "Opening Time" ,
+      "closingTime" : "Closing time" ,
+      "address" : "Address" ,
+      "openingDays" : "opening Days" ,
+      "search" :"Search",
+      "product" : {
+        "addToCart" : "Add To Cart"
+      } 
+    } , 
+    "submitOrder" : {
+      "submit" : "Submit Order" ,
+      "useExisting" : "Use my existing Address" , 
+      "useNew" : "Use new address" , 
+      "Note" : "Notes" 
+    }, 
+    "footer" : {
+      "syria" : "Damascus , Syria" , 
+      "home" : "Home" , 
+      "aboutUs" : "About Us" , 
+      "contactUS" : "Contact Us" , 
+      "terms" : "Terms and conditions" ,
+      "privacy" : " Privacy policy " ,
+      "copyrights" : "Copyrights , Tawasy"
+    } , 
+    "cart" : {
+      "emptyCart" : "Your cart is Empty , Go and buy some of our products." ,
+      "cart" : "My Cart",
+      "cancel" : "Cancel" ,
+      "addCoupon" : "Add Coupon" ,
+      "apply" : "Apply"
+    }
+}

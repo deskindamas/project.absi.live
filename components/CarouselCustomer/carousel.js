@@ -11,7 +11,7 @@ export function ResponsiveCarousel() {
       showIndicators={true}
       showStatus={false}
       showThumbs={false}
-      stopOnHover={true}
+      stopOnHover={false}
       // width={`70%`}
       dynamicHeight = {`50%`}
       className="mx-auto w-fit h-fit"

@@ -39,6 +39,10 @@ const createAxiosInstance = (router) => {
     (config) => {
       // Set the Authorization header here (if you have a token, for example)
     //   config.headers.Authorization = token ? `Bearer ${token}` : ``;
+    // const locale = router.locale || "en"; // Adjust as needed
+
+    // // Add the Accept-Language header
+    // config.headers["Accept-Language"] = locale;
     config.headers.Authorization = updateAuthorizationHeader();
       return config;
     },
@@ -51,7 +55,7 @@ const createAxiosInstance = (router) => {
   axiosInstance.interceptors.response.use(
     (response) => {
       // Show success notification
-      if(response.config.method === 'post' || response.config.method === 'put' || response.config.method === 'delete'){
+      if((response.config.method === 'post' || response.config.method === 'put' || response.config.method === 'delete') && !response.config.noSuccessToast ){
           toast.success(response.data.message || "Request successful", {
             position: "top-right",
             autoClose: 5000,
@@ -83,7 +87,16 @@ const createAxiosInstance = (router) => {
             progress: undefined,
             theme: "colored",
           });
-          router.push(`/login`) ;
+
+          const isAdmin = error.config.url && error.config.url.includes('/admin/');
+          
+          if (isAdmin == true) {
+            router.push(`/admin/AdminLogin`);
+          } else {
+            router.push(`/login`);
+          }
+
+          // router.push(`/login`) ;
           // Example: router.push('/login');
         } else {
           // Show error notification for other status codes

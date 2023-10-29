@@ -6,6 +6,8 @@ import Link from "next/link";
 import withLayoutAdmin from "@/components/UI/adminLayout";
 import AdminPendingProduct from "@/components/AdminProducts/PendingProductAdmin/PendingProduct";
 import AdminProduct from "@/components/AdminProducts/productsAdmin";
+import TawasyLoader from "@/components/UI/tawasyLoader";
+import { useQuery } from "react-query";
 
 
 
@@ -123,17 +125,29 @@ function PendingProductsAdmin() {
     const [tablecontent, settablecontent] = useState([]);
     const router = useRouter();
     const Api = createAxiosInstance(router);
-
+    const { data: pendingProducts, isLoading , refetch , isRefetching} = useQuery(
+      "adminPendingProducts",
+      fetchAdminPendingProduct,
+      { staleTime: 1, refetchOnMount: true, refetchOnWindowFocus: false }
+    );
+  
+    async function fetchAdminPendingProduct() {
+      try {
+        return await Api.get(`/api/admin/pending-products`);
+      } catch {}
+    }
     
-      const closepopup = () => {
-        openchange(false);
-      };
+    if (isLoading == true) {
+      return <div className="w-full h-full">
+         <TawasyLoader width={400} height={400} />
+       </div>;
+     }
     
    return(
     <div>
-       <div className="items-center w-full py-4 mx-auto my-10 bg-white rounded-lg shadow-md sm:w-11/12">
+       <div className="items-center w-full py-4 mx-auto my-10 bg-white rounded-lg shadow-md px-3">
         <div className="w-full h-full mx-auto">
-        <div className="m-5 p-5">
+        <div className="">
             <h2 className="text-2xl text-stone-500 pb-5 ">
             Pending Product
             </h2>
@@ -169,7 +183,7 @@ function PendingProductsAdmin() {
             <div className="w-full h-full">
               {/* <TawasyLoader width={300} height={300} /> */}
             </div>
-            <div className="mt-6 overflow-x-auto">
+            { pendingProducts && pendingProducts.data.products.length > 0 ? <div className="mt-6 overflow-x-auto">
               <table className="w-[2000px] overflow-x-auto table-auto">
                 <thead className="">
                   <tr className="text-sm font-semibold text-center border-b-2 border-blue-500 uppercase">
@@ -180,12 +194,14 @@ function PendingProductsAdmin() {
                   </tr>
                 </thead>
                 <tbody className="text-lg font-normal text-gray-700 text-center">
-                  {products.map((names) => {
+                  {pendingProducts.data.products.map((names) => {
                     return <AdminProduct product={names} key={names.id} refetch={() => {refetch();}} />;
                   })}
                 </tbody>
               </table>
-            </div>
+            </div> : 
+              <div className="w-max mx-auto">There are no pending products.</div>
+            }
         
     
         </div>

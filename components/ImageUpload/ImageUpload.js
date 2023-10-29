@@ -54,6 +54,7 @@ const ImageUpload = (props) => {
           className="py-1 px-2 bg-red-500 hover:bg-red-600 text-white rounded-lg cursor-pointer w-max h-max my-3"
           onClick={() => {
             setimage(null);
+            props.onSelectImage(null);
           }}
         >
           Remove

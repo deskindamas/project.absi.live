@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import withLayoutCustomer from "@/components/wrapping components/WrappingCustomerLayout";
 import Image from "next/image";
@@ -8,10 +8,20 @@ import { useRouter } from "next/router";
 import { useQuery } from "react-query";
 import createAxiosInstance from "@/API";
 import TawasyLoader from "@/components/UI/tawasyLoader";
+import { MdArrowForward, MdClose } from "react-icons/md";
+import { NextSeo } from "next-seo";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 const StoreType = () => {
   const router = useRouter();
   const Api = createAxiosInstance(router);
+  const [searching, setSearching] = useState(false);
+  const [inSearch, setInSearch] = useState(false);
+  const [searchedResults, setSearchedResults] = useState();
+  const searchRef = useRef();
+  const { t } = useTranslation("");
+
   const [storeTypeId, setStoreTypeId] = useState();
   const {
     data: stores,
@@ -26,11 +36,9 @@ const StoreType = () => {
   });
 
   async function fetchStores() {
-    try{
+    try {
       return await Api.get(`/api/store-types/${storeTypeId}`);
-    }catch(error){
-
-    }
+    } catch (error) {}
   }
 
   useEffect(() => {
@@ -40,19 +48,67 @@ const StoreType = () => {
     }
   }, [router.query.storeTypeId]);
 
-  if (stores) {
-    console.log(stores);
+  async function search() {
+    setSearching(true);
+    try {
+      const { data: stores } = await Api.post(
+        `/api/stores/search`,
+        {
+          query: searchRef.current.value,
+        },
+        {
+          noSuccessToast: true,
+        }
+      );
+      const component =
+        stores.message && stores.data.length < 1 ? (
+          <div className="w-[80%] mx-auto text-lg text-center">
+            {stores.message}
+          </div>
+        ) : (
+          <div
+            className={`w-[70%] grid lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 grid-col-1 gap-4 mx-auto`}
+          >
+            {stores?.data?.map((store) => {
+              return <StoreComponent key={store.id} store={store} />;
+            })}
+          </div>
+        );
+      setSearchedResults(component);
+      setSearching(false);
+    } catch (error) {
+      setSearching(false);
+    }
+    setSearching(false);
   }
 
-  if(isLoading) {
-    return <div className="w-full h-full" >
-      <TawasyLoader width={400} height={400} />
-    </div>
+  if (isLoading) {
+    return (
+      <div className="w-full h-full">
+        <TawasyLoader width={400} height={400} />
+      </div>
+    );
   }
 
   return (
     <div>
-      <div className="mx-auto w-full  ">
+      {/* { stores && <NextSeo
+        title={`Tawasy Shopping - ${stores.data.data.store_type.name}`}
+        description={`Tawasy Shopping store type ${stores.data.data.store_type.name}`}
+        openGraph={{
+          title: stores.data.data.store_type.name,
+          description: "shop from our stores that cover a whole combination of categories from our store types",
+          images: [
+            {
+              url: stores.data.store.image,
+              alt: stores.data.store.name, 
+            },
+          ],
+          type: 'store type', 
+          url: `https://tawasy.com/customer/StoreType/${storeTypeId}`,
+        }}
+      />} */}
+      <div className="mx-auto w-full  " dir="ltr" >
         <ResponsiveCarousel />
       </div>
       <div className="md:mx-20 shadow-lg shadow-gray-500 pb-5 mb-6 ">
@@ -66,11 +122,11 @@ const StoreType = () => {
           </div>
         )}
 
-        <form className="flex justify-center items-center w-full my-4">
-          <div className="flex bg-gray-50 pt-1 pb-1 sm:w-2/5 items-center rounded-lg mb-4 mr-4 border-2">
+        <div className="w-[80%] flex justify-center items-center gap-2 mx-auto mb-7 " dir="ltr" >
+          <div className="flex bg-gray-100 w-full sm:w-2/5 items-center rounded-lg px-2 border-2 border-transparent focus-within:border-skin-primary transition-all duration-700 ">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-4 w-4 mx-2"
+              className="h-4 w-4 mr-2"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -83,30 +139,86 @@ const StoreType = () => {
               />
             </svg>
             <input
-              className="w-full  bg-gray-50 outline-none border-transparent text-gray-700 focus:border-transparent focus:ring-0 rounded-lg text-sm h-8"
+              className="w-full bg-gray-100 outline-none rounded-lg text-sm h-10"
               type="text"
-              placeholder="Search a product "
+              ref={searchRef}
+              placeholder={t("store.search")}
+              onClick={() => {
+                setInSearch(true);
+              }}
+            />
+            <MdArrowForward
+              onClick={search}
+              className="hover:border-b-2 border-skin-primary cursor-pointer"
             />
           </div>
-        </form>
+          {inSearch == true && (
+            <MdClose
+              className="text-red-500 hover:text-red-600 w-[25px] h-[25px] hover:border-b-2 hover:border-red-600 cursor-pointer "
+              onClick={() => {
+                setInSearch(false);
+              }}
+            />
+          )}
+        </div>
 
         <div className="">
-          <div className=" w-[70%] grid lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 grid-col-1 gap-4 mx-auto">
-            {stores &&
-              stores.data.data.stores.map((store) => {
-                return <StoreComponent store = {store} />;
-              })}
-            {/* <StoreComponent />
-            <StoreComponent />
-            <StoreComponent />
-            <StoreComponent />
-            <StoreComponent />
-            <StoreComponent /> */}
-          </div>
+          {inSearch == false && (
+            <div
+              className={`w-[70%] grid lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 grid-col-1 gap-4 mx-auto `}
+            >
+              {stores &&
+                stores.data.data.stores.map((store) => {
+                  return <StoreComponent key={store.id} store={store} />;
+                })}
+            </div>
+          )}
+          {inSearch == true && (
+            <div className="min-h-[300px]">
+              {inSearch == true &&
+                (searching ? (
+                  <div className="w-max h-auto mx-auto ">
+                    <TawasyLoader width={300} height={300} />
+                  </div>
+                ) : (
+                  searchedResults && searchedResults
+                  // </div>
+                ))}
+            </div>
+          )}
         </div>
       </div>
     </div>
   );
 };
 
+export async function getServerSideProps(context) {
+  const storeTypeId = context.params.storeTypeId;
+  const Api = createAxiosInstance();
+  try {
+    const storeData = await Api.get(`/api/store-types/${storeTypeId}`);
+
+    return {
+      props: {
+        storeData: storeData.data,
+        ...(await serverSideTranslations(context.locale, ["common"])),
+      },
+    };
+  } catch (error) {
+    console.error("Error fetching store data:", error);
+
+    return {
+      notFound: true,
+    };
+  }
+}
+
 export default withLayoutCustomer(StoreType);
+
+// export async function getStaticProps({ locale }) {
+//   return {
+//     props: {
+//       ...(await serverSideTranslations(locale, ["common"])),
+//     },
+//   };
+// }

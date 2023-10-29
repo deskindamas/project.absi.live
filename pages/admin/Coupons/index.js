@@ -180,7 +180,7 @@ function Coupons() {
 
          <div className="w-full px-4 py-3">
         <input
-          type="text"
+          type="date"
           className="outline-none appearance-none border-b-2 border-gray-300 focus:border-[#FD6500]  w-full transition-all duration-700"
           placeholder="expire_date"
           inputMode="expire_date" 
