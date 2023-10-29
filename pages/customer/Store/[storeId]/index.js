@@ -257,7 +257,7 @@ function Products() {
       {inSearch == false && (
         <div className="w-full">
           <div className="flex justify-center bg-gray-200 w-full py-3 mb-10  ">
-            <ul className="flex justify-center items-center md:w-full w-[90%] mx-auto gap-6 md:overflow-auto overflow-x-scroll">
+            <ul className="flex md:justify-center justify-start md:items-center items-start md:w-full w-[90%] mx-auto gap-6 md:overflow-auto overflow-x-scroll">
               {store && (
                 <FilterCategories
                   categories={store.data?.categories}
