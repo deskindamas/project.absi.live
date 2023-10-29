@@ -21,7 +21,8 @@
         }
     } ,
     "nav" : {
-      "orders" : "طلباتي"
+      "orders" : "طلباتي" , 
+      "login" : "تسجيل الدخول"
     },
     "profile": {
       "myprofile": "حسابي",

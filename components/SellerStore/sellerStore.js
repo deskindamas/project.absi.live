@@ -1,5 +1,6 @@
 import createAxiosInstance from "@/API";
 import { Ring } from "@uiball/loaders";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useEffect } from "react";
@@ -59,7 +60,7 @@ function SellerStore({ store , refetch }) {
 
   return (
     <>
-      <div
+       <div
         className="bg-white mb-10 mx-2 md:px-3 pt-3 pb-6 border-2 shadow-xl border-slate-200 rounded-lg "
         key={store.id}
       >
@@ -134,29 +135,12 @@ function SellerStore({ store , refetch }) {
                   }}
                 />
               )}
-              {/* <div onClick={handleAvailable}>
-                {isToggled !== true ? (
-                  <BsToggleOn
-                    style={{
-                      width: "30px",
-                      height: "30px",
-                      color: "#ff6600",
-                    }}
-                  />
-                ) : (
-                  <BsToggleOff
-                    style={{
-                      width: "30px",
-                      height: "30px",
-                      color: "#ff6600",
-                    }}
-                  />
-                )}
-              </div> */}
             </div>
           </div>
         </div>
       </div>
+
+
     </>
   );
 }

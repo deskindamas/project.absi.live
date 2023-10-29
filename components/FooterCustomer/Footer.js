@@ -16,7 +16,7 @@ const Footer = () => {
       <div className="grid md:grid-cols-3 sm:grid-cols-1 grid-col-1 gap-4 px-20 py-10">
         <div className="items-center">
           <Image src={Logo} alt="logo" className="w-[40%] mx-auto" />
-          <p className="text-white text-lg text-center">
+          <p className="text-white text-lg text-center md:block hidden ">
             Today, shopping has become more enjoyable after we were
             <br />
             able to collect more than 400 important

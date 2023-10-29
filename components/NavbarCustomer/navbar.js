@@ -42,14 +42,18 @@ function Navbar() {
 
   return (
     <>
-      <div className="flex bg-skin-primary justify-around lg:h-[80px] md:h-[60px] sm:h-[50px] h-[40px] pt-2 pb-2 w-full  z-20 fixed " dir="ltr" >
-        <div className="flex justify-start md:pl-16 md:w-[50%] w-[20%] h-auto px-10 cursor-pointer"
+      <div className="flex bg-skin-primary justify-around lg:h-[80px] md:h-[60px] sm:h-[50px] h-[50px] pt-2 pb-2 w-full  z-20 fixed " dir="ltr" >
+        <div className="flex justify-start md:pl-16 md:w-[50%] w-auto h-auto px-10 cursor-pointer"
           onClick={() => {router.push(`/customer`)}}
         >
           <Image
             src={TawasyLogo}
             alt="logo"
-            className="md:w-[15%] w-[100%] h-auto"
+            className="md:w-[20%] w-[100%] h-auto"
+            width={0}
+            height={0}
+            sizes="100vw"
+            style={{ width: "auto", height: "auto" }} 
           />
         </div>
         <div className="md:w-[50%] w-[80%] flex justify-end items-center px-10">
@@ -83,9 +87,9 @@ function Navbar() {
           {isLoggedIn == false && (
             <Link
               href={"/login"}
-              className="text-white h-[80%] flex items-center justify-center border-[1px] border-white md:px-6 px-1 hover:bg-white hover:text-skin-primary rounded-md justify-self-end"
+              className="text-white h-[80%] flex items-center justify-center md:border-[1px] md:border-white md:px-6 px-1 hover:bg-white hover:text-skin-primary rounded-md justify-self-end"
             >
-              Login
+              {t("nav.login")}
             </Link>
           )}
         </div>
