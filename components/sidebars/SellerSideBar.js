@@ -28,10 +28,10 @@ export default function Sidebar(props) {
   }
 
   return (
-    <div className="w-full h-full ">
+    <div className={`w-max h-max  `} >
       <div
         style={{ position: "fixed", overflow: "auto" }}
-        className={`top-0 bottom-0 left-0 w-[20%]  bg-[#ff6600] shadow duration-300 pl-2`}
+        className={`top-0 bottom-0 right-0 w-[20%]  bg-[#ff6600] shadow duration-300 pl-2`}
       >
         <div className="space-y-3">
           <div className=" flex justify-center">

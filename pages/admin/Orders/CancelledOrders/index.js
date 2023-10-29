@@ -27,8 +27,55 @@ const tableheading = [
   },
 ];
 
+const orders = [
+  {
+    id: 1,
+    store_name: "lorem1",
+    customerName: "lorem1",
+    status: "lorem",
+    location: "syria",
+    created: "12/3/2022",
+    update: "12/3/2022",
+  },
+  {
+    id: 2,
+    store_name: "lorem2",
+    customerName: "lorem1",
+    status: "lorem",
+    location: "syria",
+    created: "12/3/2022",
+    update: "12/3/2022",
+  },
+  {
+    id: 3,
+    store_name: "lorem3",
+    customerName: "lorem1",
+    status: "lorem",
+    location: "syria",
+    created: "12/3/2022",
+    update: "12/3/2022",
+  },
+  {
+    id: 4,
+    store_name: "lorem4",
+    customerName: "lorem1",
+    status: "lorem",
+    location: "syria",
+    created: "12/3/2022",
+    update: "12/3/2022",
+  },
+  {
+    id: 5,
+    store_name: "lorem5",
+    customerName: "lorem1",
+    status: "lorem",
+    location: "syria",
+    created: "12/3/2022",
+    update: "12/3/2022",
+  },
+];
 
-function DeclinedOrdersAdmin() {
+function CancelledOrdersAdmin() {
   const router = useRouter();
   const Api = createAxiosInstance(router);
   const {
@@ -36,15 +83,15 @@ function DeclinedOrdersAdmin() {
     isLoading,
     refetch,
     isRefetching,
-  } = useQuery("adminDeclinedOrders", fetchDeclinedOrders, {
+  } = useQuery("adminCancelledOrders", fetchCancelledOrders, {
     staleTime: 1,
     refetchOnWindowFocus: false,
     refetchOnMount: true,
   });
 
-  async function fetchDeclinedOrders () {
+  async function fetchCancelledOrders () {
     try{
-      return await Api.get(`/api/admin/declined-orders`);
+      return await Api.get(`/api/admin/cancelled-orders`);
     }catch(error){
 
     }
@@ -60,7 +107,7 @@ function DeclinedOrdersAdmin() {
     <div className="md:px-6">
       <div className="container">
         <div className="m-5 p-5">
-          <h2 className="text-2xl text-stone-500 pb-5 ">Declined Orders</h2>
+          <h2 className="text-2xl text-stone-500 pb-5 ">Cancelled Orders</h2>
         </div>
 
         <div className="w-full ">
@@ -86,11 +133,11 @@ function DeclinedOrdersAdmin() {
                 );
               })}
             </tbody>
-          </table> : <div> There are no declined orders. </div>}
+          </table> : <div> There are no cancelled orders. </div>}
         </div>
       </div>
     </div>
   );
 }
 
-export default withLayoutAdmin(DeclinedOrdersAdmin);
+export default withLayoutAdmin(CancelledOrdersAdmin);

@@ -7,14 +7,14 @@ function StoreComponent({store}) {
   return (
     <Link href={`/customer/Store/${store.id}`} className=" lg:w-[70%] md:w-[70%] sm:w-[80%] w-[90%] h-auto cursor-pointer bg-white shadow-xl flex justify-start items-center gap-4 rounded-lg overflow-hidden pr-2 border-2 border-gray-200 hover:scale-105 transition-all duration-500 mx-auto ">
       <Image
-        src={lego}
-        // src={store.image}
+        // src={lego}
+        src={store.logo}
         // src="https://himenobaraen.jp/wp-content/uploads/rosa_chinensis.jpg"
         width={0}
         height={0}
         sizes="100vw"
-        style={{ width: "30%", height: "100%" }} // optional
-        className={`md:w-[200px] w-[30%] object-cover select-none pointer-events-none `}
+        style={{ width: "100%", height: "100%" }} // optional
+        className={`md:w-[200px] w-[30%] md:h-[200px] h-[30%] object-cover select-none pointer-events-none `}
       />
       <div className="w-[60%] flex flex-col justify-center items-start box-border h-full px-2 ">
           <div className=" line-clamp-2 text-start md:text-xl text-lg w-full text-ellipsis select-none " title={store.name} >

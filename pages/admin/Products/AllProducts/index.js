@@ -178,8 +178,8 @@ function ProductsAdmin() {
               <h2 className="text-2xl text-stone-500 pb-5 ">All Products</h2>
               <div className="flex">
                 <div className="w-[50%]">
-                  <form className="w-full ">
-                    <div className="flex bg-gray-50 pt-1 pb-1 w-[80%] items-center rounded-lg mb-4 mr-4 border-2">
+                  <form className="w-full my-auto ">
+                    <div className="flex bg-gray-50 pt-1 pb-1 w-[80%] items-center rounded-lg mr-4 border-2">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="h-4 w-4 mx-2"
@@ -205,11 +205,12 @@ function ProductsAdmin() {
 
                 <div
                   className="w-[50%] flex justify-end "
-                  onClick={() => {
-                    router.push("/admin/Products/addNewProduct");
-                  }}
                 >
-                  <button className="bg-skin-primary text-white py-1 px-3 rounded-md">
+                  <button className="bg-skin-primary text-white py-1 px-3 rounded-md"
+                    onClick={() => {
+                      router.push("/admin/Products/addNewProduct");
+                    }}
+                  >
                     Add Product
                   </button>
                 </div>
@@ -222,7 +223,7 @@ function ProductsAdmin() {
                   <tr className="text-sm font-semibold text-center border-b-2 border-blue-500 uppercase">
                     <th>Id</th>
                     {tableheading.map((index) => (
-                      <th key={index.heading}>{index.heading}</th>
+                      <th className=" px-4 py-4 " key={index.heading}>{index.heading}</th>
                     ))}
                   </tr>
                 </thead>

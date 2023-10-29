@@ -189,7 +189,7 @@ function PendingProductsAdmin() {
                   <tr className="text-sm font-semibold text-center border-b-2 border-blue-500 uppercase">
                     <th>Id</th>
                     {tableheading.map((index) => (
-                      <th key={index.heading} >{index.heading}</th>
+                      <th className=" px-4 py-4 " key={index.heading} >{index.heading}</th>
                     ))}
                   </tr>
                 </thead>

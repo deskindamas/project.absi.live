@@ -98,7 +98,7 @@ function SellerProduct({ product , refetch }) {
         <td className="px-4 py-4">{product.description}</td>
         <td className="px-4 py-4">{product.category}</td>
         <td className="px-4 py-4">
-          <img src={product.image} alt="photo" />
+          <img src={product.image} alt="photo" width={150} height={150}  />
         </td>
         <td onClick={handleAvailable} className="  ">
           {editingAvailability ? (
@@ -127,7 +127,7 @@ function SellerProduct({ product , refetch }) {
             />
           )}
         </td>
-        <td className="px-4 py-4">{product.brand && product.brand}</td>
+        <td className="px-4 py-4">{product.brand && product.brand.name}</td>
         <td className="px-4 py-4">{product.sold_quantity}</td>
         <td>{price}</td>
         <td class="px-4 py-4">

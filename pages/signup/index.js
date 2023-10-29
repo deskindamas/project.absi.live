@@ -16,36 +16,22 @@ const SignUp = () => {
   const customerNumberRef = useRef();
   const sellerUserNameRef = useRef();
   const sellerNumberRef = useRef();
-  const [address , setAddress] = useState();
+  const [address, setAddress] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [sellerCity, setSellerCity] = useState("دمشق");
   const [registeree, setRegisteree] = useState(1); // 1 for customer 2 for seller
+  const [isChecked, setIsChecked] = useState(false);
 
   const router = useRouter();
 
   async function customerSubmit(e) {
     e.preventDefault();
-    setIsLoading(true);
-    try {
-      const response = await axios.post(`${url}/api/customer/register`, {
-        name: customerUserNameRef.current.value,
-        phone_number: customerNumberRef.current.value,
-        location: address.address,
-        longitude :address.lat ,
-        latitude : address.lng 
-      });
-      if (response.status !== 200) {
-        throw new Error(response);
-      }
-      setIsLoading(false);
-      console.log(response.data);
-      localStorage.setItem('number' , response.data.customer.phone_number)
-      localStorage.setItem('user' , 'customer') ;
-      localStorage.setItem('registered' , true) ;
-      router.push("/verification");
-    } catch (error) {
-      // if(error.response.data.message){
-        toast.error(error.response.data.message, {
+
+    if (!isChecked) {
+      // Check if the checkbox is not checked
+      toast.error(
+        "Please agree on our terms and conditions and privacy policy.",
+        {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -54,7 +40,41 @@ const SignUp = () => {
           draggable: true,
           progress: undefined,
           theme: "colored",
-        });
+        }
+      );
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      const response = await axios.post(`${url}/api/customer/register`, {
+        name: customerUserNameRef.current.value,
+        phone_number: customerNumberRef.current.value,
+        location: address.address,
+        longitude: address.lat,
+        latitude: address.lng,
+      });
+      if (response.status !== 200) {
+        throw new Error(response);
+      }
+      setIsLoading(false);
+      console.log(response.data);
+      localStorage.setItem("number", response.data.customer.phone_number);
+      localStorage.setItem("user", "customer");
+      localStorage.setItem("registered", true);
+      router.push("/verification");
+    } catch (error) {
+      // if(error.response.data.message){
+      toast.error(error.response.data.message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
       // }
       setIsLoading(false);
     }
@@ -62,14 +82,32 @@ const SignUp = () => {
 
   async function sellerSubmit(e) {
     e.preventDefault();
+    if (!isChecked) {
+      // Check if the checkbox is not checked
+      toast.error(
+        "Please agree on our terms and conditions and privacy policy.",
+        {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        }
+      );
+      return;
+    }
+
     setIsLoading(true);
     try {
       const response = await axios.post(`${url}/api/seller/register`, {
         name: sellerUserNameRef.current.value,
         phone_number: sellerNumberRef.current.value,
         location: sellerCity,
-        longitude :address.lat ,
-        latitude : address.lng ,
+        longitude: address.lat,
+        latitude: address.lng,
         city: sellerCity,
       });
       if (response.status !== 200) {
@@ -77,9 +115,9 @@ const SignUp = () => {
       }
       setIsLoading(false);
       console.log(response.data);
-      localStorage.setItem('number' , response.data.seller.phone_number)
-      localStorage.setItem('user' , 'seller') ;
-      localStorage.setItem('registered' , true) ;
+      localStorage.setItem("number", response.data.seller.phone_number);
+      localStorage.setItem("user", "seller");
+      localStorage.setItem("registered", true);
       router.push("/verification");
     } catch (error) {
       toast.error(error.response.data.message, {
@@ -101,9 +139,9 @@ const SignUp = () => {
   };
 
   function handleData(data) {
-    console.log(`address`) ;
+    console.log(`address`);
     console.log(data);
-    setAddress(data) ;
+    setAddress(data);
   }
 
   return (
@@ -146,7 +184,39 @@ const SignUp = () => {
                 className="outline-none border-b-2 bg-skin-primary border-white placeholder:text-white w-full transition-all duration-700 text-white "
                 placeholder="Phone Number"
               />
-              <Locations onLocation={handleData} className={"mb-4 outline-none bg-transparent border-b-2 border-white text-white w-full cursor-pointer placeholder:text-white "} />
+              <Locations
+                onLocation={handleData}
+                className={
+                  "mb-4 outline-none bg-transparent border-b-2 border-white text-white w-full cursor-pointer placeholder:text-white "
+                }
+              />
+
+              <label className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  checked={isChecked}
+                  onChange={() => setIsChecked(!isChecked)}
+                  className="accent-white"
+                />
+                <span className="text-white flex justify-start items-center gap-1 ">
+                  I agree to the
+                  <Link
+                    href={"/TermsAndConditions"}
+                    className="text-sky-300 border-b-2 border-sky-300 hover:text-sky-500 hover:border-sky-500"
+                  >
+                    terms and conditions
+                  </Link>
+                  and the
+                  <Link
+                    href={"/PrivacyPolicy"}
+                    className="text-sky-300 border-b-2 border-sky-300 hover:text-sky-500 hover:border-sky-500"
+                  >
+                    privacy policy
+                  </Link>
+                  of Tawasy.
+                </span>
+              </label>
+
               <button
                 className="px-2 py-1 border-2 bg-white text-skin-primary rounded-lg hover:bg-gray-200 "
                 type="submit"
@@ -236,7 +306,39 @@ const SignUp = () => {
                   </option>
                 </select>
               </div>
-              <Locations onLocation={handleData} className={"mb-4 outline-none bg-transparent border-b-2 border-white text-white w-full cursor-pointer placeholder:text-white "} />
+              <Locations
+                onLocation={handleData}
+                className={
+                  "mb-4 outline-none bg-transparent border-b-2 border-white text-white w-full cursor-pointer placeholder:text-white "
+                }
+              />
+
+              <label className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  checked={isChecked}
+                  onChange={() => setIsChecked(!isChecked)}
+                  className="accent-white"
+                />
+                <span className="text-white flex justify-start items-center gap-1 ">
+                  I agree to the
+                  <Link
+                    href={"/TermsAndConditions"}
+                    className="text-sky-300 border-b-2 border-sky-300 hover:text-sky-500 hover:border-sky-500"
+                  >
+                    terms and conditions
+                  </Link>
+                  and the
+                  <Link
+                    href={"/PrivacyPolicy"}
+                    className="text-sky-300 border-b-2 border-sky-300 hover:text-sky-500 hover:border-sky-500"
+                  >
+                    privacy policy
+                  </Link>
+                  of Tawasy.
+                </span>
+              </label>
+
               <button
                 className="px-2 py-1 border-2 bg-white text-skin-primary rounded-lg hover:bg-gray-200 "
                 type="submit"

@@ -77,6 +77,20 @@ export default function SidebarAdmin(props) {
                   }
                 >
                   <ul>
+                  <li className={`pt-3`}>
+                      <button
+                        className="flex items-center p-2 space-x-3 rounded-md text-gray-100"
+                        onClick={() => {
+                          router.push({
+                            pathname: "/admin/Orders/CancelledOrders",
+                          
+                          });
+                        }}
+                      >
+                        <AiOutlineCloseCircle className="block text-[20px] text-white " />
+                        <p className="hidden md:block"> Cancelled Orders</p>
+                      </button>
+                    </li>
                     <li className={`pt-3`}>
                       <button
                         className="flex items-center p-2 space-x-3 rounded-md text-gray-100"
@@ -102,7 +116,7 @@ export default function SidebarAdmin(props) {
                         }}
                       >
                         <AiOutlineCloseCircle className="block text-[20px] text-white " />
-                        <p className="hidden md:block">Rejected Orders</p>
+                        <p className="hidden md:block">Declined Orders</p>
                       </button>
                     </li>
                     <li className={`pt-3`}>
