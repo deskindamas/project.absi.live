@@ -83,21 +83,21 @@ const Store = () => {
     <div className="md:px-7 w-full h-full flex flex-col justify-start items-center ">
       {sellerStoreData && (
         <div className=" relative w-full box-content">
-          {/* <Image className="w-full " src={sellerStoreData.store.image} alt="store" width={130} height={130} /> */}
-          <Image className="w-full " src={Storeimage} alt="store" />
+          <Image className="w-full h-[300px] " src={sellerStoreData.store.image} alt="store" width={130} height={130} />
+          {/* <Image className="w-full " src={Storeimage} alt="store" /> */}
           <div className="pb-6">
-            <Image
+            {/* <Image
               className=" shadow absolute z-10 md:bottom-20  right-10 rounded-full outline-none outline-2 w-[10%] h-[25%] outline-skin-primary object-cover "
               src={Logo}
               alt="store"
-            />
-            {/* <Image
-            className=" shadow absolute z-10 md:bottom-20  right-10 rounded-full"
+            /> */}
+            <Image
+            className=" shadow absolute z-10 md:bottom-20 object-cover  right-10 rounded-full"
             src={sellerStoreData.store.logo}
             alt="store"
-            width={1480}
-            height={563}
-          /> */}
+            width={250}
+            height={250}
+          />
             <h1 className={styles.storeName}>{sellerStoreData.store.name}</h1>
           </div>
         </div>

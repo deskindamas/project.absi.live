@@ -136,7 +136,6 @@ function Products() {
           return [];
         }
     }
-
   }
 
 
@@ -148,6 +147,11 @@ function Products() {
 
     setLoaded(true);
   }, [router.query.type]);
+
+  if(products) {
+    console.log(products);
+    console.log(Array.isArray(products));
+  }
 
   const closepopup = () => {
     openchange(false);
@@ -201,7 +205,7 @@ function Products() {
                   </tr>
                 </thead>
                 <tbody className="text-lg font-normal text-gray-700 text-center">
-                  {products.map((names) => {
+                  { products.map((names) => {
                     return <SellerProduct product={names} key={names.id} refetch={() => {refetch();}} />;
                   })}
                 </tbody>

@@ -12,6 +12,8 @@ import Image from "next/image";
 import { convertDate } from "../SellerOrders/sellerOrder";
 import { useRouter } from "next/router";
 import createAxiosInstance from "@/API";
+import TawasyLoader from "../UI/tawasyLoader";
+import { Ring } from "@uiball/loaders";
 
 export function convertDateStringToDate(inputString) {
   // Create a new Date object using the input string
@@ -31,10 +33,12 @@ export function convertDateStringToDate(inputString) {
   return formattedDateTime;
 }
 
-function OrderAdmin({ names }) {
+function OrderAdmin({ names, refetch }) {
   const router = useRouter();
   const Api = createAxiosInstance(router);
   const [isLoading, setIsLoading] = useState(false);
+  const [isCancelling, setIsCancelling] = useState(false);
+  const [isDelivering, setIsDelivering] = useState(false);
   const [orderDetails, setOrderDetails] = useState();
   const [open, openchange] = useState(false);
 
@@ -50,6 +54,40 @@ function OrderAdmin({ names }) {
   const closepopup = () => {
     openchange(false);
   };
+
+  async function cancelOrder() {
+    setIsCancelling(true);
+    try {
+      const response = await Api.put(
+        `/api/admin/updateOrderStatus/${names.order_id}`,
+        {
+          status: "cancelled",
+        }
+      );
+      refetch();
+      setIsCancelling(false);
+      openchange(false);
+    } catch (error) {
+      setIsCancelling(false);
+    }
+  }
+
+  async function delivered() {
+    setIsDelivering(true);
+    try {
+      const response = await Api.put(
+        `/api/admin/updateOrderStatus/${names.order_id}`,
+        {
+          status: "delivered",
+        }
+      );
+      refetch();
+      setIsDelivering(false);
+      openchange(false);
+    } catch (error) {
+      setIsDelivering(false);
+    }
+  }
 
   return (
     <>
@@ -76,87 +114,132 @@ function OrderAdmin({ names }) {
       </tr>
 
       <Dialog open={open} onClose={closepopup} fullWidth maxWidth="md">
-        <DialogTitle className=" border-b-2 border-gray-200">
-          <div className="md:mx-5">
-            <div className="flex justify-between mx-auto">
-              <h4 className="text-xl text-gray-600">
-                Store name: {names.store_name}
-              </h4>
-              <h4>Date : {convertDateStringToDate(names.date)}</h4>
-            </div>
-            <div className="flex justify-between mx-auto text-lg text-gray-400 font-light">
-              <h6>Status : {names.status} </h6>
-              {/* <h4>Phone : 0964328926</h4> */}
-              <h6 className="text-lg text-gray-400 font-light">
-                Shipping Address : {names.shipping_address}
-              </h6>
-            </div>
-            {/* <h6 className="text-lg text-gray-400 font-light">
+        {orderDetails && (
+          <DialogTitle className=" border-b-2 border-gray-200">
+            <div className="md:mx-5">
+              <div className="flex justify-between mx-auto">
+                <h4 className="text-xl text-gray-600">
+                  Store name: {orderDetails.store_name}
+                </h4>
+                <h4>Date : {convertDateStringToDate(names.date)}</h4>
+              </div>
+              <div className="flex justify-between mx-auto text-lg text-gray-400 font-light">
+                <h6>Status : {orderDetails.status} </h6>
+                {/* <h4>Phone : 0964328926</h4> */}
+                <h6 className="text-lg text-gray-400 font-light">
+                  Shipping Address : {orderDetails.shipping_address}
+                </h6>
+              </div>
+              {/* <h6 className="text-lg text-gray-400 font-light">
               Location2 : Damascus{" "}
             </h6> */}
-          </div>
-        </DialogTitle>
-        <DialogContent>
-          <Stack spacing={2} margin={2}>
-            <table className="table w-full">
-              <thead className="">
-                <tr className="text-sm font-semibold text-center border-b-2 border-skin-primary uppercase">
-                  <th>Product</th>
-                  <th>Price</th>
-                  <th>Quantity</th>
-                  <th>Total</th>
-                </tr>
-              </thead>
-              {/* <tbody className="text-lg font-normal text-gray-700 text-center">
-                { names.order_details.map((product) => {
-                  return <tr
-                  key={product. product_name}
-                  className="even:bg-zinc-200 odd:bg-zinc-50 text-center "
-                >
-                  <td className="pb-5 pt-5">{names.store_name}</td>
-                  <td className="pb-5 pt-5 flex justify-center">5</td>
-                  <td className="pb-5 pt-5">7</td>
-                  <td className="pb-5 pt-5">4000</td>
-                </tr>
-                })}
-              </tbody> */}
-            </table>
-
-            <div className="w-full flex justify-center border-t-2 border-gray-300 pt-5">
-              <div className="flex justify-start w-full ">
-                <div className="w-[50%] px-4">
-                  <h3 className="border-b-2 border-skin-primary">
-                    Status : loreem
-                  </h3>
-                  <h3 className="border-b-2 border-skin-primary">
-                    Delivery : loreem
-                  </h3>
-                </div>
-                <div className="w-[50%] px-4">
-                  <h3 className="border-b-2 border-skin-primary">
-                    Total :loreem{" "}
-                  </h3>
-                  <h3 className="border-b-2 border-skin-primary">
-                    Discount : loreem{" "}
-                  </h3>
-                  <h3 className="border-b-2 border-skin-primary">
-                    Final : loreem
-                  </h3>
-                </div>
-              </div>
             </div>
-          </Stack>
+          </DialogTitle>
+        )}
+        <DialogContent>
+          {isLoading ? (
+            <div className="w-full h-full">
+              <TawasyLoader width={200} height={200} />
+            </div>
+          ) : (
+            orderDetails && (
+              <Stack spacing={2} margin={2}>
+                <table className="table w-full">
+                  <thead className="">
+                    <tr className="text-sm font-semibold text-center border-b-2 border-skin-primary uppercase">
+                      <th>Product</th>
+                      <th>Price</th>
+                      <th>Quantity</th>
+                      <th>Total</th>
+                    </tr>
+                  </thead>
+                  <tbody className="text-lg font-normal text-gray-700 text-center">
+                    {orderDetails &&
+                      orderDetails.order_details &&
+                      orderDetails.order_details.map((product) => {
+                        return (
+                          <tr
+                            key={product.product_name}
+                            className="even:bg-zinc-200 odd:bg-zinc-50 text-center "
+                          >
+                            <td className="pb-5 pt-5">
+                              {product.product_name}
+                            </td>
+                            <td className="pb-5 pt-5 flex justify-center">
+                              {product.price}
+                            </td>
+                            <td className="pb-5 pt-5">{product.quantity}</td>
+                            <td className="pb-5 pt-5">{product.line_total}</td>
+                          </tr>
+                        );
+                      })}
+                  </tbody>
+                </table>
+
+                <div className="w-full flex flex-wrap border-t-2 border-gray-300 gap-2 pt-5">
+                  {/* <div className="w-[50%] px-4"> */}
+                  {/* <h3 className="border-b-2 border-skin-primary">
+                        Status : {orderDetails.}
+                      </h3> */}
+                  {/* </div> */}
+                  <h3 className="border-b-2 flex justify-between items-center border-skin-primary w-[50%]">
+                    <div>Delivery Price :</div>
+                    <div>{orderDetails.delivery_price}</div>
+                  </h3>
+                  <h3 className="border-b-2 flex justify-between items-center border-skin-primary w-[50%]">
+                    <div>Used Coupon :</div>
+                    <div>{orderDetails.coupon == true ? `Yes` : `No`}</div>
+                  </h3>
+                  <h3 className="border-b-2 flex justify-between items-center border-skin-primary w-[50%]">
+                    <div>Total Price :</div>
+                    <div>{orderDetails.total_price}</div>
+                  </h3>
+                  <h3 className="border-b-2 flex justify-between items-center border-skin-primary w-[50%]">
+                    <div>Discount :</div>
+                    <div>{orderDetails.discount}</div>
+                  </h3>
+                  <h3 className="border-b-2 flex justify-between items-center border-skin-primary w-[50%]">
+                    <div>Final Price :</div>
+                    <div>{orderDetails.final_price}</div>
+                  </h3>
+                </div>
+              </Stack>
+            )
+          )}
         </DialogContent>
 
-        <DialogActions className="grid md:grid-cols-2 grid-cols-1 ">
-          <button
-            type="button"
-            className="bg-gray-500 text-white px-14 py-2"
-            data-dismiss="modal"
-          >
-            Cancel
-          </button>
-        </DialogActions>
+        {orderDetails && (orderDetails.status === 'pending' || orderDetails.status === `accepted`  && (
+          <DialogActions className="grid md:grid-cols-2 grid-cols-1 ">
+            <button
+              type="button"
+              className="bg-red-600 text-white px-14 py-2"
+              data-dismiss="modal"
+              onClick={cancelOrder}
+            >
+              {isCancelling ? (
+                <div className="w-full flex justify-center items-center">
+                  <Ring size={20} lineWeight={5} speed={2} color="white" />
+                </div>
+              ) : (
+                `Cancel Order`
+              )}
+            </button>
+            <button
+              type="button"
+              className="bg-green-600 text-white px-14 py-2"
+              data-dismiss="modal"
+              onClick={delivered}
+            >
+              {isDelivering ? (
+                <div className="w-full flex justify-center items-center">
+                  <Ring size={20} lineWeight={5} speed={2} color="white" />
+                </div>
+              ) : (
+                `Order Delivered`
+              )}
+            </button>
+          </DialogActions>
+        ))}
       </Dialog>
     </>
   );

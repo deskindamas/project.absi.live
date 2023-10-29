@@ -26,10 +26,12 @@ function AdminProduct({ product, refetch }) {
   const [brands, setBrands] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [status, setStatus] = useState();
-  const [savingStatus , setSavingStatus] = useState(false);
+  const [savingStatus, setSavingStatus] = useState(false);
   const [category, setCategory] = useState();
   const [brand, setBrand] = useState();
   const [isSaving, setIsSaving] = useState(false);
+  const [isApproving , setIsApproving] = useState(false);
+  const [isDeclining , setIsDeclining] = useState(false);
   const newNameAr = useRef();
   const newNameEn = useRef();
   const newdescAr = useRef();
@@ -69,7 +71,11 @@ function AdminProduct({ product, refetch }) {
     const addIfDifferent = (fieldValue, fieldName) => {
       const originalValue = product[fieldName];
       console.log(fieldValue);
-      if (fieldValue !== undefined && fieldValue.trim() !== "" && fieldValue !== originalValue) {
+      if (
+        fieldValue !== undefined &&
+        fieldValue.trim() !== "" &&
+        fieldValue !== originalValue
+      ) {
         editData[fieldName] = fieldValue;
       }
     };
@@ -77,11 +83,11 @@ function AdminProduct({ product, refetch }) {
     addIfDifferent(newNameEn.current.value, "name_en");
     addIfDifferent(newdescAr.current.value, "description_ar");
     addIfDifferent(newdescEn.current.value, "description_en");
-    if(category && category !== product.category){
-      editData.category_name = category ;
+    if (category && category !== product.category) {
+      editData.category_name = category;
     }
-    if(brand && brand !== product.brand){
-      editData.brand_name = brand ;
+    if (brand && brand !== product.brand) {
+      editData.brand_name = brand;
     }
     addIfDifferent(newSku.current.value, "sku");
     addIfDifferent(newEanCode.current.value, "ean_code");
@@ -90,38 +96,82 @@ function AdminProduct({ product, refetch }) {
       addIfDifferent(status, "status");
     }
 
-    if (logoImage ) {
-      editData.image = logoImage;
+    if (logoImage) {
+      // editData.image = logoImage;
+      try{
+        const response2 = await Api.post(`/api/admin/update-product-image/${product.id}`,  {
+          new_image : logoImage
+        } , {
+          headers: { "Content-Type": `multipart/form-data` },
+        })
+      }catch(error){
+        console.log(error);
+      }
     }
 
     console.log(editData);
 
-    try{
-      const response = await Api.put(`/api/admin/update-product/${product.id}` , editData , {
-        // headers: { "Content-Type": `multipart/form-data` },
-      }) ;
+    try {
+      const response = await Api.put(
+        `/api/admin/update-product/${product.id}`,
+        editData,
+        {
+          // headers: { "Content-Type": `multipart/form-data` },
+        }
+      );
       setIsSaving(false);
-      setIsEditing(false);
+      if(product.status != 'pending'){
+        setIsEditing(false);
+      }
       refetch();
-    }catch(error){
+    } catch (error) {
       setIsSaving(false);
-    }finally{
+    } finally {
       // setIsEditing(false);
       setIsSaving(false);
       // setIsEditing(false);
     }
   }
 
-  async function deleteProduct () {
-    // setIsDeleting(true); 
+  async function deleteProduct() {
+    // setIsDeleting(true);
     setDeleting(true);
-    try{
+    try {
       const response = Api.delete(`/api/admin/delete-product/${product.id}`);
       refetch();
-    setDeleting(false);
-    setIsDeleting(false);
+      setDeleting(false);
+      setIsDeleting(false);
+    } catch (error) {
+      setDeleting(false);
+    }
+  }
+
+  async function declineProduct () {
+    setIsDeclining(true);
+    try{
+      const response = await Api.put(`/api/admin/accept-decline-product/${product.id}` , {
+        status : 'declined'
+      }) ;
+      refetch();
+      setIsDeclining(false);
+      setIsEditing(false);
     }catch(error){
-    setDeleting(false);
+      setIsDeclining(false);
+    }
+    setIsDeclining(false);
+  }
+
+  async function approveProduct () {
+    setIsApproving(true) ;
+    try{
+      const response = await Api.put(`/api/admin/accept-decline-product/${product.id}` , {
+        status : 'approved'
+      }) ;
+      refetch();
+      setIsApproving(false);
+      setIsEditing(false);
+    }catch(error){
+      setIsApproving(false);
     }
   }
 
@@ -150,7 +200,7 @@ function AdminProduct({ product, refetch }) {
             style={{ width: "50%", height: "auto" }}
           />
         </td>
-        <td className="  ">{product.status}</td>
+        <td className=" px-4 py-4 ">{product.status}</td>
         <td className="px-4 py-4">{product.brand && product.brand}</td>
         <td className="px-4 py-4">{product.sku}</td>
         <td className="px-4 py-4">{product.ean_code}</td>
@@ -162,10 +212,10 @@ function AdminProduct({ product, refetch }) {
           {product.sold_quantity}
         </td>
         <td>{product.sort_order}</td>
-        <td>{convertDate(product.created_at)}</td>
-        <td>{convertDate(product.updated_at)}</td>
+        <td className="px-4 py-4">{convertDate(product.created_at)}</td>
+        <td className="px-4 py-4">{convertDate(product.updated_at)}</td>
         <td
-          className={`${
+          className={` px-4 py-4 ${
             router.pathname === "/admin/Products/PendingProduct" && `hidden`
           }`}
         >
@@ -331,7 +381,7 @@ function AdminProduct({ product, refetch }) {
                   />
                 </div>
 
-                { product.status == "pending" && 
+                {/* { product.status == "pending" && 
                 <div className="flex items-center">
                   <label className="w-[30%] text-lg px-2">Status :</label>
                   <select
@@ -357,7 +407,7 @@ function AdminProduct({ product, refetch }) {
                     </option>
                   </select>
                 </div>
-                 }
+                 } */}
 
                 {/* <div className="flex items-center">
                   <label className="w-[30%] text-lg px-2">Code :</label>
@@ -390,29 +440,56 @@ function AdminProduct({ product, refetch }) {
                   />
                 </div>
               </div>
+              <hr className="text-gray-400" />
+              <div className="w-full flex justify-center items-center" >
+                <button
+                  type="button"
+                  className="bg-skin-primary px-8 py-3 hover:bg-orange-500 text-white rounded-lg w-[20%] mx-auto "
+                  data-dismiss="modal"
+                  onClick={saveEdits}
+                >
+                  {isSaving == true ? (
+                    <div className="flex justify-center items-center">
+                      <Ring size={20} lineWeight={4} speed={2} color="white" />
+                    </div>
+                  ) : (
+                    "Save Edits "
+                  )}
+                </button>
+              </div>
             </Stack>
           )}
         </DialogContent>
-        <DialogActions>
+        { product.status == "pending" &&  <DialogActions>
           <button
             type="button"
             className="bg-lime-950 px-8 py-3 text-white rounded-lg "
             data-dismiss="modal"
-            onClick={saveEdits}
+            onClick={approveProduct}
           >
-            {isSaving == true ? <div className="flex justify-center items-center" ><Ring size={20} lineWeight={4} speed={2} color="white" /></div> : "Save"}
+            {isApproving == true ? (
+              <div className="flex justify-center items-center">
+                <Ring size={20} lineWeight={4} speed={2} color="white" />
+              </div>
+            ) : (
+              "Approve Product"
+            )}
           </button>
           <button
             type="button"
-            className="bg-zinc-500 px-8 py-3 text-white rounded-lg"
+            className="bg-red-500 px-8 py-3 text-white rounded-lg"
             data-dismiss="modal"
-            onClick={() => {
-              setIsEditing(false);
-            }}
+            onClick={declineProduct}
           >
-            Cancel
+            {isDeclining == true ? (
+              <div className="flex justify-center items-center">
+                <Ring size={20} lineWeight={4} speed={2} color="white" />
+              </div>
+            ) : (
+              "Decline Product"
+            )}
           </button>
-        </DialogActions>
+        </DialogActions>}
       </Dialog>
 
       <Dialog
@@ -454,7 +531,9 @@ function AdminProduct({ product, refetch }) {
             type="button"
             className="bg-zinc-500 px-8 py-3 text-white rounded-lg"
             data-dismiss="modal"
-            onClick={() => {setIsDeleting(false)}}
+            onClick={() => {
+              setIsDeleting(false);
+            }}
           >
             Cancel
           </button>
