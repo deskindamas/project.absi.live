@@ -24,11 +24,11 @@ const AddNewProductAdmin = () => {
   );
 
   async function fetchBrands () {
-    return await Api.get(`/api/admin/get-categories`);
+    return await Api.get(`/api/admin/brands`);
   }
 
   async function fetchCategories () {
-    return await Api.get(`/api/admin/brands`);
+    return await Api.get(`/api/admin/get-categories`);
   }
 
 
@@ -99,8 +99,8 @@ const AddNewProductAdmin = () => {
                   <option className="bg-white" value selected disabled>
                     Select a Category
                   </option>
-                  {categories && categories.data.map((category) => {
-                    return <option value={category.name} >{category.name}</option>
+                  {categories && categories.data.categories.map((category) => {
+                    return <option value={category.name_en} >{category.name_en}</option>
                   })}
                 </select>
               </div>

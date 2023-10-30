@@ -179,7 +179,7 @@ function CustomerPage() {
       <div className="w-full h-full">
         {data && (
           <div className="flex flex-col justify-start items-center h-full w-full gap-4 ">
-            <div className="mx-auto w-full border-b-2 border-skin-primary pb-3 " dir="ltr" >
+            <div className="mx-auto w-full pb-3 " dir="ltr" >
               <ResponsiveCarousel />
             </div>
 
