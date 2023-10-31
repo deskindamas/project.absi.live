@@ -24,11 +24,14 @@ function StoreTypeADSAdmin({ storetypeads, refetch }) {
   const [deleting, setDeleting] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [logoImage, setLogoImage] = useState();
-  const [brand, setBrand] = useState();
   const [isSaving, setIsSaving] = useState(false);
-  const newNameAr = useRef();
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const Api = createAxiosInstance(router);
+
+  function handleLogoImage(data) {
+    setLogoImage(data);
+  }
 
   async function openDialog() {
     setIsEditing(true);
@@ -72,7 +75,7 @@ function StoreTypeADSAdmin({ storetypeads, refetch }) {
           </div>
         </td>
       </tr>
-{/* 
+
        <Dialog
         open={isEditing}
         onClose={() => {
@@ -94,34 +97,13 @@ function StoreTypeADSAdmin({ storetypeads, refetch }) {
           ) : (
             <Stack spacing={1} margin={3}>
               <div className="md:grid md:grid-cols-2 gap-6">
-                <div className="flex w-full items-center">
-                  <label className="text-lg w-[30%] px-2">Arabic name :</label>
-                  <input
-                    className="my-3 w-[70%] text-black placeholder:text-zinc-500 pl-2 outline-none border-b-2 focus:border-skin-primary transition-all duration-700"
-                    type="text"
-                    placeholder={product.name_ar}
-                    ref={newNameAr}
-                    required
-                  />
-                </div>
-
-                <div className="flex items-center">
-                  <label className="w-[30%] text-lg px-2">EAN Code :</label>
-                  <input
-                    className="my-3 w-[70%] text-black placeholder:text-zinc-500 pl-2 outline-none border-b-2 focus:border-skin-primary transition-all duration-700"
-                    type="text"
-                    placeholder={product.ean_code}
-                    ref={newEanCode}
-                    required
-                  />
-                </div>
 
                 <div className="flex items-center">
                   <ImageUpload
                     onSelectImage={handleLogoImage}
                     width={100}
                     height={100}
-                    defaultImage={product.image}
+                    defaultImage={storetypeads.image}
                   />
                 </div>
               </div>
@@ -131,7 +113,7 @@ function StoreTypeADSAdmin({ storetypeads, refetch }) {
                   type="button"
                   className="bg-skin-primary px-8 py-3 hover:bg-orange-500 text-white rounded-lg w-[20%] mx-auto "
                   data-dismiss="modal"
-                  onClick={saveEdits}
+                  // onClick={saveEdits}
                 >
                   {isSaving == true ? (
                     <div className="flex justify-center items-center">
@@ -145,7 +127,7 @@ function StoreTypeADSAdmin({ storetypeads, refetch }) {
             </Stack>
           )}
         </DialogContent>
-        { product.status == "pending" &&  <DialogActions>
+        {/* { product.status == "pending" &&  <DialogActions>
           <button
             type="button"
             className="bg-lime-950 px-8 py-3 text-white rounded-lg "
@@ -174,10 +156,11 @@ function StoreTypeADSAdmin({ storetypeads, refetch }) {
               "Decline Product"
             )}
           </button>
-        </DialogActions>}
-      </Dialog>  */}
+        </DialogActions>} */}
+      </Dialog>  
 
-      {/* <Dialog
+
+    <Dialog
         open={isDeleting}
         onClose={() => {
           setIsDeleting(false);
@@ -185,19 +168,19 @@ function StoreTypeADSAdmin({ storetypeads, refetch }) {
         fullWidth
       >
         <DialogTitle className="flex justify-between border-b-2 border-black ">
-          <h4 className="">Delete Product:</h4>
+          <h4 className="">Delete Store Type ADS:</h4>
         </DialogTitle>
         <DialogContent>
           <Stack spacing={1} margin={3}>
             <div className="flex flex-col justify-start items-start w-full ">
               <p className="text-lg ">
-                Are you sure you want to delete this Product ?
+                Are you sure you want to delete this Delete Store Type ADS ?
               </p>
-              <p className="text-xl pt-4">{product.name_en}</p>
+              <p className="text-xl pt-4">{storetypeads.id}</p>
             </div>
           </Stack>
         </DialogContent>
-        <DialogActions>
+        {/* <DialogActions>
           <button
             type="button"
             className="bg-green-700 px-8 py-3 text-white rounded-lg "
@@ -222,8 +205,8 @@ function StoreTypeADSAdmin({ storetypeads, refetch }) {
           >
             Cancel
           </button>
-        </DialogActions>
-      </Dialog> */}
+        </DialogActions> */}
+      </Dialog> 
     </>
   );
 }
