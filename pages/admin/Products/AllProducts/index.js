@@ -219,7 +219,7 @@ function ProductsAdmin() {
 
             { allProduct && allProduct.data.products.length > 0 ? <div className="mt-6 h-[70%]  overflow-auto">
               <table className="w-max overflow-auto table-auto">
-                <thead className="">
+                <thead className="sticky top-0 bg-white border-b-2 border-blue-500">
                   <tr className="text-sm font-semibold text-center border-b-2 border-blue-500 uppercase">
                     <th>Id</th>
                     {tableheading.map((index) => (

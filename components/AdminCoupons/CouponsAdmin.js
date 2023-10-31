@@ -11,8 +11,11 @@ import {
 import { Ring } from "@uiball/loaders";
 import { useState } from "react";
 import { useRef } from "react";
+import { convertDateStringToDate } from "../AdminOrders/OrderAdmin";
+import { useRouter } from "next/router";
+import createAxiosInstance from "@/API";
 
-function CouponsAdmin({ names }) {
+function CouponsAdmin({ names , refetch }) {
     
   const [isDeleting, setIsDeleting] = useState(false);
   const [deleting, setDeleting] = useState(false);
@@ -20,6 +23,21 @@ function CouponsAdmin({ names }) {
   const newCode = useRef();
   const newDiscount = useRef();
   // const newCode = useRef();
+  const router = useRouter () ;
+  const Api = createAxiosInstance(router);
+
+  async function deleteCoupon () {
+    setDeleting(true);
+    try{
+      const response = await Api.delete(`/api/admin/coupon/delete/${names.id}`);
+      refetch();
+    setIsDeleting(false);
+    setDeleting(false);
+    }catch(error){
+    setDeleting(false);
+    }
+    setDeleting(false);
+  }
 
 
   return (
@@ -29,12 +47,12 @@ function CouponsAdmin({ names }) {
         className="py-10 bg-gray-100 hover:bg-gray-200 font-medium   "
       >
          <td className="px-4 py-4">{names.id}</td>
-        <td className="px-4 py-4">{names.code}</td>
-        <td className="px-4 py-4">{names.discount}</td>
-        <td className="px-4 py-4">{names.expire_date}</td>
         <td className="px-4 py-4">{names.store_id}</td>
-        <td className="px-4 py-4  " width={`10%`} >{names.created_at}</td>
-        <td className="px-4 py-4" width={`10%`} >{names.updated_at}</td>
+        <td className="px-4 py-4">{names.code}</td>
+        <td className="px-4 py-4">{names.discount_value} %</td>
+        <td className="px-4 py-4">{names.expire_date}</td>
+        <td className="px-4 py-4  " width={`10%`} >{names.created_at ? convertDateStringToDate(names.created_at) : `None`}</td>
+        <td className="px-4 py-4" width={`10%`} >{names.updated_at ? convertDateStringToDate(names.updated_at) : `None`}</td>
         <td class="px-4 py-4">
           <div class="flex-col lg:flex-row lg:space-x-2 items-center space-y-2 lg:space-y-0">
             <button
@@ -75,6 +93,7 @@ function CouponsAdmin({ names }) {
             type="button"
             className="bg-green-700 px-8 py-3 text-white rounded-lg "
             data-dismiss="modal"
+            onClick={deleteCoupon}
           >
             {deleting == true ? (
               <div className="flex justify-center items-center">

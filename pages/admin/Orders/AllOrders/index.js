@@ -112,7 +112,7 @@ function AllOrdersAdmin() {
 
         <div className="w-full ">
           { allOrders && allOrders.data.data.length > 0 ? <table className="w-full overflow-x-auto table-auto">
-            <thead className="">
+            <thead className="sticky top-0 bg-white border-b-2 border-blue-500 w-full py-4 ">
               <tr className="text-sm font-semibold text-center border-b-2 border-gray-400 uppercase">
                 <th>Id</th>
                 {tableheading.map((index) => (

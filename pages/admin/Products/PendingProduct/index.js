@@ -180,12 +180,12 @@ function PendingProductsAdmin() {
             </div>
           </div>
           
-            <div className="w-full h-full">
-              {/* <TawasyLoader width={300} height={300} /> */}
-            </div>
-            { pendingProducts && pendingProducts.data.products.length > 0 ? <div className="mt-6 overflow-x-auto">
+            {/* <div className="w-full h-full">
+              <TawasyLoader width={300} height={300} />
+            </div> */}
+            { pendingProducts && pendingProducts.data.products.length > 0 ? <div className="mt-6 h-[70%] overflow-x-auto">
               <table className="w-[2000px] overflow-x-auto table-auto">
-                <thead className="">
+                <thead className="sticky top-0">
                   <tr className="text-sm font-semibold text-center border-b-2 border-blue-500 uppercase">
                     <th>Id</th>
                     {tableheading.map((index) => (

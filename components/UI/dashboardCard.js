@@ -20,7 +20,7 @@ function DashboardCard(props) {
             {convertMoney(props.value)}
           </div>
         </div>
-        <FaExclamation className="text-white text-5xl md:block hidden " />
+        {/* <FaExclamation className="text-white text-5xl md:block hidden " /> */}
       </div>
     </div>
   );

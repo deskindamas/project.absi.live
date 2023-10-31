@@ -34,7 +34,7 @@ const AddNewProduct = () => {
       setIsLoading(true);
       try {
         const response = await Api.get(`api/seller/brands`);
-        setBrands(response.data);
+        setBrands(response.data.brands);
       } catch (error) {
         console.log(error);
       }

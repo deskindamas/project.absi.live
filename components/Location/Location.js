@@ -22,7 +22,7 @@ const center = {
   lng: 36.276527,
 };
 
-const Locations = ({onLocation , className}) => {
+const Locations = ({onLocation , className , defaultAddress}) => {
   const [coordinates, setCoordinates] = useState({ lat: 0, lng: 0 });
   const [address, setAddress] = useState("");
   let google;
@@ -77,14 +77,14 @@ const Locations = ({onLocation , className}) => {
   };
 
   return (
-    <div>
+    <div className="w-full" >
       <input
         onClick={functionopenpopuplocation}
         value={address}
         type="address"
         id="InputAddress"
         label="Address"
-        placeholder="Address"
+        placeholder={defaultAddress ? defaultAddress : 'Address'}
         className={className}
       />
 
@@ -92,7 +92,7 @@ const Locations = ({onLocation , className}) => {
         open={openlocation}
         onClose={closepopuplocation}
         fullWidth
-        maxWidth="sm"
+        maxWidth="md"
       >
         <DialogTitle>
           Location
@@ -110,7 +110,7 @@ const Locations = ({onLocation , className}) => {
                 center={center}
                 onClick={onMapClick}
               >
-                <Marker position={coordinates}  />
+                <Marker position={{ lat: coordinates.lat, lng: coordinates.lng }}  />
               </GoogleMap>
             )}
 

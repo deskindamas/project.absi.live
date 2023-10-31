@@ -11,24 +11,61 @@ import {
 import { Ring } from "@uiball/loaders";
 import { useState } from "react";
 import { useRef } from "react";
+import { convertDateStringToDate } from "../AdminOrders/OrderAdmin";
+import { useRouter } from "next/router";
+import createAxiosInstance from "@/API";
 
-function BrandAdmin({ names }) {
-
+function BrandAdmin({ names, refetch }) {
   const [isDeleting, setIsDeleting] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const router = useRouter();
+  const Api = createAxiosInstance(router);
   const newName = useRef();
-    
+  const [editing, setEditing] = useState(false);
+
+  async function editBrand() {
+    setEditing(true);
+    try {
+      const respones = await Api.put(`/api/admin/brand/update/${names.id}`, {
+        name: newName.current.value,
+      });
+      refetch();
+      setEditing(false);
+      setIsEditing(false);
+    } catch (error) {
+      setEditing(false);
+    }
+    setEditing(false);
+  }
+
+  async function deleteBrand () {
+    setDeleting(true);
+    try{
+      const response = await Api.delete(`/api/admin/brand/delete/${names.id}`);
+      refetch();
+    setDeleting(false);
+    setIsDeleting(false);
+    }catch(error){
+    setDeleting(false);
+    }
+    setDeleting(false);
+  }
+
   return (
     <>
       <tr
         key={names.id}
         className="py-10 bg-gray-100 hover:bg-gray-200 font-medium   "
       >
-         <td className="px-4 py-4">{names.id}</td>
+        <td className="px-4 py-4">{names.id}</td>
         <td className="px-4 py-4">{names.name}</td>
-        <td className="px-4 py-4  " width={`10%`} >{names.created_at}</td>
-        <td className="px-4 py-4" width={`10%`} >{names.updated_at}</td>
+        <td className="px-4 py-4  " width={`10%`}>
+          {convertDateStringToDate(names.created_at)}
+        </td>
+        <td className="px-4 py-4" width={`10%`}>
+          {convertDateStringToDate(names.updated_at)}
+        </td>
         <td class="px-4 py-4">
           <div class="flex-col lg:flex-row lg:space-x-2 items-center space-y-2 lg:space-y-0">
             <button
@@ -48,32 +85,36 @@ function BrandAdmin({ names }) {
           </div>
         </td>
       </tr>
-     
+
       <Dialog
         open={isEditing}
         onClose={() => {
           setIsEditing(false);
         }}
-        fullWidth  maxWidth="sm"
+        fullWidth
+        maxWidth="md"
       >
         <DialogTitle className="flex justify-between border-b-2 border-black">
-          <h4 className="text-gray-500 md:pl-6 font-medium">Edit Brand : {names.name}</h4>
+          <h4 className="text-gray-500 md:pl-6 font-medium">
+            Edit Brand : {names.name}
+          </h4>
         </DialogTitle>
         <DialogContent>
           <Stack spacing={1} margin={3}>
             <div className="w-full">
-            <div className="flex w-full items-center">
-            <label className="text-lg w-[20%] px-2">NameAr :</label>
-            <input
-              className="my-3 w-[80%] text-black placeholder:text-zinc-500 pl-2 outline-none border-b-2 focus:border-skin-primary transition-all duration-700"
-              type="text"
-              placeholder={names.name}
-              ref={newName}
-              required
-            />
+              <div className="flex w-full items-center">
+                {/* <form onSubmit={editBrand}> */}
+                <label className="text-lg w-[20%] px-2">Brand Name :</label>
+                <input
+                  className="my-3 w-[80%] text-black placeholder:text-zinc-500 pl-2 outline-none border-b-2 focus:border-skin-primary transition-all duration-700"
+                  type="text"
+                  placeholder={names.name}
+                  ref={newName}
+                  required
+                />
+                {/* </form> */}
+              </div>
             </div>
-
-           </div>
           </Stack>
         </DialogContent>
         <DialogActions>
@@ -81,7 +122,15 @@ function BrandAdmin({ names }) {
             type="button"
             className="bg-lime-950 px-8 py-3 text-white rounded-lg "
             data-dismiss="modal"
-          > Save
+            onClick={editBrand}
+          >
+            {editing == true ? (
+              <div className="w-full flex justify-center">
+                <Ring size={20} lineWeight={4} speed={2} color="white" />
+              </div>
+            ) : (
+              `Save`
+            )}
           </button>
           <button
             type="button"
@@ -95,7 +144,7 @@ function BrandAdmin({ names }) {
           </button>
         </DialogActions>
       </Dialog>
-      
+
       <Dialog
         open={isDeleting}
         onClose={() => {
@@ -121,6 +170,7 @@ function BrandAdmin({ names }) {
             type="button"
             className="bg-green-700 px-8 py-3 text-white rounded-lg "
             data-dismiss="modal"
+            onClick={deleteBrand}
           >
             {deleting == true ? (
               <div className="flex justify-center items-center">
@@ -142,7 +192,6 @@ function BrandAdmin({ names }) {
           </button>
         </DialogActions>
       </Dialog>
-
     </>
   );
 }

@@ -60,7 +60,7 @@ function AdminProduct({ product, refetch }) {
     try {
       const response = await Api.get(`/api/admin/brands`);
       // console.log(response);
-      setBrands(response.data);
+      setBrands(response.data.brands);
     } catch (error) {}
     setIsLoading(false);
   }

@@ -211,13 +211,13 @@ function ShareProductsAdmin() {
               </div>
             </div>
           </div>
-
+{/* 
           <div className="w-full h-full">
-            {/* <TawasyLoader width={300} height={300} /> */}
-          </div>
-          { sharedProducts && sharedProducts.data.products.length > 0 ? <div className="mt-6 overflow-x-auto">
-            <table className="w-[2000px] overflow-x-auto table-auto">
-              <thead className="">
+            <TawasyLoader width={300} height={300} />
+          </div> */}
+          { sharedProducts && sharedProducts.data.products.length > 0 ? <div className="mt-6 h-[70%] overflow-x-auto">
+            <table className="w-max overflow-x-auto table-auto">
+              <thead className="sticky top-0">
                 <tr className="text-sm font-semibold text-center border-b-2 border-blue-500 uppercase">
                   <th>Id</th>
                   {tableheading.map((index) => (

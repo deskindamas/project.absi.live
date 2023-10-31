@@ -130,9 +130,6 @@ function OrderAdmin({ names, refetch }) {
                   Shipping Address : {orderDetails.shipping_address}
                 </h6>
               </div>
-              {/* <h6 className="text-lg text-gray-400 font-light">
-              Location2 : Damascus{" "}
-            </h6> */}
             </div>
           </DialogTitle>
         )}
@@ -177,11 +174,6 @@ function OrderAdmin({ names, refetch }) {
                 </table>
 
                 <div className="w-full flex flex-wrap border-t-2 border-gray-300 gap-2 pt-5">
-                  {/* <div className="w-[50%] px-4"> */}
-                  {/* <h3 className="border-b-2 border-skin-primary">
-                        Status : {orderDetails.}
-                      </h3> */}
-                  {/* </div> */}
                   <h3 className="border-b-2 flex justify-between items-center border-skin-primary w-[50%]">
                     <div>Delivery Price :</div>
                     <div>{orderDetails.delivery_price}</div>
@@ -208,7 +200,7 @@ function OrderAdmin({ names, refetch }) {
           )}
         </DialogContent>
 
-        {orderDetails && (orderDetails.status === 'pending' || orderDetails.status === `accepted`  && (
+        {orderDetails && ((orderDetails.status === 'pending' || orderDetails.status === `accepted`)  && (
           <DialogActions className="grid md:grid-cols-2 grid-cols-1 ">
             <button
               type="button"

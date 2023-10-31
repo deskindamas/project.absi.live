@@ -14,80 +14,191 @@ import { useRouter } from "next/router";
 import createAxiosInstance from "@/API";
 import { Ring } from "@uiball/loaders";
 import ImageUpload from "../ImageUpload/ImageUpload";
+import { convertDateStringToDate } from "../AdminOrders/OrderAdmin";
+import Locations from "../Location/Location";
+import TawasyLoader from "../UI/tawasyLoader";
 
+const openingDays = [
+  "Saturday",
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+];
 
-function StoreAdmin({names}){
-
-    
+function StoreAdmin({ names }) {
   const [isDeleting, setIsDeleting] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const [logoImage , setLogoImage] = useState();
-  const [storeImage , setStoreImage] = useState();
+  const [logoImage, setLogoImage] = useState();
+  const [address, setAddress] = useState();
+  const [storeImage, setStoreImage] = useState();
+  const [storeTypes, setStoreTypes] = useState();
+  const [storeType, setStoreType] = useState(
+    names.store_type && names.store_type
+  );
+  const [status, setStatus] = useState(names.status && names.status);
+  const [isLoading, setIsLoading] = useState(false);
   const newNameAr = useRef();
   const newNameEn = useRef();
   const NewopeningTime = useRef();
   const newClosingTime = useRef();
-  const newOpeningDays = useRef();
-  const newAddress = useRef();
-  const newCode = useRef();
+  const newStreet = useRef();
   const newArea = useRef();
   const router = useRouter();
+  const Api = createAxiosInstance(router);
 
-
-  function handleLogoImage (data) {
+  function handleLogoImage(data) {
     setLogoImage(data);
   }
-  
-  function handleStoreImage (data) {
+
+  function handleStoreImage(data) {
     setStoreImage(data);
   }
 
-    return(
-          <>
-            <tr
+  let days = JSON.parse(names.opening_days);
+
+  var capitalizedDaysArray =
+    days &&
+    days.map(function (day) {
+      return day.charAt(0).toUpperCase() + day.slice(1);
+    });
+
+  const [checkedDays, setCheckedDays] = useState(
+    names.opening_days ? capitalizedDaysArray : []
+  );
+
+  const handleCheckboxChange = (event) => {
+    const day = event.target.value;
+    if (event.target.checked) {
+      setCheckedDays([...checkedDays, day]);
+    } else {
+      setCheckedDays(checkedDays.filter((d) => d !== day));
+    }
+  };
+
+  async function openEdit() {
+    setIsEditing(true);
+    setIsLoading(true);
+    try {
+      const response = await Api.get(`/api/admin/store-types/all`);
+      console.log(response.data.data);
+      setStoreTypes(response.data.data);
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+    }
+    setIsLoading(false);
+  }
+
+  function handlesAddress(data) {
+    setAddress(data);
+  }
+
+  async function saveEdits() {
+    // setIsSaving(true);
+    let editData = {};
+
+    function arraysAreEqual(arr1, arr2) {
+      return JSON.stringify(arr1) === JSON.stringify(arr2);
+    }
+
+    const addIfDifferent = (fieldValue, fieldName) => {
+      const originalValue = names[fieldName];
+
+      if (
+        fieldValue !== undefined &&
+        fieldValue.trim() !== "" &&
+        fieldValue !== originalValue
+      ) {
+        editData[fieldName] = fieldValue;
+      }
+    };
+
+    addIfDifferent(newNameAr.current.value, "name_ar");
+    addIfDifferent(newNameEn.current.value, "name_en");
+    addIfDifferent(NewopeningTime.current.value, "opening_time");
+    addIfDifferent(newClosingTime.current.value, "closing_time");
+    addIfDifferent(newArea.current.value, "area");
+    addIfDifferent(newStreet.current.value, "street");
+    if (storeType !== names.store_type) {
+      editData["store_type"] = storeType;
+    }
+    if (status !== names.status) {
+      editData.status = status;
+    }
+    if(address){
+      addIfDifferent(address.address, "address");
+      editData.longitude = address.lng ;
+      editData.latitude = address.lat ;
+    }
+    if(!arraysAreEqual(capitalizedDaysArray , checkedDays)){
+      editData[`opening_days`] = checkedDays ;
+    }
+
+    console.log(editData);
+  }
+
+  return (
+    <>
+      <tr
         key={names.id}
         className="py-10 bg-gray-100 hover:bg-gray-200 font-medium   "
       >
         <td className="px-4 py-4">{names.id}</td>
-        <td className="px-4 py-4" width={`10%`} >{names.name_ar}</td>
-        <td className="px-4 py-4" width={`10%`}>{names.name_en}</td>
-        <td className="px-4 py-4 " >{names.opening_time}</td>
-        <td className="px-4 py-4">{names.closing_time}</td>
-        <td className="px-4 py-4 ">
-              {names.status}
-
+        <td className="px-4 py-4">{names.seller_id}</td>
+        <td className="px-4 py-4" width={`10%`}>
+          {names.name_ar}
         </td>
+        <td className="px-4 py-4" width={`10%`}>
+          {names.name_en}
+        </td>
+        <td className="px-4 py-4 ">{names.opening_time}</td>
+        <td className="px-4 py-4">{names.closing_time}</td>
+        <td className="px-4 py-4">{names.status}</td>
         <td className="px-4 py-4 flex justify-center">
-          <Image src={names.image} alt="photo" 
-                 width={0}
-                 height={0}
-                 sizes="100vw"
-                 style={{ width: "50%", height: "auto" }}  />
+          <Image
+            src={names.image}
+            alt="photo"
+            width={0}
+            height={0}
+            sizes="100vw"
+            style={{ width: "50%", height: "auto" }}
+          />
         </td>
 
         <td className="px-4 py-4">
-          <Image src={names.logo} alt="photo" 
-                 width={0}
-                 height={0}
-                 sizes="100vw"
-                 style={{ width: "50%", height: "auto" }}  />
+          <Image
+            src={names.logo}
+            alt="photo"
+            width={0}
+            height={0}
+            sizes="100vw"
+            style={{ width: "50%", height: "auto" }}
+          />
         </td>
 
         <td className="px-4 py-4">{names.store_type}</td>
-        <td className="px-4 py-4">{names.opening_days}</td>
+        <td className="px-4 py-4">
+          {days &&
+            days.map((day) => {
+              return `${day}, `;
+            })}
+        </td>
         <td className="px-4 py-4">{names.address}</td>
         <td className="px-4 py-4">{names.street}</td>
         <td>{names.area}</td>
-        <td>{names.created}</td>
-        <td>{names.update}</td>
+        <td>{convertDateStringToDate(names.created_at)}</td>
+        <td>{convertDateStringToDate(names.updated_at)}</td>
         <td class="px-4 py-4">
           <div class="flex-col lg:flex-row lg:space-x-2 items-center space-y-2 lg:space-y-0">
             <button
-              onClick={() => setIsEditing(true)}
+              onClick={openEdit}
               class="items-center px-2 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none"
             >
-              <FiEdit2/>
+              <FiEdit2 />
             </button>
             <button
               class="items-center px-2 py-2 text-white bg-red-500 rounded-md hover:bg-red-600 focus:outline-none"
@@ -101,142 +212,212 @@ function StoreAdmin({names}){
         </td>
       </tr>
 
-
       <Dialog
         open={isEditing}
         onClose={() => {
           setIsEditing(false);
         }}
-        fullWidth  maxWidth="lg"
+        fullWidth
+        maxWidth="xl"
       >
         <DialogTitle className="flex justify-between border-b-2 border-black">
-          <h4 className="text-gray-500 md:pl-6 font-medium">Edit Store : {names.name_en}</h4>
+          <h4 className="text-gray-500 md:pl-6 font-medium">
+            Edit Store : {names.name_en}
+          </h4>
         </DialogTitle>
         <DialogContent>
           <Stack spacing={1} margin={3}>
-            <div className="md:grid md:grid-cols-2 gap-6">
-            <div className="flex w-full items-center">
-            <label className="text-lg w-[30%] px-2">NameAr :</label>
-            <input
-              className="my-3 w-[70%] text-black placeholder:text-zinc-500 pl-2 outline-none border-b-2 focus:border-skin-primary transition-all duration-700"
-              type="text"
-              placeholder={names.name_ar}
-              ref={newNameAr}
-              required
-            />
-            </div>
+            {isLoading == true ? (
+              <div className="w-full h-full">
+                <TawasyLoader width={200} height={200} />
+              </div>
+            ) : (
+              <div className="md:grid md:grid-cols-2 gap-6">
+                <div className="flex w-full items-center">
+                  <label className="text-lg w-[30%] px-2">NameAr :</label>
+                  <input
+                    className="my-3 w-[70%] text-black placeholder:text-zinc-500 pl-2 outline-none border-b-2 focus:border-skin-primary transition-all duration-700"
+                    type="text"
+                    placeholder={names.name_ar}
+                    ref={newNameAr}
+                    required
+                  />
+                </div>
 
-            <div className="flex items-center">
-            <label className="text-lg w-[30%] px-2">NameEn :</label>
-            <input
-              className="my-3 w-[70%] text-black placeholder:text-zinc-500 pl-2 outline-none border-b-2 focus:border-skin-primary transition-all duration-700"
-              type="text"
-              placeholder={names.name_en}
-              ref={newNameEn}
-              required
-            />
-            </div>
+                <div className="flex items-center">
+                  <label className="text-lg w-[30%] px-2">NameEn :</label>
+                  <input
+                    className="my-3 w-[70%] text-black placeholder:text-zinc-500 pl-2 outline-none border-b-2 focus:border-skin-primary transition-all duration-700"
+                    type="text"
+                    placeholder={names.name_en}
+                    ref={newNameEn}
+                    required
+                  />
+                </div>
 
-            <div className="flex items-center">
-            <label className="w-[30%] text-lg px-2">opening Time  :</label>
-            <input
-              className="my-3 w-[70%] text-black placeholder:text-zinc-500 pl-2 outline-none border-b-2 focus:border-skin-primary transition-all duration-700"
-              type="text"
-              placeholder={names.opening_time}
-              ref={NewopeningTime}
-              required
-            />
-            </div>
+                <div className="flex items-center">
+                  <label className="w-[30%] text-lg px-2">opening Time :</label>
+                  <input
+                    className="my-3 w-[70%] text-black placeholder:text-zinc-500 pl-2 outline-none border-b-2 focus:border-skin-primary transition-all duration-700"
+                    type="time"
+                    defaultValue={names.opening_time}
+                    ref={NewopeningTime}
+                    required
+                  />
+                </div>
 
-            <div className="flex items-center">
-            <label className="w-[30%] text-lg px-2">Closing Time :</label>
-            <input
-              className="my-3 w-[70%] text-black placeholder:text-zinc-500 pl-2 outline-none border-b-2 focus:border-skin-primary transition-all duration-700"
-              type="text"
-              placeholder={names.closing_time}
-              ref={newClosingTime}
-              required
-            />
-            </div>
-           
-            <div className="flex items-center">
-            <label className="w-[30%] text-lg px-2">Store Type :</label>
-            <select className="w-[80%] form-select outline-none bg-transparent border-b-2 border-gray-300 "
-          aria-label="Store Type"
-          name="Store Type">
-          <option className="bg-white text-center " disabled selected value>Select a Store Type</option>
-          <option className="bg-white" value="">Lorem1</option>
-          <option className="bg-white" value="">Lorem2</option>
-          <option className="bg-white" value="">Lorem3</option>
-          </select>
-            </div>
+                <div className="flex items-center">
+                  <label className="w-[30%] text-lg px-2">Closing Time :</label>
+                  <input
+                    className="my-3 w-[70%] text-black placeholder:text-zinc-500 pl-2 outline-none border-b-2 focus:border-skin-primary transition-all duration-700"
+                    type="time"
+                    defaultValue={names.closing_time}
+                    ref={newClosingTime}
+                    required
+                  />
+                </div>
 
-            <div className="flex items-center">
-            <label className="w-[30%] text-lg px-2">Status :</label>
-            <select className="w-[80%] form-select outline-none bg-transparent border-b-2 border-gray-300 "
-          aria-label="Status"
-          name="Status">
-          <option className="bg-white text-center " disabled selected value>Select a Status</option>
-          <option className="bg-white" value="">Lorem1</option>
-          <option className="bg-white" value="">Lorem2</option>
-          <option className="bg-white" value="">Lorem3</option>
-          </select>
-            </div>
+                <div className="flex items-center">
+                  <label className="w-[30%] text-lg px-2">Store Type :</label>
+                  <select
+                    className="w-[80%] form-select outline-none bg-transparent border-b-2 border-gray-300 "
+                    aria-label="Store Type"
+                    name="Store Type"
+                    defaultValue={storeType}
+                    onChange={(e) => {
+                      setStoreType(e.target.value);
+                    }}
+                  >
+                    <option
+                      className="bg-white text-center "
+                      disabled
+                      selected
+                      value
+                    >
+                      Select a Store Type
+                    </option>
+                    {storeTypes &&
+                      storeTypes.map((storeType) => {
+                        return (
+                          <option key={storeType.id} value={storeType.name_en}>
+                            {storeType.name_en}
+                          </option>
+                        );
+                      })}
+                  </select>
+                </div>
 
+                <div className="flex items-center">
+                  <label className="w-[30%] text-lg px-2">Status :</label>
+                  <select
+                    className="w-[80%] form-select outline-none bg-transparent border-b-2 border-gray-300 "
+                    aria-label="Status"
+                    name="Status"
+                    defaultValue={status}
+                    onChange={(e) => {
+                      setStatus(e.target.value);
+                    }}
+                  >
+                    <option
+                      className="bg-white text-center "
+                      disabled
+                      selected
+                      value
+                    >
+                      Select a Status
+                    </option>
+                    <option className="bg-white" value="approved">
+                      Approved
+                    </option>
+                    <option className="bg-white" value="pending">
+                      Pending
+                    </option>
+                  </select>
+                </div>
 
-            <div className="flex items-center">
-            <label className="w-[30%] text-lg px-2"> opening Days :</label>
-            <input
-              className="my-3 w-[70%] text-black placeholder:text-zinc-500 pl-2 outline-none border-b-2 focus:border-skin-primary transition-all duration-700"
-              type="text"
-              placeholder={names.opening_days}
-              ref={newOpeningDays}
-              required
-            />
-            </div>
+                <div className="flex flex-col justify-start items-start ">
+                  <div className="w-full flex justify-center items-center">
+                    <label className="w-[30%] text-lg px-2">
+                      opening Days :
+                    </label>
+                    <input
+                      className="my-3 w-full text-black placeholder:text-zinc-500 pl-2 outline-none border-b-2 focus:border-skin-primary transition-all duration-700"
+                      type="text"
+                      placeholder={checkedDays}
+                      // ref={newOpeningDays}
+                      value={checkedDays.join(", ")}
+                      required
+                    />
+                  </div>
+                  <fieldset className="grid grid-cols-3 w-[90%] mx-auto">
+                    {openingDays.map((oDay) => {
+                      return (
+                        <label className="px-1 select-none">
+                          <input
+                            type="checkbox"
+                            className="select-none"
+                            name={oDay}
+                            value={oDay}
+                            checked={checkedDays.includes(oDay)}
+                            onChange={handleCheckboxChange}
+                          />
+                          {oDay}
+                        </label>
+                      );
+                    })}
+                  </fieldset>
+                </div>
 
-            <div className="flex items-center">
-            <label className="w-[30%] text-lg px-2">Address :</label>
-            <input
-              className="my-3 w-[70%] text-black placeholder:text-zinc-500 pl-2 outline-none border-b-2 focus:border-skin-primary transition-all duration-700"
-              type="numbere"
-              placeholder={names.address}
-              ref={newAddress}
-              required
-            />
-            </div>
+                <div className="flex items-center">
+                  <label className="w-[30%] text-lg px-2">Address :</label>
+                  <Locations
+                    onLocation={handlesAddress}
+                    defaultAddress={names.address}
+                    className={`"mb-4 outline-none text-zinc-500 bg-transparent border-b-2 border-text-zinc-500 cursor-pointer placeholder:text-zinc-500 w-full `}
+                  />
+                </div>
 
-            <div className="flex items-center">
-            <label className="w-[30%] text-lg px-2">Area :</label>
-            <input
-              className="my-3 w-[70%] text-black placeholder:text-zinc-500 pl-2 outline-none border-b-2 focus:border-skin-primary transition-all duration-700"
-              type="numbere"
-               placeholder={names.area}
-              ref={newArea}
-              required
-            />
-            </div>
-  
-            <div className="flex items-center">
-            <ImageUpload 
-            onSelectImage={handleStoreImage}
-            width={100}
-            height={100}
-            defaultImage= {names.image}
-            />
-            </div>  
-             
+                <div className="flex items-center">
+                  <label className="w-[30%] text-lg px-2">Area :</label>
+                  <input
+                    className="my-3 w-[70%] text-black placeholder:text-zinc-500 pl-2 outline-none border-b-2 focus:border-skin-primary transition-all duration-700"
+                    type="numbere"
+                    placeholder={names.area}
+                    ref={newArea}
+                    required
+                  />
+                </div>
 
-            <div className="flex items-center">
-            <ImageUpload 
-            onSelectImage={handleLogoImage}
-            width={100}
-            height={100}
-            defaultImage= {names.logo}
-            />
-            </div>  
+                <div className="flex items-center">
+                  <label className="w-[30%] text-lg px-2">Street :</label>
+                  <input
+                    className="my-3 w-[70%] text-black placeholder:text-zinc-500 pl-2 outline-none border-b-2 focus:border-skin-primary transition-all duration-700"
+                    type="numbere"
+                    placeholder={names.street}
+                    ref={newStreet}
+                    required
+                  />
+                </div>
 
-           </div>
+                <div className="flex items-center">
+                  <ImageUpload
+                    onSelectImage={handleStoreImage}
+                    width={100}
+                    height={100}
+                    defaultImage={names.image}
+                  />
+                </div>
+
+                <div className="flex items-center">
+                  <ImageUpload
+                    onSelectImage={handleLogoImage}
+                    width={100}
+                    height={100}
+                    defaultImage={names.logo}
+                  />
+                </div>
+              </div>
+            )}
           </Stack>
         </DialogContent>
         <DialogActions>
@@ -244,7 +425,9 @@ function StoreAdmin({names}){
             type="button"
             className="bg-lime-950 px-8 py-3 text-white rounded-lg "
             data-dismiss="modal"
-          > Save
+            onClick={saveEdits}
+          >
+            Save
           </button>
           <button
             type="button"
@@ -258,7 +441,7 @@ function StoreAdmin({names}){
           </button>
         </DialogActions>
       </Dialog>
-      
+
       <Dialog
         open={isDeleting}
         onClose={() => {
@@ -305,9 +488,8 @@ function StoreAdmin({names}){
           </button>
         </DialogActions>
       </Dialog>
-
-          </>
-    )
+    </>
+  );
 }
 
 export default StoreAdmin;

@@ -11,22 +11,54 @@ import {
 } from "@mui/material";
 import { Ring } from "@uiball/loaders";
 import ImageUpload from "../ImageUpload/ImageUpload";
-
+import { convertDateStringToDate } from "../AdminOrders/OrderAdmin";
 
 function StoreTypeAdmin({ names }) {
-
   const [isDeleting, setIsDeleting] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const [logoImage , setLogoImage] = useState();
+  const [editing, setEditing] = useState(false);
+  const [storeTypeImage, setStoreTypeImage] = useState();
   const newNameAr = useRef();
   const newNameEn = useRef();
   const newsortOrder = useRef();
-    
-  function handleLogoImage (data) {
-    setLogoImage(data);
+
+  function handleLogoImage(data) {
+    setStoreTypeImage(data);
   }
 
+  async function editStoreType() {
+    let editData = {};
+    const addIfDifferent = (fieldValue, fieldName) => {
+      const originalValue = names[fieldName];
+      console.log(fieldValue);
+      if (
+        fieldValue !== undefined &&
+        fieldValue.trim() !== "" &&
+        fieldValue !== originalValue
+      ) {
+        editData[fieldName] = fieldValue;
+      }
+    };
+    addIfDifferent(newNameAr.current.value, "name_ar");
+    addIfDifferent(newNameEn.current.value, "name_en");
+    addIfDifferent(newsortOrder.current.value, "sort_order");
+
+    // if (storeTypeImage) {
+    //   // editData.image = logoImage;
+    //   try{
+    //     const response2 = await Api.post(`/api/admin/update-product-image/${product.id}`,  {
+    //       new_image : logoImage
+    //     } , {
+    //       headers: { "Content-Type": `multipart/form-data` },
+    //     })
+    //   }catch(error){
+    //     console.log(error);
+    //   }
+    // }
+
+    console.log(editData);
+  }
 
   return (
     <>
@@ -34,19 +66,26 @@ function StoreTypeAdmin({ names }) {
         key={names.id}
         className="py-10 bg-gray-100 hover:bg-gray-200 font-medium   "
       >
-         <td className="px-4 py-4">{names.id}</td>
-        <td className="px-4 py-4">{names.nameAr}</td>
-        <td className="px-4 py-4">{names.nameEn}</td>
-        <td className="px-4 py-4">{names.sortOrder}</td>
+        <td className="px-4 py-4">{names.id}</td>
+        <td className="px-4 py-4">{names.name_ar}</td>
+        <td className="px-4 py-4">{names.name_en}</td>
+        <td className="px-4 py-4">{names.sort_order}</td>
         <td className="px-4 py-4 flex justify-center">
-          <Image src={names.image} alt="photo" 
-                 width={0}
-                 height={0}
-                 sizes="100vw"
-                 style={{ width: "50%", height: "auto" }}  />
+          <Image
+            src={names.image}
+            alt="photo"
+            width={0}
+            height={0}
+            sizes="100vw"
+            style={{ width: "50%", height: "auto" }}
+          />
         </td>
-        <td className="px-4 py-4  " width={`10%`} >{names.created_at}</td>
-        <td className="px-4 py-4" width={`10%`} >{names.updated_at}</td>
+        <td className="px-4 py-4  " width={`10%`}>
+          {convertDateStringToDate(names.created_at)}
+        </td>
+        <td className="px-4 py-4" width={`10%`}>
+          {convertDateStringToDate(names.updated_at)}
+        </td>
         <td class="px-4 py-4">
           <div class="flex-col lg:flex-row lg:space-x-2 items-center space-y-2 lg:space-y-0">
             <button
@@ -55,76 +94,76 @@ function StoreTypeAdmin({ names }) {
             >
               <FiEdit />
             </button>
-            <button
+            {/* <button
               class="items-center px-2 py-2 text-white bg-red-500 rounded-md hover:bg-red-600 focus:outline-none"
               onClick={() => {
                 setIsDeleting(true);
               }}
             >
               <RiDeleteBin6Line />
-            </button>
+            </button> */}
           </div>
         </td>
       </tr>
- 
- 
+
       <Dialog
         open={isEditing}
         onClose={() => {
           setIsEditing(false);
         }}
-        fullWidth  maxWidth="md"
+        fullWidth
+        maxWidth="md"
       >
         <DialogTitle className="flex justify-between border-b-2 border-black">
-          <h4 className="text-gray-500 md:pl-6 font-medium">Edit Store Type : {names.nameEn}</h4>
+          <h4 className="text-gray-500 md:pl-6 font-medium">
+            Edit Store Type : {names.nameEn}
+          </h4>
         </DialogTitle>
         <DialogContent>
           <Stack spacing={1} margin={3}>
             <div className="md:grid md:grid-cols-2 gap-6">
-            <div className="flex w-full items-center">
-            <label className="text-lg w-[30%] px-2">NameAr :</label>
-            <input
-              className="my-3 w-[70%] text-black placeholder:text-zinc-500 pl-2 outline-none border-b-2 focus:border-skin-primary transition-all duration-700"
-              type="text"
-              placeholder={names.nameAr}
-              ref={newNameAr}
-              required
-            />
-            </div>
+              <div className="flex w-full items-center">
+                <label className="text-lg w-[30%] px-2">NameAr :</label>
+                <input
+                  className="my-3 w-[70%] text-black placeholder:text-zinc-500 pl-2 outline-none border-b-2 focus:border-skin-primary transition-all duration-700"
+                  type="text"
+                  placeholder={names.name_ar}
+                  ref={newNameAr}
+                  required
+                />
+              </div>
 
-            <div className="flex items-center">
-            <label className="text-lg w-[30%] px-2">NameEn :</label>
-            <input
-              className="my-3 w-[70%] text-black placeholder:text-zinc-500 pl-2 outline-none border-b-2 focus:border-skin-primary transition-all duration-700"
-              type="text"
-              placeholder={names.nameEn}
-              ref={newNameEn}
-              required
-            />
-            </div>
+              <div className="flex items-center">
+                <label className="text-lg w-[30%] px-2">NameEn :</label>
+                <input
+                  className="my-3 w-[70%] text-black placeholder:text-zinc-500 pl-2 outline-none border-b-2 focus:border-skin-primary transition-all duration-700"
+                  type="text"
+                  placeholder={names.name_en}
+                  ref={newNameEn}
+                  required
+                />
+              </div>
 
-            <div className="flex items-center">
-            <label className="w-[30%] text-lg px-2">Sort Order :</label>
-            <input
-              className="my-3 w-[70%] text-black placeholder:text-zinc-500 pl-2 outline-none border-b-2 focus:border-skin-primary transition-all duration-700"
-              type="numbere"
-              placeholder={names.sortOrder}
-              ref={newsortOrder}
-              required
-            />
-            </div>
+              <div className="flex items-center">
+                <label className="w-[30%] text-lg px-2">Sort Order :</label>
+                <input
+                  className="my-3 w-[70%] text-black placeholder:text-zinc-500 pl-2 outline-none border-b-2 focus:border-skin-primary transition-all duration-700"
+                  type="number"
+                  placeholder={names.sort_order}
+                  ref={newsortOrder}
+                  required
+                />
+              </div>
 
-            
-            <div className="flex items-center">
-            <ImageUpload 
-            onSelectImage={handleLogoImage}
-            width={100}
-            height={100}
-            defaultImage= {names.image}
-            />
+              <div className="flex items-center">
+                <ImageUpload
+                  onSelectImage={handleLogoImage}
+                  width={100}
+                  height={100}
+                  defaultImage={names.image}
+                />
+              </div>
             </div>
-
-           </div>
           </Stack>
         </DialogContent>
         <DialogActions>
@@ -132,7 +171,10 @@ function StoreTypeAdmin({ names }) {
             type="button"
             className="bg-lime-950 px-8 py-3 text-white rounded-lg "
             data-dismiss="modal"
-          > Save
+            onClick={editStoreType}
+          >
+            {" "}
+            Save
           </button>
           <button
             type="button"
@@ -146,8 +188,8 @@ function StoreTypeAdmin({ names }) {
           </button>
         </DialogActions>
       </Dialog>
-      
-      <Dialog
+
+      {/* <Dialog
         open={isDeleting}
         onClose={() => {
           setIsDeleting(false);
@@ -192,9 +234,7 @@ function StoreTypeAdmin({ names }) {
             Cancel
           </button>
         </DialogActions>
-      </Dialog>
-
-
+      </Dialog> */}
     </>
   );
 }
