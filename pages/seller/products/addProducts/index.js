@@ -98,6 +98,8 @@ function AddProducts() {
     try {
       const response = await Api.post(`/api/seller/search-approved-products`, {
         search_term: searchRef.current.value,
+      } , {
+        noSuccessToast : true
       });
       console.log(`search response`);
       console.log(response);

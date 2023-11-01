@@ -109,13 +109,13 @@ const StoreType = () => {
         }}
       />} */}
       <div className="mx-auto w-full  " dir="ltr" >
-        <ResponsiveCarousel />
+        <ResponsiveCarousel  />
       </div>
       <div className="md:mx-20 shadow-lg shadow-gray-500 pb-5 mb-6 ">
         {stores && (
           <div className="flex w-full h-full px-5 py-2 bg-gray-200 my-7">
             <div className="w-full">
-              <h1 className="text-3xl font-medium text-black">
+              <h1 className="md:text-3xl text-xl font-medium text-black">
                 {stores.data.data.store_type.name}
               </h1>
             </div>

@@ -43,6 +43,7 @@ function ProductCustomer({ product }) {
      <div className="bg-cover overflow-hidden md:w-[343px] w-auto md:h-[343px] ">
     <Image
       src={product.image}
+      alt={product.name}
       className="w-full  transform transition duration-1000 "
       width={0}
       height={0}

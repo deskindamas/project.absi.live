@@ -8,10 +8,10 @@ import { useRef } from "react";
 import { BsToggleOff, BsToggleOn } from "react-icons/bs";
 import { MdCheck, MdClose, MdModeEdit } from "react-icons/md";
 
-function SellerStore({ store , refetch }) {
+function SellerStore({ store, refetch }) {
   const [isToggled, setIsToggled] = useState(store.available);
   const [priceInputVisible, setPriceInputVisible] = useState(false);
-  const [price , setPrice] = useState();
+  const [price, setPrice] = useState();
   const [editingPrice, setEditingPrice] = useState(false);
   const [savingPrice, setSavingPrice] = useState(false);
   const newPriceRef = useRef();
@@ -33,10 +33,10 @@ function SellerStore({ store , refetch }) {
   // async function changeAvalability() {}
 
   useEffect(() => {
-    if(store){
-      setPrice(store.price) ;
+    if (store) {
+      setPrice(store.price);
     }
-  } , [store])
+  }, [store]);
 
   async function savePrice() {
     setSavingPrice(true);
@@ -60,36 +60,45 @@ function SellerStore({ store , refetch }) {
 
   return (
     <>
-       <div
-        className="bg-white mb-10 mx-2 md:px-3 pt-3 pb-6 border-2 shadow-xl border-slate-200 rounded-lg "
+      {/* <div key={store.id} className="mb-4"> */}
+        <div
         key={store.id}
-      >
-        <div className="flex flex-col justify-start items-center w-full h-full">
-          <div className="w-[250px] h-[50%] mx-auto my-2 ">
-            <img
-              className="h-[250px] items-center"
+          className="bg-white shadow-2xl rounded-lg w-[80%] h-[100%] items-center justify-center mx-auto"
+        >
+          <div className=" bg-cover overflow-hidden md:w-[343px] w-auto md:h-[343px]  ">
+            <Image
               src={store.image}
-              loading="lazy"
               alt={store.name}
+              className="w-full  transform transition duration-1000 hover:scale-125 hover:rotate-2  "
+              width={0}
+              height={0}
+              sizes="100vw"
+              style={{ width: "100%", height: "auto" }}
             />
           </div>
-          <div className="flex justify-center w-full h-[20%]">
-            <div className="items-center text-2xl pt-2 pb-2">{store.name}</div>
-          </div>
-          <div className="flex justify-center max-h-[20%] h-[20%] ">
-            <div
-              className="text-start text-md text-gray-500  max-w-md px-2 h-full "
+
+          <div className="flex flex-col justify-start items-start gap-3 w-full py-4 px-4 ">
+            <h3
+              className=" h-auto w-[90%] text-gray-600 md:text-2xl text-lg font-medium overflow-ellipsis md:line-clamp-2 line-clamp-2 select-none cursor-auto "
+              alt={store.name}
+              title={store.name}
+            >
+              {store.name}
+            </h3>
+
+            <div className="flex flex-wrap w-[100%] gap-2">
+              {store.brand && (
+                <h3 className="text-skin-primary text-sm font-medium border-2 border-skin-primary px-2 py-1 rounded-full ">
+                  {store.brand}
+                </h3>
+              )}
+            </div>
+            <p
+              className=" text-gray-700 text-base font-light overflow-hidden text-ellipsis select-none cursor-auto"
               title={store.description}
             >
               {store.description}
-            </div>
-          </div>
-          <div className="flex justify-between items-center w-full h-[10%] ">
-            <div className=" w-[55%]">
-              <p className=" text-start flex-wrap border-2 rounded-full px-2 py-1 border-[#ff6600] max-w-fit ">
-                {store.brand}
-              </p>
-            </div>
+            </p>
             <div className="flex justify-end gap-3">
               {editingPrice == true ? (
                 <input
@@ -138,9 +147,7 @@ function SellerStore({ store , refetch }) {
             </div>
           </div>
         </div>
-      </div>
-
-
+      {/* </div> */}
     </>
   );
 }

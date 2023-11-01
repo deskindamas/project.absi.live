@@ -1,7 +1,6 @@
 import React, { Fragment, useEffect } from "react";
-import { RiFilePaper2Line } from "react-icons/ri";
-import { BsCurrencyDollar } from "react-icons/bs";
-import { BsBox } from "react-icons/bs";
+import { FcSalesPerformance } from "react-icons/fc";
+import { BsBox, BsFillCartCheckFill } from "react-icons/bs";
 import image1 from "../../public/images/card1.jpg";
 import image2 from "../../public/images/card2.jpg";
 import image3 from "../../public/images/card3.jpg";
@@ -14,6 +13,8 @@ import TawasyLoader from "@/components/UI/tawasyLoader";
 import { useQuery } from "react-query";
 import { Card } from "@mui/material";
 import DashboardCard from "@/components/UI/dashboardCard";
+import { MdOutlinePendingActions, MdOutlineProductionQuantityLimits } from "react-icons/md";
+import { CgUnavailable } from "react-icons/cg";
 
 const Home = () => {
   const router = useRouter();
@@ -97,48 +98,69 @@ const Home = () => {
             >
               Main Dashboard
             </h4>
-            {/* // Statistics cards  */}
-            <div className="flex flex-wrap ">
-              {/* {dashboardData &&
-              Object.entries(dashboardData.data).map(([key, value]) => (
-                <DashboardCard key={key} name={key} value={value} />
-              ))} */}
-              <DashboardCard
-                key={dashboardData.data.totalAvailableProducts}
-                name={`Total Available Products`}
-                value={dashboardData.data.totalAvailableProducts}
-                color = {`bg-emerald-600`}
-              />
-              <DashboardCard
-                key={dashboardData.data.totalOrders}
-                name={`Total Orders`}
-                value={dashboardData.data.totalOrders}
-                color = {`bg-sky-400`}
-              />
-              <DashboardCard
-                key={dashboardData.data.totalPendingOrders}
-                name={`Total Pending Orders`}
-                color = {`bg-yellow-400`}
-                value={dashboardData.data.totalPendingOrders}
-              />
-              <DashboardCard
-                key={dashboardData.data.totalProducts}
-                name={`Total Products`}
-                color = {`bg-teal-500`}
-                value={dashboardData.data.totalProducts}
-              />
-              <DashboardCard
-                key={dashboardData.data.totalSales}
-                name={`Total Sales`}
-                color = {`bg-green-500`}
-                value={dashboardData.data.totalSales}
-              />
-              <DashboardCard
-                key={dashboardData.data.totalUnavailableProducts}
-                name={`Total Unavailable Products`}
-                color = {`bg-red-800`}
-                value={dashboardData.data.totalUnavailableProducts}
-              />
+
+            <div className="md:flex md:flex-wrap  md:gap-x-10 gap-x-0 md:gap-y-5 gap-y-4 w-[95%]">
+              <div className="flex justify-between border-2 border-gray-400 md:w-[45%] w-[100%] px-4 py-4">
+              <div className="w-[80%]">
+              <h1 className="text-2xl font-medium text-gray-800 pb-4">Total Available Products</h1>
+              <p className="text-xl text-skin-primary"> {dashboardData.data.totalAvailableProducts} </p>
+              </div>
+             <div className="w-[20%] flex justify-center items-center">
+              <BsBox className="w-[30px] h-[30px] text-skin-primary" />
+              </div>
+              </div>
+              
+              <div className="flex justify-between border-2 border-gray-400 md:w-[45%] w-[100%] px-4 py-4">
+              <div className="w-[80%]">
+              <h1 className="text-2xl font-medium text-gray-800 pb-4">Total Orders</h1>
+              <p className="text-xl text-skin-primary"> {dashboardData.data.totalOrders}</p>
+              </div>
+             <div className="w-[20%] flex justify-center items-center">
+              <BsFillCartCheckFill className="w-[30px] h-[30px] text-skin-primary" />
+              </div>
+              </div>
+
+              <div className="flex justify-between border-2 border-gray-400 md:w-[45%] w-[100%] px-4 py-4">
+              <div className="w-[80%]">
+              <h1 className="text-2xl font-medium text-gray-800 pb-4">Total Pending Orders</h1>
+              <p className="text-xl text-skin-primary"> {dashboardData.data.totalPendingOrders}</p>
+              </div>
+             <div className="w-[20%] flex justify-center items-center">
+              <MdOutlinePendingActions className="w-[30px] h-[30px] text-skin-primary" />
+              </div>
+              </div>
+
+              <div className="flex justify-between border-2 border-gray-400 md:w-[45%] w-[100%] px-4 py-4">
+              <div className="w-[80%]">
+              <h1 className="text-2xl font-medium text-gray-800 pb-4">Total Products</h1>
+              <p className="text-xl text-skin-primary"> {dashboardData.data.totalProducts}</p>
+              </div>
+             <div className="w-[20%] flex justify-center items-center">
+              <MdOutlineProductionQuantityLimits className="w-[30px] h-[30px] text-skin-primary" />
+              </div>
+              </div>
+
+              <div className="flex justify-between border-2 border-gray-400 md:w-[45%] w-[100%] px-4 py-4">
+              <div className="w-[80%]">
+              <h1 className="text-2xl font-medium text-gray-800 pb-4">Total Sales</h1>
+              <p className="text-xl text-skin-primary"> {dashboardData.data.totalSales}</p>
+              </div>
+             <div className="w-[20%] flex justify-center items-center">
+              <FcSalesPerformance className="w-[30px] h-[30px] text-skin-primary" />
+              </div>
+              </div>
+
+              
+              <div className="flex justify-between border-2 border-gray-400 md:w-[45%] w-[100%] px-4 py-4">
+              <div className="w-[80%]">
+              <h1 className="text-2xl font-medium text-gray-800 pb-4">Total Unavailable Products</h1>
+              <p className="text-xl text-skin-primary"> {dashboardData.data.totalUnavailableProducts}</p>
+              </div>
+             <div className="w-[20%] flex justify-center items-center">
+              <CgUnavailable className="w-[30px] h-[30px] text-skin-primary" />
+              </div>
+              </div>
+
             </div>
           </div>}
         </div>

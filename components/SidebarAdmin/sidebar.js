@@ -7,13 +7,15 @@ import {
   AiOutlineCloseCircle,
   AiOutlineCarryOut,
   AiTwotoneEye,
+  AiOutlineUser,
 } from "react-icons/ai";
+import { SiAdminer, SiSellfy } from "react-icons/si";
 import { FiChevronDown, FiChevronRight, FiSettings } from "react-icons/fi";
 import { BsCartCheckFill, BsBox, BsColumns } from "react-icons/bs";
 import { CiLogout } from "react-icons/ci";
 import { MdPendingActions, MdOutlineDisabledVisible } from "react-icons/md";
 import { useRouter } from "next/router";
-import { TbBrandShopee, TbCategory2 } from "react-icons/tb";
+import { TbBrandShopee, TbCategory2, TbTruckDelivery } from "react-icons/tb";
 import { RiCoupon2Line } from "react-icons/ri";
 import { FaStore } from "react-icons/fa";
 
@@ -225,7 +227,7 @@ export default function SidebarAdmin(props) {
                       }}
                     />
                   }
-                  className={`text-zinc-100 outline-none mb-3`}
+                  className={`text-zinc-100 outline-none mb-2`}
                   key="3"
                   aria-label="Stores"
                   title="Stores"
@@ -283,6 +285,60 @@ export default function SidebarAdmin(props) {
                   </ul>
                 </AccordionItem>
 
+                <AccordionItem
+                  startContent={
+                    <SiAdminer
+                      style={{
+                        marginRight: "30px",
+                        width: "25px",
+                        height: "25px",
+                      }}
+                    />
+                  }
+                  className={`text-zinc-100 outline-none mb-3`}
+                  key="4"
+                  aria-label="ADS"
+                  title="ADS"
+                  indicator={({ isOpen }) =>
+                    isOpen ? (
+                      <FiChevronDown className={`text-zinc-100`} />
+                    ) : (
+                      <FiChevronRight className={`text-zinc-100`} />
+                    )
+                  }
+                >
+                  <ul>
+                 
+                    <li className={`pt-3`}>
+                      <button
+                        className="flex items-center p-2 space-x-3 rounded-md text-gray-100"
+                        onClick={() => {
+                          router.push({
+                            pathname: "/admin/Ads/StoreTypeADS",
+                          });
+                        }}
+                      >
+                        <MdOutlineDisabledVisible className="block text-[20px] text-white " />
+                        <p className="hidden md:block">Store Type ADS</p>
+                      </button>
+                    </li>
+                    <li className={`pt-3`}>
+                      <button
+                        className="flex items-center p-2 space-x-3 rounded-md text-gray-100"
+                        onClick={() => {
+                          router.push({
+                            pathname: "/admin/Ads/HomeADS",
+                          });
+                        }}
+                      >
+                        <AiTwotoneEye className="block text-[20px] text-white " />
+                        <p className="hidden md:block">Home ADS</p>
+                      </button>
+                    </li>
+                   
+                  </ul>
+                </AccordionItem>
+
               </Accordion>
 
               <li className="rounded-sm pb-3">
@@ -329,6 +385,44 @@ export default function SidebarAdmin(props) {
                   <TbCategory2 className="block text-[25px] text-white " />
                   <p className="hidden md:block" style={{ marginLeft: "43px" }}>
                   Categories
+                  </p>
+                </Link>
+              </li>
+
+              <li className="rounded-sm pb-3">
+                <Link
+                  href="/admin/Customers"
+                  className="flex items-center pl-2 space-x-3 pt-2 pb-1 rounded-md text-gray-100"
+                >
+                  <AiOutlineUser className="block text-[25px] text-white " />
+                  <p className="hidden md:block" style={{ marginLeft: "43px" }}>
+                  Customers
+                  </p>
+                </Link>
+              </li>
+
+              
+              <li className="rounded-sm pb-3">
+                <Link
+                  href="/admin/Sellers"
+                  className="flex items-center pl-2 space-x-3 pt-2 pb-1 rounded-md text-gray-100"
+                >
+                  <SiSellfy className="block text-[25px] text-white " />
+                  <p className="hidden md:block" style={{ marginLeft: "43px" }}>
+                  Sellers
+                  </p>
+                </Link>
+              </li>
+
+                     
+              <li className="rounded-sm pb-3">
+                <Link
+                  href="/admin/AdminDelivery"
+                  className="flex items-center pl-2 space-x-3 pt-2 pb-1 rounded-md text-gray-100"
+                >
+                  <TbTruckDelivery className="block text-[25px] text-white " />
+                  <p className="hidden md:block" style={{ marginLeft: "43px" }}>
+                  Delivery
                   </p>
                 </Link>
               </li>
