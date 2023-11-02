@@ -11,6 +11,7 @@ import AdminProduct from "@/components/AdminProducts/productsAdmin";
 import withLayoutAdmin from "@/components/UI/adminLayout";
 import StoreTypeADSAdmin from "@/components/AdminStoreTypeADS/StoreTypeADSAdmin";
 import HomeADSAdmin from "@/components/AdminHomeADS/HomeADS";
+import HomeMobileADS from "@/components/AdminHomeMobileADS/HomeMobileADS";
 
 const tableheading = [
   {
@@ -45,6 +46,7 @@ function HomeAds() {
     <div>
         <div className="md:px-6">
           <div className="w-full h-screen mx-auto">
+
             <div className="m-5 p-5">
               <h2 className="text-2xl text-stone-500 pb-5 ">Home ADS</h2>
               <div className="flex">
@@ -74,27 +76,16 @@ function HomeAds() {
                   </form>
                 </div>
 
-                <div
-                  className="w-[50%] flex justify-end "
-                >
-                  <button className="bg-skin-primary text-white py-1 px-3 rounded-md"
-                    // onClick={() => {
-                    //   router.push("/admin/Products/addNewProduct");
-                    // }}
-                  >
-                    Add 
-                  </button>
-                </div>
               </div>
             </div>
 
-           <div className="mt-6 h-[70%]  overflow-auto">
-              <table className="w-full overflow-auto table-auto">
-                <thead className="">
+            <h2 className="text-2xl text-gray-500 bg-slate-50 py-1 px-2">Website Ads </h2>
+              <table className="w-full mt-6 h-[70%]  overflow-auto ">
+                <thead className="w-[100%]">
                   <tr className="text-sm font-semibold text-center border-b-2 border-blue-500 uppercase">
                     <th>Id</th>
                     {tableheading.map((index) => (
-                      <th className=" px-4 py-4 " key={index.heading}>{index.heading}</th>
+                      <th className=" px-4 " key={index.heading}>{index.heading}</th>
                     ))}
                   </tr>
                 </thead>
@@ -112,7 +103,35 @@ function HomeAds() {
                   })}
                 </tbody>
               </table>
+
+            
+          <h2 className="text-2xl text-gray-500 bg-slate-50 py-1 px-2 mt-7">Mobile Ads </h2>
+            <div className="mt-6 h-[70%] overflow-auto">
+              <table className="w-full overflow-auto table-auto">
+                <thead className="">
+                  <tr className="text-sm font-semibold text-center border-b-2 border-blue-500 uppercase">
+                    <th>Id</th>
+                    {tableheading.map((index) => (
+                      <th className=" px-4 py-4 " key={index.heading}>{index.heading}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody className="text-lg h-[10%] font-normal text-gray-700 text-center">
+                  { StoreType.map((names) => {
+                    return (
+                      <HomeMobileADS
+                       ads={names}
+                        key={names.id}
+                        refetch={() => {
+                          refetch();
+                        }}
+                      />
+                    );
+                  })}
+                </tbody>
+              </table>
             </div> 
+            
             {/* <div className="w-max mx-auto" > There are no store type ads. </div> */}
           </div>
         </div>
