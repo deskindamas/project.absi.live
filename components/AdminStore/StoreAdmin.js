@@ -28,7 +28,7 @@ const openingDays = [
   "Friday",
 ];
 
-function StoreAdmin({ names }) {
+function StoreAdmin({ names, refetch }) {
   const [isDeleting, setIsDeleting] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -41,6 +41,7 @@ function StoreAdmin({ names }) {
   );
   const [status, setStatus] = useState(names.status && names.status);
   const [isLoading, setIsLoading] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
   const newNameAr = useRef();
   const newNameEn = useRef();
   const NewopeningTime = useRef();
@@ -98,7 +99,7 @@ function StoreAdmin({ names }) {
   }
 
   async function saveEdits() {
-    // setIsSaving(true);
+    setIsSaving(true);
     let editData = {};
 
     function arraysAreEqual(arr1, arr2) {
@@ -129,14 +130,39 @@ function StoreAdmin({ names }) {
     if (status !== names.status) {
       editData.status = status;
     }
-    if(address){
+    if (address) {
       addIfDifferent(address.address, "address");
-      editData.longitude = address.lng ;
-      editData.latitude = address.lat ;
+      editData.longitude = address.lng;
+      editData.latitude = address.lat;
     }
-    if(!arraysAreEqual(capitalizedDaysArray , checkedDays)){
-      editData[`opening_days`] = checkedDays ;
+    if (!arraysAreEqual(capitalizedDaysArray, checkedDays)) {
+      editData[`opening_days`] = checkedDays;
     }
+
+    if (logoImage || storeImage) {
+      const response = await Api.post(
+        `/api/admin/edit-store/image-logo/${names.id}`,
+        {
+          new_image: storeImage,
+          new_logo: storeImage,
+        } , {
+          headers: { "Content-Type": `multipart/form-data` },
+        }
+      );
+    }
+
+    try {
+      const response = await Api.put(
+        `/api/admin/edit-store/${names.id}`,
+        editData
+      );
+      refetch();
+      setIsSaving(false);
+      setIsEditing(false);
+    } catch (error) {
+      setIsSaving(false);
+    }
+    setIsSaving(false);
 
     console.log(editData);
   }
@@ -427,7 +453,13 @@ function StoreAdmin({ names }) {
             data-dismiss="modal"
             onClick={saveEdits}
           >
-            Save
+            {isSaving == true ? (
+              <div className="w-full flex justify-center">
+                <Ring size={20} lineWeight={5} speed={2} color="white" />
+              </div>
+            ) : (
+              `Save`
+            )}
           </button>
           <button
             type="button"

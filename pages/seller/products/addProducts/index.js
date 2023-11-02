@@ -32,15 +32,21 @@ const users = [
 function AddProducts() {
   const router = useRouter();
   const Api = createAxiosInstance(router);
+  const [currentPage, setCurrentPage] = useState(1);
   const searchRef = useRef();
   const { data, isLoading, isError, error } = useQuery(
-    "sharedProducts",
-    fetchSharedProducts,
-    { staleTime: Infinity, refetchOnMount: true, refetchOnWindowFocus: false }
+    ["sharedProducts" , currentPage],
+    () => fetchSharedProducts(currentPage),
+    {
+      staleTime: Infinity,
+      refetchOnMount: true,
+      refetchOnWindowFocus: false,
+      keepPreviousData: true,
+    }
   );
 
-  async function fetchSharedProducts() {
-    return await Api.get(`api/seller/approved-products`);
+  async function fetchSharedProducts(pageNumber) {
+    return await Api.get(`api/seller/approved-products?page=${pageNumber}`);
   }
 
   const [selectedProducts, setSelectedProducts] = useState();
@@ -96,11 +102,15 @@ function AddProducts() {
   async function search() {
     setSearching(true);
     try {
-      const response = await Api.post(`/api/seller/search-approved-products`, {
-        search_term: searchRef.current.value,
-      } , {
-        noSuccessToast : true
-      });
+      const response = await Api.post(
+        `/api/seller/search-approved-products`,
+        {
+          search_term: searchRef.current.value,
+        },
+        {
+          noSuccessToast: true,
+        }
+      );
       console.log(`search response`);
       console.log(response);
       setSearchedProducts(response.data);
@@ -187,8 +197,41 @@ function AddProducts() {
                 })}
               </div>
             ) : (
-              <div className="w-full text-center" >{searchedProducts.message}</div>
+              <div className="w-full text-center">
+                {searchedProducts.message}
+              </div>
             ))}
+
+          {data && inSearch == false && (
+            <div className="w-[50%] mx-auto flex justify-center items-center py-5 gap-4 ">
+              <button
+                className="px-2 py-1 bg-skin-primary text-white rounded-lg hover:bg-[#ff9100] disabled:opacity-50 disabled:cursor-not-allowed"
+                onClick={() => {
+                  setCurrentPage(data.data.pagination.current_page - 1);
+                  // setCurrentPage(data.data.pagination.previousPage);
+                }}
+                disabled={
+                  data.data.pagination.current_page ===
+                  data.data.pagination.from
+                }
+              >
+                Previous Page
+              </button>
+              <button
+                className="px-2 py-1 bg-skin-primary text-white rounded-lg hover:bg-[#ff9100] disabled:opacity-50 disabled:cursor-not-allowed"
+                onClick={() => {
+                  setCurrentPage(data.data.pagination.current_page + 1);
+                  // setCurrentPage(data.data.pagination.nextPage);
+                }}
+                disabled={
+                  data.data.pagination.current_page ===
+                  data.data.pagination.last_page
+                }
+              >
+                Next Page
+              </button>
+            </div>
+          )}
           <Dialog
             transitionDuration={500}
             transitionBuilder={transitionBuilder}

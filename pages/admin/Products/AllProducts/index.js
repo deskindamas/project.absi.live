@@ -9,6 +9,8 @@ import TawasyLoader from "@/components/UI/tawasyLoader";
 import Link from "next/link";
 import AdminProduct from "@/components/AdminProducts/productsAdmin";
 import withLayoutAdmin from "@/components/UI/adminLayout";
+import { MdArrowForward, MdClose } from "react-icons/md";
+import { useRef } from "react";
 
 const tableheading = [
   {
@@ -144,11 +146,20 @@ function ProductsAdmin() {
   const [tablecontent, settablecontent] = useState([]);
   const router = useRouter();
   const Api = createAxiosInstance(router);
-  const { data: allProduct, isLoading , refetch , isRefetching} = useQuery(
-    "adminAllProduct",
-    fetchadminAllProduct,
-    { staleTime: 1, refetchOnMount: true, refetchOnWindowFocus: false }
-  );
+  const [searchedResults, setSearchedResults] = useState();
+  const searchRef = useRef();
+  const [inSearch, setInSearch] = useState(false);
+  const [searching, setSearching] = useState(false);
+  const {
+    data: allProduct,
+    isLoading,
+    refetch,
+    isRefetching,
+  } = useQuery("adminAllProduct", fetchadminAllProduct, {
+    staleTime: 1,
+    refetchOnMount: true,
+    refetchOnWindowFocus: false,
+  });
 
   async function fetchadminAllProduct() {
     try {
@@ -160,90 +171,177 @@ function ProductsAdmin() {
     openchange(false);
   };
 
-  if (isLoading == true) {
-   return <div className="w-full h-full">
-      <TawasyLoader width={400} height={400} />
-    </div>;
+  async function search(e) {
+    e.preventDefault();
+    setSearching(true);
+    try {
+      const response = await Api.get(`/api/admin/products/searchByName`, {
+        params: { search: searchRef.current.value },
+        noSuccessToast: true,
+      });
+      const component =
+        response.data.data.length < 1 ? (
+          <div className="w-max mx-auto">{response.data.message}</div>
+        ) : (
+          <table className="w-max overflow-auto table-auto">
+          <thead className="sticky top-0 bg-white border-b-2 border-blue-500">
+            <tr className="text-sm font-semibold text-center border-b-2 border-blue-500 uppercase">
+              <th>Id</th>
+              {tableheading.map((index) => (
+                <th className=" px-4 py-4 " key={index.heading}>
+                  {index.heading}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody className="text-lg h-[10%] font-normal text-gray-700 text-center">
+            {response.data.data &&
+              response.data.data.map((names) => {
+                return (
+                  <AdminProduct
+                    product={names}
+                    key={names.id}
+                    refetch={() => {
+                      refetch();
+                    }}
+                  />
+                );
+              })}
+          </tbody>
+        </table>
+        );
+      setSearchedResults(component);
+      setSearching(false);
+    } catch (error) {
+      setSearching(false);
+    }
+    setSearching(false);
   }
 
-  if (allProduct) {
-    console.log(allProduct);
+  if (isLoading == true) {
+    return (
+      <div className="w-full h-full">
+        <TawasyLoader width={400} height={400} />
+      </div>
+    );
   }
 
   return (
     <div>
-        <div className="md:px-6">
-          <div className="w-full h-screen mx-auto">
-            <div className="m-5 p-5">
-              <h2 className="text-2xl text-stone-500 pb-5 ">All Products</h2>
-              <div className="flex">
-                <div className="w-[50%]">
-                  <form className="w-full my-auto ">
-                    <div className="flex bg-gray-50 pt-1 pb-1 w-[80%] items-center rounded-lg mr-4 border-2">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-4 w-4 mx-2"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                        />
-                      </svg>
-                      <input
-                        className="w-full  bg-gray-50 outline-none border-transparent text-gray-700 focus:border-transparent focus:ring-0 rounded-lg text-sm h-8"
-                        type="text"
-                        placeholder="Search a Product "
-                      />
-                    </div>
-                  </form>
-                </div>
-
-                <div
-                  className="w-[50%] flex justify-end "
+      <div className="md:px-6">
+        <div className="w-full h-screen mx-auto">
+          <div className="m-5 p-5">
+            <h2 className="text-2xl text-stone-500 pb-5 ">All Products</h2>
+            <div className="flex">
+              <div
+                className="w-full flex justify-center items-center gap-2 mx-auto "
+                dir="ltr"
+              >
+                <form
+                  onSubmit={search}
+                  className="flex bg-gray-100 w-full sm:w-2/5 items-center rounded-lg px-2 border-2 border-transparent focus-within:border-skin-primary transition-all duration-700 "
                 >
-                  <button className="bg-skin-primary text-white py-1 px-3 rounded-md"
-                    onClick={() => {
-                      router.push("/admin/Products/addNewProduct");
-                    }}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-4 w-4 mr-2"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
                   >
-                    Add Product
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                    />
+                  </svg>
+                  <input
+                    className="w-full bg-gray-100 outline-none rounded-lg text-sm h-10  "
+                    type="text"
+                    ref={searchRef}
+                    placeholder="Search products by name"
+                    onClick={() => {
+                      setInSearch(true);
+                    }}
+                    required
+                  />
+                  <button type="submit">
+                    <MdArrowForward
+                      // onClick={search}
+                      className="hover:border-b-2 border-skin-primary cursor-pointer"
+                    />
                   </button>
-                </div>
+                </form>
+                {inSearch == true && (
+                  <MdClose
+                    className="text-red-500 hover:text-red-600 w-[25px] h-[25px] hover:border-b-2 hover:border-red-600 cursor-pointer "
+                    onClick={() => {
+                      setInSearch(false);
+                    }}
+                  />
+                )}
+              </div>
+
+              <div className="w-[50%] flex justify-end ">
+                <button
+                  className="bg-skin-primary text-white py-1 px-3 rounded-md"
+                  onClick={() => {
+                    router.push("/admin/Products/addNewProduct");
+                  }}
+                >
+                  Add Product
+                </button>
               </div>
             </div>
-
-            { allProduct && allProduct.data.products.length > 0 ? <div className="mt-6 h-[70%]  overflow-auto">
-              <table className="w-max overflow-auto table-auto">
-                <thead className="sticky top-0 bg-white border-b-2 border-blue-500">
-                  <tr className="text-sm font-semibold text-center border-b-2 border-blue-500 uppercase">
-                    <th>Id</th>
-                    {tableheading.map((index) => (
-                      <th className=" px-4 py-4 " key={index.heading}>{index.heading}</th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody className="text-lg h-[10%] font-normal text-gray-700 text-center">
-                  { allProduct.data.products && allProduct.data.products.map((names) => {
-                    return (
-                      <AdminProduct
-                        product={names}
-                        key={names.id}
-                        refetch={() => {
-                          refetch();
-                        }}
-                      />
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div> : <div className="w-max mx-auto" > There are no Products. </div>}
           </div>
+
+          {inSearch == false && (
+            <div className="mt-6 h-[70%]  overflow-auto">
+              {allProduct && allProduct.data.products.length > 0 ? (
+                <table className="w-max overflow-auto table-auto">
+                  <thead className="sticky top-0 bg-white border-b-2 border-blue-500">
+                    <tr className="text-sm font-semibold text-center border-b-2 border-blue-500 uppercase">
+                      <th>Id</th>
+                      {tableheading.map((index) => (
+                        <th className=" px-4 py-4 " key={index.heading}>
+                          {index.heading}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody className="text-lg h-[10%] font-normal text-gray-700 text-center">
+                    {allProduct.data.products &&
+                      allProduct.data.products.map((names) => {
+                        return (
+                          <AdminProduct
+                            product={names}
+                            key={names.id}
+                            refetch={() => {
+                              refetch();
+                            }}
+                          />
+                        );
+                      })}
+                  </tbody>
+                </table>
+              ) : (
+                <div className="w-max mx-auto"> There are no Products. </div>
+              )}
+            </div>
+          )}
+
+          {inSearch == true &&
+            (searching == true ? (
+              <div className="w-full h-full">
+                <TawasyLoader width={300} height={300} />
+              </div>
+            ) : (
+              <div className=" mt-6 h-[70%]  overflow-auto">
+                {searchedResults && searchedResults}
+              </div>
+            ))}
         </div>
+      </div>
     </div>
   );
 }

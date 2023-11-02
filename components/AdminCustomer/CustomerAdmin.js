@@ -1,4 +1,5 @@
 import React from "react";
+import { convertDateStringToDate } from "../AdminOrders/OrderAdmin";
 
 
 function CustomersAdmin({ names }) {
@@ -11,11 +12,11 @@ function CustomersAdmin({ names }) {
       >
          <td className="px-4 py-4">{names.id}</td>
         <td className="px-4 py-4">{names.name}</td>
-        <td className="px-4 py-4">{names.phone}</td>
-        <td className="px-4 py-4">{names.lng}</td>
-        <td className="px-4 py-4">{names.lat}</td>
-        <td className="px-4 py-4  " width={`10%`} >{names.created_at}</td>
-        <td className="px-4 py-4" width={`10%`} >{names.updated_at}</td>
+        <td className="px-4 py-4">{names.phone_number}</td>
+        <td className="px-4 py-4">{names.longitude}</td>
+        <td className="px-4 py-4">{names.latitude}</td>
+        <td className="px-4 py-4  " width={`10%`} >{convertDateStringToDate(names.created_at)}</td>
+        <td className="px-4 py-4" width={`10%`} >{convertDateStringToDate(names.updated_at)}</td>
       </tr>
 
 

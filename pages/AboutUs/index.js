@@ -1,6 +1,7 @@
 import React from 'react';
-import about3 from '../../../public/images/about3.jpg';
-import about1 from '../../../public/images/about1.jpg';
+// import about3 from '../../../public/images/about3.jpg';
+import about3 from '../../public/images/about3.jpg';
+import about1 from '../../public/images/about1.jpg';
 import Image from 'next/image';
 import withLayoutCustomer from '@/components/wrapping components/WrappingCustomerLayout';
 

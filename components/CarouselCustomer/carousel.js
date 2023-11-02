@@ -24,7 +24,25 @@ export function ResponsiveCarousel() {
           className=" md:h-auto h-[150px] "
         />
       </div>
-      
+      <div className="relative md:h-[540px] md:w-[1920] h-auto  w-full ">
+        <img
+          src="https://i0.wp.com/www.westlondonstudio.co.uk/wp-content/uploads/2020/11/Image-1920x540-Clip-for-ls-v06-00_00_07_19.Still001.jpg?ssl=1"
+          alt="image 1"
+          className=" md:h-auto h-[150px] "
+        />
+      </div><div className="relative md:h-[540px] md:w-[1920] h-auto  w-full ">
+        <img
+          src="https://i0.wp.com/www.westlondonstudio.co.uk/wp-content/uploads/2020/11/Image-1920x540-Clip-for-ls-v06-00_00_07_19.Still001.jpg?ssl=1"
+          alt="image 1"
+          className=" md:h-auto h-[150px] "
+        />
+      </div><div className="relative md:h-[540px] md:w-[1920] h-auto  w-full ">
+        <img
+          src="https://i0.wp.com/www.westlondonstudio.co.uk/wp-content/uploads/2020/11/Image-1920x540-Clip-for-ls-v06-00_00_07_19.Still001.jpg?ssl=1"
+          alt="image 1"
+          className=" md:h-auto h-[150px] "
+        />
+      </div>
       {/* <div className="relative h-[540px] w-[1920]">
         <img
           src="https://i0.wp.com/www.westlondonstudio.co.uk/wp-content/uploads/2020/11/Image-1920x540-Clip-for-ls-v06-00_00_07_19.Still001.jpg?ssl=1"

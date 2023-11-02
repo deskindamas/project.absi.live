@@ -67,7 +67,7 @@ function CustomerPage() {
                     {storeTypes.message}
                   </div>
                 ) : (
-                  <div className=" w-[70%] grid grid-cols md:grid-cols-4 sm:grid-cols-3  grid-cols-1 gap-y-6 gap-x-6 pb-20 ">
+                  <div className=" w-[70%] grid grid-cols md:grid-cols-4 sm:grid-cols-3  grid-cols-1 gap-y-6 gap-x-6 pb-20 " dir="ltr" >
                     {storeTypes?.map((storeType) => {
                       return (
                         <StoreTypeComponent

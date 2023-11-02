@@ -44,6 +44,11 @@ const createAxiosInstance = (router) => {
     // // Add the Accept-Language header
     // config.headers["Accept-Language"] = locale;
     config.headers.Authorization = updateAuthorizationHeader();
+
+    if (config.method === "options") {
+      config.headers["Access-Control-Max-Age"] = "3600"; // Set the desired max age in seconds
+    }
+
       return config;
     },
     (error) => {

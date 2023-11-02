@@ -26,7 +26,7 @@ const Home = () => {
     isError,
     error,
   } = useQuery(`dashboard`, fetchDashboard, {
-    staleTime: 300000,
+    staleTime: 1,
     refetchOnMount: true,
     refetchOnWindowFocus: false,
   });

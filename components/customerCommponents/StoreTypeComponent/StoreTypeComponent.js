@@ -5,7 +5,7 @@ import Image from "next/image";
 
 function StoreTypeComponent({ storeType }) {
   return (
-    <Link href={`/customer/StoreType/${storeType.id}`}  className="relative">
+    <Link href={`/customer/StoreType/${storeType.id}`}  className="relative" dir="ltr" >
       <Image
         src={storeType.image}
         // src="https://himenobaraen.jp/wp-content/uploads/rosa_chinensis.jpg"
