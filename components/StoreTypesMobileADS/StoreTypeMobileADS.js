@@ -17,7 +17,7 @@ import ImageUpload from "../ImageUpload/ImageUpload";
 import { convertDate } from "../SellerOrders/sellerOrder";
 import TawasyLoader from "../UI/tawasyLoader";
 
-function StoreTypeADSAdmin({ storetypeads, refetch }) {
+function StoreTypeMobileADS({ storetypemobileads, refetch }) {
 
 
   const [isDeleting, setIsDeleting] = useState(false);
@@ -40,22 +40,21 @@ function StoreTypeADSAdmin({ storetypeads, refetch }) {
   return (
     <>
      <tr
-        key={storetypeads.id}
+        key={storetypemobileads.id}
         className="py-10 bg-gray-100 hover:bg-gray-200 font-medium   "
       >
-        <td className="px-4 py-4">{storetypeads.id}</td>
+        <td className="px-4 py-4">{storetypemobileads.id}</td>
         <td className="px-4 py-4 flex justify-center">
           <Image
-            src={storetypeads.image}
+            src={storetypemobileads.image}
             width={0}
             height={0}
             sizes="100vw"
             style={{ width: "30%", height: "auto" }}
           />
         </td>
-        <td className="px-4 py-4">{storetypeads.store_typeId}</td>
-        <td className="px-4 py-4">{convertDate(storetypeads.Created)}</td>
-        
+        <td className="px-4 py-4">{storetypemobileads.store_typeId}</td>
+        <td className="px-4 py-4">{convertDate(storetypemobileads.Created)}</td>
         <td class="px-4 py-4">
           <div class="flex-col lg:flex-row lg:space-x-2 items-center space-y-2 lg:space-y-0">
             <button
@@ -103,7 +102,7 @@ function StoreTypeADSAdmin({ storetypeads, refetch }) {
                     onSelectImage={handleLogoImage}
                     width={100}
                     height={100}
-                    defaultImage={storetypeads.image}
+                    defaultImage={storetypemobileads.image}
                   />
                 </div>
               </div>
@@ -146,7 +145,7 @@ function StoreTypeADSAdmin({ storetypeads, refetch }) {
               <p className="text-lg ">
                 Are you sure you want to delete this Delete Store Type ADS ?
               </p>
-              <p className="text-xl pt-4">{storetypeads.id}</p>
+              <p className="text-xl pt-4">{storetypemobileads.id}</p>
             </div>
           </Stack>
         </DialogContent>
@@ -156,4 +155,4 @@ function StoreTypeADSAdmin({ storetypeads, refetch }) {
   );
 }
 
-export default StoreTypeADSAdmin;
+export default StoreTypeMobileADS;

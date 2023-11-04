@@ -14,7 +14,7 @@ import { BsCartCheckFill, BsBox, BsColumns } from "react-icons/bs";
 import { CiLogout } from "react-icons/ci";
 import { MdPendingActions, MdOutlineDisabledVisible } from "react-icons/md";
 import { useRouter } from "next/router";
-import { IoStorefrontSharp } from "react-icons/io5";
+import { IoSettingsSharp, IoStorefrontSharp } from "react-icons/io5";
 
 export default function Sidebar(props) {
   const [open, setOpen] = useState(false);
@@ -226,6 +226,18 @@ export default function Sidebar(props) {
                   <IoStorefrontSharp className="block text-[20px] text-white " />
                   <p className="hidden md:block" style={{ marginLeft: "43px" }}>
                     Store
+                  </p>
+                </Link>
+              </li>
+             
+              <li className="rounded-sm pb-3">
+                <Link
+                  href="/seller/Setting"
+                  className="flex items-center pl-2 space-x-3 pt-4 rounded-md text-gray-100"
+                >
+                  <IoSettingsSharp className="block text-[20px] text-white " />
+                  <p className="hidden md:block" style={{ marginLeft: "43px" }}>
+                    Setting
                   </p>
                 </Link>
               </li>

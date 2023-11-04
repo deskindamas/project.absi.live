@@ -15,10 +15,10 @@ import { Ring } from "@uiball/loaders";
 import Image from "next/image";
 import ImageUpload from "../ImageUpload/ImageUpload";
 import { convertDate } from "../SellerOrders/sellerOrder";
-import TawasyLoader from "../UI/tawasyLoader";
-import HomeADS from "@/pages/admin/Ads/HomeADS";
 
-function HomeADSAdmin({ ads, refetch }) {
+
+
+function HomeMobileADS({ ads, refetch }) {
 
   const [open, openchange] = useState(false);
   const [openmobile, openmobilechange] = useState(false);
@@ -47,7 +47,7 @@ const closepopupMobile = () => {
     <>
      <tr
         key={ads.id}
-        className="py-10 bg-gray-100 hover:bg-gray-200 font-medium   "
+        className="py-10 bg-red-100 hover:bg-gray-200 font-medium   "
       >
          <td className="px-4 py-4">{ads.id}</td>
         <td className="px-4 py-4 flex justify-center">
@@ -118,4 +118,4 @@ const closepopupMobile = () => {
   );
 }
 
-export default HomeADSAdmin;
+export default HomeMobileADS;
