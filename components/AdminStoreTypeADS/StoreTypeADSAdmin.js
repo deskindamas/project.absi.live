@@ -16,16 +16,17 @@ import Image from "next/image";
 import ImageUpload from "../ImageUpload/ImageUpload";
 import { convertDate } from "../SellerOrders/sellerOrder";
 import TawasyLoader from "../UI/tawasyLoader";
+import { convertDateStringToDate } from "../AdminOrders/OrderAdmin";
+import { toast } from "react-toastify";
 
 function StoreTypeADSAdmin({ storetypeads, refetch }) {
-
-
   const [isDeleting, setIsDeleting] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [editing, setEditing] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [logoImage, setLogoImage] = useState();
   const [isSaving, setIsSaving] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const Api = createAxiosInstance(router);
 
@@ -37,9 +38,59 @@ function StoreTypeADSAdmin({ storetypeads, refetch }) {
     setIsEditing(true);
   }
 
+  async function deleteAd() {
+    setDeleting(true);
+    try {
+      const response = await Api.delete(
+        `/api/admin/ad/store-type/website/delete/${storetypeads.id}`
+      );
+      refetch();
+      setDeleting(false);
+      setIsDeleting(false);
+    } catch (error) {
+      setDeleting(false);
+    }
+    setDeleting(false);
+  }
+
+  async function editAd() {
+    if (logoImage) {
+      setIsSaving(true);
+      try {
+        const response = await Api.post(
+          `/api/admin/ad/store-type/website/edit/${storetypeads.id}`,
+          {
+            image: logoImage,
+          },
+          {
+            headers: { "Content-Type": `multipart/form-data` },
+          }
+        );
+        refetch();
+        setIsEditing(false);
+        setIsSaving(false);
+      } catch (error) {
+        setEditing(false);
+      }
+      setIsSaving(false);
+    } else {
+      toast.error(`Please Select a photo to add`, {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+      return;
+    }
+  }
+
   return (
     <>
-     <tr
+      <tr
         key={storetypeads.id}
         className="py-10 bg-gray-100 hover:bg-gray-200 font-medium   "
       >
@@ -53,9 +104,14 @@ function StoreTypeADSAdmin({ storetypeads, refetch }) {
             style={{ width: "30%", height: "auto" }}
           />
         </td>
-        <td className="px-4 py-4">{storetypeads.store_typeId}</td>
-        <td className="px-4 py-4">{convertDate(storetypeads.Created)}</td>
-        
+        <td className="px-4 py-4">{storetypeads[`store type`]}</td>
+        <td className="px-4 py-4">
+          {convertDateStringToDate(storetypeads.created_at)}
+        </td>
+        <td className="px-4 py-4">
+          {convertDateStringToDate(storetypeads.updated_at)}
+        </td>
+
         <td class="px-4 py-4">
           <div class="flex-col lg:flex-row lg:space-x-2 items-center space-y-2 lg:space-y-0">
             <button
@@ -76,7 +132,7 @@ function StoreTypeADSAdmin({ storetypeads, refetch }) {
         </td>
       </tr>
 
-       <Dialog
+      <Dialog
         open={isEditing}
         onClose={() => {
           setIsEditing(false);
@@ -86,18 +142,14 @@ function StoreTypeADSAdmin({ storetypeads, refetch }) {
       >
         <DialogTitle className="flex justify-between border-b-2 border-black">
           <h4 className="text-gray-500 md:pl-6 font-medium">
-            Edit Store Type ADS :
+            Edit Website Store Type page AD : {storetypeads[`store type`]} / Ad
+            id : {storetypeads.id}
           </h4>
         </DialogTitle>
         <DialogContent>
-          {isLoading ? (
-            <div className="w-full h-full">
-              <TawasyLoader width={300} height={300} />
-            </div>
-          ) : (
-            <Stack spacing={1} margin={3}>
+          <Stack spacing={1} margin={3}>
+            <form>
               <div className="md:grid md:grid-cols-2 gap-6">
-
                 <div className="flex items-center">
                   <ImageUpload
                     onSelectImage={handleLogoImage}
@@ -108,12 +160,12 @@ function StoreTypeADSAdmin({ storetypeads, refetch }) {
                 </div>
               </div>
               <hr className="text-gray-400" />
-              <div className="w-full flex justify-center items-center" >
+              <div className="w-full flex justify-center items-center">
                 <button
                   type="button"
                   className="bg-skin-primary px-8 py-3 hover:bg-orange-500 text-white rounded-lg w-[50%] mx-auto "
                   data-dismiss="modal"
-                  // onClick={saveEdits}
+                  onClick={editAd}
                 >
                   {isSaving == true ? (
                     <div className="flex justify-center items-center">
@@ -124,13 +176,12 @@ function StoreTypeADSAdmin({ storetypeads, refetch }) {
                   )}
                 </button>
               </div>
-            </Stack>
-          )}
+            </form>
+          </Stack>
         </DialogContent>
-      </Dialog>  
+      </Dialog>
 
-
-    <Dialog
+      <Dialog
         open={isDeleting}
         onClose={() => {
           setIsDeleting(false);
@@ -150,8 +201,23 @@ function StoreTypeADSAdmin({ storetypeads, refetch }) {
             </div>
           </Stack>
         </DialogContent>
-    
-      </Dialog> 
+        <DialogActions>
+          <div className="w-[50%] flex justify-end items-center gap-3 " >
+            <button className="px-2 py-1 bg-red-500 w-[50%] text-white rounded-lg " onClick={deleteAd} >
+              {deleting == true ? (
+                <div className="flex justify-center items-center">
+                  <Ring size={20} lineWeight={4} speed={2} color="white" />
+                </div>
+              ) : (
+                `Yes`
+              )}
+            </button>
+            <button className="px-2 py-1 bg-gray-500 w-[50%] text-white rounded-lg" onClick={() => setIsDeleting(false)} >
+                No
+            </button>
+          </div>
+        </DialogActions>
+      </Dialog>
     </>
   );
 }

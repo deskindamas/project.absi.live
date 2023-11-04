@@ -108,9 +108,9 @@ const StoreType = () => {
           url: `https://tawasy.com/customer/StoreType/${storeTypeId}`,
         }}
       />} */}
-      <div className="mx-auto w-full  " dir="ltr" >
-        <ResponsiveCarousel  />
-      </div>
+      { stores && stores.data.data.ads && <div className="mx-auto w-full  " dir="ltr" >
+        <ResponsiveCarousel ads = {stores.data.data.ads} />
+      </div>}
       <div className="md:mx-20 shadow-lg shadow-gray-500 pb-5 mb-6 ">
         {stores && (
           <div className="flex w-full h-full px-5 py-2 bg-gray-200 my-7">

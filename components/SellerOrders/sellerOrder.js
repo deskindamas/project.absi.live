@@ -94,10 +94,10 @@ function SellerOrders({ orders, refetch }) {
     } catch (error) {
       console.log(error);
       setRejecting(false);
-      openchange(false);
+      // openchange(false);
     }
     setRejecting(false);
-    openchange(false);
+    // openchange(false);
   }
 
   return (
