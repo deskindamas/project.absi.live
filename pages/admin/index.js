@@ -218,6 +218,23 @@ function AdminPage() {
               <p>{adminDashboard.data.data.pending_product_requests}</p>
             </div>
           </div>
+
+          <div className="border-2 border-gray-400 py-4 px-5 rounded-md">
+            <div className="flex justify-between pb-4">
+              <div>
+                <h2 className="text-xl">Total Stores</h2>
+              </div>
+              <div className="text-skin-primary w-[25px] h-[25px]">
+                <MdOutlineStorefront
+                  style={{ width: "25px", height: "25px", color: "#ff6600" }}
+                />
+              </div>
+            </div>
+            <div>
+              <p>{adminDashboard.data.data.total_stores}</p>
+            </div>
+          </div>
+
         </div>
       </div>}
     </>

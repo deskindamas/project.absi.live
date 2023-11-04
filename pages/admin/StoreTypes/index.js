@@ -224,53 +224,61 @@ function StoreType() {
       <div className="h-screen">
         <div className="m-5 p-5">
           <h2 className="text-2xl text-stone-500 pb-5 ">Store Type</h2>
-          <div
-            className="w-[80%] flex justify-center items-center gap-2 mx-auto mb-7 "
-            dir="ltr"
-          >
-            <form
-              onSubmit={search}
-              className="flex bg-gray-100 w-full sm:w-2/5 items-center rounded-lg px-2 border-2 border-transparent focus-within:border-skin-primary transition-all duration-700 "
+          <div className="flex justify-between items-center">
+            <div
+              className="w-[80%] flex justify-center items-center gap-2 mx-auto mb-7 "
+              dir="ltr"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-4 w-4 mr-2"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
+              <form
+                onSubmit={search}
+                className="flex bg-gray-100 w-full sm:w-2/5 items-center rounded-lg px-2 border-2 border-transparent focus-within:border-skin-primary transition-all duration-700 "
               >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-4 w-4 mr-2"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  />
+                </svg>
+                <input
+                  className="w-full bg-gray-100 outline-none rounded-lg text-sm h-10  "
+                  type="text"
+                  ref={searchRef}
+                  placeholder="Search store types by name"
+                  onClick={() => {
+                    setInSearch(true);
+                  }}
+                  required
                 />
-              </svg>
-              <input
-                className="w-full bg-gray-100 outline-none rounded-lg text-sm h-10  "
-                type="text"
-                ref={searchRef}
-                placeholder="Search store types by name"
-                onClick={() => {
-                  setInSearch(true);
-                }}
-                required
-              />
-              <button type="submit">
-                <MdArrowForward
-                  // onClick={search}
-                  className="hover:border-b-2 border-skin-primary cursor-pointer"
+                <button type="submit">
+                  <MdArrowForward
+                    // onClick={search}
+                    className="hover:border-b-2 border-skin-primary cursor-pointer"
+                  />
+                </button>
+              </form>
+              {inSearch == true && (
+                <MdClose
+                  className="text-red-500 hover:text-red-600 w-[25px] h-[25px] hover:border-b-2 hover:border-red-600 cursor-pointer "
+                  onClick={() => {
+                    setInSearch(false);
+                  }}
                 />
-              </button>
-            </form>
-            {inSearch == true && (
-              <MdClose
-                className="text-red-500 hover:text-red-600 w-[25px] h-[25px] hover:border-b-2 hover:border-red-600 cursor-pointer "
-                onClick={() => {
-                  setInSearch(false);
-                }}
-              />
-            )}
+              )}
+            </div>
+            <button
+              className="px-3 py-1 bg-skin-primary text-white rounded-lg "
+              onClick={functionopenpopup}
+            >
+              addStoreType
+            </button>
           </div>
         </div>
 

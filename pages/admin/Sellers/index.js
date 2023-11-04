@@ -24,7 +24,13 @@ const tableheading = [
     heading: "Phone",
   },
   {
+    heading: "Verification Code",
+  },
+  {
     heading: "City",
+  },
+  {
+    heading: "Location",
   },
   {
     heading: "Longitude",

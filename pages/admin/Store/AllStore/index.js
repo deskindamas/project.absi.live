@@ -142,7 +142,7 @@ function AllStoreAdmin() {
   const searchRef = useRef();
   const [inSearch, setInSearch] = useState(false);
   const [searching, setSearching] = useState(false);
-  const { data: stores, isLoading } = useQuery("allStores", fetchAllStores, {
+  const { data: stores, isLoading , refetch } = useQuery("allStores", fetchAllStores, {
     staleTime: 1,
     refetchOnWindowFocus: false,
     refetchOnMount: true,

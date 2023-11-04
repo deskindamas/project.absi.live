@@ -13,7 +13,9 @@ function SellersAdmin({ names }) {
          <td className="px-4 py-4">{names.id}</td>
         <td className="px-4 py-4">{names.name}</td>
         <td className="px-4 py-4">{names.phone_number}</td>
+        <td className="px-4 py-4">{names.verify_code}</td>
         <td className="px-4 py-4">{names.city}</td>
+        <td className="px-4 py-4">{names.location}</td>
         <td className="px-4 py-4">{names.longitude}</td>
         <td className="px-4 py-4">{names.latitude}</td>
         <td className="px-4 py-4  " width={`10%`} >{convertDateStringToDate(names.created_at)}</td>

@@ -191,6 +191,7 @@ function AdminProduct({ product, refetch }) {
         <td className="px-4 py-4 w-[10%]">{product.description_en}</td>
         <td className="px-4 py-4">{product.category}</td>
         <td className="px-4 py-4 flex justify-center">
+        { product.image ? 
           <Image
             src={product.image}
             alt={product.name_en}
@@ -198,7 +199,8 @@ function AdminProduct({ product, refetch }) {
             height={0}
             sizes="100vw"
             style={{ width: "50%", height: "auto" }}
-          />
+          /> : `No image`
+        }
         </td>
         <td className=" px-4 py-4 ">{product.status}</td>
         <td className="px-4 py-4">{product.brand && product.brand}</td>

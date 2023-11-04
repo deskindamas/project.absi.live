@@ -125,7 +125,7 @@ function StoreAdmin({ names, refetch }) {
     addIfDifferent(newArea.current.value, "area");
     addIfDifferent(newStreet.current.value, "street");
     if (storeType !== names.store_type) {
-      editData["store_type"] = storeType;
+      editData["store_type_name"] = storeType;
     }
     if (status !== names.status) {
       editData.status = status;
@@ -226,14 +226,14 @@ function StoreAdmin({ names, refetch }) {
             >
               <FiEdit2 />
             </button>
-            <button
+            {/* <button
               class="items-center px-2 py-2 text-white bg-red-500 rounded-md hover:bg-red-600 focus:outline-none"
               onClick={() => {
                 setIsDeleting(true);
               }}
             >
               <RiDeleteBin6Line />
-            </button>
+            </button> */}
           </div>
         </td>
       </tr>
@@ -426,6 +426,7 @@ function StoreAdmin({ names, refetch }) {
                 </div>
 
                 <div className="flex items-center">
+                  <label >Store Image</label>
                   <ImageUpload
                     onSelectImage={handleStoreImage}
                     width={100}
@@ -435,6 +436,7 @@ function StoreAdmin({ names, refetch }) {
                 </div>
 
                 <div className="flex items-center">
+                  <label >Store Logo</label>
                   <ImageUpload
                     onSelectImage={handleLogoImage}
                     width={100}

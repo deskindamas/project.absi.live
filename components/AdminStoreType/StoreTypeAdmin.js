@@ -17,18 +17,37 @@ import createAxiosInstance from "@/API";
 import Category from "../AdminStoreTypeCategory/AdminStoreTypeCategory";
 import { MdAdd, MdClose, MdHdrPlus } from "react-icons/md";
 import TawasyLoader from "../UI/tawasyLoader";
+import { useQuery } from "react-query";
 
 function StoreTypeAdmin({ names, refetch }) {
   const router = useRouter();
   const Api = createAxiosInstance(router);
+  const [isEditing, setIsEditing] = useState(false);
+  const {
+    data: storeTypeCategories,
+    isLoading: StoreTypeLoading,
+    refetch: refetchStoreTypeCategories,
+  } = useQuery([`storeTypeCategories`, isEditing], fetchStoreTypeCategories, {
+    staleTime: 1,
+    refetchOnMount: true,
+    refetchOnWindowFocus: false,
+    enabled: isEditing,
+  });
+
+  async function fetchStoreTypeCategories() {
+    try {
+      return await Api.get(`/api/admin/store-types/categories/${names.id}`);
+    } catch (error) {}
+  }
+
   const [isLoading, setIsLoading] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [addCategory, setAddCategory] = useState(false);
-  const [storeTypeCategories, setStoreTypeCategories] = useState();
+  // const [storeTypeCategories, setStoreTypeCategories] = useState();
   const [categories, setCategories] = useState();
   const [selectedCategory, setSelectedCategory] = useState();
+  const [savingCategory, setSavingCategory] = useState(false);
   const [deleting, setDeleting] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
   const [editing, setEditing] = useState(false);
   const [storeTypeImage, setStoreTypeImage] = useState();
   const newNameAr = useRef();
@@ -40,6 +59,7 @@ function StoreTypeAdmin({ names, refetch }) {
   }
 
   async function editStoreType() {
+    console.log(`editing`);
     setEditing(true);
     let editData = {};
     const addIfDifferent = (fieldValue, fieldName) => {
@@ -57,20 +77,20 @@ function StoreTypeAdmin({ names, refetch }) {
     addIfDifferent(newNameEn.current.value, "name_en");
     addIfDifferent(newsortOrder.current.value, "sort_order");
 
-    // if (storeTypeImage) {
-    //   // editData.image = logoImage;
-    //   try{
-    //     const response2 = await Api.post(`/api/admin/update-product-image/${product.id}`,  {
-    //       new_image : logoImage
-    //     } , {
-    //       headers: { "Content-Type": `multipart/form-data` },
-    //     })
-    //   }catch(error){
-    //     console.log(error);
-    //   }
-    // }
+    if (storeTypeImage) {
+      // editData.image = logoImage;
+      try{
+        const response2 = await Api.post(`/api/admin/store-types/${names.id}/edit-image`,  {
+          image_path : storeTypeImage
+        } , {
+          headers: { "Content-Type": `multipart/form-data` },
+        })
+      }catch(error){
+        console.log(error);
+      }
+    }
 
-    if (JSON.stringify(editData) !== "{}") {
+    // if (JSON.stringify(editData) !== "{}") {
       try {
         const response = await Api.put(
           `/api/admin/store-type/update/${names.id}`,
@@ -82,9 +102,9 @@ function StoreTypeAdmin({ names, refetch }) {
       } catch (error) {
         setEditing(false);
       }
-    } else {
-      setEditing(false);
-    }
+    // } else {
+    //   setEditing(false);
+    // }
     // console.log(editData);
     setEditing(false);
   }
@@ -101,6 +121,20 @@ function StoreTypeAdmin({ names, refetch }) {
     //   setStoreTypeCategories(responseStoreTypeCategories.data.categories);
     // }catch(error){}
     setIsLoading(false);
+  }
+
+  if(storeTypeCategories){
+    console.log(storeTypeCategories);
+  }
+
+  async function AddCategory() {
+    setSavingCategory(true);
+    try {
+      const response = await Api.post(``, {
+        category: selectedCategory,
+      });
+      setSavingCategory(false);
+    } catch (error) {}
   }
 
   return (
@@ -163,7 +197,7 @@ function StoreTypeAdmin({ names, refetch }) {
           </h4>
         </DialogTitle>
         <DialogContent>
-          {isLoading == true ? (
+          {isLoading == true || StoreTypeLoading == true ? (
             <div className="w-full h-full">
               <TawasyLoader width={200} height={200} />
             </div>
@@ -237,20 +271,31 @@ function StoreTypeAdmin({ names, refetch }) {
                       {categories &&
                         categories.map((category) => {
                           return (
-                            <option value={category.name_en}>
+                            <option value={category.id}>
                               {category.name_en}
                             </option>
                           );
                         })}
                     </select>
-                    <MdAdd
-                      className="text-gray-500 hover:text-green-500 w-[15px] h-[17px] border-b-2 border-transparent hover:border-green-500 transition-all duration-700 cursor-pointer "
-                      onClick={() => setAddCategory(false)}
-                    />
-                    <MdClose
-                      className="text-gray-500 hover:text-red-500 w-[15px] h-[17px] border-b-2 border-transparent hover:border-red-500 transition-all duration-700 cursor-pointer "
-                      onClick={() => setAddCategory(false)}
-                    />
+                    {savingCategory == true ? (
+                      <Ring
+                        size={15}
+                        speed={2}
+                        lineWeight={5}
+                        color="#FF6600"
+                      />
+                    ) : (
+                      <div className="flex justify-start gap-3" >
+                        <MdAdd
+                          className="text-gray-500 hover:text-green-500 w-[15px] h-[17px] border-b-2 border-transparent hover:border-green-500 transition-all duration-700 cursor-pointer "
+                          onClick={AddCategory}
+                        />
+                        <MdClose
+                          className="text-gray-500 hover:text-red-500 w-[15px] h-[17px] border-b-2 border-transparent hover:border-red-500 transition-all duration-700 cursor-pointer "
+                          onClick={() => setAddCategory(false)}
+                        />
+                      </div>
+                    )}
                   </div>
                 )}
                 {addCategory == false && (
