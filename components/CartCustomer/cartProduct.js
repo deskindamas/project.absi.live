@@ -83,7 +83,7 @@ function CartProduct({ product, storeid, refetch }) {
         </div>
 
         <div className=" flex flex-col justify-center items-center gap-2 w-[30%]">
-          <div className=" text-skin-primary flex items-center text-lg font-light">
+          <div className=" text-skin-primary md:flex  items-center text-base font-light">
             <div>{`Total Price`} :</div>
             {/* <div>{t("orders.totalPrice")} :</div> */}
             <div>{convertMoney(product.lineTotal)} S.P</div>

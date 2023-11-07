@@ -38,10 +38,9 @@ function ProductCustomer({ product }) {
     <>
       <div key={product.id} className="mb-4">
         <div
-          className="bg-white overflow-hidden shadow-2xl rounded-lg
-      w-[80%] h-[100%] items-center justify-center mx-auto"
+          className="bg-white overflow-hidden shadow-2xl rounded-lg items-center justify-center mx-auto"
         >
-          <div className="bg-cover overflow-hidden flex justify-center items-center md:w-[343px] w-auto md:h-[343px] ">
+          <div className="bg-cover overflow-hidden flex justify-center items-center w-auto md:h-[343px] ">
             <Image
               src={product.image ? product.image : logo }
               alt={product.name}
@@ -49,7 +48,7 @@ function ProductCustomer({ product }) {
               width={0}
               height={0}
               sizes="100vw"
-              style={{ width: "100%", height: "auto" }}
+              style={{ width: "auto", height: "auto" }}
             />
           </div>
 
