@@ -2,6 +2,7 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 import url from "./URL";
+import Cookies from "js-cookie";
 
 // Set your API base URL here
 // const baseURL = 'https://your-api-base-url.com';
@@ -14,22 +15,13 @@ const createAxiosInstance = (router) => {
   });
 
   const updateAuthorizationHeader = () => {
-    // const token = localStorage.getItem("AT");
-    // return token ? `Bearer ${token}` : "";
 
-    try {
-        const token = localStorage.getItem("AT");
+        const token = Cookies.get("AT");
         return token ? `Bearer ${token}` : "";
-      } catch (error) {
-        console.error("Error accessing localStorage:", error);
-        return "";
-      }
   };
 
   // Initial setup
   updateAuthorizationHeader();
-
-//   const token = localStorage.getItem("AT");
 
 // console.log(`token in interceptor`) ; 
 // console.log(token);  

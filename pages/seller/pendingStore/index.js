@@ -6,17 +6,13 @@ import { useEffect } from "react";
 import TawasyLoader from "@/components/UI/tawasyLoader";
 import { useRouter } from "next/router";
 import createAxiosInstance from "@/API";
+import Cookies from "js-cookie";
 
-function pendingPage() {
+function PendingPage() {
   let token;
   const router = useRouter() ;
   const Api = createAxiosInstance(router);
 
-
-  // useEffect(() => {
-  //   const at = localStorage.getItem("AT");
-  //   token = at;
-  // }, [token]);
 
 
   function getStoreStatus() {
@@ -30,7 +26,7 @@ function pendingPage() {
 
   if (data) {
     if(data.data.status && data.data.status === "approved"){
-      localStorage.setItem('Sid' , data.data.store_id);
+      Cookies.set('Sid' , data.data.store_id , {expires : 365 * 10});
       router.replace(`/seller`);
     }
   }
@@ -61,4 +57,4 @@ function pendingPage() {
   );
 }
 
-export default pendingPage;
+export default PendingPage;

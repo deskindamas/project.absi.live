@@ -271,7 +271,7 @@ function StoreTypeAdmin({ names, refetch }) {
                       {categories &&
                         categories.map((category) => {
                           return (
-                            <option value={category.id}>
+                            <option key={category.id} value={category.id}>
                               {category.name_en}
                             </option>
                           );

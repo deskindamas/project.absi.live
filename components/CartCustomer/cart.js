@@ -19,7 +19,7 @@ import { useQuery } from "react-query";
 import TawasyLoader from "../UI/tawasyLoader";
 import { Ring } from "@uiball/loaders";
 import grayLogo from "../../public/images/logo-tawasy--gray.png";
-import { useTranslation } from "next-i18next";
+// import { useTranslation } from "next-i18next";
 
 
 const Cart = ({ onClose, show, className }) => {
@@ -27,7 +27,7 @@ const Cart = ({ onClose, show, className }) => {
   const Api = createAxiosInstance(router);
   const [Applying, setApplying] = useState(false);
   const couponRef = useRef();
-  const {t} = useTranslation("");
+  // const {t} = useTranslation("");
   const {
     data: cart,
     isLoading,
@@ -45,6 +45,13 @@ const Cart = ({ onClose, show, className }) => {
       return await Api.get(`/api/customer/cart/show`);
     } catch (error) {}
   }
+
+  useEffect(() => {
+    // Remove overflow-y: hidden; from the body when the cart is closed
+    return () => {
+      document.body.style.overflowY = 'auto';
+    };
+  }, []);
 
   async function applyCoupon() {
     setApplying(true);
@@ -105,20 +112,30 @@ const Cart = ({ onClose, show, className }) => {
       className={`fixed flex lg:top-[80px] md:top-[60px] sm:top-[50px] top-[40px] z-50 right-0 h-full  bg-transparent transition-all duration-700 ${
         show == false ? `w-0` : `w-full`
       } `}
+      style={{
+        maxHeight: '100vh',
+        overflowY: 'auto',
+      }}
       dir="ltr"
     >
       <div className="w-[60%] bg-transparent " onClick={onClose}></div>
-      <div className={`w-[40%] bg-white border-2 border-skin-primary`}>
+      <div className={`w-[40%] bg-white border-2 border-skin-primary`}
+        style={{
+          maxHeight: '92vh', // Set your preferred max height here
+          overflowY: 'auto',
+        }}
+      >
         {isLoading == true ? (
           <div className="w-full h-full">
             <TawasyLoader width={300} height={300} />
           </div>
         ) : cart && Array.isArray(cart.data.cart) ? (
-          <div className="flex flex-col justify-start items-center w-full h-full ">
+          <div className=" flex flex-col justify-start items-center w-full h-full ">
             <div className="flex w-full px-4 bg-gray-50 justify-between pt-3 pb-3">
               <h3 className="flex font-medium text-xl text-gray-600 ml-2 select-none ">
                 <BsFillBagFill className=" w-[25px] h-[25px] text-skin-primary mr-2" />
-                {t("cart.cart")}
+                {/* {t("cart.cart")} */}
+                {`Shopping cart`}
               </h3>
               <AiOutlineClose
                 className="mr-2 w-[25px] h-[25px] text-gray-600 hover:text-red-500 cursor-pointer "
@@ -130,7 +147,8 @@ const Cart = ({ onClose, show, className }) => {
               alt="gray Tawasy"
               className="w-[60%] h-auto "
             />
-           {t("cart.emptyCart")}
+           {/* {t("cart.emptyCart")} */}
+           {`Your cart is Empty.`}
           </div>
         ) : (
           cart && (
@@ -138,7 +156,8 @@ const Cart = ({ onClose, show, className }) => {
               <div className="flex px-4 bg-gray-50 justify-between pt-3 pb-3">
                 <h3 className="flex font-medium text-xl text-gray-600 gap-2 select-none ">
                   <BsFillBagFill className=" w-[25px] h-[25px] text-skin-primary mr-2" />
-                  {t("cart.cart")}
+                  {/* {t("cart.cart")} */}
+                  {`Shopping Cart`}
                 </h3>
                 <AiOutlineClose
                   className="mr-2 w-[25px] h-[25px] text-gray-600 hover:text-red-500 cursor-pointer "
@@ -155,6 +174,7 @@ const Cart = ({ onClose, show, className }) => {
                   cart.data.cart.lines &&
                   cart.data.cart.lines.map((item) => (
                     <CartProduct
+                    key={item.product.id}
                       product={item}
                       storeid={cart.data.store_id}
                       refetch={() => {
@@ -168,7 +188,8 @@ const Cart = ({ onClose, show, className }) => {
                   className="w-full pt-1 pb-1 border-t-2 border-b-2 border-[#b6b6b6]"
                   onClick={handleClick}
                 >
-                  {isVisible ? t("cart.cancel") : t("cart.addCoupon")}
+                  {isVisible ? `Cancel` : `Add Coupon`}
+                  {/* {isVisible ? t("cart.cancel") : t("cart.addCoupon")} */}
                 </button>
                 {isVisible && (
                   <div className="w-full flex justify-between my-5 box-content ">
@@ -176,7 +197,8 @@ const Cart = ({ onClose, show, className }) => {
                       className="w-[70%] pt-2 pb-2 outline-none pl-2 border-b-2 border-x-gray-400 focus:border-skin-primary transition-all duration-700"
                       type="text"
                       ref={couponRef}
-                      placeholder={t("cart.apply")}
+                      // placeholder={t("cart.apply")}
+                      placeholder={`Apply Coupon`}
                     />
                     <button
                       className="w-[20%] bg-skin-primary pt-2 pb-2 rounded-lg hover:bg-[#ff5100] text-white box-border "
@@ -192,7 +214,8 @@ const Cart = ({ onClose, show, className }) => {
                           />
                         </div>
                       ) : (
-                        t("cart.apply")
+                        `Apply`
+                        // t("cart.apply")
                       )}
                     </button>
                   </div>
@@ -206,7 +229,8 @@ const Cart = ({ onClose, show, className }) => {
                     className="flex justify-start gap-2 items-center"
                   >
                     <p>
-                      {t("orders.orderDetails.quantity")} :
+                      {`Quantity`} :
+                      {/* {t("orders.orderDetails.quantity")} : */}
                       </p>
                     <p>{cart.data.cart.total_quantity}</p>
                   </h4>
@@ -214,11 +238,13 @@ const Cart = ({ onClose, show, className }) => {
                     style={{ marginBottom: "10px" }}
                     className="flex justify-start gap-2 items-center"
                   >
-                    {t("orders.orderDetails.price")} :
+                    {`Total Price`} :
+                    {/* {t("orders.orderDetails.price")} : */}
                     <p>{cart.data.cart.total_price} S.P</p>
                   </h4>
                   <h4 className="flex justify-start gap-2 items-center">
-                  {t("orders.orderDetails.finalPrice")} :
+                  {`Final Price`} :
+                  {/* {t("orders.orderDetails.finalPrice")} : */}
                     <p>{cart.data.cart.final_price} S.P</p>
                   </h4>
                 </div>
@@ -227,14 +253,16 @@ const Cart = ({ onClose, show, className }) => {
                     style={{ marginBottom: "10px", marginTop: "10px" }}
                     className="flex justify-start gap-2 items-center"
                   >
-                    {t("orders.orderDetails.deliveryPrice")} :
+                    {`Delivery Price`} :
+                    {/* {t("orders.orderDetails.deliveryPrice")} : */}
                     <p>{cart.data.cart.delivery_price} S.P </p>
                   </h4>
                   <h4
                     style={{ marginBottom: "10px" }}
                     className="flex justify-start gap-2 items-center"
                   >
-                    {t("orders.orderDetails.discount")} :
+                    {`Discount`} :
+                    {/* {t("orders.orderDetails.discount")} : */}
                     <p>{cart.data.cart.discounted_price} S.P</p>
                   </h4>
                 </div>
@@ -247,7 +275,8 @@ const Cart = ({ onClose, show, className }) => {
                 <button className="text-white bg-[#ff6600] px-16 py-2 rounded-full border-2 border-white hover:bg-white hover:text-skin-primary hover:border-skin-primary transition-all duration-500 "
                   onClick={() => {router.push(`/customer/SubmitOrder`)}}
                 >
-                  {t("submitOrder.submit")}
+                  {`Submit Order`}
+                  {/* {t("submitOrder.submit")} */}
                 </button>
               </div>
             </div>

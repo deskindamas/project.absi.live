@@ -20,14 +20,14 @@ const AboutUs = () => {
     </div>
     <div className='flex flex-col justify-center'>
     <div className='text-skin-primary p-[15px] text-xl font-medium'>
-      About Us Tawasy Shopping. 
+      {`About Us Tawasy Shopping.`} 
       </div>
       <div className='bg-white ml-[-80px] z-10 p-[20px] text-gray-500 text-lg'>
-     Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+     {`Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
       when an unknown printer took a galley of type and scrambled it to make a type specimen book.
       It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
       It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
-      and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+      and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`}
       </div>
     </div>
     </div>

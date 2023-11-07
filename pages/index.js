@@ -1,5 +1,6 @@
 import TawasyLoader from "@/components/UI/tawasyLoader";
 import withAuth from "@/components/wrapping components/withAuth";
+import Cookies from "js-cookie";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -11,9 +12,8 @@ function Home() {
   const router = useRouter();
   useEffect(() => {
     setIsLoading(true);
-    const token = localStorage.getItem("AT");
-    const user = localStorage.getItem("user");
-    const registered = localStorage.getItem("registered");
+    const token = Cookies.get("AT");
+    const user = Cookies.get("user");
     if (token) {
       if (user === "seller") {
         router.replace("/seller");
@@ -21,7 +21,7 @@ function Home() {
         router.replace("/customer");
       }
     } else {
-      router.replace("/customer" , '/');
+      router.replace("/customer");
     }
     setIsLoading(false);
   }, []);
@@ -41,4 +41,5 @@ function Home() {
   );
 }
 
-export default withAuth(Home);
+export default Home;
+// export default withAuth(Home);

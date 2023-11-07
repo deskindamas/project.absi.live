@@ -1,6 +1,8 @@
 import createAxiosInstance from "@/API";
 import { Ring } from "@uiball/loaders";
+import Cookies from "js-cookie";
 import Image from "next/image";
+import logo from "../../public/images/tawasylogo.png"
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useEffect } from "react";
@@ -15,12 +17,9 @@ function SellerStore({ store, refetch }) {
   const [editingPrice, setEditingPrice] = useState(false);
   const [savingPrice, setSavingPrice] = useState(false);
   const newPriceRef = useRef();
-  const storeId = localStorage.getItem("Sid");
+  const storeId = Cookies.get("Sid");
   const router = useRouter();
   const Api = createAxiosInstance(router);
-
-  console.log(`price`);
-  console.log(store.price);
 
   // function handleAvailable() {
   //   setIsToggled(!isToggled);
@@ -63,11 +62,11 @@ function SellerStore({ store, refetch }) {
       {/* <div key={store.id} className="mb-4"> */}
         <div
         key={store.id}
-          className="bg-white shadow-2xl rounded-lg w-[80%] h-[100%] items-center justify-center mx-auto"
+          className="bg-white shadow-2xl rounded-lg w-fit min-w-[80%] h-[100%] items-center justify-center mx-auto"
         >
-          <div className=" bg-cover overflow-hidden md:w-[343px] w-auto md:h-[343px]  ">
+          <div className=" bg-cover overflow-hidden md:w-full w-auto md:h-[343px] ">
             <Image
-              src={store.image}
+              src={store.image ? store.image : logo}
               alt={store.name}
               className="w-full  transform transition duration-1000 hover:scale-125 hover:rotate-2  "
               width={0}

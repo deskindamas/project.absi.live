@@ -141,6 +141,7 @@ const Orders = () => {
                 <tbody className="text-xl">
                   {orders.map((names, index) => (
                     <SellerOrders
+                      key={names.order_id}
                       orders={names}
                       refetch={() => {
                         refetch();

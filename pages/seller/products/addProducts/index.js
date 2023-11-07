@@ -185,7 +185,7 @@ function AddProducts() {
           {data && inSearch == false && (
             <div class="grid md:grid-cols-3 grid-col-1 gap-4 ">
               {data.data.approvedProducts.map((curElem) => {
-                return <AddProduct addproduct={curElem} />;
+                return <AddProduct key={curElem.id} addproduct={curElem} />;
               })}
             </div>
           )}
@@ -193,7 +193,7 @@ function AddProducts() {
             (searchedProducts.transformedProducts.length > 0 ? (
               <div class="grid md:grid-cols-3 grid-col-1 gap-4 ">
                 {searchedProducts.transformedProducts.map((curElem) => {
-                  return <AddProduct addproduct={curElem} />;
+                  return <AddProduct key={curElem.id} addproduct={curElem} />;
                 })}
               </div>
             ) : (
@@ -205,7 +205,7 @@ function AddProducts() {
           {data && inSearch == false && (
             <div className="w-[50%] mx-auto flex justify-center items-center py-5 gap-4 ">
               <button
-                className="px-2 py-1 bg-skin-primary text-white rounded-lg hover:bg-[#ff9100] disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-2 py-1 bg-skin-primary text-white rounded-lg hover:bg-[#ff9100] disabled:opacity-50 disabled:cursor-not-allowed w-[20%]"
                 onClick={() => {
                   setCurrentPage(data.data.pagination.current_page - 1);
                   // setCurrentPage(data.data.pagination.previousPage);
@@ -218,7 +218,7 @@ function AddProducts() {
                 Previous Page
               </button>
               <button
-                className="px-2 py-1 bg-skin-primary text-white rounded-lg hover:bg-[#ff9100] disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-2 py-1 bg-skin-primary text-white rounded-lg hover:bg-[#ff9100] disabled:opacity-50 disabled:cursor-not-allowed w-[20%]"
                 onClick={() => {
                   setCurrentPage(data.data.pagination.current_page + 1);
                   // setCurrentPage(data.data.pagination.nextPage);
@@ -269,6 +269,7 @@ function AddProducts() {
                           <tbody className="text-lg font-normal text-gray-700 text-center">
                             {selectedProducts.map((curElem) => (
                               <TotalAddProduct
+                                key={curElem.product_id}
                                 selectproduct={curElem}
                                 refetch={async () => {
                                   await fetchSelectedProducts();

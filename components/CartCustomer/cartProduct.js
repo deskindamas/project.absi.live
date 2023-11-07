@@ -5,18 +5,19 @@ import {
   AiOutlinePlus,
 } from "react-icons/ai";
 import image from "../../public/images/kuala.jpg";
+import logo from "../../public/images/tawasylogo.png";
 import Image from "next/image";
 import { convertMoney } from "../SellerOrders/sellerOrder";
 import { useRouter } from "next/router";
 import createAxiosInstance from "@/API";
 import { useState } from "react";
 import { Ring } from "@uiball/loaders";
-import { useTranslation } from "next-i18next";
+// import { useTranslation } from "next-i18next";
 
 function CartProduct({ product, storeid, refetch }) {
   const router = useRouter();
   const Api = createAxiosInstance(router);
-  const { t } = useTranslation("");
+  // const { t } = useTranslation("");
   const [isAdding, setIsAdding] = useState(false);
   const [isReducing, setIsReducing] = useState(false);
   //   const [quantity, setQuantity] = useState(product.quantity);
@@ -63,7 +64,7 @@ function CartProduct({ product, storeid, refetch }) {
           </div> */}
           <Image
             // src={`https://as1.ftcdn.net/v2/jpg/01/05/57/38/1000_F_105573812_cvD4P5jo6tMPhZULX324qUYFbNpXlisD.jpg`}
-            src={product.product.image}
+            src={product.product.image ? product.product.image : logo}
             alt="product"
             className="rounded-xl object-contain "
             width={0}
@@ -83,7 +84,8 @@ function CartProduct({ product, storeid, refetch }) {
 
         <div className=" flex flex-col justify-center items-center gap-2 w-[30%]">
           <div className=" text-skin-primary flex items-center text-lg font-light">
-            <div>{t("orders.totalPrice")} :</div>
+            <div>{`Total Price`} :</div>
+            {/* <div>{t("orders.totalPrice")} :</div> */}
             <div>{convertMoney(product.lineTotal)} S.P</div>
           </div>
           <div className="flex w-[70%] justify-around items-center">

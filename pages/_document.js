@@ -5,6 +5,9 @@ import Document, { Html, Main, NextScript, Head } from "next/document";
 function MyDocument({ locale, ...props }) {
 
   const dir = locale === "ar" ? "rtl" : "ltr" ;
+  // console.log(`in document`);
+  // console.log(dir);
+  // console.log(locale);
 
   return (
     <Html dir={dir} lang={locale}>

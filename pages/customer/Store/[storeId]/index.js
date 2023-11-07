@@ -15,14 +15,14 @@ import styles from "../../../../components/componentsStyling/sellerStorePage.mod
 import { MdArrowForward, MdClose } from "react-icons/md";
 import { useRef } from "react";
 import { NextSeo } from "next-seo";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { useTranslation } from "next-i18next";
+// import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+// import { useTranslation } from "next-i18next";
 
 function Products() {
   const router = useRouter();
   const Api = createAxiosInstance(router);
   const [storeId, setStoreId] = useState();
-  const { t } = useTranslation("");
+  // const { t } = useTranslation("");
 
   const [searching, setSearching] = useState(false);
   const [inSearch, setInSearch] = useState(false);
@@ -64,7 +64,8 @@ function Products() {
     } catch {}
   }
 
-  async function search() {
+  async function search(e) {
+    e.preventDefault();
     setSearching(true);
     try {
       const response = await Api.post(
@@ -80,7 +81,7 @@ function Products() {
         response.data.data.length < 1 ? (
           <div className="w-max mx-auto">{response.data.message}</div>
         ) : (
-          <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 grid-col-1 gap-4 w-[70%] mx-auto">
+          <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 grid-col-1 gap-2 w-[90%] mx-auto">
             {response.data.data.map((product) => {
               return <ProductCustomer key={product.id} product={product} />;
             })}
@@ -167,12 +168,12 @@ function Products() {
                   <div className="flex flex-col md:flex-row justify-start items-center gap-2 w-full">
                     <div className="md:text-2xl text-lg text-gray-500 font-medium">
                       <h3 className="my-2 capitalize">
-                        {t("store.openingDays")} :
+                        {`Opening Days`} :{/* {t("store.openingDays")} : */}
                       </h3>
                       {JSON.parse(store.data.store.opening_days)?.map(
                         (day, index) => {
                           return (
-                            <span className="text-gray-400 mt-4">
+                            <span key={index} className="text-gray-400 mt-4">
                               {index !==
                               store.data.store.opening_days.length - 1
                                 ? `${day} ,`
@@ -193,7 +194,7 @@ function Products() {
           <div className="flex flex-col md:items-end items-center">
             <div>
               <h2 className="md:text-xl text-lg text-gray-600 font-medium my-2">
-                {t("store.openingTime")} :
+                {`Opening Time`} :{/* {t("store.openingTime")} : */}
                 <span className="text-gray-400 md:text-2xl text-lg  ">
                   {convertTo12HourFormat(store.data.store.opening_time)}
                 </span>
@@ -201,7 +202,7 @@ function Products() {
             </div>
             <div>
               <h2 className="md:text-xl text-lg text-gray-600 font-medium my-3">
-                {t("store.closingTime")} :
+                {`Closing Time`} :{/* {t("store.closingTime")} : */}
                 <span className="text-gray-400 md:text-2xl text-lg  ">
                   {convertTo12HourFormat(store.data.store.closing_time)}
                 </span>
@@ -215,7 +216,9 @@ function Products() {
         className="w-[80%] flex justify-center items-center gap-2 mx-auto mb-7 "
         dir="ltr"
       >
-        <div className="flex bg-gray-100 w-full sm:w-2/5 items-center rounded-lg px-2 border-2 border-transparent focus-within:border-skin-primary transition-all duration-700 ">
+        <form
+          onSubmit={search}
+        className="flex bg-gray-100 w-full sm:w-2/5 items-center rounded-lg px-2 border-2 border-transparent focus-within:border-skin-primary transition-all duration-700 ">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-4 w-4 mr-2"
@@ -234,16 +237,19 @@ function Products() {
             className="w-full bg-gray-100 outline-none rounded-lg text-sm h-10  "
             type="text"
             ref={searchRef}
-            placeholder={t("store.search")}
+            placeholder={`Search`}
+            // placeholder={t("store.search")}
             onClick={() => {
               setInSearch(true);
             }}
           />
-          <MdArrowForward
-            onClick={search}
-            className="hover:border-b-2 border-skin-primary cursor-pointer"
-          />
-        </div>
+          <button type="submit" >
+            <MdArrowForward
+              // onClick={search}
+              className="hover:border-b-2 border-skin-primary cursor-pointer"
+            />
+          </button>
+        </form>
         {inSearch == true && (
           <MdClose
             className="text-red-500 hover:text-red-600 w-[25px] h-[25px] hover:border-b-2 hover:border-red-600 cursor-pointer "
@@ -269,11 +275,11 @@ function Products() {
           </div>
 
           <div className="flex justify-center w-full">
-            <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 grid-col-1 gap-4 w-[90%] mx-auto ">
+            <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 grid-col-1 gap-2 w-[90%] mx-auto ">
               {store &&
                 selectedCategoryData &&
                 selectedCategoryData.products.map((product) => (
-                  <ProductCustomer product={product} />
+                  <ProductCustomer key={product.id} product={product} />
                 ))}
             </div>
           </div>
@@ -286,7 +292,7 @@ function Products() {
             <TawasyLoader width={300} height={300} />
           </div>
         ) : (
-          <div className="w-full min-h-[500px]">
+          <div className="w-full flex justify-center min-h-[700px]">
             {searchedResults && searchedResults}
           </div>
         ))}
@@ -294,26 +300,26 @@ function Products() {
   );
 }
 
-export async function getServerSideProps(context) {
-  const storeId = context.params.storeId;
-  const Api = createAxiosInstance();
-  try {
-    const storeData = await Api.get(`/api/stores-with-products/${storeId}`);
+// export async function getServerSideProps(context) {
+//   const storeId = context.params.storeId;
+//   const Api = createAxiosInstance();
+//   try {
+//     const storeData = await Api.get(`/api/stores-with-products/${storeId}`);
 
-    return {
-      props: {
-        storeData: storeData.data,
-        ...(await serverSideTranslations(context.locale, ["common"])),
-      },
-    };
-  } catch (error) {
-    console.error("Error fetching store data:", error);
+//     return {
+//       props: {
+//         storeData: storeData.data,
+//         ...(await serverSideTranslations(context.locale, ["common"])),
+//       },
+//     };
+//   } catch (error) {
+//     console.error("Error fetching store data:", error);
 
-    return {
-      notFound: true,
-    };
-  }
-}
+//     return {
+//       notFound: true,
+//     };
+//   }
+// }
 
 export default withLayoutCustomer(Products);
 

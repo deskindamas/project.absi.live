@@ -11,8 +11,8 @@ import { useRef } from "react";
 import { BiArrowBack } from "react-icons/bi";
 import { IoLocation } from "react-icons/io5";
 import { useQuery } from "react-query";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { useTranslation } from "next-i18next";
+// import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+// import { useTranslation } from "next-i18next";
 // import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 
@@ -20,7 +20,7 @@ const Order = () => {
   const router = useRouter();
   const Api = createAxiosInstance(router);
   const [address, setAddress] = useState();
-  const { t } = useTranslation("");
+  // const { t } = useTranslation("");
 
   // const [useAddress, setUseAddress] = useState();
   const noteRef = useRef();
@@ -134,7 +134,8 @@ const Order = () => {
             }}
           >
             <BiArrowBack className="w-[20px] h-[20px] mx-1 mt-[2px]" />
-            <span className="text-skin-primary text-xl">{t("profile.back")}</span>
+            <span className="text-skin-primary text-xl">{`Back`}</span>
+            {/* <span className="text-skin-primary text-xl">{t("profile.back")}</span> */}
           </button>
         </div>
 
@@ -148,17 +149,21 @@ const Order = () => {
               <div className="w-[100%]">
                 <div className="grid grid-cols-5  gap-4 text-gray-800 text-xl font-medium bg-gray-200 py-2">
                   <div className="col-span-2">
-                    <h4>{t("orders.orderDetails.name")}</h4>
+                    <h4>{`Name`}</h4>
+                    {/* <h4>{t("orders.orderDetails.name")}</h4> */}
                   </div>
 
                   <div className="">
-                    <h4>{t("orders.orderDetails.quantity")}</h4>
+                    <h4>{`Quantity`}</h4>
+                    {/* <h4>{t("orders.orderDetails.quantity")}</h4> */}
                   </div>
                   <div className="">
-                    <h4>{t("orders.orderDetails.price")}</h4>
+                    <h4>{`Price`}</h4>
+                    {/* <h4>{t("orders.orderDetails.price")}</h4> */}
                   </div>
                   <div className="">
-                    <h4>{t("orders.totalPrice")}</h4>
+                    <h4>{`Total Price`}</h4>
+                    {/* <h4>{t("orders.totalPrice")}</h4> */}
                   </div>
                 </div>
 
@@ -190,24 +195,29 @@ const Order = () => {
                   {submitOrder && submitOrder.data.cart && (
                     <div>
                       <div className="py-2 border-b-2 border-skin-primary w-full md:flex md:justify-between items-center">
-                      {t("orders.orderDetails.totalQuantity")}:
+                      {`Total Quantity`}:
+                      {/* {t("orders.orderDetails.totalQuantity")}: */}
                         <p>{submitOrder.data.cart.total_quantity}</p>
                       </div>
                       <div className="py-2 border-b-2 border-skin-primary w-full md:flex md:justify-between items-center">
-                      {t("orders.totalPrice")}:
+                      {`Total Price`}:
+                      {/* {t("orders.totalPrice")}: */}
                         <p>{submitOrder.data.cart.total_price} S.P</p>
                       </div>
                       <div className="py-2 border-b-2 border-skin-primary w-full md:flex md:justify-between items-center">
-                      {t("orders.orderDetails.deliveryPrice")}:
+                      {`Delivery Price`}:
+                      {/* {t("orders.orderDetails.deliveryPrice")}: */}
                         <p>{submitOrder.data.cart.delivery_price} S.P</p>
                       </div>
                       <div className="py-2 border-b-2 border-skin-primary w-full md:flex md:justify-between items-center">
-                      {t("orders.orderDetails.discount")}:
+                      {`Discount`}:
+                      {/* {t("orders.orderDetails.discount")}: */}
                         <p>{submitOrder.data.cart.discounted_price} S.P</p>
                       </div>
 
                       <div className="py-5 border-b-2 border-gray-300 w-full md:flex md:justify-between items-center">
-                      {t("orders.orderDetails.finalPrice")}:
+                      {`Final Price`}:
+                      {/* {t("orders.orderDetails.finalPrice")}: */}
                         <p>{submitOrder.data.cart.final_price} S.P</p>
                       </div>
                     </div>
@@ -222,7 +232,8 @@ const Order = () => {
                           checked={useExisting}
                           onChange={handleOptionChange}
                         />
-                        {t("submitOrder.useExisting")}
+                        {`Use My Address`}
+                        {/* {t("submitOrder.useExisting")} */}
                       </label>
                       <div className="flex justify-start items-center gap-5" >
                         <label>
@@ -233,13 +244,15 @@ const Order = () => {
                             onChange={handleOptionChange}
                             className="px-4"
                           />
-                          {t("submitOrder.useNew")}
+                          {`Use a New Address`}
+                          {/* {t("submitOrder.useNew")} */}
                         </label>
                       {!useExisting && <Locations onLocation={GetLocation} className={` text-zinc-500 pl-2 outline-none w-full border-b-2 border-zinc-500 focus:border-skin-primary h-[40px]`} />}
                       </div>
 
                     </div>
-                    <h4 className="py-3">{t("submitOrder.Note")}:</h4>
+                    <h4 className="py-3">{`Note`}:</h4>
+                    {/* <h4 className="py-3">{t("submitOrder.Note")}:</h4> */}
                     <div className="relative mb-6">
                       <textarea
                         style={{ height: "125px" }}
@@ -252,7 +265,8 @@ const Order = () => {
                         htmlFor="exampleFormControlTextarea13"
                         className="peer-focus:bg-white pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary motion-reduce:transition-none "
                       >
-                        {t("submitOrder.Note")}
+                        {`Note`}
+                        {/* {t("submitOrder.Note")} */}
                       </label>
                     </div>
                     <button
@@ -267,7 +281,8 @@ const Order = () => {
                       }}
                       onClick={submit}
                     >
-                      {submitting == true ?  <div className="w-full flex justify-center items-center" ><Ring size = {20} lineWeight={5} speed={2} color="white" /></div> : t("submitOrder.submit")}
+                      {submitting == true ?  <div className="w-full flex justify-center items-center" ><Ring size = {20} lineWeight={5} speed={2} color="white" /></div> : `Submit Order`}
+                      {/* {submitting == true ?  <div className="w-full flex justify-center items-center" ><Ring size = {20} lineWeight={5} speed={2} color="white" /></div> : t("submitOrder.submit")} */}
                     </button>
                     <hr />
                   </div>
@@ -283,10 +298,10 @@ const Order = () => {
 
 export default withLayoutCustomer(Order);
 
-export async function getStaticProps({ locale }) {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, ["common"])),
-    },
-  };
-}
+// export async function getStaticProps({ locale }) {
+//   return {
+//     props: {
+//       ...(await serverSideTranslations(locale, ["common"])),
+//     },
+//   };
+// }

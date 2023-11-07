@@ -110,7 +110,7 @@ function AdminPendingProduct({ product , refetch }) {
                 <Ring size={25} lineWeight={5} speed={2} color="white" />
               </div>
            
-              "Save"
+              {"Save"}
           </button>
           <button
             type="button"

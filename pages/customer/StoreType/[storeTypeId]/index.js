@@ -10,8 +10,8 @@ import createAxiosInstance from "@/API";
 import TawasyLoader from "@/components/UI/tawasyLoader";
 import { MdArrowForward, MdClose } from "react-icons/md";
 import { NextSeo } from "next-seo";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { useTranslation } from "next-i18next";
+// import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+// import { useTranslation } from "next-i18next";
 
 const StoreType = () => {
   const router = useRouter();
@@ -20,7 +20,7 @@ const StoreType = () => {
   const [inSearch, setInSearch] = useState(false);
   const [searchedResults, setSearchedResults] = useState();
   const searchRef = useRef();
-  const { t } = useTranslation("");
+  // const { t } = useTranslation("");
 
   const [storeTypeId, setStoreTypeId] = useState();
   const {
@@ -48,7 +48,8 @@ const StoreType = () => {
     }
   }, [router.query.storeTypeId]);
 
-  async function search() {
+  async function search(e) {
+    e.preventDefault();
     setSearching(true);
     try {
       const { data: stores } = await Api.post(
@@ -108,9 +109,11 @@ const StoreType = () => {
           url: `https://tawasy.com/customer/StoreType/${storeTypeId}`,
         }}
       />} */}
-      { stores && stores.data.data.ads && <div className="mx-auto w-full  " dir="ltr" >
-        <ResponsiveCarousel ads = {stores.data.data.ads} />
-      </div>}
+      {stores && stores.data.data.ads && (
+        <div className="mx-auto w-full  " dir="ltr">
+          <ResponsiveCarousel ads={stores.data.data.ads} />
+        </div>
+      )}
       <div className="md:mx-20 shadow-lg shadow-gray-500 pb-5 mb-6 ">
         {stores && (
           <div className="flex w-full h-full px-5 py-2 bg-gray-200 my-7">
@@ -122,8 +125,13 @@ const StoreType = () => {
           </div>
         )}
 
-        <div className="w-[80%] flex justify-center items-center gap-2 mx-auto mb-7 " dir="ltr" >
-          <div className="flex bg-gray-100 w-full sm:w-2/5 items-center rounded-lg px-2 border-2 border-transparent focus-within:border-skin-primary transition-all duration-700 ">
+        <div
+          className="w-[80%] flex justify-center items-center gap-2 mx-auto mb-7 "
+          dir="ltr"
+        >
+          <form 
+            onSubmit={search}
+          className="flex bg-gray-100 w-full sm:w-2/5 items-center rounded-lg px-2 border-2 border-transparent focus-within:border-skin-primary transition-all duration-700 ">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-4 w-4 mr-2"
@@ -142,16 +150,21 @@ const StoreType = () => {
               className="w-full bg-gray-100 outline-none rounded-lg text-sm h-10"
               type="text"
               ref={searchRef}
-              placeholder={t("store.search")}
+              placeholder={`Search`}
+              // placeholder={t("store.search")}
               onClick={() => {
                 setInSearch(true);
               }}
             />
-            <MdArrowForward
-              onClick={search}
-              className="hover:border-b-2 border-skin-primary cursor-pointer"
-            />
-          </div>
+            <button 
+              type="submit"
+            >
+              <MdArrowForward
+                // onClick={search}
+                className="hover:border-b-2 border-skin-primary cursor-pointer"
+              />
+            </button>
+          </form>
           {inSearch == true && (
             <MdClose
               className="text-red-500 hover:text-red-600 w-[25px] h-[25px] hover:border-b-2 hover:border-red-600 cursor-pointer "
@@ -192,26 +205,26 @@ const StoreType = () => {
   );
 };
 
-export async function getServerSideProps(context) {
-  const storeTypeId = context.params.storeTypeId;
-  const Api = createAxiosInstance();
-  try {
-    const storeData = await Api.get(`/api/store-types/${storeTypeId}`);
+// export async function getServerSideProps(context) {
+//   const storeTypeId = context.params.storeTypeId;
+//   const Api = createAxiosInstance();
+//   try {
+//     const storeData = await Api.get(`/api/store-types/${storeTypeId}`);
 
-    return {
-      props: {
-        storeData: storeData.data,
-        ...(await serverSideTranslations(context.locale, ["common"])),
-      },
-    };
-  } catch (error) {
-    console.error("Error fetching store data:", error);
+//     return {
+//       props: {
+//         storeData: storeData.data,
+//         ...(await serverSideTranslations(context.locale, ["common"])),
+//       },
+//     };
+//   } catch (error) {
+//     console.error("Error fetching store data:", error);
 
-    return {
-      notFound: true,
-    };
-  }
-}
+//     return {
+//       notFound: true,
+//     };
+//   }
+// }
 
 export default withLayoutCustomer(StoreType);
 

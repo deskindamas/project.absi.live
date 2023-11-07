@@ -42,6 +42,11 @@ function OrderAdmin({ names, refetch }) {
   const [orderDetails, setOrderDetails] = useState();
   const [open, openchange] = useState(false);
 
+  const openGoogleMaps = (latitude , longitude) => {
+    const url = `https://www.google.com/maps?q=${latitude},${longitude}`;
+    window.open(url, '_blank');
+  };
+
   const functionopenpopup = async () => {
     setIsLoading(true);
     openchange(true);
@@ -100,7 +105,7 @@ function OrderAdmin({ names, refetch }) {
         <td className="pb-5">{names.customer_name}</td>
         <td className="pb-5">{names.status}</td>
         <td className="pb-5">{names.shipping_address}</td>
-        <td className="pb-5">{names.date}</td>
+        <td className="pb-5">{convertDateStringToDate(names.date)}</td>
         {/* <td className="pb-5">{names.created}</td> */}
         <td className="pb-5">{convertDateStringToDate(names.updated_at)}</td>
         <td className="pb-5">
@@ -113,7 +118,7 @@ function OrderAdmin({ names, refetch }) {
         </td>
       </tr>
 
-      <Dialog open={open} onClose={closepopup} fullWidth maxWidth="md">
+      <Dialog open={open} onClose={closepopup} fullWidth maxWidth="lg">
         {orderDetails && (
           <DialogTitle className=" border-b-2 border-gray-200">
             <div className="md:mx-5">
@@ -123,12 +128,22 @@ function OrderAdmin({ names, refetch }) {
                 </h4>
                 <h4>Date : {convertDateStringToDate(names.date)}</h4>
               </div>
-              <div className="flex justify-between mx-auto text-lg text-gray-400 font-light">
+              <div className="grid grid-cols-3 mx-auto text-lg text-gray-400 font-light gap-3">
                 <h6>Status : {orderDetails.status} </h6>
                 {/* <h4>Phone : 0964328926</h4> */}
                 <h6 className="text-lg text-gray-400 font-light">
-                  Shipping Address : {orderDetails.shipping_address}
+                  Shipping Address : {orderDetails.shipping_address ? orderDetails.shipping_address : 'None'}
                 </h6>
+                <h6 className="text-lg text-gray-400 font-light">
+                  Shipping Address / Longitude : {orderDetails.longitude}
+                </h6>
+                <h6 className="text-lg text-gray-400 font-light">
+                  Shipping Address Latitdue : {orderDetails.latitude}
+                </h6>
+                <button
+                  onClick={() => openGoogleMaps(orderDetails.latitude , orderDetails.longitude)}
+                  className=" border-b-2 text-skin-primary hover:text-skin-primary w-max hover:border-skin-primary "
+                >Show on google maps</button>
               </div>
             </div>
           </DialogTitle>

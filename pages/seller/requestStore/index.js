@@ -28,6 +28,7 @@ import createAxiosInstance from "@/API";
 import { Ring } from "@uiball/loaders";
 import TawasyLoader from "@/components/UI/tawasyLoader";
 import {toast} from 'react-toastify';
+import Cookies from "js-cookie";
 
 const RequestStore = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -61,7 +62,7 @@ const RequestStore = () => {
   let token;
 
   useEffect(() => {
-    const at = localStorage.getItem("AT");
+    const at = Cookies.get("AT");
     token = at;
   }, [token]);
 
@@ -79,7 +80,7 @@ const RequestStore = () => {
   useEffect(() => {
     async function fetchStoreTypes() {
       setIsLoading(true);
-      const token = localStorage.getItem("AT");
+      const token = Cookies.get("AT");
       try {
         const response = await Api.get(`/api/seller/store-types/all`);
         console.log(`store types`);

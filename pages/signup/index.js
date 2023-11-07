@@ -10,6 +10,7 @@ import axios from "axios";
 import url from "@/URL";
 import { Ring } from "@uiball/loaders";
 import { toast } from "react-toastify";
+import Cookies from "js-cookie";
 
 const SignUp = () => {
   const customerUserNameRef = useRef();
@@ -59,9 +60,9 @@ const SignUp = () => {
       }
       setIsLoading(false);
       console.log(response.data);
-      localStorage.setItem("number", response.data.customer.phone_number);
-      localStorage.setItem("user", "customer");
-      localStorage.setItem("registered", true);
+      Cookies.set("number", response.data.customer.phone_number , {expires : 365 * 10});
+      Cookies.set("user", "customer" , {expires : 365 * 10});
+      Cookies.set("registered", true , {expires : 365 * 10});
       router.push("/verification");
     } catch (error) {
       // if(error.response.data.message){
@@ -115,9 +116,9 @@ const SignUp = () => {
       }
       setIsLoading(false);
       console.log(response.data);
-      localStorage.setItem("number", response.data.seller.phone_number);
-      localStorage.setItem("user", "seller");
-      localStorage.setItem("registered", true);
+      Cookies.set("number", response.data.seller.phone_number , {expires : 365 * 10});
+      Cookies.set("user", "seller" , {expires : 365 * 10});
+      Cookies.set("registered", true , {expires : 365 * 10});
       router.push("/verification");
     } catch (error) {
       toast.error(error.response.data.message, {

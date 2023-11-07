@@ -19,11 +19,11 @@ const ContactUs = () => {
             Contact Us
           </h1>
           <p className="text-white text-center text-2xl font-medium my-7">
-            Have a question? We're here to help. Email us by
-            <br /> filling out the form below. For a quicker response during the
-            week,
-            <br /> you can call us Monday through Friday, between 9:00 a.m. and
-            5:00 p.m.{" "}
+            {`Have a question? We're here to help. Email us by`}
+            <br /> {`filling out the form below. For a quicker response during the`}
+            {`week,`}
+            <br /> {`you can call us Monday through Friday, between 9:00 a.m. and`}
+            {`5:00 p.m.`}
           </p>
           <Form />
         </div>

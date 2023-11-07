@@ -156,7 +156,7 @@ const AddNewProductAdmin = () => {
                   {categories &&
                     categories.data.categories.map((category) => {
                       return (
-                        <option value={category.name_en}>
+                        <option key={category.name_en} value={category.name_en}>
                           {category.name_en}
                         </option>
                       );
@@ -180,7 +180,7 @@ const AddNewProductAdmin = () => {
                   {brands &&
                     brands.data.brands.map((category) => {
                       return (
-                        <option value={category.name}>{category.name}</option>
+                        <option key={category.name} value={category.name}>{category.name}</option>
                       );
                     })}
                 </select>

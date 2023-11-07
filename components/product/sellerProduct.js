@@ -12,6 +12,7 @@ import {
 import { useRouter } from "next/router";
 import createAxiosInstance from "@/API";
 import { Ring } from "@uiball/loaders";
+import Cookies from "js-cookie";
 
 function SellerProduct({ product , refetch }) {
   const [isToggled, setIsToggled] = useState(product.availability);
@@ -24,7 +25,7 @@ function SellerProduct({ product , refetch }) {
   const newPrice = useRef();
   const router = useRouter();
   const Api = createAxiosInstance(router);
-  const storeId = localStorage.getItem("Sid");
+  const storeId = Cookies.get("Sid");
 
   async function handleAvailable() {
     setEditingAvailability(true);

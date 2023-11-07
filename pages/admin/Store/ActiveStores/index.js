@@ -1,165 +1,203 @@
 import React, { useState, useEffect } from "react";
 import withLayoutAdmin from "@/components/UI/adminLayout";
-import item1 from'../../../../public/images/kuala.jpg';
+import item1 from "../../../../public/images/kuala.jpg";
 import StoreAdmin from "@/components/AdminStore/StoreAdmin";
+import { useRouter } from "next/router";
+import createAxiosInstance from "@/API";
+import { useQuery } from "react-query";
+import TawasyLoader from "@/components/UI/tawasyLoader";
 
 const tableheading = [
-    {
-      heading: "Name Ar",
-    },
-    {
-        heading: "Name En",
-      },
-    {
-      heading: "Opening Time",
-    },
-    {
-        heading: "Closing Time",
-      },
-    {
-      heading: "Status",
-    },
-    {
-      heading: "Image",
-    },
-    {
-      heading: "Logo",
-    },
-    {
-      heading: "Store Type",
-    },
-    {
-        heading: "Opening Days",
-      },
-      {
-        heading: "Address",
-      },
-    {
-      heading: "Street",
-    },
-    {
-      heading: "Area",
-    },
-    {
-        heading: "Created",
-      },
-    {
-      heading: "Updated",
-    },
-      {
-        heading: "Action",
-      },
-  ];
+  {
+    heading: "Name Ar",
+  },
+  {
+    heading: "Name En",
+  },
+  {
+    heading: "Opening Time",
+  },
+  {
+    heading: "Closing Time",
+  },
+  {
+    heading: "Status",
+  },
+  {
+    heading: "Image",
+  },
+  {
+    heading: "Logo",
+  },
+  {
+    heading: "Store Type",
+  },
+  {
+    heading: "Opening Days",
+  },
+  {
+    heading: "Address",
+  },
+  {
+    heading: "Street",
+  },
+  {
+    heading: "Area",
+  },
+  {
+    heading: "Created",
+  },
+  {
+    heading: "Updated",
+  },
+  {
+    heading: "Action",
+  },
+];
 
-  const stores =[
-    {
-        id: 1,
-        name_ar:'lorem1',
-        name_en:'lorem1',
-        opening_time :'10:00',
-        closing_time: '5:00',
-        status: 'lorem1',
-        image:  item1 ,
-        logo:  item1 ,
-        store_type:'lorem1',
-        opening_days :'10:00',
-        address: 'lorem1',
-        area: 'lorem1',
-        street: 'lorem1',
-        created :"12/3/2022",
-        update :"12/3/2022",
-    },
+// const stores =[
+//   {
+//       id: 1,
+//       name_ar:'lorem1',
+//       name_en:'lorem1',
+//       opening_time :'10:00',
+//       closing_time: '5:00',
+//       status: 'lorem1',
+//       image:  item1 ,
+//       logo:  item1 ,
+//       store_type:'lorem1',
+//       opening_days :'10:00',
+//       address: 'lorem1',
+//       area: 'lorem1',
+//       street: 'lorem1',
+//       created :"12/3/2022",
+//       update :"12/3/2022",
+//   },
 
-    {
-        id: 2,
-        name_ar:'lorem2',
-        name_en:'lorem2',
-        opening_time :'10:00',
-        closing_time: '5:00',
-        status: 'lorem1',
-        image:  item1 ,
-        logo:  item1 ,
-        store_type:'lorem1',
-        opening_days :'10:00',
-        address: 'lorem1',
-        area: 'lorem1',
-        street: 'lorem1',
-        created :"12/3/2022",
-        update :"12/3/2022",
-    },
-   
-    {
-        id: 3,
-        name_ar:'lorem3',
-        name_en:'lorem3',
-        opening_time :'10:00',
-        closing_time: '5:00',
-        status: 'lorem1',
-        image:  item1 ,
-        logo:  item1 ,
-        store_type:'lorem1',
-        opening_days :'10:00',
-        address: 'lorem1',
-        area: 'lorem1',
-        street: 'lorem1',
-        created :"12/3/2022",
-        update :"12/3/2022",
-    },
-   
-    {
-        id: 4,
-        name_ar:'lorem4',
-        name_en:'lorem4',
-        opening_time :'10:00',
-        closing_time: '5:00',
-        status: 'lorem1',
-        image:  item1 ,
-        logo:  item1 ,
-        store_type:'lorem1',
-        opening_days :'10:00',
-        address: 'lorem1',
-        street: 'lorem1',
-        area: 'lorem1',
-        created :"12/3/2022",
-        update :"12/3/2022",
-    },
-   
-   
-  ]
+//   {
+//       id: 2,
+//       name_ar:'lorem2',
+//       name_en:'lorem2',
+//       opening_time :'10:00',
+//       closing_time: '5:00',
+//       status: 'lorem1',
+//       image:  item1 ,
+//       logo:  item1 ,
+//       store_type:'lorem1',
+//       opening_days :'10:00',
+//       address: 'lorem1',
+//       area: 'lorem1',
+//       street: 'lorem1',
+//       created :"12/3/2022",
+//       update :"12/3/2022",
+//   },
+
+//   {
+//       id: 3,
+//       name_ar:'lorem3',
+//       name_en:'lorem3',
+//       opening_time :'10:00',
+//       closing_time: '5:00',
+//       status: 'lorem1',
+//       image:  item1 ,
+//       logo:  item1 ,
+//       store_type:'lorem1',
+//       opening_days :'10:00',
+//       address: 'lorem1',
+//       area: 'lorem1',
+//       street: 'lorem1',
+//       created :"12/3/2022",
+//       update :"12/3/2022",
+//   },
+
+//   {
+//       id: 4,
+//       name_ar:'lorem4',
+//       name_en:'lorem4',
+//       opening_time :'10:00',
+//       closing_time: '5:00',
+//       status: 'lorem1',
+//       image:  item1 ,
+//       logo:  item1 ,
+//       store_type:'lorem1',
+//       opening_days :'10:00',
+//       address: 'lorem1',
+//       street: 'lorem1',
+//       area: 'lorem1',
+//       created :"12/3/2022",
+//       update :"12/3/2022",
+//   },
+
+// ]
 
 function ActiveStoreAdmin() {
+  const router = useRouter();
+  const Api = createAxiosInstance(router);
+  const { data:activeStores, isLoading, refetch } = useQuery(
+    `activeStores`,
+    fetchActiveStores,
+    { staleTime: 1, refetchOnMount: true, refetchOnWindowFocus: false }
+  );
 
-   
-   return(
+  async function fetchActiveStores() {
+    try {
+      return await Api.get(`/api/admin/stores`);
+    } catch (error) {}
+  }
+
+  if (isLoading) {
+    return (
+      <div className="w-full h-full">
+        <TawasyLoader width={400} height={400} />
+      </div>
+    );
+  }
+
+  return (
     <div className="md:px-6">
       <div className="h-screen">
         <div className="m-5 p-5">
-          <h2 className="text-2xl text-stone-500 pb-5 ">
-         Active Stores
-          </h2>
+          <h2 className="text-2xl text-stone-500 pb-5 ">Active Stores</h2>
         </div>
 
         <div className="w-full h-[70%] overflow-x-auto ">
+          {activeStores &&
+          activeStores.data.stores &&
+          activeStores.data.stores.length > 0 ? (
             <table className="w-max overflow-x-auto table-auto">
-                <thead className="">
+              <thead className="">
                 <tr className="text-sm font-semibold text-center border-b-2 border-gray-400 uppercase">
-                    <th>Id</th>
-                    {tableheading.map((index) => (
-                      <th className="px-4 " key={index.id} >{index.heading}</th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody className="text-lg font-normal text-gray-700 text-center">
-                  {stores.map((store) => {
-                    return <StoreAdmin names={store} key={store.id} refetch={() => {refetch();}} />;
-                  })}
-                </tbody>
-              </table>
-         
+                  <th>Id</th>
+                  {tableheading.map((index) => (
+                    <th className="px-4 " key={index.id}>
+                      {index.heading}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody className="text-lg font-normal text-gray-700 text-center">
+                {activeStores.data.stores.map((store) => {
+                  if (store.status === "approved") {
+                    return (
+                      <StoreAdmin
+                        names={store}
+                        key={store.id}
+                        refetch={() => {
+                          refetch();
+                        }}
+                      />
+                    );
+                  }
+                })}
+              </tbody>
+            </table>
+          ) : (
+            <div className="w-max mx-auto">There are no active Stores.</div>
+          )}
         </div>
       </div>
     </div>
-   )
+  );
 }
 
 export default withLayoutAdmin(ActiveStoreAdmin);

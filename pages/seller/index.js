@@ -15,11 +15,14 @@ import { Card } from "@mui/material";
 import DashboardCard from "@/components/UI/dashboardCard";
 import { MdOutlinePendingActions, MdOutlineProductionQuantityLimits } from "react-icons/md";
 import { CgUnavailable } from "react-icons/cg";
+import Cookies from "js-cookie";
 
 const Home = () => {
+  let none ; 
   const router = useRouter();
   const Api = createAxiosInstance(router);
   const [isLoading, setIsLoading] = useState(true);
+  const [enable , setEnable] = useState(false);
   const {
     data: dashboardData,
     isLoading: dataLoading,
@@ -29,6 +32,7 @@ const Home = () => {
     staleTime: 1,
     refetchOnMount: true,
     refetchOnWindowFocus: false,
+    enabled : enable
   });
 
   async function fetchDashboard() {
@@ -51,12 +55,13 @@ const Home = () => {
 
           case "approved":
             console.log(`approved store`);
-            localStorage.setItem("Sid", response2.data.store_id);
-            router.replace(`/seller`);
+            Cookies.set("Sid", response2.data.store_id , {expires : 365 * 10});
+            // router.replace(`/seller`);
+            setEnable(true);
             break;
 
           case "pending":
-            localStorage.setItem("Sid", response2.data.store_id);
+            Cookies.set("Sid", response2.data.store_id , {expires : 365 * 10});
             router.replace(`/seller/pendingStore`);
             break;
           // default :
@@ -64,11 +69,16 @@ const Home = () => {
           // break;
         }
       } catch (error) {
-        console.log(error);
+        // console.log(error);
+      setIsLoading(false);
       }
       setIsLoading(false);
     }
-    initialStoreStatus();
+    if(isLoading === true){
+      initialStoreStatus();
+    }else{
+      return;
+    }
   }, []);
 
   if (dashboardData) {

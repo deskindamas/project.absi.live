@@ -7,6 +7,7 @@ import Link from "next/link";
 import { toast } from "react-toastify";
 import { Ring } from "@uiball/loaders";
 import { useRouter } from "next/router";
+import Cookies from "js-cookie";
 
 const Login = () => {
   const NumberRef = useRef();
@@ -29,9 +30,8 @@ const Login = () => {
         setIsLoading(false);
         console.log(`seller response`);
         console.log(response);
-        localStorage.setItem("number", NumberRef.current.value);
-        localStorage.setItem("user", "seller");
-        // localStorage.setItem("registered", false);
+        Cookies.set("number", NumberRef.current.value , {expires : 365 * 10});
+        Cookies.set("user", "seller" , {expires : 365 * 10});
         router.push("/verification");
         toast.success(response.data.message, {
           position: "top-right",
@@ -68,9 +68,8 @@ const Login = () => {
         }
         setIsLoading(false);
         console.log(response);
-        localStorage.setItem("number", NumberRef.current.value);
-        localStorage.setItem("user", "customer");
-        // localStorage.setItem("registered", false);
+        Cookies.set("number", NumberRef.current.value , {expires : 365 * 10});
+        Cookies.set("user", "customer" , {expires : 365 * 10});
         router.push("/verification");
         toast.success(response.data.message, {
           position: "top-right",

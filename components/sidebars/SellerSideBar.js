@@ -15,15 +15,15 @@ import { CiLogout } from "react-icons/ci";
 import { MdPendingActions, MdOutlineDisabledVisible } from "react-icons/md";
 import { useRouter } from "next/router";
 import { IoSettingsSharp, IoStorefrontSharp } from "react-icons/io5";
+import Cookies from "js-cookie";
 
 export default function Sidebar(props) {
   const [open, setOpen] = useState(false);
   const router = useRouter();
 
   function logOut() {
-    localStorage.removeItem("AT");
-    localStorage.removeItem("user");
-    // localStorage.removeItem("Sid");
+    Cookies.remove("AT");
+    Cookies.remove("user");
     router.replace("/login");
   }
 

@@ -18,7 +18,7 @@ export function ResponsiveCarousel({ ads }) {
     >
       {ads && ads.map((ad) => {
         return (
-          <div className="relative md:h-[540px] md:w-[1920] h-auto  w-full ">
+          <div key={ad.id} className="relative md:h-[540px] md:w-[1920] h-auto  w-full ">
             <img
               src={ad.image}
               // src="https://i0.wp.com/www.westlondonstudio.co.uk/wp-content/uploads/2020/11/Image-1920x540-Clip-for-ls-v06-00_00_07_19.Still001.jpg?ssl=1"

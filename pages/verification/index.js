@@ -10,6 +10,7 @@ import { Ring } from "@uiball/loaders";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import createAxiosInstance from "@/API";
+import Cookies from "js-cookie";
 
 const Code = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -19,17 +20,17 @@ const Code = () => {
 
   const handleVerify = async (e) => {
     e.preventDefault();
-    const number = localStorage.getItem(`number`);
+    const number = Cookies.get(`number`);
     setIsLoading(true);
-    const user = localStorage.getItem("user");
+    const user = Cookies.get("user");
     if (user === "seller") {
       try {
         const response = await axios.post(`${url}/api/seller/verify`, {
           phone_number: number,
           verification_code: verifyNumber.current.value,
         });
-        localStorage.removeItem("number");
-        localStorage.setItem("AT", response.data.token);
+        Cookies.remove("number");
+        Cookies.set("AT", response.data.token , {expires : 365 * 10});
         try {
           const response2 = await Api.get(`/api/seller/store/status`);
           console.log(`response in verification status`);
@@ -39,12 +40,12 @@ const Code = () => {
           break;
 
           case 'approved' : 
-          localStorage.setItem('Sid' , response2.data.store_id);
+          Cookies.set('Sid' , response2.data.store_id , {expires : 365 * 10} );
           router.replace(`/seller`);
           break;
 
           case 'pending' :
-          localStorage.setItem('Sid' , response2.data.store_id);
+          Cookies.set('Sid' , response2.data.store_id , {expires : 365 * 10});
             router.replace(`/seller/pendingStore`);
           break;
           }
@@ -74,8 +75,8 @@ const Code = () => {
           phone_number: number,
           verify_code: verifyNumber.current.value,
         });
-        localStorage.removeItem("number");
-        localStorage.setItem("AT", response.data.token);
+        Cookies.remove("number");
+        Cookies.set("AT", response.data.token , {expires : 365 * 10});
         router.replace("/customer");
         setIsLoading(false);
         if (response.status !== 200) {

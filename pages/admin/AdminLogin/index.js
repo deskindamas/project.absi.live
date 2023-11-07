@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import { Ring } from "@uiball/loaders";
 import { useRouter } from "next/router";
 import createAxiosInstance from "@/API";
+import Cookies from "js-cookie";
 
 const AdminLogin = () => {
   // const NumberRef = useRef();
@@ -27,7 +28,7 @@ const AdminLogin = () => {
         password: passwordRef.current.value,
       });
       // console.log(response) ;
-      localStorage.setItem("AT", response.data.token);
+      Cookies.set("AT", response.data.token , {expires : 365 * 10});
       setIsLoading(false);
       router.push("/admin");
     } catch (error) {

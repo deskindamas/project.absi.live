@@ -6,10 +6,10 @@ import { FaTelegram } from "react-icons/fa";
 import { BsFacebook } from "react-icons/bs";
 import { BsFillTelephoneFill, BsInstagram } from "react-icons/bs";
 import { MdCopyright } from "react-icons/md";
-import { useTranslation } from "next-i18next";
+// import { useTranslation } from "next-i18next";
 
 const Footer = () => {
-  const { t } = useTranslation("");
+  // const { t } = useTranslation("");
 
   return (
     <div className="bg-[#262626]  bottom-0 w-full">
@@ -29,17 +29,20 @@ const Footer = () => {
           <ul className="text-xl">
             <li className="mb-2">
               <Link href="/customer" className="hover:text-skin-primary">
-                {t("footer.home")}
+                {/* {t("footer.home")} */}
+                {`Home Page`}
               </Link>
             </li>
             <li className="mb-2">
               <Link href="/AboutUs" className="hover:text-skin-primary">
-                {t("footer.aboutUs")}
+                {`About Us`}
+                {/* {t("footer.aboutUs")} */}
               </Link>
             </li>
             <li className="mb-2">
               <Link href="/ContactUs" className="hover:text-skin-primary">
-                {t("footer.contactUS")}
+                {`Contact Us`}
+                {/* {t("footer.contactUS")} */}
               </Link>
             </li>
           </ul>
@@ -49,7 +52,8 @@ const Footer = () => {
           {/* <h2 className="mb-3 text-skin-primary">Menu</h2> */}
           <ul className="text-xl">
             <li className="mb-2 ">
-              <p>{t("footer.syria")}</p>
+              <p>{`Damascus , Syria`}</p>
+              {/* <p>{t("footer.syria")}</p> */}
             </li>
             <li className="mb-2">
               <p>+963987000888</p>
@@ -88,7 +92,8 @@ const Footer = () => {
         <hr />
         <div className="md:flex md:justify-center items-center gap-11 py-3 text-center text-gray-400">
           <div className="flex justify-start items-center gap-1">
-            {t("footer.copyrights")}
+            {`Copyrights reserved for Tawasy.`}
+            {/* {t("footer.copyrights")} */}
             <MdCopyright />
           </div>
           <div className="">
@@ -101,7 +106,8 @@ const Footer = () => {
               href="/PrivacyPolicy"
               className=" border-b-2 border-transparent hover:text-skin-primary hover:border-skin-primary transition-all duration-500"
             >
-              {t("footer.privacy")}
+              {`Privacy Policy`}
+              {/* {t("footer.privacy")} */}
             </Link>
           </div>
           <div className="">
@@ -109,7 +115,8 @@ const Footer = () => {
               href="/TermsAndConditions"
               className=" border-b-2 border-transparent hover:text-skin-primary hover:border-skin-primary transition-all duration-500"
             >
-              {t("footer.terms")}
+              {`Terms and Conditions`}
+              {/* {t("footer.terms")} */}
             </Link>
           </div>
         </div>

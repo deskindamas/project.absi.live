@@ -156,7 +156,7 @@ function SellerOrders({ orders, refetch }) {
                 <tbody className="text-center text-xl">
                   {orderDetails?.order_details.map((product) => {
                     return (
-                      <tr className="text-center">
+                      <tr key={product.product_name} className="text-center">
                         <td className="pb-2 pt-2">{product.product_name}</td>
                         <td className="pb-2 pt-2">{product.quantity}</td>
                         <td className="pb-2 pt-2">{product.price}</td>

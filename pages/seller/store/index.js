@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import withLayout from "@/components/wrapping components/WrappingSellerLayout";
 import SellerStore from "@/components/SellerStore/sellerStore";
 // import Logo from "../../../public/images/logo-store.jpg";
-import Logo from '../../../public/images/lego.png'
+// import Logo from '../../../public/images/lego.png'
+import logo from "../../../public/images/tawasylogo.png";
 import Image from "next/image";
 import Storeimage from "../../../public/images/storeimage.jpg";
 import FilterCategories from "@/components/SellerStore/filterCategory/filterCategories";
@@ -84,7 +85,7 @@ const Store = () => {
       {sellerStoreData && (
         <div className=" relative lg:h-[400px] md:h-[300px]  h-[200px] w-full box-border ">
           <Image
-            src={sellerStoreData.store.image}
+            src={sellerStoreData.store.image ? sellerStoreData.store.image : logo}
             alt={sellerStoreData.store.name}
             width={0}
             height={0}
@@ -102,7 +103,7 @@ const Store = () => {
             <div className=" md:w-[200px] w-[200px] md:h-[200px] h-[200px]">
               <Image
                 className=" shadow md:w-[90%] md:h-[90%] object-cover rounded-md"
-                src={sellerStoreData.store.logo}
+                src={sellerStoreData.store.logo ? sellerStoreData.store.logo : logo}
                 alt={sellerStoreData.store.name}
                 width={0}
                 height={0}
@@ -128,7 +129,7 @@ const Store = () => {
                       {sellerStoreData.store.opening_days?.map(
                         (day, index) => {
                           return (
-                            <span className="text-gray-400 mt-4">
+                            <span key={index} className="text-gray-400 mt-4">
                               {index !==
                              sellerStoreData.store.opening_days.length - 1
                                 ? `${day} ,`
@@ -218,7 +219,7 @@ const Store = () => {
         {sellerStoreData &&
           selectedCategoryData &&
           selectedCategoryData.products.map((product) => (
-            <SellerStore store={product} refetch = {() => {refetch();}} />
+            <SellerStore key={product.id} store={product} refetch = {() => {refetch();}} />
           ))}
       </div>
     </div>

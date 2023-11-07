@@ -6,13 +6,14 @@ import { useRef } from "react";
 import { useState } from "react";
 import { BiArrowBack } from "react-icons/bi";
 import { MdCheck, MdClose, MdModeEditOutline } from "react-icons/md";
-import { useTranslation } from "next-i18next";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+// import { useTranslation } from "next-i18next";
+// import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import createAxiosInstance from "@/API";
 import { useQuery } from "react-query";
 import TawasyLoader from "@/components/UI/tawasyLoader";
 import Locations from "@/components/Location/Location";
 import { NextSeo } from "next-seo";
+import Cookies from "js-cookie";
 
 function MyProfile() {
   const router = useRouter();
@@ -43,7 +44,7 @@ function MyProfile() {
     } catch (error) {}
   }
 
-  const { t } = useTranslation("");
+  // const { t } = useTranslation("");
 
   const handleSaveNameClick = async () => {
     setisSavingName(true);
@@ -67,7 +68,7 @@ function MyProfile() {
         new_phone_number: phoneRef.current.value,
       });
       refetch();
-      localStorage.setItem(`number` , phoneRef.current.value) ;
+      Cookies.setItem(`number` , phoneRef.current.value , {expires : 365 * 10}) ;
       router.push(`/verification`);
       setIsEditingPhone(false);
       setisSavingPhones(false);
@@ -100,8 +101,8 @@ function MyProfile() {
   }
 
   function Logout() {
-    localStorage.removeItem("AT");
-    localStorage.removeItem("user");
+    Cookies.remove("AT");
+    Cookies.remove("user");
     router.replace(`/login`);
   }
 
@@ -120,7 +121,8 @@ function MyProfile() {
         description={`view my Tawasy Profile`}
       />
       <h1 className="border-b-2 border-gray-300 py-4 text-2xl text-gray-700 font-medium px-7">
-        {t("profile.myprofile")}
+        {`My Profile`}
+        {/* {t("profile.myprofile")} */}
       </h1>
       <div>
         <p
@@ -130,7 +132,8 @@ function MyProfile() {
           }}
         >
           <BiArrowBack className=" w-[25px] h-[20px] mr-2 mb-[-5px]" />
-          <p>{t("profile.back")}</p>
+          <p>{`Back`}</p>
+          {/* <p>{t("profile.back")}</p> */}
         </p>
       </div>
       {profile && (
@@ -139,7 +142,8 @@ function MyProfile() {
             <div className="flex justify-between items-center w-[400px] mb-4">
               <div className="flex">
                 <label className="text-xl text-gray-700 font-medium pr-2 w-24">
-                {t("profile.name")} :
+                {`Name`} :
+                {/* {t("profile.name")} : */}
                 </label>
                 {isEditingName ? (
                   <input
@@ -187,7 +191,8 @@ function MyProfile() {
             <div className="flex justify-between w-[400px] mb-4">
               <div className="flex">
                 <label className="text-xl text-gray-700 font-medium pr-2 w-24">
-                {t("profile.phone")} :
+                {`Phone`} :
+                {/* {t("profile.phone")} : */}
                 </label>
                 {isEditingPhone ? (
                   <input
@@ -234,7 +239,8 @@ function MyProfile() {
             <div className="flex justify-between w-[400px] mb-4">
               <div className="flex">
                 <label className="text-xl text-gray-700 font-medium pr-2 w-24">
-                {t("profile.address")} :
+                {`Address`} :
+                {/* {t("profile.address")} : */}
                 </label>
                 {isEditingAddress ? (
                   <Locations
@@ -282,7 +288,8 @@ function MyProfile() {
                 className="border-2 border-skin-primary text-skin-primary hover:bg-skin-primary hover:text-white rounded-full w-full py-2"
                 onClick={Logout}
               >
-                {t("profile.logout")}
+                {`Logout`}
+                {/* {t("profile.logout")} */}
               </button>
             </div>
           </div>
@@ -294,10 +301,10 @@ function MyProfile() {
 
 export default withLayoutCustomer(MyProfile);
 
-export async function getStaticProps({ locale }) {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, ["common"])),
-    },
-  };
-}
+// export async function getStaticProps({ locale }) {
+//   return {
+//     props: {
+//       ...(await serverSideTranslations(locale, ["common"])),
+//     },
+//   };
+// }

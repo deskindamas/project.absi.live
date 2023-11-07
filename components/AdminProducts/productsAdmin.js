@@ -326,7 +326,7 @@ function AdminProduct({ product, refetch }) {
                     {categories &&
                       categories.map((category) => {
                         return (
-                          <option className="bg-white" value={category.name_en}>
+                          <option key={category.name_en} className="bg-white" value={category.name_en}>
                             {category.name_en}
                           </option>
                         );
@@ -352,7 +352,7 @@ function AdminProduct({ product, refetch }) {
                     {brands &&
                       brands.map((brand) => {
                         return (
-                          <option className="bg-white" value={brand.name}>
+                          <option key={brand.name} className="bg-white" value={brand.name}>
                             {brand.name}
                           </option>
                         );

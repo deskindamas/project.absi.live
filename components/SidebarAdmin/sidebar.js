@@ -18,6 +18,7 @@ import { useRouter } from "next/router";
 import { TbBrandShopee, TbCategory2, TbTruckDelivery } from "react-icons/tb";
 import { RiCoupon2Line } from "react-icons/ri";
 import { FaStore } from "react-icons/fa";
+import Cookies from "js-cookie";
 
 export default function SidebarAdmin(props) {
 
@@ -25,9 +26,8 @@ export default function SidebarAdmin(props) {
   const router = useRouter();
 
   function logOut() {
-    localStorage.removeItem("AT");
-    localStorage.removeItem("user");
-    // localStorage.removeItem("Sid");
+    Cookies.remove("AT");
+    Cookies.remove("user");
     router.replace("/admin/AdminLogin");
   }
 

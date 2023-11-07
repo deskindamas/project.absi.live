@@ -16,7 +16,7 @@ import { convertDate } from "../SellerOrders/sellerOrder";
 import { useRef } from "react";
 import { toast } from "react-toastify";
 import { Ring } from "@uiball/loaders";
-import { useTranslation } from "next-i18next";
+// import { useTranslation } from "next-i18next";
 // import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 function OrdersCustomer({ order, refetch }) {
@@ -26,7 +26,7 @@ function OrdersCustomer({ order, refetch }) {
   const [orderDetails, setOrderDetails] = useState();
   const reasonRef = useRef();
   const [canceling, setCanceling] = useState(false);
-  const { t } = useTranslation("");
+  // const { t } = useTranslation("");
 
   const OrderItem = [
     {
@@ -132,15 +132,18 @@ function OrdersCustomer({ order, refetch }) {
           </div>
           <div className="pb-5">
             <h3 className="font-medium text-xl flex items-center gap-2 text-gray-500 mb-2">
-              <div>{t("orders.storeName")} : </div>
+              <div>{`Store Name`} : </div>
+              {/* <div>{t("orders.storeName")} : </div> */}
               <div>{order.store_name}</div>
             </h3>
             <h3 className="font-medium text-lg flex items-center gap-2 text-gray-500 mb-2">
-              <div>{t("orders.totalPrice")} :</div>
+              <div>{`Total Price`} :</div>
+              {/* <div>{t("orders.totalPrice")} :</div> */}
               <div>{order.final_price} S.P</div>
             </h3>
             <h3 className="font-medium text-lg flex items-center gap-2 text-gray-500">
-              <div>{t("orders.status")}:</div>
+              <div>{`Status`}:</div>
+              {/* <div>{t("orders.status")}:</div> */}
               <div>{order.status}</div>
             </h3>
           </div>
@@ -167,17 +170,20 @@ function OrdersCustomer({ order, refetch }) {
                       Order Id: {orderDetails.order_id}
                     </h4>
                     <h4 className="text-gray-700 text-lg flex justify-start gap-2 items-center font-medium">
-                      <div>{t("orders.orderDetails.date")} :</div>
+                      <div>{`Date`} :</div>
+                      {/* <div>{t("orders.orderDetails.date")} :</div> */}
                       <div>{convertDate(orderDetails.date)}</div>
                     </h4>
                   </div>
                   <div className="flex flex-col md:flex-row md:justify-between">
                     <h4 className="text-gray-700 text-lg flex justify-start gap-2 items-center font-medium ">
-                      <div>{t("orders.storeName")}:</div>
+                      <div>{`Store Name`}:</div>
+                      {/* <div>{t("orders.storeName")}:</div> */}
                       <div>{orderDetails.store_name}</div>
                     </h4>
                     <h4 className="text-gray-700 text-lg flex justify-start gap-2 items-center font-medium">
-                      <div>{t("orders.status")} :</div>
+                      <div>{`Status`} :</div>
+                      {/* <div>{t("orders.status")} :</div> */}
                       <div>{orderDetails.status}</div>
                     </h4>
                   </div>
@@ -187,17 +193,21 @@ function OrdersCustomer({ order, refetch }) {
                   <div className="w-[100%]">
                     <div className="grid grid-cols-5  gap-4 text-gray-800 text-xl font-medium bg-gray-200 py-2">
                       <div className="col-span-2">
-                        <h4>{t("orders.orderDetails.name")}</h4>
+                        <h4>{`Name`}</h4>
+                        {/* <h4>{t("orders.orderDetails.name")}</h4> */}
                       </div>
 
                       <div className="">
-                        <h4>{t("orders.orderDetails.quantity")}</h4>
+                        <h4>{`Quantity`}</h4>
+                        {/* <h4>{t("orders.orderDetails.quantity")}</h4> */}
                       </div>
                       <div className="">
-                        <h4>{t("orders.orderDetails.price")}</h4>
+                        <h4>{`Price`}</h4>
+                        {/* <h4>{t("orders.orderDetails.price")}</h4> */}
                       </div>
                       <div className="">
-                        <h4>{t("orders.totalPrice")}</h4>
+                        <h4>{`Total Price`}</h4>
+                        {/* <h4>{t("orders.totalPrice")}</h4> */}
                       </div>
                     </div>
 
@@ -227,23 +237,28 @@ function OrdersCustomer({ order, refetch }) {
                     <div className="grid md:grid-cols-2 gap-4 font-medium text-gray-800">
                       <div>
                         <div className="py-2 border-b-2 border-skin-primary w-full md:flex md:justify-between items-center">
-                        {t("orders.orderDetails.totalQuantity")}:
+                        {`Total Quantity`}:
+                        {/* {t("orders.orderDetails.totalQuantity")}: */}
                           <p>{orderDetails.total_quantity}</p>
                         </div>
                         <div className="py-2 border-b-2 border-skin-primary w-full md:flex md:justify-between items-center">
-                        {t("orders.totalPrice")}:
+                        {`Total Price`}:
+                        {/* {t("orders.totalPrice")}: */}
                           <p>{orderDetails.total_price} S.P</p>
                         </div>
                         <div className="py-2 border-b-2 border-skin-primary w-full md:flex md:justify-between items-center">
-                        {t("orders.orderDetails.deliveryPrice")}:
+                        {`Delivery Price`}:
+                        {/* {t("orders.orderDetails.deliveryPrice")}: */}
                           <p>{orderDetails.delivery_price} S.P</p>
                         </div>
                         <div className="py-2 border-b-2 border-skin-primary w-full md:flex md:justify-between items-center">
-                        {t("orders.orderDetails.discount")}:
+                        {`Discount`}:
+                        {/* {t("orders.orderDetails.discount")}: */}
                           <p>{orderDetails.discount} S.P </p>
                         </div>
                         <div className="py-5 border-b-2 border-gray-300 w-full md:flex md:justify-between items-center">
-                        {t("orders.orderDetails.finalPrice")}:
+                        {`Final Price`}:
+                        {/* {t("orders.orderDetails.finalPrice")}: */}
                           <p>{orderDetails.final_price} S.P</p>
                         </div>
                       </div>
@@ -252,7 +267,8 @@ function OrdersCustomer({ order, refetch }) {
                           orderDetails.status == `accepted`) && (
                           <div>
                             <h4 className="py-3 pl-2">
-                            {t("orders.orderDetails.reasonForCancel")}:
+                            {`Reason for cancelling the order`}:
+                            {/* {t("orders.orderDetails.reasonForCancel")}: */}
                             </h4>
                             <div className="relative mb-6">
                               <textarea
@@ -266,7 +282,8 @@ function OrdersCustomer({ order, refetch }) {
                                 htmlFor="exampleFormControlTextarea13"
                                 className="peer-focus:bg-white pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary motion-reduce:transition-none "
                               >
-                                {t("orders.orderDetails.reason")}
+                                {`Reason`}
+                                {/* {t("orders.orderDetails.reason")} */}
                               </label>
                             </div>
                             <button

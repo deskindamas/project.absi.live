@@ -206,7 +206,7 @@ function StoreAdmin({ names, refetch }) {
           />
         </td>
 
-        <td className="px-4 py-4">{names.store_type}</td>
+        <td className="px-4 py-4">{names.store_type ? names.store_type : names.store_type_id}</td>
         <td className="px-4 py-4">
           {days &&
             days.map((day) => {
@@ -378,7 +378,7 @@ function StoreAdmin({ names, refetch }) {
                   <fieldset className="grid grid-cols-3 w-[90%] mx-auto">
                     {openingDays.map((oDay) => {
                       return (
-                        <label className="px-1 select-none">
+                        <label key={oDay} className="px-1 select-none">
                           <input
                             type="checkbox"
                             className="select-none"
