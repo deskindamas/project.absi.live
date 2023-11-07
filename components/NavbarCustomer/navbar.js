@@ -71,7 +71,7 @@ function Navbar() {
         dir="ltr"
       >
         <div
-          className="flex justify-start md:pl-16 md:w-[50%] w-auto h-auto px-10 cursor-pointer"
+          className="flex justify-start md:pl-16 md:w-[50%] w-[50%] h-auto pl-10 cursor-pointer"
           onClick={() => {
             router.push(`/customer`);
           }}
@@ -86,10 +86,10 @@ function Navbar() {
             style={{ width: "auto", height: "auto" }}
           />
         </div>
-        <div className="md:w-[50%] w-[80%] flex justify-end items-center px-10">
+        <div className="md:w-[50%] w-[50%] flex justify-end items-center pr-10">
           {isLoggedIn == true && (
             <div className="flex items-center gap-4 ">
-              <Link className="text-white" href={"/customer/Orders"}>
+              <Link className="text-white sm:text-base text-xs" href={"/customer/Orders"}>
               {/* <Link className="text-white" href={{pathname :"/customer/Orders" , query : query}}> */}
                 {`My Orders`}
                 {/* {t("nav.orders")} */}
