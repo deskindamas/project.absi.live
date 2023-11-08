@@ -2,7 +2,7 @@
 // const { i18n } = require("./next-i18next.config");
 const nextConfig = {
   // useFileSystemPublicRoutes: false,
-  output : 'export',
+  // output : 'export',
   reactStrictMode: true,
   images: {
     unoptimized: true,

@@ -30,7 +30,7 @@ function Navbar() {
   useEffect(() => {
     const token = Cookies.get("AT");
     const user = Cookies.get(`user`);
-    if (token && user && user == `customer`) {
+    if (token && user == `customer`) {
       setIsLoggedIn(true);
     } else {
       setIsLoggedIn(false);

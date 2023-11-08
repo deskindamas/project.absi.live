@@ -90,7 +90,7 @@ const Footer = () => {
       </div>
       <div>
         <hr />
-        <div className="md:flex md:justify-center items-center gap-11 py-3 text-center text-gray-400">
+        <div className="flex md:justify-center items-center gap-11 py-3 text-center text-gray-400">
           <div className="flex justify-start items-center gap-1">
             {`Copyrights reserved for Tawasy.`}
             {/* {t("footer.copyrights")} */}

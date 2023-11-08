@@ -15,10 +15,14 @@ function Home() {
     const token = Cookies.get("AT");
     const user = Cookies.get("user");
     if (token) {
-      if (user === "seller") {
-        router.replace("/seller");
-      } else if (user === "customer") {
-        router.replace("/customer");
+      if(user){
+        if (user === "seller") {
+          router.replace("/seller");
+        } else if (user === "customer") {
+          router.replace("/customer");
+        }
+      }else{
+      router.replace("/customer");
       }
     } else {
       router.replace("/customer");

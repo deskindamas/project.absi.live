@@ -15,10 +15,30 @@ import styles from "../../../../components/componentsStyling/sellerStorePage.mod
 import { MdArrowForward, MdClose } from "react-icons/md";
 import { useRef } from "react";
 import { NextSeo } from "next-seo";
+import logo from "../../../../public/images/tawasylogo.png";
+// import { notFound } from "next/navigation";
 // import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 // import { useTranslation } from "next-i18next";
 
-function Products() {
+export async function getServerSideProps (context) {
+  const {params} = context ;
+  const Api = createAxiosInstance();
+  const response  = await Api.get(`/api/stores-with-products/${params.storeId}`);
+  if(!response.data.store){
+    return {
+      notFound : true 
+    }
+  }
+
+  return {
+    props : {
+      store : response.data 
+    }
+  }
+}
+
+function Products({store}) {
+  // function Products({store}) {
   const router = useRouter();
   const Api = createAxiosInstance(router);
   const [storeId, setStoreId] = useState();
@@ -28,17 +48,17 @@ function Products() {
   const [inSearch, setInSearch] = useState(false);
   const [searchedResults, setSearchedResults] = useState();
   const searchRef = useRef();
-  const {
-    data: store,
-    isLoading,
-    isError,
-    error,
-  } = useQuery([`storePage`, storeId], fetchStorePage, {
-    staleTime: 1,
-    refetchOnMount: true,
-    refetchOnWindowFocus: false,
-    enabled: Boolean(storeId) == true,
-  });
+  // const {
+  //   data: store,
+  //   isLoading,
+  //   isError,
+  //   error,
+  // } = useQuery([`storePage`, storeId], fetchStorePage, {
+  //   staleTime: 1,
+  //   refetchOnMount: true,
+  //   refetchOnWindowFocus: false,
+  //   enabled: Boolean(storeId) == true,
+  // });
   const [selectedCategory, setSelectedCategory] = useState(null);
 
   const onSelectCategory = (categoryName) => {
@@ -53,8 +73,8 @@ function Products() {
   }, [router.query.storeId]);
 
   useEffect(() => {
-    if (store && store.data.categories.length > 0) {
-      setSelectedCategory(store.data.categories[0].name);
+    if (store && store.categories.length > 0) {
+      setSelectedCategory(store.categories[0].name);
     }
   }, [store]);
 
@@ -97,18 +117,18 @@ function Products() {
     setSearching(false);
   }
 
-  if (isLoading) {
-    return (
-      <div className="w-full h-full">
-        <TawasyLoader width={400} height={400} />
-      </div>
-    );
-  }
+  // if (isLoading) {
+  //   return (
+  //     <div className="w-full h-full">
+  //       <TawasyLoader width={400} height={400} />
+  //     </div>
+  //   );
+  // }
 
   let selectedCategoryData;
 
   if (store && selectedCategory) {
-    selectedCategoryData = store.data.category.find(
+    selectedCategoryData = store.category.find(
       (category) => category.name === selectedCategory
     );
     console.log(selectedCategoryData);
@@ -125,7 +145,7 @@ function Products() {
       {store && (
         <div className=" relative lg:h-[400px] md:h-[300px]  h-[200px] w-full box-border ">
           <Image
-            src={store.data.store.image}
+            src={store.store.image ? store.store.image : Logo}
             alt="store"
             width={0}
             height={0}
@@ -142,7 +162,7 @@ function Products() {
             <div className=" md:w-[200px] w-[200px] md:h-[200px] h-[200px]">
               <Image
                 className=" shadow md:w-[90%] md:h-[90%] object-cover rounded-md"
-                src={store.data.store.logo}
+                src={store.store.logo ? store.store.logo : logo}
                 alt="store"
                 width={0}
                 height={0}
@@ -153,7 +173,7 @@ function Products() {
 
             <div className="mx-6">
               <h1 className="text-4xl text-gray-800 font-medium capitalize">
-                {store.data.store.name}
+                {store.store.name}
               </h1>
               <div className="flex flex-col justify-center items-center w-full pb-5">
                 <div>
@@ -162,7 +182,7 @@ function Products() {
                   {t("store.address")} :
                 </h2> */}
                     <p className="text-gray-400 md:text-2xl text-base py-3 ">
-                      {store.data.store.location}
+                      {store.store.location}
                     </p>
                   </div>
                   <div className="flex flex-col md:flex-row justify-start items-center gap-2 w-full">
@@ -170,12 +190,12 @@ function Products() {
                       <h3 className="my-2 capitalize">
                         {`Opening Days`} :{/* {t("store.openingDays")} : */}
                       </h3>
-                      {JSON.parse(store.data.store.opening_days)?.map(
+                      {JSON.parse(store.store.opening_days)?.map(
                         (day, index) => {
                           return (
                             <span key={index} className="text-gray-400 mt-4">
                               {index !==
-                              store.data.store.opening_days.length - 1
+                              store.store.opening_days.length - 1
                                 ? `${day} ,`
                                 : day}
                             </span>
@@ -196,7 +216,7 @@ function Products() {
               <h2 className="md:text-xl text-lg text-gray-600 font-medium my-2">
                 {`Opening Time`} :{/* {t("store.openingTime")} : */}
                 <span className="text-gray-400 md:text-2xl text-lg  ">
-                  {convertTo12HourFormat(store.data.store.opening_time)}
+                  {convertTo12HourFormat(store.store.opening_time)}
                 </span>
               </h2>
             </div>
@@ -204,7 +224,7 @@ function Products() {
               <h2 className="md:text-xl text-lg text-gray-600 font-medium my-3">
                 {`Closing Time`} :{/* {t("store.closingTime")} : */}
                 <span className="text-gray-400 md:text-2xl text-lg  ">
-                  {convertTo12HourFormat(store.data.store.closing_time)}
+                  {convertTo12HourFormat(store.store.closing_time)}
                 </span>
               </h2>
             </div>
@@ -266,7 +286,7 @@ function Products() {
             <ul className="flex md:justify-center justify-start md:items-center items-start md:w-full w-[90%] mx-auto gap-6 md:overflow-auto overflow-x-scroll">
               {store && (
                 <FilterCategories
-                  categories={store.data?.categories}
+                  categories={store.categories}
                   selectedCategory={selectedCategory}
                   onSelectCategory={onSelectCategory}
                 />
@@ -300,26 +320,6 @@ function Products() {
   );
 }
 
-// export async function getServerSideProps(context) {
-//   const storeId = context.params.storeId;
-//   const Api = createAxiosInstance();
-//   try {
-//     const storeData = await Api.get(`/api/stores-with-products/${storeId}`);
-
-//     return {
-//       props: {
-//         storeData: storeData.data,
-//         ...(await serverSideTranslations(context.locale, ["common"])),
-//       },
-//     };
-//   } catch (error) {
-//     console.error("Error fetching store data:", error);
-
-//     return {
-//       notFound: true,
-//     };
-//   }
-// }
 
 export default withLayoutCustomer(Products);
 
@@ -330,3 +330,4 @@ export default withLayoutCustomer(Products);
 //     },
 //   };
 // }
+
