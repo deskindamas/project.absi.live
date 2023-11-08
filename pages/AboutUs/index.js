@@ -8,9 +8,9 @@ import withLayoutCustomer from '@/components/wrapping components/WrappingCustome
 const AboutUs = () => {
 
   return (
-    <div className='flex justify-center mx-auto p-[50px]'>
-    <div className='w-[60%]'>
-    <div className='flex'>
+    <div className='md:flex md:flex-row flex-col justify-center mx-auto p-[50px]'>
+    <div className='md:w-[60%] w-[90%]'>
+    <div className='md:flex md:flex-row flex-col'>
     <div>
     <Image src={about3} alt='about us'
      width={0}
@@ -18,11 +18,11 @@ const AboutUs = () => {
      sizes="100vw"
      style={{ width: "auto", height: "auto" }}/> 
     </div>
-    <div className='flex flex-col justify-center'>
-    <div className='text-skin-primary p-[15px] text-xl font-medium'>
+    <div className='flex flex-col justify-center md:items-start items-center'>
+    <div className='text-skin-primary md:p-[15px] p-[3px] text-xl font-medium'>
       {`About Us Tawasy Shopping.`} 
       </div>
-      <div className='bg-white ml-[-80px] z-10 p-[20px] text-gray-500 text-lg'>
+      <div className='bg-white md:ml-[-80px] ml-0 z-10 md:p-[20px] p-[2px] text-gray-500 text-lg'>
      {`Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
       when an unknown printer took a galley of type and scrambled it to make a type specimen book.
       It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
@@ -32,7 +32,7 @@ const AboutUs = () => {
     </div>
     </div>
      </div>
-    <div className='w-[40%]'>
+    <div className='md:w-[40%] w-[90%]'>
     <Image src={about1} alt='about us'
      width={0}
      height={0}
