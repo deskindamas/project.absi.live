@@ -60,19 +60,18 @@ function SellerStore({ store, refetch }) {
   return (
     <>
       {/* <div key={store.id} className="mb-4"> */}
-        <div
-        key={store.id}
-          className="bg-white shadow-2xl rounded-lg w-fit min-w-[80%] h-[100%] items-center justify-center mx-auto"
+      <div key= {store.id}
+          className="bg-white overflow-hidden shadow-2xl rounded-lg items-center justify-center "
         >
-          <div className=" bg-cover overflow-hidden md:w-full w-auto md:h-[343px] ">
+        <div className="bg-cover overflow-hidden flex justify-center items-center w-auto md:h-[343px] ">
             <Image
               src={store.image ? store.image : logo}
               alt={store.name}
-              className="w-full  transform transition duration-1000 hover:scale-125 hover:rotate-2  "
+              className="w-full  transform transition duration-1000 "
               width={0}
               height={0}
               sizes="100vw"
-              style={{ width: "100%", height: "auto" }}
+              style={{ width: "auto", height: "auto" }}
             />
           </div>
 

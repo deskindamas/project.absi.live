@@ -158,11 +158,11 @@ const Setting = () => {
             </h1>
           </div>
           <form
-            className="flex flex-col gap-y-6 md:pt-14 pt-4 md:px-4 md:w-[100%] h-[90%]"
+            className="flex flex-col gap-y-6 md:pt-14 pt-4 md:px-4 px-1 md:w-[100%] w-[90%] mx-auto h-[90%]"
             onSubmit={saveEdits}
           >
-            <div className="flex justify-start gap-3 w-[50%]">
-              <label className="text-xl text-gray-600">Opening Time : </label>
+            <div className="flex justify-start gap-3 md:w-[50%] w-[100%]">
+              <label className="md:text-xl text-base text-gray-600">Opening Time : </label>
               <br />
               <input
                 className="outline-none"
@@ -172,8 +172,8 @@ const Setting = () => {
               />
             </div>
 
-            <div className="flex justify-start gap-3 w-[50%]">
-              <label className="text-xl text-gray-600">Closing Time : </label>
+            <div className="flex justify-start gap-3md:w-[50%] w-[100%]">
+              <label className="md:text-xl text-base text-gray-600">Closing Time : </label>
               <br />
               <input
                 className="outline-none"
@@ -183,30 +183,29 @@ const Setting = () => {
               />
             </div>
 
-            <div className="md:flex md:flex-row sm:flex-col justify-start md:gap-3 w-[50%]">
-              <label className="text-xl text-gray-600">Opening Days : </label>
+            <div className="md:flex md:flex-row sm:flex-col justify-start md:gap-3 md:w-[50%] w-[100%]">
+              <label className="md:text-xl text-base text-gray-600">Opening Days : </label>
               <br />
               <div className="print-value">
                 <input
-                  className="border-b-2 border-gray-500 focus:border-skin-primary outline-none md:my-0 my-4 w-max"
+                  className="border-b-2 border-gray-500 focus:border-skin-primary outline-none md:my-0 my-4 md:w-[400px] w-[90%]"
                   onClick={functionopenpopup}
                   value={checkedDays.join(", ")}
                   variant="contained"
                   type="text"
                   placeholder={checkedDays.join(", ")}
-                  style={{ width: "400px" }}
                 />
               </div>
             </div>
 
             <div className="w-full flex  ">
               {isSaving == true ? (
-                <div className="text-white px-10 py-2 my-2 rounded-md flex justify-center items-center bg-skin-primary w-[15%]">
+                <div className="text-white px-10 py-2 my-2 rounded-md flex justify-center items-center bg-skin-primary md:w-[15%] w-[90%]">
                   <Ring size={20} speed={2} lineWeight={5} color="white" />
                 </div>
               ) : (
                 <button
-                  className="text-white px-10 py-2 my-2 rounded-md bg-skin-primary w-[15%] "
+                  className="text-white px-10 py-2 my-2 rounded-md bg-skin-primary md:w-[15%] w-[100%]"
                   type="submit"
                   // onClick={() => console.log(checkedDays)}
                 >

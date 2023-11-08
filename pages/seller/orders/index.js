@@ -124,7 +124,8 @@ const Orders = () => {
             orders &&
             Array.isArray(orders) &&
             orders.length > 0 ? (
-              <table className="table w-full ">
+              <div className="overflow-x-auto">
+              <table className="w-full overflow-x-auto table-auto">
                 <thead className="bg-zinc-200 h-8 ">
                   <tr className="border-b-[#ff6600]">
                     <th>Id</th>
@@ -150,6 +151,7 @@ const Orders = () => {
                   ))}
                 </tbody>
               </table>
+              </div>
             ) : <p className="w-full text-center" >You have no orders in this Category</p>
           )}
         </div>
