@@ -191,7 +191,7 @@ function OrdersCustomer({ order, refetch }) {
 
                 <div className="md:px-16 px-2">
                   <div className="w-[100%]">
-                    <div className="grid grid-cols-5  gap-4 text-gray-800 text-xl font-medium bg-gray-200 py-2">
+                    <div className="grid grid-cols-5  md:gap-4 gap-1 text-gray-800 md:text-xl text-xs font-medium bg-gray-200 py-2">
                       <div className="col-span-2">
                         <h4>{`Name`}</h4>
                         {/* <h4>{t("orders.orderDetails.name")}</h4> */}
@@ -214,7 +214,7 @@ function OrdersCustomer({ order, refetch }) {
                     {orderDetails.order_details.map((item) => (
                       <div
                         key={item.id}
-                        className="grid grid-cols-5  gap-4 md:py-10 py-2 text-gray-700 text-lg font-medium border-b-2 border-gray-300"
+                        className="grid grid-cols-5  md:gap-4 gap-1 md:py-10 py-2 text-gray-700 md:text-lg text-sm font-medium border-b-2 border-gray-300"
                       >
                         <div className="col-span-2">
                           <h3 className="w-full">{item.product_name}</h3>
