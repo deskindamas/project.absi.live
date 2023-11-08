@@ -8,16 +8,15 @@ import { appWithTranslation } from "next-i18next";
 import { DefaultSeo } from "next-seo";
 
 const tawasyFont = localfont({
-  src: "../public/fonts/local/DanburyPersonalUseRegular-rgK38.otf",
+  src: "../public/fonts/local/MYRIAAMI.ttf",
 });
-// import localfont from '../public/fonts/local/DanburyPersonalUseRegular-rgK38.otf' ;
 
 const queryClient = new QueryClient();
 
- function App({ Component, pageProps }) {
+function App({ Component, pageProps }) {
   return (
     <>
-      {/* <main className={tawasyFont.className} > */}
+      <main className={tawasyFont.className}>
         <QueryClientProvider client={queryClient}>
           <ThemeProvider>
             <DefaultSeo
@@ -30,7 +29,7 @@ const queryClient = new QueryClient();
             <ToastContainer />
           </ThemeProvider>
         </QueryClientProvider>
-      {/* </main> */}
+      </main>
     </>
   );
 }

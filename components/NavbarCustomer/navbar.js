@@ -67,11 +67,11 @@ function Navbar() {
   return (
     <>
       <div
-        className="flex bg-skin-primary justify-around lg:h-[80px] md:h-[60px] sm:h-[50px] h-[50px] pt-2 pb-2 w-full  z-20 fixed "
+        className="flex bg-skin-primary justify-between lg:h-[80px] md:h-[60px] sm:h-[50px] h-[50px] pt-2 pb-2 w-full  z-20 fixed "
         dir="ltr"
       >
         <div
-          className="flex justify-start md:pl-16 md:w-[50%] w-[50%] h-auto pl-10 cursor-pointer"
+          className="flex justify-start md:pl-10 sm:w-[20%] w-fit h-auto pl-10 cursor-pointer"
           onClick={() => {
             router.push(`/customer`);
           }}
@@ -79,17 +79,14 @@ function Navbar() {
           <Image
             src={TawasyLogo}
             alt="logo"
-            className="md:w-[20%] w-[100%] h-auto"
-            width={0}
-            height={0}
+            className="md:w-auto w-[82px] h-auto"
             sizes="100vw"
-            style={{ width: "auto", height: "auto" }}
           />
         </div>
-        <div className="md:w-[50%] w-[50%] flex justify-end items-center pr-10">
+        <div className="w-max flex justify-end items-center gap-4 md:pr-10 pr-3">
           {isLoggedIn == true && (
-            <div className="flex items-center gap-4 ">
-              <Link className="text-white sm:text-base text-xs" href={"/customer/Orders"}>
+            <div className="flex items-center md:gap-4 gap-3  ">
+              <Link className="text-white sm:text-base text-xs w-max " href={"/customer/Orders"}>
               {/* <Link className="text-white" href={{pathname :"/customer/Orders" , query : query}}> */}
                 {`My Orders`}
                 {/* {t("nav.orders")} */}
