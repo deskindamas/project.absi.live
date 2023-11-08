@@ -123,6 +123,7 @@ const Cart = ({ onClose, show, className }) => {
         style={{
           maxHeight: "92vh", // Set your preferred max height here
           overflowY: "auto",
+          paddingBottom : "40px"
         }}
       >
         {isLoading == true ? (

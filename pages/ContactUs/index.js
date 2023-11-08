@@ -15,10 +15,10 @@ const ContactUs = () => {
         }}
       >
         <div className="bg-[#00000056] pt-[5%] pb-[5%]">
-          <h1 className="text-center text-4xl font-medium mb-4 text-white">
+          <h1 className="text-center md:text-4xl text-xl font-medium md:mb-4 mb-2 text-white">
             Contact Us
           </h1>
-          <p className="text-white text-center text-2xl font-medium my-7">
+          <p className="text-white text-center md:text-2xl text-base font-medium my-7 w-[80%] mx-auto">
             {`Have a question? We're here to help. Email us by`}
             <br /> {`filling out the form below. For a quicker response during the`}
             {`week,`}

@@ -7,21 +7,21 @@ import Link from "next/link";
 function Form() {
   return (
     <div className="md:flex md:justify-center md:items-center">
-      <div className="">
+      <div className="mx-4">
         <ul className="text-white flex flex-col justify-center w-[350px]  ">
-          <li className="text-2xl my-3 flex text-center ">
+          <li className="md:text-2xl text-lg my-3 flex text-center ">
             <GiVibratingSmartphone className="w-[30px] h-[30px] mr-2  " />
             <span> +963987000888</span>
           </li>
-          <li className="text-2xl my-3 flex text-center ">
+          <li className="md:text-2xl text-lg my-3 flex text-center ">
             <MdEmail className="w-[30px] h-[30px] mr-2 " />
             <span>sales@tawasyme.com</span>
           </li>
-          <li className="text-2xl my-3 flex text-center ">
+          <li className="md:text-2xl text-lg my-3 flex text-center ">
             <BsTelephonePlusFill className="w-[30px] h-[30px] mr-2 " />
             <span> + 11 4635247</span>
           </li>
-          <li className="text-2xl my-3 flex text-center">
+          <li className="md:text-2xl text-lg my-3 flex text-center">
             <Link className="flex" href="https://www.facebook.com/tawasyshop/">
               <BsFacebook className="w-[30px] h-[30px] mr-2 " />
               <span>Tawasy Shopping</span>

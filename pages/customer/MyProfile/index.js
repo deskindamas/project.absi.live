@@ -126,7 +126,7 @@ function MyProfile() {
       </h1>
       <div>
         <p
-          className="flex items-center w-max mx-7 text-xl text-skin-primary cursor-pointer select-none hover:border-b-2 hover:border-skin-primary "
+          className="flex items-center w-max mx-7 text-xl text-skin-primary cursor-pointer select-none  "
           onClick={() => {
             router.back();
           }}
@@ -137,17 +137,17 @@ function MyProfile() {
         </p>
       </div>
       {profile && (
-        <div className="py-7 flex justify-center">
+        <div className="py-7 flex justify-center items-center md:w-full w-[90%] mx-auto">
           <div>
-            <div className="flex justify-between items-center w-[400px] mb-4">
+            <div className="flex justify-between items-center md:w-[400px] w-auto mb-4">
               <div className="flex">
-                <label className="text-xl text-gray-700 font-medium pr-2 w-24">
+                <label className="md:text-xl text-base text-gray-700 font-medium pr-2 w-24">
                 {`Name`} :
                 {/* {t("profile.name")} : */}
                 </label>
                 {isEditingName ? (
                   <input
-                    className="border-b-2 border-skin-primary outline-none"
+                    className="border-b-2 placeholder:text-base border-skin-primary outline-none"
                     type="text"
                     placeholder={profile.data.customer.name}
                     ref={nameRef}
@@ -188,9 +188,9 @@ function MyProfile() {
               </div>
             </div>
 
-            <div className="flex justify-between w-[400px] mb-4">
+            <div className="flex justify-between md:w-[400px] w-auto mb-4">
               <div className="flex">
-                <label className="text-xl text-gray-700 font-medium pr-2 w-24">
+                <label className="md:text-xl text-base text-gray-700 font-medium pr-2 w-24">
                 {`Phone`} :
                 {/* {t("profile.phone")} : */}
                 </label>
@@ -236,9 +236,9 @@ function MyProfile() {
               </div>
             </div>
 
-            <div className="flex justify-between w-[400px] mb-4">
+            <div className="flex justify-between md:w-[400px] w-auto mb-4">
               <div className="flex">
-                <label className="text-xl text-gray-700 font-medium pr-2 w-24">
+                <label className="md:text-xl text-base text-gray-700 font-medium pr-2 w-24">
                 {`Address`} :
                 {/* {t("profile.address")} : */}
                 </label>
