@@ -122,7 +122,7 @@ function OrdersCustomer({ order, refetch }) {
       <div
         key={order.order_id}
         onClick={functionopenpopup}
-        className="bg-gray-200 rounded-md my-1 px-4 cursor-pointer border-2 border-white hover:border-skin-primary transition-all duration-700 "
+        className="bg-gray-100 rounded-md my-1 px-4 cursor-pointer border-2 border-white hover:border-skin-primary transition-all duration-700 "
       >
         <div>
           <div className="flex justify-end">

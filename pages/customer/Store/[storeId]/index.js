@@ -295,7 +295,7 @@ function Products({store}) {
           </div>
 
           <div className="flex justify-center w-full">
-            <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 grid-col-1 gap-2 w-[90%] mx-auto ">
+            <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-2 grid-col-1 gap-2 w-[90%] mx-auto ">
               {store &&
                 selectedCategoryData &&
                 selectedCategoryData.products.map((product) => (

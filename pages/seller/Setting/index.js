@@ -158,10 +158,10 @@ const Setting = () => {
             </h1>
           </div>
           <form
-            className="flex flex-col justify-center items-center gap-y-6 md:pt-5 pt-2 md:px-4 md:w-[100%] h-[90%]"
+            className="flex flex-col gap-y-6 md:pt-14 pt-4 md:px-4 md:w-[100%] h-[90%]"
             onSubmit={saveEdits}
           >
-            <div className="flex justify-start gap-3 w-[40%]">
+            <div className="flex justify-start gap-3 w-[50%]">
               <label className="text-xl text-gray-600">Opening Time : </label>
               <br />
               <input
@@ -172,7 +172,7 @@ const Setting = () => {
               />
             </div>
 
-            <div className="flex justify-start gap-3 w-[40%]">
+            <div className="flex justify-start gap-3 w-[50%]">
               <label className="text-xl text-gray-600">Closing Time : </label>
               <br />
               <input
@@ -183,7 +183,7 @@ const Setting = () => {
               />
             </div>
 
-            <div className="md:flex md:flex-row sm:flex-col justify-start md:gap-3 w-[40%]">
+            <div className="md:flex md:flex-row sm:flex-col justify-start md:gap-3 w-[50%]">
               <label className="text-xl text-gray-600">Opening Days : </label>
               <br />
               <div className="print-value">
@@ -199,7 +199,7 @@ const Setting = () => {
               </div>
             </div>
 
-            <div className="w-full flex justify-center items-center ">
+            <div className="w-full flex  ">
               {isSaving == true ? (
                 <div className="text-white px-10 py-2 my-2 rounded-md flex justify-center items-center bg-skin-primary w-[15%]">
                   <Ring size={20} speed={2} lineWeight={5} color="white" />

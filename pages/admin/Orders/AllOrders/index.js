@@ -238,7 +238,7 @@ function AllOrdersAdmin() {
               </tbody>
             </table>
           ) : (
-            <div className="w-full text-center" > There are no orders. </div>
+            <div className="w-full text-center"> There are no orders. </div>
           )}
         </div>}
 

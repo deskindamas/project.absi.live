@@ -12,6 +12,7 @@ import {
 import { FiChevronDown, FiChevronRight, FiSettings } from "react-icons/fi";
 import { BsCartCheckFill, BsBox, BsColumns } from "react-icons/bs";
 import { CiLogout } from "react-icons/ci";
+import { IoMdAdd } from "react-icons/io";
 import { MdPendingActions, MdOutlineDisabledVisible } from "react-icons/md";
 import { useRouter } from "next/router";
 import { IoSettingsSharp, IoStorefrontSharp } from "react-icons/io5";
@@ -200,6 +201,22 @@ export default function Sidebar(props) {
                         <p className="hidden md:block">Active Products</p>
                       </button>
                     </li>
+
+                    <li className={`pt-3`}>
+                      <button
+                        className="flex items-center p-2 space-x-3 rounded-md text-gray-100"
+                        onClick={() => {
+                          router.push({
+                            pathname: "/seller/products/addProducts",
+                            query: { type : "allProducts"},
+                          });
+                        }}
+                      >
+                        <IoMdAdd className="block text-[20px] text-white mt-1" />
+                        <p className="hidden md:block">Add Product</p>
+                      </button>
+                    </li>
+
                     <li className={`pt-3`}>
                       <button
                         className="flex items-center p-2 space-x-3 rounded-md text-gray-100"
