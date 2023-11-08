@@ -124,15 +124,18 @@ function StoreTypeAdmin({ names, refetch }) {
   }
 
   if(storeTypeCategories){
+    console.log(`store type catygories`);
     console.log(storeTypeCategories);
   }
 
   async function AddCategory() {
     setSavingCategory(true);
     try {
-      const response = await Api.post(``, {
-        category: selectedCategory,
+      const response = await Api.post(`/api/admin/store-types/${names.id}/categories/attach`, {
+        category_id: selectedCategory,
       });
+      refetchStoreTypeCategories();
+      setAddCategory(false);
       setSavingCategory(false);
     } catch (error) {}
   }
@@ -248,7 +251,10 @@ function StoreTypeAdmin({ names, refetch }) {
               </div>
               <div className="flex justify-start items-center gap-2">
                 Categories of this store type :
-                <Category storeType={names.name_en} refetch={() => refetch()} />
+                { storeTypeCategories &&  storeTypeCategories.data.categories && storeTypeCategories.data.categories.map((category) => {
+                  return (<Category key={category.id} category={category} storeTypeId = {names.id} refetch={() => refetchStoreTypeCategories()} />)
+                })}
+                {/* <Category storeType={names.name_en} refetch={() => refetch()} /> */}
                 {addCategory == true && (
                   <div className="flex justify-start items-center gap-2">
                     <select
