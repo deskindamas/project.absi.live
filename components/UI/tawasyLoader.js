@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import Loader from '../../public/images/TawasyLoader.gif'
+import Loader from '../../public/images/tawasyLoader.gif'
 
 function TawasyLoader (props) {
 
