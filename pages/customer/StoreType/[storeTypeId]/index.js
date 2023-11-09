@@ -18,6 +18,7 @@ export async function getServerSideProps(context) {
   const Api = createAxiosInstance();
   try {
     const response = await Api.get(`/api/store-types/${params.storeTypeId}`);
+    console.log(response);
     console.log(response.status);
     if (!response.data.data) {
       return {
