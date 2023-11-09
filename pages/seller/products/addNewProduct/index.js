@@ -74,10 +74,11 @@ const AddNewProduct = () => {
         description_en: EnDescRef.current.value,
         image: image,
         category_name: selectedCategory,
-        brand: selectedBrand,
+        brand_name: selectedBrand,
       } , {
         headers: { "Content-Type": `multipart/form-data` },
       });
+      console.log(response);
       router.push("/seller/products/addProducts");
     } catch (error) {
       console.log(error);
@@ -139,8 +140,7 @@ const AddNewProduct = () => {
                     }}
                   >
                     <option disabled selected value>
-                      {" "}
-                      -- select a brand for the product --{" "}
+                      -- select a brand for the product --
                     </option>
                     {brands.map((brand) => {
                       return (

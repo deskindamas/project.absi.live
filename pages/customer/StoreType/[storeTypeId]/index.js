@@ -13,24 +13,29 @@ import { NextSeo } from "next-seo";
 // import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 // import { useTranslation } from "next-i18next";
 
-export async function getServerSideProps (context) {
-  const {params} = context ; 
+export async function getServerSideProps(context) {
+  const { params } = context;
   const Api = createAxiosInstance();
-  const response = await Api.get(`/api/store-types/${params.storeTypeId}`);
-  if (!response.data.data) { 
+  try {
+    const response = await Api.get(`/api/store-types/${params.storeTypeId}`);
+    console.log(response.status);
+    if (!response.data.data) {
+      return {
+        notFound: true,
+      };
+    }
+  
     return {
-      notFound: true,
-    }
-   }
-
-  return {
-    props: {
-      stores : response.data
-    }
+      props: {
+        stores: response.data,
+      },
+    };
+  } catch (error) {
+    console.log(error);
   }
 }
 
-const StoreType = ({stores}) => {
+const StoreType = ({ stores }) => {
   const router = useRouter();
   const Api = createAxiosInstance(router);
   const [searching, setSearching] = useState(false);
@@ -146,9 +151,10 @@ const StoreType = ({stores}) => {
           className="w-[80%] flex justify-center items-center gap-2 mx-auto mb-7 "
           dir="ltr"
         >
-          <form 
+          <form
             onSubmit={search}
-          className="flex bg-gray-100 w-full sm:w-2/5 items-center rounded-lg px-2 border-2 border-transparent focus-within:border-skin-primary transition-all duration-700 ">
+            className="flex bg-gray-100 w-full sm:w-2/5 items-center rounded-lg px-2 border-2 border-transparent focus-within:border-skin-primary transition-all duration-700 "
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-4 w-4 mr-2"
@@ -173,9 +179,7 @@ const StoreType = ({stores}) => {
                 setInSearch(true);
               }}
             />
-            <button 
-              type="submit"
-            >
+            <button type="submit">
               <MdArrowForward
                 // onClick={search}
                 className="hover:border-b-2 border-skin-primary cursor-pointer"
@@ -265,9 +269,7 @@ export default withLayoutCustomer(StoreType);
 //     }
 //   })
 //   return {
-//     paths, 
+//     paths,
 //     fallback : true
 //   }
 // }
-
-

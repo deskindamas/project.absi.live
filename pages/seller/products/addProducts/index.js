@@ -35,7 +35,7 @@ function AddProducts() {
   const [currentPage, setCurrentPage] = useState(1);
   const searchRef = useRef();
   const { data, isLoading, isError, error } = useQuery(
-    ["sharedProducts" , currentPage],
+    ["sharedProducts", currentPage],
     () => fetchSharedProducts(currentPage),
     {
       staleTime: Infinity,
@@ -182,14 +182,22 @@ function AddProducts() {
         </div>
       ) : (
         <div className="container">
-          {data && inSearch == false && (
-            <div class="grid md:grid-cols-3 grid-col-1 gap-4 ">
-              {data.data.approvedProducts.map((curElem) => {
-                return <AddProduct key={curElem.id} addproduct={curElem} />;
-              })}
+          {data && data.data.approvedProducts && inSearch == false && (
+            <div className="w-full h-full">
+              {data.data.approvedProducts.length > 0 ? (
+                <div class="grid md:grid-cols-3 grid-col-1 gap-4 ">
+                  {data.data.approvedProducts.map((curElem) => {
+                    return <AddProduct key={curElem.id} addproduct={curElem} />;
+                  })}
+                </div>
+              ) : (
+                <div className="w-max mx-auto text-xl">
+                  There are no available products for your store type.
+                </div>
+              )}
             </div>
           )}
-          {searchedProducts &&
+          {inSearch == true && searchedProducts &&
             (searchedProducts.transformedProducts.length > 0 ? (
               <div class="grid md:grid-cols-3 grid-col-1 gap-4 ">
                 {searchedProducts.transformedProducts.map((curElem) => {
@@ -197,12 +205,12 @@ function AddProducts() {
                 })}
               </div>
             ) : (
-              <div className="w-full text-center">
+              <div className="w-full text-center text-lg ">
                 {searchedProducts.message}
               </div>
             ))}
 
-          {data && inSearch == false && (
+          {data && data.data.pagination && inSearch == false && (
             <div className="w-[50%] mx-auto flex justify-center items-center py-5 gap-4 ">
               <button
                 className="px-2 py-1 bg-skin-primary text-white rounded-lg hover:bg-[#ff9100] disabled:opacity-50 disabled:cursor-not-allowed w-[20%]"
