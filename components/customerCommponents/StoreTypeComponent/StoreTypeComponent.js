@@ -1,11 +1,18 @@
 import Link from "next/link";
 import image from "../../../public/images/storetype.png";
 import Image from "next/image";
+import { useRouter } from "next/router";
 // import image from "../../../public/images/flowers.jpeg";
 
 function StoreTypeComponent({ storeType }) {
+  const router = useRouter();
   return (
     <Link href={`/customer/StoreType/${storeType.id}`}  className="relative" dir="ltr" >
+      <h2 className = {` absolute w-[50%] text-center flex items-center px-3 justify-start  z-10 lg:text-[120%] md:text-[100%] sm:text-[80%]  text-[100%] text-skin-primary h-full `} dir={router.locale == 'ar' ? 'rtl' : "ltr"} >
+        {storeType.name}
+        {/* مطاعم و ماكولات و مشروبات */}
+        {/* Restaurants , foods and drinks */}
+      </h2>
       <Image
         src={storeType.image}
         // src="https://himenobaraen.jp/wp-content/uploads/rosa_chinensis.jpg"
@@ -15,9 +22,6 @@ function StoreTypeComponent({ storeType }) {
         sizes="100vw"
         style={{ width: "100%", height: "auto" }} // optional
       />
-      <h2 className=" absolute inset-0 flex items-center pl-2 justify-start  z-10 lg:text-[200%] md:text-[100%] text-[175%] font-mohave text-skin-primary h-full ">
-        {storeType.name}
-      </h2>
     </Link>
   );
 }

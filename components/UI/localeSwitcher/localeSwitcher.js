@@ -7,9 +7,7 @@ export default function LocaleSwitcher() {
 
   const { locales, locale: activeLocale } = router;
 
-  const otherLocales = locales?.filter(
-    (locale) => locale !== activeLocale 
-  );
+  const otherLocales = locales?.filter((locale) => locale !== activeLocale);
 
   return (
     <span className="text-muted cursor-pointer">
@@ -17,8 +15,17 @@ export default function LocaleSwitcher() {
         const { pathname, query, asPath } = router;
         return (
           <span key={"locale-" + locale}>
-            <Link href={{ pathname, query }} as={asPath} locale={locale} className="px-2 text-white" >
-                {locale === "en" ? <RiEnglishInput className="w-[20px] h-[20px] mx-5 " /> : locale === "ar" ? "عربى" : null}
+            <Link
+              href={{ pathname, query }}
+              as={asPath}
+              locale={locale}
+              className="px-2 text-white"
+            >
+              {locale === "en" ? (
+                <RiEnglishInput className="w-[20px] h-[20px] mx-5 " />
+              ) : locale === "ar" ? (
+                <p className="text-xl mx-5 " >عربى</p>
+              ) : null}
             </Link>
           </span>
         );

@@ -6,8 +6,8 @@ import { useRef } from "react";
 import { useState } from "react";
 import { BiArrowBack } from "react-icons/bi";
 import { MdCheck, MdClose, MdModeEditOutline } from "react-icons/md";
-// import { useTranslation } from "next-i18next";
-// import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import createAxiosInstance from "@/API";
 import { useQuery } from "react-query";
 import TawasyLoader from "@/components/UI/tawasyLoader";
@@ -44,7 +44,7 @@ function MyProfile() {
     } catch (error) {}
   }
 
-  // const { t } = useTranslation("");
+  const { t } = useTranslation("");
 
   const handleSaveNameClick = async () => {
     setisSavingName(true);
@@ -121,8 +121,8 @@ function MyProfile() {
         description={`view my Tawasy Profile`}
       />
       <h1 className="border-b-2 border-gray-300 py-4 text-2xl text-gray-700 font-medium px-7">
-        {`My Profile`}
-        {/* {t("profile.myprofile")} */}
+        {/* {`My Profile`} */}
+        {t("profile.myprofile")}
       </h1>
       <div>
         <p
@@ -132,8 +132,8 @@ function MyProfile() {
           }}
         >
           <BiArrowBack className=" w-[25px] h-[20px] mr-2 mb-[-5px]" />
-          <p>{`Back`}</p>
-          {/* <p>{t("profile.back")}</p> */}
+          {/* <p>{`Back`}</p> */}
+          <p>{t("profile.back")}</p>
         </p>
       </div>
       {profile && (
@@ -142,8 +142,8 @@ function MyProfile() {
             <div className="flex justify-between items-center md:w-[400px] w-auto mb-4">
               <div className="flex">
                 <label className="md:text-xl text-base text-gray-700 font-medium pr-2 w-24">
-                {`Name`} :
-                {/* {t("profile.name")} : */}
+                {/* {`Name`} : */}
+                {t("profile.name")} :
                 </label>
                 {isEditingName ? (
                   <input
@@ -191,8 +191,8 @@ function MyProfile() {
             <div className="flex justify-between md:w-[400px] w-auto mb-4">
               <div className="flex">
                 <label className="md:text-xl text-base text-gray-700 font-medium pr-2 w-24">
-                {`Phone`} :
-                {/* {t("profile.phone")} : */}
+                {/* {`Phone`} : */}
+                {t("profile.phone")} :
                 </label>
                 {isEditingPhone ? (
                   <input
@@ -239,8 +239,8 @@ function MyProfile() {
             <div className="flex justify-between md:w-[400px] w-auto mb-4">
               <div className="flex">
                 <label className="md:text-xl text-base text-gray-700 font-medium pr-2 w-24">
-                {`Address`} :
-                {/* {t("profile.address")} : */}
+                {/* {`Address`} : */}
+                {t("profile.address")} :
                 </label>
                 {isEditingAddress ? (
                   <Locations
@@ -288,8 +288,8 @@ function MyProfile() {
                 className="border-2 border-skin-primary text-skin-primary hover:bg-skin-primary hover:text-white rounded-full w-full py-2"
                 onClick={Logout}
               >
-                {`Logout`}
-                {/* {t("profile.logout")} */}
+                {/* {`Logout`} */}
+                {t("profile.logout")}
               </button>
             </div>
           </div>
@@ -301,10 +301,10 @@ function MyProfile() {
 
 export default withLayoutCustomer(MyProfile);
 
-// export async function getStaticProps({ locale }) {
-//   return {
-//     props: {
-//       ...(await serverSideTranslations(locale, ["common"])),
-//     },
-//   };
-// }
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common"])),
+    },
+  };
+}

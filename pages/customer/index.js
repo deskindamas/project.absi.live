@@ -12,8 +12,8 @@ import createAxiosInstance from "@/API";
 import { useQuery } from "react-query";
 import { useRef, useState } from "react";
 import { MdArrowForward, MdClose } from "react-icons/md";
-// import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-// import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 function CustomerPage() {
   const router = useRouter();
@@ -24,7 +24,7 @@ function CustomerPage() {
   const [searchType, setSearchType] = useState(`storeType`);
   const [inSearch, setInSearch] = useState(false);
   const [searching, setSearching] = useState(false);
-  // const { t } = useTranslation("");
+  const { t } = useTranslation("");
 
   const { data, isLoading, isError, error } = useQuery(
     `mainPage`,
@@ -60,8 +60,9 @@ function CustomerPage() {
             console.log(storeTypes);
             const components = (
               <div className="flex flex-col justify-start items-center h-full w-full gap-4 ">
-                <p className="font-mohave text-4xl text-skin-primary py-5">
-                  {`Store Types`} :{/* {t("home.storeTypes")} : */}
+                <p className=" text-4xl text-skin-primary py-5">
+                  {/* {`Store Types`} : */}
+                  {t("home.storeTypes")} :
                 </p>
                 {storeTypes.message ? (
                   <div className="w-[80%] mx-auto text-lg text-center">
@@ -103,8 +104,9 @@ function CustomerPage() {
             );
             const components = (
               <div className="flex flex-col justify-start items-center h-full w-full gap-4 ">
-                <p className="font-mohave text-4xl text-skin-primary py-5">
-                  {`Stores`} :{/* {t("home.stores")} : */}
+                <p className=" text-4xl text-skin-primary py-5">
+                  {/* {`Stores`} : */}
+                  {t("home.stores")} :
                 </p>
                 {categoryStores.message ? (
                   <div className="w-[80%] mx-auto text-lg text-center">
@@ -142,8 +144,9 @@ function CustomerPage() {
             );
             const components = (
               <div className="flex flex-col justify-start items-center h-full w-full gap-4 ">
-                <p className="font-mohave text-4xl text-skin-primary py-5">
-                  {`Stores`} :{/* {t("home.stores")} : */}
+                <p className="text-4xl text-skin-primary py-5">
+                  {/* {`Stores`} : */}
+                  {t("home.stores")} :
                 </p>
                 {brandStores.message && brandStores.data.length < 1 ? (
                   <div className="w-[80%] mx-auto text-lg text-center">
@@ -170,6 +173,10 @@ function CustomerPage() {
     }
   }
 
+  if(data){
+    console.log(data);
+  }
+
   if (isLoading) {
     return (
       <div className="w-full h-full">
@@ -183,7 +190,7 @@ function CustomerPage() {
       <div className="w-full h-full">
         {data && (
           <div className="flex flex-col justify-start items-center h-full w-full gap-4 ">
-            {data && (
+            {data && data.data.ads && (
               <div className="mx-auto w-full pb-3 " dir="ltr">
                 <ResponsiveCarousel ads={data.data.ads} />
               </div>
@@ -204,12 +211,12 @@ function CustomerPage() {
                   }}
                   className="bg-gray-100 outline-none text-sm h-10 mx-2 px-2"
                 >
-                  {/* <option value="storeType">{t("home.storeType")}</option>
+                  <option value="storeType">{t("home.storeType")}</option>
                   <option value="category">{t("home.category")}</option>
-                  <option value="brand">{t("home.brand")}</option> */}
-                  <option value="storeType">{`Store Type`}</option>
+                  <option value="brand">{t("home.brand")}</option>
+                  {/* <option value="storeType">{`Store Type`}</option>
                   <option value="category">{`Category`}</option>
-                  <option value="brand">{`Brand`}</option>
+                  <option value="brand">{`Brand`}</option> */}
                 </select>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -229,8 +236,8 @@ function CustomerPage() {
                   className="w-full bg-gray-100 outline-none rounded-lg text-sm h-10"
                   type="text"
                   ref={searchRef}
-                  placeholder={`Search`}
-                  // placeholder={t("home.search")}
+                  // placeholder={`Search`}
+                  placeholder={t("home.search")}
                   onClick={() => {
                     setInSearch(true);
                   }}
@@ -254,12 +261,12 @@ function CustomerPage() {
 
             {inSearch === false && (
               <div className="flex flex-col justify-start items-center h-full w-full gap-4">
-                <div className=" font-mohave md:text-4xl text-2xl text-skin-primary py-5 ">
-                  {`Discover Our Store Types`}
-                  {/* {t("home.discover")} */}
+                <div className=" md:text-4xl text-2xl text-skin-primary py-5 ">
+                  {/* {`Discover Oxur Store Types`} */}
+                  {t("home.discover")}
                 </div>
-                <div className=" w-[70%] h-[60%] grid grid-cols md:grid-cols-4 sm:grid-cols-3  grid-cols-1 gap-y-6 gap-x-6 pb-20 ">
-                  {data?.data?.data.map((storeType) => {
+                { data && data.data.data ? <div className=" w-[70%] h-[60%] grid grid-cols md:grid-cols-4 sm:grid-cols-3  grid-cols-1 gap-y-6 gap-x-6 pb-20 ">
+                  {data.data.data.map((storeType) => {
                     return (
                       <StoreTypeComponent
                         key={storeType.id}
@@ -267,7 +274,7 @@ function CustomerPage() {
                       />
                     );
                   })}
-                </div>
+                </div> : <div className="w-max mx-auto text-lg" > {data.data.message ? data.data.message : `There are no storeTypes`} </div>}
               </div>
             )}
             {inSearch && (
@@ -291,10 +298,10 @@ function CustomerPage() {
 
 export default withLayoutCustomer(CustomerPage);
 
-// export async function getStaticProps({ locale }) {
-//   return {
-//     props: {
-//       ...(await serverSideTranslations(locale, ["common"])),
-//     },
-//   };
-// }
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common"])),
+    },
+  };
+}

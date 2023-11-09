@@ -9,7 +9,7 @@ import styles from "../../components/componentsStyling/sellerStyles.module.css";
 import { propTypesSelected } from "@material-tailwind/react/types/components/select";
 import { useRouter } from "next/router";
 import LocaleSwitcher from "../UI/localeSwitcher/localeSwitcher";
-// import {useTranslation} from "next-i18next" ;
+import {useTranslation} from "next-i18next" ;
 // import {
 //   useTranslation,
 //   useLanguageQuery,
@@ -20,8 +20,8 @@ import Cookies from "js-cookie";
 function Navbar() {
   const router = useRouter();
   const [showCartSidebar, setShowCartSidebar] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  // const { t } = useTranslation("");
+  const [isLoggedIn, setIsLoggedIn] = useState();
+  const { t } = useTranslation("");
   // const { t } = useTranslation();
   // const [query] = useLanguageQuery();
 
@@ -47,16 +47,13 @@ function Navbar() {
     }
   }, [showCartSidebar]);
 
-  // useEffect(() => {
-  //   console.log(`in useEffect`);
-  //   let dir = query?.lang === "ar" ? "rtl" : "ltr";
-  //   let lang = query?.lang === "ar" ? "ar" : "en";
-  //   console.log(query);
-  //   console.log(lang);
-  //   console.log(dir);
-  //   document.querySelector("html").setAttribute("dir", dir);
-  //   document.querySelector("html").setAttribute("lang", lang);
-  // }, [query]);
+  useEffect(() => {
+    let dir = router.locale == "ar" ? "rtl" : "ltr";
+    let lang = router.locale == "ar" ? "ar" : "en";
+    document.querySelector("html").setAttribute("dir", dir);
+    document.querySelector("html").setAttribute("lang", lang);
+  }, [router.locale]);
+
 
   const handleCartButtonClick = () => {
     setShowCartSidebar(true);
@@ -83,17 +80,17 @@ function Navbar() {
             sizes="100vw"
           />
         </div>
-        <div className="w-max flex justify-end items-center gap-4 md:pr-10 pr-3">
+        <div className="w-[50%] flex justify-end items-center md:pr-10 pr-3">
           {isLoggedIn == true && (
-            <div className="flex items-center md:gap-4 gap-3  ">
+            <div className="flex justify-end items-center w-full sm:gap-2  ">
               <Link className="text-white sm:text-base text-xs w-max " href={"/customer/Orders"}>
               {/* <Link className="text-white" href={{pathname :"/customer/Orders" , query : query}}> */}
-                {`My Orders`}
-                {/* {t("nav.orders")} */}
+                {/* {`My Orders`} */}
+                {t("nav.orders")}
               </Link>
               {router.pathname != `/customer/SubmitOrder` && (
                 <button onClick={handleCartButtonClick}>
-                  <BsFillBagFill className="text-white w-[20px] h-[20px]  " />
+                  <BsFillBagFill className="text-white w-[40px] h-[20px]  " />
                 </button>
               )}
 
@@ -102,11 +99,11 @@ function Navbar() {
                   router.push(`/customer/MyProfile`);
                 }}
               >
-                <CgProfile className="text-white w-[25px] h-[25px] mb-[-3px]" />
+                <CgProfile className="text-white w-[25px] h-[25px] mb-[-3px] " />
               </button>
             </div>
           )}
-          {/* <LocaleSwitcher/> */}
+          <LocaleSwitcher/>
           {/* <div className="flex px-3 py-1 gap-2 text-white " >
             <LanguageSwitcher lang="ar">ar</LanguageSwitcher> |{" "}
             <LanguageSwitcher lang="en">en</LanguageSwitcher>
@@ -123,8 +120,8 @@ function Navbar() {
               // href={{ pathname :"/login" , query : query}}
               className="text-white h-[80%] flex items-center justify-center md:border-[1px] md:border-white md:px-6 px-1 hover:bg-white hover:text-skin-primary rounded-md justify-self-end"
             >
-              {`Login`}
-              {/* {t("nav.login")} */}
+              {/* {`Login`} */}
+              {t("nav.login")}
             </Link>
           )}
         </div>
