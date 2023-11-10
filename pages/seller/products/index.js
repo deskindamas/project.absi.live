@@ -213,7 +213,7 @@ function Products() {
             </div>
           ) : (
             <div className="w-full h-full flex justify-center items-center">
-              <p>There are no products in this category</p>
+              <p>There are no products.</p>
             </div>
           )}
         </div>

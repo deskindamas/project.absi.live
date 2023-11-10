@@ -9,6 +9,9 @@ import TawasyLoader from "@/components/UI/tawasyLoader";
 
 const tableheading = [
   {
+    heading: "Seller ID",
+  },
+  {
     heading: "Name Ar",
   },
   {

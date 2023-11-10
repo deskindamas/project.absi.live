@@ -9,7 +9,7 @@ import createAxiosInstance from "@/API";
 
 function TotalAddProduct({ selectproduct, refetch }) {
   const [isSaving, setIsSaving] = useState(false);
-  const [available, setAvailable] = useState(false);
+  const [available, setAvailable] = useState(true);
   const [isDeleting, setIsDeleting] = useState(false);
   const priceRef = useRef();
   const router = useRouter();
@@ -107,6 +107,7 @@ function TotalAddProduct({ selectproduct, refetch }) {
                   height: "26px",
                   color: "rgb(171, 5, 5)",
                 }}
+                className="cursor-pointer"
               />
             ) : (
               <Ring size={20} lineWeight={4} speed={2} color="#ff6600" />
@@ -115,6 +116,7 @@ function TotalAddProduct({ selectproduct, refetch }) {
               <TfiSave
               onClick={saveProduct}
                 style={{ width: "20px", height: "20px", color: "black" }}
+                className="cursor-pointer"
               />
             ) : (
               <Ring size={20} lineWeight={4} speed={2} color="#ff6600" />

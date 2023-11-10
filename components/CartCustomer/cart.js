@@ -19,14 +19,14 @@ import { useQuery } from "react-query";
 import TawasyLoader from "../UI/tawasyLoader";
 import { Ring } from "@uiball/loaders";
 import grayLogo from "../../public/images/logo-tawasy--gray.png";
-// import { useTranslation } from "next-i18next";
+import { useTranslation } from "next-i18next";
 
 const Cart = ({ onClose, show, className }) => {
   const router = useRouter();
   const Api = createAxiosInstance(router);
   const [Applying, setApplying] = useState(false);
   const couponRef = useRef();
-  // const {t} = useTranslation("");
+  const {t} = useTranslation("");
   const {
     data: cart,
     isLoading,
@@ -135,8 +135,8 @@ const Cart = ({ onClose, show, className }) => {
             <div className="flex w-full px-4 bg-gray-50 justify-between pt-3 pb-3">
               <h3 className="flex font-medium text-xl text-gray-600 ml-2 select-none ">
                 <BsFillBagFill className=" w-[25px] h-[25px] text-skin-primary mr-2" />
-                {/* {t("cart.cart")} */}
-                {`Shopping cart`}
+                {t("cart.cart")}
+                {/* {`Shopping cart`} */}
               </h3>
               <AiOutlineClose
                 className="mr-2 w-[25px] h-[25px] text-gray-600 hover:text-red-500 cursor-pointer "
@@ -148,8 +148,8 @@ const Cart = ({ onClose, show, className }) => {
               alt="gray Tawasy"
               className="w-[60%] h-auto "
             />
-            {/* {t("cart.emptyCart")} */}
-            {`Your cart is Empty.`}
+            {t("cart.emptyCart")}
+            {/* {`Your cart is Empty.`} */}
           </div>
         ) : (
           cart && (
@@ -157,8 +157,8 @@ const Cart = ({ onClose, show, className }) => {
               <div className="flex px-4 bg-gray-50 justify-between pt-3 pb-3">
                 <h3 className="flex font-medium text-xl text-gray-600 gap-2 select-none ">
                   <BsFillBagFill className=" w-[25px] h-[25px] text-skin-primary mr-2" />
-                  {/* {t("cart.cart")} */}
-                  {`Shopping Cart`}
+                  {t("cart.cart")}
+                  {/* {`Shopping Cart`} */}
                 </h3>
                 <AiOutlineClose
                   className="mr-2 w-[25px] h-[25px] text-gray-600 hover:text-red-500 cursor-pointer "
@@ -190,8 +190,8 @@ const Cart = ({ onClose, show, className }) => {
                     className="w-full pt-1 pb-1 border-t-2 border-b-2 border-[#b6b6b6]"
                     onClick={handleClick}
                   >
-                    {isVisible ? `Cancel` : `Add Coupon`}
-                    {/* {isVisible ? t("cart.cancel") : t("cart.addCoupon")} */}
+                    {/* {isVisible ? `Cancel` : `Add Coupon`} */}
+                    {isVisible ? t("cart.cancel") : t("cart.addCoupon")}
                   </button>
                   {isVisible && (
                     <div className="w-full flex justify-between my-5 box-content ">
@@ -199,8 +199,8 @@ const Cart = ({ onClose, show, className }) => {
                         className="w-[70%] pt-2 pb-2 outline-none pl-2 border-b-2 border-x-gray-400 focus:border-skin-primary transition-all duration-700"
                         type="text"
                         ref={couponRef}
-                        // placeholder={t("cart.apply")}
-                        placeholder={`Apply Coupon`}
+                        placeholder={t("cart.apply")}
+                        // placeholder={`Apply Coupon`}
                       />
                       <button
                         className="w-[20%] bg-skin-primary pt-2 pb-2 rounded-lg hover:bg-[#ff5100] text-white box-border "
@@ -216,8 +216,8 @@ const Cart = ({ onClose, show, className }) => {
                             />
                           </div>
                         ) : (
-                          `Apply`
-                          // t("cart.apply")
+                          // `Apply`
+                          t("cart.apply")
                         )}
                       </button>
                     </div>
@@ -232,8 +232,8 @@ const Cart = ({ onClose, show, className }) => {
                     className="flex justify-start gap-2 items-center"
                   >
                     <p>
-                      {`Quantity`} :
-                      {/* {t("orders.orderDetails.quantity")} : */}
+                      {/* {`Quantity`} : */}
+                      {t("orders.orderDetails.quantity")} :
                     </p>
                     <p>{cart.data.cart.total_quantity}</p>
                   </h4>
@@ -241,12 +241,13 @@ const Cart = ({ onClose, show, className }) => {
                     style={{ marginBottom: "10px" }}
                     className="flex justify-start gap-2 items-center"
                   >
-                    {`Total Price`} :{/* {t("orders.orderDetails.price")} : */}
+                    {/* {`Total Price`} : */}
+                    {t("orders.orderDetails.price")} :
                     <p>{cart.data.cart.total_price} S.P</p>
                   </h4>
                   <h4 className="flex justify-start gap-2 items-center">
-                    {`Final Price`} :
-                    {/* {t("orders.orderDetails.finalPrice")} : */}
+                    {/* {`Final Price`} : */}
+                    {t("orders.orderDetails.finalPrice")} :
                     <p>{cart.data.cart.final_price} S.P</p>
                   </h4>
                 </div>
@@ -255,15 +256,16 @@ const Cart = ({ onClose, show, className }) => {
                     style={{ marginBottom: "10px", marginTop: "10px" }}
                     className="flex justify-start gap-2 items-center"
                   >
-                    {`Delivery Price`} :
-                    {/* {t("orders.orderDetails.deliveryPrice")} : */}
+                    {/* {`Delivery Price`} : */}
+                    {t("orders.orderDetails.deliveryPrice")} :
                     <p>{cart.data.cart.delivery_price} S.P </p>
                   </h4>
                   <h4
                     style={{ marginBottom: "10px" }}
                     className="flex justify-start gap-2 items-center"
                   >
-                    {`Discount`} :{/* {t("orders.orderDetails.discount")} : */}
+                    {/* {`Discount`} : */}
+                    {t("orders.orderDetails.discount")} :
                     <p>{cart.data.cart.discounted_price} S.P</p>
                   </h4>
                 </div>
@@ -279,8 +281,8 @@ const Cart = ({ onClose, show, className }) => {
                     router.push(`/customer/SubmitOrder`);
                   }}
                 >
-                  {`Submit Order`}
-                  {/* {t("submitOrder.submit")} */}
+                  {/* {`Submit Order`} */}
+                  {t("submitOrder.submit")}
                 </button>
               </div>
             </div>

@@ -152,7 +152,7 @@ const Orders = () => {
                 </tbody>
               </table>
               </div>
-            ) : <p className="w-full text-center" >You have no orders in this Category</p>
+            ) : <p className="w-full text-center" >There are no orders.</p>
           )}
         </div>
       </div>

@@ -17,6 +17,9 @@ const tableheading = [
     heading: "Status",
   },
   {
+    heading: "Reason",
+  },
+  {
     heading: "Shipping Address",
   },
   {

@@ -17,32 +17,33 @@ import { useRef } from "react";
 import { NextSeo } from "next-seo";
 import logo from "../../../../public/images/tawasylogo.png";
 // import { notFound } from "next/navigation";
-// import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-// import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
-export async function getServerSideProps (context) {
-  const {params} = context ;
+export async function getServerSideProps(context) {
+  const { params, locale } = context;
   const Api = createAxiosInstance();
-  const response  = await Api.get(`/api/stores-with-products/${params.storeId}`);
-  if(!response.data.store){
+  const response = await Api.get(`/api/stores-with-products/${params.storeId}`);
+  if (!response.data.store) {
     return {
-      notFound : true 
-    }
+      notFound: true,
+    };
   }
 
   return {
-    props : {
-      store : response.data 
-    }
-  }
+    props: {
+      ...(await serverSideTranslations(locale, ["common"])),
+      store: response.data,
+    },
+  };
 }
 
-function Products({store}) {
+function Products({ store }) {
   // function Products({store}) {
   const router = useRouter();
   const Api = createAxiosInstance(router);
   const [storeId, setStoreId] = useState();
-  // const { t } = useTranslation("");
+  const { t } = useTranslation("");
 
   const [searching, setSearching] = useState(false);
   const [inSearch, setInSearch] = useState(false);
@@ -143,7 +144,7 @@ function Products({store}) {
   return (
     <div className="">
       {store && (
-        <div className=" relative lg:h-[400px] md:h-[300px]  h-[200px] w-full box-border ">
+        <div className=" relative lg:h-[400px] md:h-[300px]  sm:h-[200px] h-[100px] w-full box-border ">
           <Image
             src={store.store.image ? store.store.image : Logo}
             alt="store"
@@ -151,51 +152,51 @@ function Products({store}) {
             height={0}
             sizes="100vw"
             style={{ width: "100%", height: "100%" }} // optional
-            className={`w-full h-full object-cover select-none pointer-events-none `}
+            className={`w-full  h-[200px] object-cover select-none pointer-events-none `}
           />
         </div>
       )}
 
       <div className="md:flex md:justify-between items-center mx-auto w-[90%] ">
         {store && (
-          <div className="flex md:flex-row flex-col md:justify-start justify-center items-center my-10 ">
-            <div className=" md:w-[200px] w-[200px] md:h-[200px] h-[200px]">
+          <div className="flex justify-center items-center mt-2 ">
+            <div className=" md:w-[200px] w-[100px] md:h-[200px] h-[100px]">
               <Image
-                className=" shadow md:w-[90%] md:h-[90%] object-cover rounded-md"
+                className=" shadow w-full h-full object-contain rounded-md"
                 src={store.store.logo ? store.store.logo : logo}
                 alt="store"
                 width={0}
                 height={0}
                 sizes="100vw"
-                style={{ width: "auto", height: "auto" }}
+                style={{ width: "100%", height: "100%" }}
               />
             </div>
 
-            <div className="mx-6">
-              <h1 className="text-4xl text-gray-800 font-medium capitalize">
+            <div className="mx-6  ">
+              <h1 className="md:text-4xl sm:text-2xl text-xl text-gray-800 font-medium capitalize">
                 {store.store.name}
               </h1>
-              <div className="flex flex-col justify-center items-center w-full pb-5">
+              <div className="flex flex-col justify-center items-center w-full">
                 <div>
-                  <div>
-                    {/* <h2 className="md:text-2xl text-lg text-skin-primary font-medium  ">
-                  {t("store.address")} :
-                </h2> */}
-                    <p className="text-gray-400 md:text-2xl text-base py-3 ">
+                  {/* <div>
+                    <h2 className="md:text-2xl text-lg text-gray-500 font-medium  ">
+                      {t("store.address")} :
+                    </h2>
+                    <p className="text-gray-400 md:text-2xl text-base ">
                       {store.store.location}
                     </p>
-                  </div>
+                  </div> */}
                   <div className="flex flex-col md:flex-row justify-start items-center gap-2 w-full">
-                    <div className="md:text-2xl text-lg text-gray-500 font-medium">
-                      <h3 className="my-2 capitalize">
-                        {`Opening Days`} :{/* {t("store.openingDays")} : */}
+                    <div className="md:text-2xl sm:text-lg text-base text-gray-500 font-medium">
+                      <h3 className="sm:my-2 capitalize">
+                        {/* {`Opening Days`} : */}
+                        {t("store.openingDays")} :
                       </h3>
                       {JSON.parse(store.store.opening_days)?.map(
                         (day, index) => {
                           return (
                             <span key={index} className="text-gray-400 mt-4">
-                              {index !==
-                              store.store.opening_days.length - 1
+                              {index !== store.store.opening_days.length - 1
                                 ? `${day} ,`
                                 : day}
                             </span>
@@ -211,19 +212,21 @@ function Products({store}) {
         )}
 
         {store && (
-          <div className="flex flex-col md:items-end items-center">
+          <div className="flex flex-col md:items-end items-center my-3  ">
             <div>
-              <h2 className="md:text-xl text-lg text-gray-600 font-medium my-2">
-                {`Opening Time`} :{/* {t("store.openingTime")} : */}
-                <span className="text-gray-400 md:text-2xl text-lg  ">
+              <h2 className="md:text-xl text-lg text-gray-600 font-medium sm:my-2">
+                {/* {`Opening Time`} : */}
+                {t("store.openingTime")} :
+                <span className="text-gray-400 md:text-2xl text-lg px-1 ">
                   {convertTo12HourFormat(store.store.opening_time)}
                 </span>
               </h2>
             </div>
             <div>
-              <h2 className="md:text-xl text-lg text-gray-600 font-medium my-3">
-                {`Closing Time`} :{/* {t("store.closingTime")} : */}
-                <span className="text-gray-400 md:text-2xl text-lg  ">
+              <h2 className="md:text-xl text-lg text-gray-600 font-medium sm:my-3">
+                {/* {`Closing Time`} : */}
+                {t("store.closingTime")} :
+                <span className="text-gray-400 md:text-2xl text-lg px-1 ">
                   {convertTo12HourFormat(store.store.closing_time)}
                 </span>
               </h2>
@@ -238,7 +241,8 @@ function Products({store}) {
       >
         <form
           onSubmit={search}
-        className="flex bg-gray-100 w-full sm:w-2/5 items-center rounded-lg px-2 border-2 border-transparent focus-within:border-skin-primary transition-all duration-700 ">
+          className="flex bg-gray-100 w-full sm:w-2/5 items-center rounded-lg px-2 border-2 border-transparent focus-within:border-skin-primary transition-all duration-700 "
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-4 w-4 mr-2"
@@ -257,13 +261,13 @@ function Products({store}) {
             className="w-full bg-gray-100 outline-none rounded-lg text-sm h-10  "
             type="text"
             ref={searchRef}
-            placeholder={`Search`}
-            // placeholder={t("store.search")}
+            // placeholder={`Search`}
+            placeholder={t("store.search")}
             onClick={() => {
               setInSearch(true);
             }}
           />
-          <button type="submit" >
+          <button type="submit">
             <MdArrowForward
               // onClick={search}
               className="hover:border-b-2 border-skin-primary cursor-pointer"
@@ -320,7 +324,6 @@ function Products({store}) {
   );
 }
 
-
 export default withLayoutCustomer(Products);
 
 // export async function getStaticProps({ locale }) {
@@ -330,4 +333,3 @@ export default withLayoutCustomer(Products);
 //     },
 //   };
 // }
-

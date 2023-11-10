@@ -18,6 +18,7 @@ import Category from "../AdminStoreTypeCategory/AdminStoreTypeCategory";
 import { MdAdd, MdClose, MdHdrPlus } from "react-icons/md";
 import TawasyLoader from "../UI/tawasyLoader";
 import { useQuery } from "react-query";
+import logo from '@/public/images/tawasylogo.png';
 
 function StoreTypeAdmin({ names, refetch }) {
   const router = useRouter();
@@ -152,12 +153,13 @@ function StoreTypeAdmin({ names, refetch }) {
         <td className="px-4 py-4">{names.sort_order}</td>
         <td className="px-4 py-4 flex justify-center">
           <Image
-            src={names.image}
+            src={names.image ? names.image : logo}
             alt="photo"
             width={0}
             height={0}
             sizes="100vw"
-            style={{ width: "50%", height: "auto" }}
+            style={{ width: "200px", height: "200px" }}
+            className="object-contain"
           />
         </td>
         <td className="px-4 py-4  " width={`10%`}>

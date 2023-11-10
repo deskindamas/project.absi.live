@@ -55,7 +55,7 @@ function SellerOrders({ orders, refetch }) {
     openchange(false);
   };
 
-  const declinedOrders = router.query.type == "rejectedOrders" ? true : false;
+  const declinedOrders = orders.status == "declined" ? true : false;
 
   async function acceptOrder() {
     setAccepting(true);
@@ -119,7 +119,7 @@ function SellerOrders({ orders, refetch }) {
         >
           {orders.used_coupon == true ? `Yes` : `No`}
         </td>
-        {declinedOrders === true && <td className="pb-5"> {orders.reason} </td>}
+        {declinedOrders === true && (router.query.type == 'rejectedOrders' ) && <td className="pb-5"> {orders.reason ? orders.reason : 'None given'} </td>}
         <td className="pb-5 md:px-0 px-2 ">
           <button
             onClick={functionopenpopup}
@@ -206,6 +206,7 @@ function SellerOrders({ orders, refetch }) {
                     <p className="pr-5">{orderDetails?.final_price}</p>
                   </p>
                 </div>
+                <p className="w-[50%]" >Notes : { orderDetails?.note ? `( ${orderDetails?.note} )` : "( None Given )" }</p>
               </div>
             </div>
             // {/* </Stack> */}

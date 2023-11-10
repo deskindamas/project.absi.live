@@ -24,6 +24,7 @@ const AddNewProduct = () => {
   const EnNameRef = useRef();
   const ArDescRef = useRef();
   const EnDescRef = useRef();
+  const eanRef = useRef();
 
   useEffect(() => {
     setImage(null);
@@ -75,6 +76,7 @@ const AddNewProduct = () => {
         image: image,
         category_name: selectedCategory,
         brand_name: selectedBrand,
+        ean_code : eanRef.current.value,
       } , {
         headers: { "Content-Type": `multipart/form-data` },
       });
@@ -128,6 +130,14 @@ const AddNewProduct = () => {
                   name="descriptionEn"
                   placeholder="English Description "
                   ref={EnDescRef}
+                />
+              </div>
+              <div className="px-6 py-4">
+                <input
+                  className="md:w-[400px] w-full border-b-2  outline-none  text-xl focus:border-skin-primary transition-all duration-700"
+                  name="EAN code"
+                  placeholder="EAN code "
+                  ref={eanRef}
                 />
               </div>
               {brands && brands.length > 0 && (

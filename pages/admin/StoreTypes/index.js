@@ -277,7 +277,7 @@ function StoreType() {
               className="px-3 py-1 bg-skin-primary text-white rounded-lg "
               onClick={functionopenpopup}
             >
-              addStoreType
+              Add new store type
             </button>
           </div>
         </div>
@@ -340,8 +340,8 @@ function StoreType() {
                   <input
                     type="text"
                     className="outline-none appearance-none border-b-2 border-gray-300 focus:border-[#FD6500] w-full transition-all duration-700"
-                    placeholder="name_ar"
-                    inputMode="name ar"
+                    placeholder="Arabic name"
+                    inputMode="Arabic name"
                     ref={arNameRef}
                     required
                   />
@@ -351,7 +351,7 @@ function StoreType() {
                   <input
                     type="text"
                     className="outline-none appearance-none border-b-2 border-gray-300 focus:border-[#FD6500] w-full transition-all duration-700"
-                    placeholder="name_en"
+                    placeholder="English name"
                     inputMode="name en"
                     ref={enNameRef}
                     required
@@ -362,7 +362,7 @@ function StoreType() {
                   <input
                     type="number"
                     className="outline-none appearance-none border-b-2 border-gray-300 focus:border-[#FD6500]  w-full transition-all duration-700"
-                    placeholder="sort_order"
+                    placeholder="Sort order"
                     inputMode="sort order"
                     ref={sortRef}
                     required

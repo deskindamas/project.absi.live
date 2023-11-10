@@ -94,15 +94,15 @@ function Brands() {
   async function addBrand(e) {
     e.preventDefault();
     setAdding(true);
-    try{
-      const response = await Api.post(`/api/admin/brand/create` , {
-        name : brandNameRef.current.value
+    try {
+      const response = await Api.post(`/api/admin/brand/create`, {
+        name: brandNameRef.current.value,
       });
       refetch();
-     openchange(false); 
-    setAdding(false);
-    }catch(error){
-    setAdding(false);
+      openchange(false);
+      setAdding(false);
+    } catch (error) {
+      setAdding(false);
     }
     setAdding(false);
   }
@@ -120,33 +120,7 @@ function Brands() {
       <div className="h-screen">
         <div className="m-5 p-5">
           <h2 className="text-2xl text-stone-500 pb-5 ">Brands</h2>
-          <div className="flex">
-            <div className="w-[50%]">
-              <form className="w-full ">
-                <div className="flex bg-gray-50 pt-1 pb-1 w-[80%] items-center rounded-lg mb-4 mr-4 border-2">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-4 w-4 mx-2"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                    />
-                  </svg>
-                  <input
-                    className="w-full  bg-gray-50 outline-none border-transparent text-gray-700 focus:border-transparent focus:ring-0 rounded-lg text-sm h-8"
-                    type="text"
-                    placeholder="Search a Brand "
-                  />
-                </div>
-              </form>
-            </div>
-
+          <div className="flex justify-end ">
             <div className="w-[50%] flex justify-end ">
               <button
                 onClick={functionopenpopup}

@@ -12,12 +12,12 @@ import { useRouter } from "next/router";
 import createAxiosInstance from "@/API";
 import { useState } from "react";
 import { Ring } from "@uiball/loaders";
-// import { useTranslation } from "next-i18next";
+import { useTranslation } from "next-i18next";
 
 function CartProduct({ product, storeid, refetch }) {
   const router = useRouter();
   const Api = createAxiosInstance(router);
-  // const { t } = useTranslation("");
+  const { t } = useTranslation("");
   const [isAdding, setIsAdding] = useState(false);
   const [isReducing, setIsReducing] = useState(false);
   //   const [quantity, setQuantity] = useState(product.quantity);
@@ -84,8 +84,8 @@ function CartProduct({ product, storeid, refetch }) {
 
         <div className=" flex flex-col justify-center items-center gap-2 w-[30%]">
           <div className=" text-skin-primary md:flex  items-center text-base font-light">
-            <div>{`Total Price`} :</div>
-            {/* <div>{t("orders.totalPrice")} :</div> */}
+            {/* <div>{`Total Price`} :</div> */}
+            <div>{t("orders.totalPrice")} :</div>
             <div>{convertMoney(product.lineTotal)} S.P</div>
           </div>
           <div className="flex w-[70%] justify-around items-center">

@@ -14,14 +14,13 @@ import { useRouter } from "next/router";
 import createAxiosInstance from "@/API";
 import { Ring } from "@uiball/loaders";
 import logo from "../../public/images/tawasylogo.png";
-// import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-// import { useTranslation } from "next-i18next";
+import { useTranslation } from "next-i18next";
 
 function ProductCustomer({ product }) {
   const [adding, setAdding] = useState(false);
   const router = useRouter();
   const Api = createAxiosInstance(router);
-  // const {t} = useTranslation("");
+  const {t} = useTranslation("");
   async function addToCart() {
     setAdding(true);
     try {
@@ -87,8 +86,8 @@ function ProductCustomer({ product }) {
                     <Ring size={20} lineWeight={5} speed={2} color="#ff6600" />
                   </div>
                 ) : (
-                  ` Add to Cart`
-                  // t("store.product.addToCart")
+                  // ` Add to Cart`
+                  t("store.product.addToCart")
                 )}
               </button>
             </div>

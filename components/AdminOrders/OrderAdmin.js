@@ -42,9 +42,15 @@ function OrderAdmin({ names, refetch }) {
   const [orderDetails, setOrderDetails] = useState();
   const [open, openchange] = useState(false);
 
-  const openGoogleMaps = (latitude , longitude) => {
+  const reason =
+    router.pathname == "/admin/Orders/RejectedOrders" ||
+    router.pathname == "/admin/Orders/CancelledOrders";
+
+  console.log(router);
+
+  const openGoogleMaps = (latitude, longitude) => {
     const url = `https://www.google.com/maps?q=${latitude},${longitude}`;
-    window.open(url, '_blank');
+    window.open(url, "_blank");
   };
 
   const functionopenpopup = async () => {
@@ -104,6 +110,9 @@ function OrderAdmin({ names, refetch }) {
         <td className="pb-5 pt-5">{names.store_name}</td>
         <td className="pb-5">{names.customer_name}</td>
         <td className="pb-5">{names.status}</td>
+        {reason == true && (
+          <td className="pb-5">{names.reason ? names.reason : "None Given"}</td>
+        )}
         <td className="pb-5">{names.shipping_address}</td>
         <td className="pb-5">{convertDateStringToDate(names.date)}</td>
         {/* <td className="pb-5">{names.created}</td> */}
@@ -132,7 +141,10 @@ function OrderAdmin({ names, refetch }) {
                 <h6>Status : {orderDetails.status} </h6>
                 {/* <h4>Phone : 0964328926</h4> */}
                 <h6 className="text-lg text-gray-400 font-light">
-                  Shipping Address : {orderDetails.shipping_address ? orderDetails.shipping_address : 'None'}
+                  Shipping Address :{" "}
+                  {orderDetails.shipping_address
+                    ? orderDetails.shipping_address
+                    : "None"}
                 </h6>
                 <h6 className="text-lg text-gray-400 font-light">
                   Shipping Address / Longitude : {orderDetails.longitude}
@@ -141,9 +153,22 @@ function OrderAdmin({ names, refetch }) {
                   Shipping Address Latitdue : {orderDetails.latitude}
                 </h6>
                 <button
-                  onClick={() => openGoogleMaps(orderDetails.latitude , orderDetails.longitude)}
-                  className=" border-b-2 text-skin-primary hover:text-skin-primary w-max hover:border-skin-primary "
-                >Show on google maps</button>
+                  onClick={() =>
+                    openGoogleMaps(
+                      orderDetails.latitude,
+                      orderDetails.longitude
+                    )
+                  }
+                  className="text-gray-400 hover:text-skin-primary w-max "
+                >
+                  Show on google maps
+                </button>
+                <p>
+                  Order Note :{" "}
+                  {orderDetails.note
+                    ? `( ${orderDetails.note} )`
+                    : "( None given )"}
+                </p>
               </div>
             </div>
           </DialogTitle>
@@ -215,38 +240,40 @@ function OrderAdmin({ names, refetch }) {
           )}
         </DialogContent>
 
-        {orderDetails && ((orderDetails.status === 'pending' || orderDetails.status === `accepted`)  && (
-          <DialogActions className="grid md:grid-cols-2 grid-cols-1 ">
-            <button
-              type="button"
-              className="bg-red-600 text-white px-14 py-2"
-              data-dismiss="modal"
-              onClick={cancelOrder}
-            >
-              {isCancelling ? (
-                <div className="w-full flex justify-center items-center">
-                  <Ring size={20} lineWeight={5} speed={2} color="white" />
-                </div>
-              ) : (
-                `Cancel Order`
-              )}
-            </button>
-            <button
-              type="button"
-              className="bg-green-600 text-white px-14 py-2"
-              data-dismiss="modal"
-              onClick={delivered}
-            >
-              {isDelivering ? (
-                <div className="w-full flex justify-center items-center">
-                  <Ring size={20} lineWeight={5} speed={2} color="white" />
-                </div>
-              ) : (
-                `Order Delivered`
-              )}
-            </button>
-          </DialogActions>
-        ))}
+        {orderDetails &&
+          (orderDetails.status === "pending" ||
+            orderDetails.status === `accepted`) && (
+            <DialogActions className="grid md:grid-cols-2 grid-cols-1 ">
+              <button
+                type="button"
+                className="bg-red-600 text-white px-14 py-2"
+                data-dismiss="modal"
+                onClick={cancelOrder}
+              >
+                {isCancelling ? (
+                  <div className="w-full flex justify-center items-center">
+                    <Ring size={20} lineWeight={5} speed={2} color="white" />
+                  </div>
+                ) : (
+                  `Cancel Order`
+                )}
+              </button>
+              <button
+                type="button"
+                className="bg-green-600 text-white px-14 py-2"
+                data-dismiss="modal"
+                onClick={delivered}
+              >
+                {isDelivering ? (
+                  <div className="w-full flex justify-center items-center">
+                    <Ring size={20} lineWeight={5} speed={2} color="white" />
+                  </div>
+                ) : (
+                  `Order Delivered`
+                )}
+              </button>
+            </DialogActions>
+          )}
       </Dialog>
     </>
   );

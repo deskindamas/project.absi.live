@@ -16,6 +16,7 @@ import { Ring } from "@uiball/loaders";
 import ImageUpload from "../ImageUpload/ImageUpload";
 import { convertDateStringToDate } from "../AdminOrders/OrderAdmin";
 import Locations from "../Location/Location";
+import logo from '@/public/images/tawasylogo.png'
 import TawasyLoader from "../UI/tawasyLoader";
 
 const openingDays = [
@@ -186,23 +187,25 @@ function StoreAdmin({ names, refetch }) {
         <td className="px-4 py-4">{names.status}</td>
         <td className="px-4 py-4 flex justify-center">
           <Image
-            src={names.image}
+            src={names.image ? names.image : logo}
             alt="photo"
             width={0}
             height={0}
             sizes="100vw"
-            style={{ width: "50%", height: "auto" }}
+            style={{ width: "150px", height: "150px" }}
+            className="object-contain"
           />
         </td>
 
         <td className="px-4 py-4">
           <Image
-            src={names.logo}
+            src={names.logo ? names.logo : logo}
             alt="photo"
             width={0}
             height={0}
             sizes="100vw"
-            style={{ width: "50%", height: "auto" }}
+            style={{ width: "150px", height: "150px" }}
+            className="object-contain"
           />
         </td>
 

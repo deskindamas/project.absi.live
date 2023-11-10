@@ -10,13 +10,12 @@ import createAxiosInstance from "@/API";
 import TawasyLoader from "@/components/UI/tawasyLoader";
 import { MdArrowForward, MdClose } from "react-icons/md";
 import { NextSeo } from "next-seo";
-// import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-// import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 export async function getServerSideProps(context) {
-  const { params } = context;
+  const { params , locale } = context;
   const Api = createAxiosInstance();
-  try {
     const response = await Api.get(`/api/store-types/${params.storeTypeId}`);
     console.log(response);
     console.log(response.status);
@@ -25,15 +24,12 @@ export async function getServerSideProps(context) {
         notFound: true,
       };
     }
-  
     return {
       props: {
+        ...(await serverSideTranslations(locale, ["common"])),
         stores: response.data,
       },
     };
-  } catch (error) {
-    console.log(error);
-  }
 }
 
 const StoreType = ({ stores }) => {
@@ -43,7 +39,7 @@ const StoreType = ({ stores }) => {
   const [inSearch, setInSearch] = useState(false);
   const [searchedResults, setSearchedResults] = useState();
   const searchRef = useRef();
-  // const { t } = useTranslation("");
+  const { t } = useTranslation("");
 
   const [storeTypeId, setStoreTypeId] = useState();
   // const {
@@ -174,8 +170,8 @@ const StoreType = ({ stores }) => {
               className="w-full bg-gray-100 outline-none rounded-lg text-sm h-10"
               type="text"
               ref={searchRef}
-              placeholder={`Search`}
-              // placeholder={t("store.search")}
+              // placeholder={`Search`}
+              placeholder={t("store.search")}
               onClick={() => {
                 setInSearch(true);
               }}

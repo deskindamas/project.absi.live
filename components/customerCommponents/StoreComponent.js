@@ -17,27 +17,25 @@ function StoreComponent({store}) {
         style={{ width: "100%", height: "100%" }} // optional
       />
       </div>
-      <div className="w-[60%] flex flex-col justify-center items-start box-border px-2 ">
+      <div className="w-[60%] h-full flex flex-col justify-center items-start box-border px-2 ">
           <div className=" line-clamp-2 text-start md:text-xl text-lg w-full text-ellipsis select-none " title={store.name} >
             {store.name}
           </div>
         {/* <h5 className="md:line-clamp-2 line-clamp-1 w-full text-gray-500 text-base font-medium m-0 select-none " >
           fasdhjgfsdahgfsdhjgfasdhjkgasfdhjg asd asd asd asd asd asd asd asd asd asd 
         </h5> */}
-          {/* <div className="flex justify-start items-start w-full gap-2">
-            <div className="md:text-xl text-md">Delivery Fee :</div>
-            <div className="md:text-xl text-md text-skin-primary ">
+           <div className="flex sm:flex-row flex-col justify-start items-start w-full sm:gap-2 ">
+            <div className="md:text-lg text-sm">Delivery Fee :</div>
+            <div className="md:text-lg text-sm text-skin-primary ">
               6000 S.P
-            </div>{" "}
-            Delivery Fee
+            </div>
           </div>
-          <div className="flex justify-start items-start w-full gap-2 ">
+          {/* <div className="flex justify-start items-start w-full gap-2 ">
             <div className="md:text-xl text-md ">Delivery Time :</div>
             <div className="md:text-xl text-md text-skin-primary ">
               ~30 mins
-            </div>{" "}
-            Delivery Time
-          </div> */} 
+            </div>
+          </div>  */}
       </div>
     </Link>
   );

@@ -251,7 +251,7 @@ function AddProducts() {
           >
             <DialogTitle className="flex justify-between">
               <h4 className="text-2xl "> Selected Products:</h4>
-              <MdClose onClick={closepopup} className="w-[35px] h-[35px]" />
+              <MdClose onClick={closepopup} className="w-[35px] h-[35px] cursor-pointer " />
             </DialogTitle>
             <hr />
             <DialogContent>
