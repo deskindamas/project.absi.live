@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import withLayoutCustomer from "@/components/wrapping components/WrappingCustomerLayout";
 // import Contact from "../../../public/images/contactus3.jpg";
 import Form from "@/components/ContactForm/form";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 const ContactUs = () => {
+  const { t } = useTranslation("");
   return (
     <div className="w-full h-full">
       <div
@@ -33,3 +36,11 @@ const ContactUs = () => {
 };
 
 export default withLayoutCustomer(ContactUs);
+
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common"])),
+    },
+  };
+}

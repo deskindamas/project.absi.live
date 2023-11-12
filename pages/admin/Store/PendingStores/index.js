@@ -123,7 +123,7 @@ function PendingStoreAdmin() {
               </tbody>
             </table>
           ) : (
-            <div className="w-max mx-auto">{`There are no active Stores.`}</div>
+            <div className="w-max mx-auto">{`There are no pending Stores.`}</div>
           )}
         </div>
       </div>

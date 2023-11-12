@@ -16,6 +16,7 @@ import Image from "next/image";
 import ImageUpload from "../ImageUpload/ImageUpload";
 import { convertDate } from "../SellerOrders/sellerOrder";
 import TawasyLoader from "../UI/tawasyLoader";
+import logo from '@/public/images/tawasylogo.png' ;
 
 function AdminProduct({ product, refetch }) {
   const [isDeleting, setIsDeleting] = useState(false);
@@ -193,12 +194,12 @@ function AdminProduct({ product, refetch }) {
         <td className="px-4 py-4 flex justify-center">
         { product.image ? 
           <Image
-            src={product.image}
+            src={product.image ? product.image : logo}
             alt={product.name_en}
             width={0}
             height={0}
             sizes="100vw"
-            style={{ width: "50%", height: "auto" }}
+            style={{ width: "150px", height: "150px" }}
           /> : `No image`
         }
         </td>
@@ -231,14 +232,14 @@ function AdminProduct({ product, refetch }) {
             >
               <FiEdit />
             </button>
-            <button
+            {/* <button
               class="items-center px-2 py-2 text-white bg-red-500 rounded-md hover:bg-red-600 focus:outline-none"
               onClick={() => {
                 setIsDeleting(true);
               }}
             >
               <RiDeleteBin6Line />
-            </button>
+            </button> */}
           </div>
         </td>
       </tr>
@@ -510,7 +511,7 @@ function AdminProduct({ product, refetch }) {
               <p className="text-lg ">
                 Are you sure you want to delete this Product ?
               </p>
-              <p className="text-xl pt-4">{product.name_en}</p>
+              <p className="text-xl pt-4">{product.name_en ? product.name_en : product.name_ar}</p>
             </div>
           </Stack>
         </DialogContent>

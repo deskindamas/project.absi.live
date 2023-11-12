@@ -58,6 +58,7 @@ function StoreTypeMobileADS({ storetypemobileads, refetch }) {
       setIsSaving(false);
     } else {
       toast.error(`Please Select a photo to add`, {
+        toastId : `Please Select a photo to add`,
         position: "top-right",
         autoClose: 2000,
         hideProgressBar: false,
@@ -99,7 +100,7 @@ function StoreTypeMobileADS({ storetypemobileads, refetch }) {
             width={0}
             height={0}
             sizes="100vw"
-            style={{ width: "30%", height: "auto" }}
+            style={{ width: "200px", height: "auto" }}
           />
         </td>
         <td className="px-4 py-4">{storetypemobileads[`store type`]}</td>
@@ -139,7 +140,8 @@ function StoreTypeMobileADS({ storetypemobileads, refetch }) {
       >
         <DialogTitle className="flex justify-between border-b-2 border-black">
           <h4 className="text-gray-500 md:pl-6 font-medium">
-            Edit Store Type ADS :
+          Edit Mobile Store Type page AD : {storetypemobileads[`store type`]} / Ad
+            id : {storetypemobileads.id}
           </h4>
         </DialogTitle>
         <DialogContent>

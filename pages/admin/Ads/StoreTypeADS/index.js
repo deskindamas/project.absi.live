@@ -149,6 +149,7 @@ function StoreTypeADS() {
       setAddingMobile(false);
     } else {
       toast.error(`Please Select a photo to add`, {
+        toastId : `Please Select a photo to add`,
         position: "top-right",
         autoClose: 2000,
         hideProgressBar: false,
@@ -189,6 +190,7 @@ function StoreTypeADS() {
       setAddingWebsite(false);
     } else {
       toast.error(`Please Select a photo to add`, {
+        toastId : `Please Select a photo to add`,
         position: "top-right",
         autoClose: 2000,
         hideProgressBar: false,

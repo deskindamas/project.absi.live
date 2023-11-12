@@ -75,6 +75,7 @@ function StoreTypeADSAdmin({ storetypeads, refetch }) {
       setIsSaving(false);
     } else {
       toast.error(`Please Select a photo to add`, {
+        toastId : `Please Select a photo to add`,
         position: "top-right",
         autoClose: 2000,
         hideProgressBar: false,
@@ -101,7 +102,7 @@ function StoreTypeADSAdmin({ storetypeads, refetch }) {
             width={0}
             height={0}
             sizes="100vw"
-            style={{ width: "30%", height: "auto" }}
+            style={{ width: "200px", height: "auto" }}
           />
         </td>
         <td className="px-4 py-4">{storetypeads[`store type`]}</td>

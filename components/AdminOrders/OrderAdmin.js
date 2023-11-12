@@ -132,6 +132,9 @@ function OrderAdmin({ names, refetch }) {
           <DialogTitle className=" border-b-2 border-gray-200">
             <div className="md:mx-5">
               <div className="flex justify-between mx-auto">
+                <h4 className="text-xl text-gray-600" >
+                  Order ID : {orderDetails.order_id}
+                </h4>
                 <h4 className="text-xl text-gray-600">
                   Store name: {orderDetails.store_name}
                 </h4>
@@ -164,12 +167,14 @@ function OrderAdmin({ names, refetch }) {
                   Show on google maps
                 </button>
                 <p>
-                  Order Note :{" "}
+                  Order Note :
                   {orderDetails.note
                     ? `( ${orderDetails.note} )`
                     : "( None given )"}
                 </p>
               </div>
+              <p className="text-gray-400" >Customer Name : {orderDetails.customer_name && orderDetails.customer_name }</p>
+              <p className="text-gray-400" >Customer Number : {orderDetails.customer_phone && orderDetails.customer_phone }</p>
             </div>
           </DialogTitle>
         )}

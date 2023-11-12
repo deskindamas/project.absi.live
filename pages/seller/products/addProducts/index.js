@@ -122,9 +122,9 @@ function AddProducts() {
 
   return (
     <div className="md:px-16 px-5">
-      <div className="flex justify-between my-10 pt-10 pb-5 border-b-2 border-skin-primary ">
+      <div className="flex md:flex-row flex-col md:gap-0 gap-2 justify-between my-10 pt-10 pb-5 border-b-2 border-skin-primary ">
         <div className="w-[80%] flex justify-start items-center gap-2 ">
-          <div className="flex bg-gray-100 w-full sm:w-2/5 items-center rounded-lg mx-2 px-2 border-2 border-transparent focus-within:border-skin-primary transition-all duration-700 ">
+          <div className="flex bg-gray-100 w-full sm:w-3/5 items-center rounded-lg mx-2 px-2 border-2 border-transparent focus-within:border-skin-primary transition-all duration-700 ">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-4 w-4 mr-2"
@@ -162,7 +162,7 @@ function AddProducts() {
         </div>
         <Link
           href={"/seller/products/addNewProduct"}
-          className="bg-[#ff6600] px-9 py-3 text-white"
+          className="bg-[#ff6600] px-9 py-3 text-white text-center md:w-auto w-[80%] "
         >
           Add New Product
         </Link>
@@ -250,7 +250,7 @@ function AddProducts() {
             onClose={closepopup}
           >
             <DialogTitle className="flex justify-between">
-              <h4 className="text-2xl "> Selected Products:</h4>
+              <h4 className="sm:text-2xl text-sm "> Selected Products:</h4>
               <MdClose onClick={closepopup} className="w-[35px] h-[35px] cursor-pointer " />
             </DialogTitle>
             <hr />
@@ -261,17 +261,17 @@ function AddProducts() {
                     selectedProducts.length > 0 ? (
                       <div className=" mt-5">
                         <table className="table w-full" border={4}>
-                          <thead className="text-xl">
+                          <thead className="md:text-xl text-base ">
                             <tr>
-                              <th className="pb-4">Id</th>
-                              <th className="pb-4">Product Name</th>
-                              <th className="pb-4">Description</th>
-                              <th className="pb-4">Brand</th>
-                              <th className="pb-4">Category</th>
-                              <th className="pb-4">Available</th>
-                              <th className="pb-4">Image</th>
-                              <th className="pb-4">Price </th>
-                              <th className="pb-4"> </th>
+                              <th className="pb-4  md:px-0 px-4">Id</th>
+                              <th className="pb-4 md:px-0 px-4">Product Name</th>
+                              <th className="pb-4 md:px-0 px-4">Description</th>
+                              <th className="pb-4 md:px-0 px-4">Brand</th>
+                              <th className="pb-4 md:px-0 px-4">Category</th>
+                              <th className="pb-4 md:px-0 px-4">Available</th>
+                              <th className="pb-4 md:px-0 px-4">Image</th>
+                              <th className="pb-4 md:px-0 px-4">Price </th>
+                              <th className="pb-4 md:px-0 px-4"> </th>
                             </tr>
                           </thead>
                           <tbody className="text-lg font-normal text-gray-700 text-center">

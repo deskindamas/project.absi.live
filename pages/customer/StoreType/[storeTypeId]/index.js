@@ -14,9 +14,12 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 
 export async function getServerSideProps(context) {
+  // const router = useRouter();
   const { params , locale } = context;
   const Api = createAxiosInstance();
-    const response = await Api.get(`/api/store-types/${params.storeTypeId}`);
+    const response = await Api.get(`/api/store-types/${params.storeTypeId}` , {
+      headers : { 'Accept-Language': locale || 'en',}
+    });
     console.log(response);
     console.log(response.status);
     if (!response.data.data) {

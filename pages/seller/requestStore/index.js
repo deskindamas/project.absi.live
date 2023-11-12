@@ -121,6 +121,7 @@ const RequestStore = () => {
     e.preventDefault();
     if(!address || !logo || !image ){
       toast.error('Please fill all of the required fields', {
+        toastId : 'Please fill all of the required fields',
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,

@@ -34,6 +34,7 @@ const Login = () => {
         Cookies.set("user", "seller" , {expires : 365 * 10});
         router.push("/verification");
         toast.success(response.data.message, {
+          toastId : response.data.message ,
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -45,6 +46,7 @@ const Login = () => {
         });
       } catch (error) {
         toast.error(error.response.data.message || `Request failed`, {
+          toastId : error.response.data.message || `Request failed` ,
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -72,6 +74,7 @@ const Login = () => {
         Cookies.set("user", "customer" , {expires : 365 * 10});
         router.push("/verification");
         toast.success(response.data.message, {
+          toastId : response.data.message ,
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -83,6 +86,7 @@ const Login = () => {
         });
       } catch (error) {
         toast.error(error.response.data.message || `Request failed`, {
+          toastId : error.response.data.message || `Request failed`,
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,

@@ -50,7 +50,7 @@ function TotalAddProduct({ selectproduct, refetch }) {
         key={selectproduct.id}
         className="even:bg-zinc-150 odd:bg-zinc-50 text-center py-1 border-b-2 border-slate-300"
       >
-        <td className="pb-6 pt-6">{selectproduct.product_id}</td>
+        <td className="pb-6 pt-6 sm:text-base text-sm ">{selectproduct.product_id}</td>
         <td>{selectproduct.name}</td>
         <td>{selectproduct.description}</td>
         <td>{selectproduct.brand}</td>
@@ -89,9 +89,9 @@ function TotalAddProduct({ selectproduct, refetch }) {
             alt={selectproduct.name}
           />
         </td>
-        <td>
+        <td className="md:px-0 px-2" >
           <input
-            className="border-b-2 outline-none bg-transparent focus:border-skin-primary transition-all duration-700 w-[50%] "
+            className="border-b-2 outline-none bg-transparent focus:border-skin-primary transition-all duration-700 md:w-[50%] w-full "
             name="price"
             ref={priceRef}
             placeholder="price"

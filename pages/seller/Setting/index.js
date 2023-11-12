@@ -158,10 +158,10 @@ const Setting = () => {
             </h1>
           </div>
           <form
-            className="flex flex-col gap-y-6 md:pt-14 pt-4 md:px-4 px-1 md:w-[100%] w-[90%] mx-auto h-[90%]"
+            className="flex flex-col items-center gap-y-6 md:pt-14 pt-4 md:px-4 px-1 md:w-[70%] w-[90%] mx-auto h-[90%]"
             onSubmit={saveEdits}
           >
-            <div className="flex justify-start gap-3 md:w-[50%] w-[100%]">
+            <div className="flex justify-center gap-3 md:w-[50%] w-[100%]">
               <label className="md:text-xl text-base text-gray-600">Opening Time : </label>
               <br />
               <input
@@ -172,7 +172,7 @@ const Setting = () => {
               />
             </div>
 
-            <div className="flex justify-start gap-3md:w-[50%] w-[100%]">
+            <div className="flex justify-center gap-3md:w-[50%] w-[100%]">
               <label className="md:text-xl text-base text-gray-600">Closing Time : </label>
               <br />
               <input
@@ -183,7 +183,7 @@ const Setting = () => {
               />
             </div>
 
-            <div className="md:flex md:flex-row sm:flex-col justify-start md:gap-3 md:w-[50%] w-[100%]">
+            <div className="md:flex md:flex-row sm:flex-col justify-center md:gap-3  w-[100%]">
               <label className="md:text-xl text-base text-gray-600">Opening Days : </label>
               <br />
               <div className="print-value">
@@ -198,7 +198,7 @@ const Setting = () => {
               </div>
             </div>
 
-            <div className="w-full flex  ">
+            <div className="w-full flex justify-center  ">
               {isSaving == true ? (
                 <div className="text-white px-10 py-2 my-2 rounded-md flex justify-center items-center bg-skin-primary md:w-[15%] w-[90%]">
                   <Ring size={20} speed={2} lineWeight={5} color="white" />

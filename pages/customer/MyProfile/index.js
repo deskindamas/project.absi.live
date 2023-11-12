@@ -46,7 +46,8 @@ function MyProfile() {
 
   const { t } = useTranslation("");
 
-  const handleSaveNameClick = async () => {
+  const handleSaveNameClick = async (e) => {
+    e.preventDefault();
     setisSavingName(true);
     try {
       const response = await Api.put(`/api/customer/edit-profile`, {
@@ -61,14 +62,15 @@ function MyProfile() {
     setIsEditingName(false);
     setisSavingName(false);
   };
-  const handleSavePhoneClick = async () => {
+  const handleSavePhoneClick = async (e) => {
+    e.preventDefault();
     setisSavingPhones(true);
     try {
       const response = await Api.post(`/api/customer/change-phone-number`, {
         new_phone_number: phoneRef.current.value,
       });
       refetch();
-      Cookies.setItem(`number` , phoneRef.current.value , {expires : 365 * 10}) ;
+      Cookies.setItem(`number`, phoneRef.current.value, { expires: 365 * 10 });
       router.push(`/verification`);
       setIsEditingPhone(false);
       setisSavingPhones(false);
@@ -139,11 +141,14 @@ function MyProfile() {
       {profile && (
         <div className="py-7 flex justify-center items-center md:w-full w-[90%] mx-auto">
           <div>
-            <div className="flex justify-between items-center md:w-[400px] w-auto mb-4">
+            <form
+              onSubmit={handleSaveNameClick}
+              className="flex justify-between items-center md:w-[400px] w-auto mb-4"
+            >
               <div className="flex">
                 <label className="md:text-xl text-base text-gray-700 font-medium pr-2 w-24">
-                {/* {`Name`} : */}
-                {t("profile.name")} :
+                  {/* {`Name`} : */}
+                  {t("profile.name")} :
                 </label>
                 {isEditingName ? (
                   <input
@@ -151,6 +156,7 @@ function MyProfile() {
                     type="text"
                     placeholder={profile.data.customer.name}
                     ref={nameRef}
+                    required
                   />
                 ) : (
                   <p className="capitalize text-xl text-gray-500 font-medium">
@@ -165,10 +171,9 @@ function MyProfile() {
                   ) : (
                     // <button onClick={handleSaveNameClick}>Save</button>
                     <div className="flex items-center gap-3">
-                      <MdCheck
-                        onClick={handleSaveNameClick}
-                        className="w-[20px] h-[20px] cursor-pointer text-green-600 border-b-2 border-transparent hover:border-green-600 transition-all duration-500 "
-                      />
+                      <button type="submit">
+                        <MdCheck className="w-[20px] h-[20px] cursor-pointer text-green-600 border-b-2 border-transparent hover:border-green-600 transition-all duration-500 " />
+                      </button>
                       <MdClose
                         onClick={() => {
                           setIsEditingName(false);
@@ -186,20 +191,23 @@ function MyProfile() {
                   />
                 )}
               </div>
-            </div>
+            </form>
 
-            <div className="flex justify-between md:w-[400px] w-auto mb-4">
+            <form onSubmit={handleSavePhoneClick} className="flex justify-between md:w-[400px] w-auto mb-4">
               <div className="flex">
                 <label className="md:text-xl text-base text-gray-700 font-medium pr-2 w-24">
-                {/* {`Phone`} : */}
-                {t("profile.phone")} :
+                  {/* {`Phone`} : */}
+                  {t("profile.phone")} :
                 </label>
                 {isEditingPhone ? (
                   <input
                     className="border-b-2 border-skin-primary outline-none"
-                    type="text"
+                    type="number"
                     placeholder={profile.data.customer.phone_number}
                     ref={phoneRef}
+                    required
+                    maxLength={10}
+                    minLength={10}
                   />
                 ) : (
                   <p className="capitalize text-xl text-gray-500 font-medium">
@@ -213,10 +221,12 @@ function MyProfile() {
                     <Ring size={20} lineWeight={5} speed={2} color="#ff6600" />
                   ) : (
                     <div className="flex items-center gap-3">
-                      <MdCheck
-                        onClick={handleSavePhoneClick}
-                        className="w-[20px] h-[20px] cursor-pointer text-green-600 border-b-2 border-transparent hover:border-green-600 transition-all duration-500 "
-                      />
+                      <button type="submit" >
+                        <MdCheck
+                          
+                          className="w-[20px] h-[20px] cursor-pointer text-green-600 border-b-2 border-transparent hover:border-green-600 transition-all duration-500 "
+                        />
+                      </button>
                       <MdClose
                         onClick={() => {
                           setIsEditingPhone(false);
@@ -234,13 +244,13 @@ function MyProfile() {
                   />
                 )}
               </div>
-            </div>
+            </form>
 
             <div className="flex justify-between md:w-[400px] w-auto mb-4">
               <div className="flex">
                 <label className="md:text-xl text-base text-gray-700 font-medium pr-2 w-24">
-                {/* {`Address`} : */}
-                {t("profile.address")} :
+                  {/* {`Address`} : */}
+                  {t("profile.address")} :
                 </label>
                 {isEditingAddress ? (
                   <Locations

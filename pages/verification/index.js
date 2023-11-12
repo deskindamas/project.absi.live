@@ -58,6 +58,7 @@ const Code = () => {
         }
       } catch (error) {
         toast.error(error.response.data.error, {
+          toastId : error.response.data.error ,
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -84,6 +85,7 @@ const Code = () => {
         }
       } catch (error) {
         toast.error(error.response.data.error, {
+          toastId : error.response.data.error ,
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,

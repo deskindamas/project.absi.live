@@ -17,6 +17,7 @@ import ImageUpload from "../ImageUpload/ImageUpload";
 import { convertDate } from "../SellerOrders/sellerOrder";
 import { convertDateStringToDate } from "../AdminOrders/OrderAdmin";
 import { toast } from "react-toastify";
+import logo from '@/public/images/tawasylogo.png';
 
 function HomeMobileADS({ ads, refetch }) {
   const router = useRouter();
@@ -47,7 +48,7 @@ function HomeMobileADS({ ads, refetch }) {
       setIsEditing(true);
       try {
         const response = await Api.post(`/api/admin/ad-mobile/edit/${ads.id}`, {
-          image: image,
+          new_image: image,
         } , {
           headers: { "Content-Type": `multipart/form-data` },
         });
@@ -60,6 +61,7 @@ function HomeMobileADS({ ads, refetch }) {
       setIsEditing(false);
     } else {
       toast.error(`Please Select a photo to add`, {
+        toastId : `Please Select a photo to add`,
         position: "top-right",
         autoClose: 2000,
         hideProgressBar: false,
@@ -82,12 +84,12 @@ function HomeMobileADS({ ads, refetch }) {
         <td className="px-4 py-4">{ads.id}</td>
         <td className="px-4 py-4 flex justify-center">
           <Image
-            src={ads.image_path}
+            src={ads.image_url ? ads.image_url : logo }
             width={0}
             height={0}
             alt={ads.id}
             sizes="100vw"
-            style={{ width: "20%", height: "auto" }}
+            style={{ width: "200px", height: "auto" }}
           />
         </td>
         <td className="px-4 py-4">{convertDateStringToDate(ads.created_at)}</td>
@@ -119,7 +121,7 @@ function HomeMobileADS({ ads, refetch }) {
                 onSelectImage={handleADSImage}
                 width={100}
                 height={100}
-                defaultImage={ads.image_path}
+                defaultImage={ads.image_url}
               />
             </div>
             {/* </div> */}

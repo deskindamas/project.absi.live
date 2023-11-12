@@ -63,7 +63,7 @@ const Order = () => {
       };
     }
     try {
-      const response = Api.post(`/api/customer/convert-to-order`, postData);
+      const response = await Api.post(`/api/customer/convert-to-order`, postData);
       console.log(response);
       router.replace(`/customer/Orders`);
       setSubmitting(false);

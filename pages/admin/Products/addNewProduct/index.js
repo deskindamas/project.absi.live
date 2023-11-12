@@ -95,8 +95,8 @@ const AddNewProductAdmin = () => {
             Create New Product
           </h2>
         </div>
-        <form className="flex justify-center" onSubmit={createNewProduct}>
-          <div className="items-center">
+        <form className=" w-[80%] flex flex-col justify-center mx-auto " onSubmit={createNewProduct}>
+          {/* <div className="items-center"> */}
             <div className="grid md:grid-cols-2 grid-col-1 gap-2">
               <div className="px-6 py-4">
                 <input
@@ -219,7 +219,7 @@ const AddNewProductAdmin = () => {
                 />
               </div>
 
-              <div className="px-6 py-4 flex flex-col justify-start items-start box-border pl-3 w-[80%] mx-auto ">
+              <div className="px-6 py-4 my-5 flex flex-col justify-start items-start box-border pl-3 w-[80%] mx-auto  ">
                 <div className="w-[200px] h-[100px]">
                   <ImageUpload
                     onSelectImage={handleStoreImage}
@@ -230,21 +230,21 @@ const AddNewProductAdmin = () => {
               </div>
             </div>
 
-            <div className="w-full flex justify-center ">
+            {/* <div className="w-full flex justify-center "> */}
               <button
                 className="bg-[#ff6600] text-white md:w-[400px] py-2 rounded-lg hover:bg-[#ff8800] "
                 type="submit"
               >
                 {saving == true ? (
-                  <div>
+                  <div className="w-full flex justify-center" >
                     <Ring size={20} speed={2} lineWeight={5} color="white" />
                   </div>
                 ) : (
                   `Add Product`
                 )}
               </button>
-            </div>
-          </div>
+            {/* </div> */}
+          {/* </div> */}
         </form>
       </div>
     </div>

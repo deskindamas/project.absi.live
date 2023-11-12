@@ -19,6 +19,7 @@ import TawasyLoader from "../UI/tawasyLoader";
 import HomeADS from "@/pages/admin/Ads/HomeADS";
 import { convertDateStringToDate } from "../AdminOrders/OrderAdmin";
 import { toast } from "react-toastify";
+import logo from '@/public/images/tawasylogo.png';
 
 function HomeADSAdmin({ ads, refetch }) {
   const router = useRouter();
@@ -47,7 +48,7 @@ function HomeADSAdmin({ ads, refetch }) {
         const response = await Api.post(
           `/api/admin/ad-website/edit/${ads.id}`,
           {
-            image: image,
+            new_image: image,
           },
           {
             headers: { "Content-Type": `multipart/form-data` },
@@ -62,6 +63,7 @@ function HomeADSAdmin({ ads, refetch }) {
       setIsEditing(false);
     } else {
       toast.error(`Please Select a photo to add`, {
+        toastId : `Please Select a photo to add`,
         position: "top-right",
         autoClose: 2000,
         hideProgressBar: false,
@@ -84,11 +86,11 @@ function HomeADSAdmin({ ads, refetch }) {
         <td className="px-4 py-4">{ads.id}</td>
         <td className="px-4 py-4 flex justify-center">
           <Image
-            src={ads.image_path}
+            src={ads.image_url ? ads.image_url : logo}
             width={0}
             height={0}
             sizes="100vw"
-            style={{ width: "20%", height: "auto" }}
+            style={{ width: "200px", height: "auto" }}
           />
         </td>
         <td className="px-4 py-4">{convertDateStringToDate(ads.created_at)}</td>
@@ -120,7 +122,7 @@ function HomeADSAdmin({ ads, refetch }) {
                   onSelectImage={handleADSImage}
                   width={100}
                   height={100}
-                  defaultImage={ads.image_path}
+                  defaultImage={ads.image_url}
                 />
               </div>
             </div>

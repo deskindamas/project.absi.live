@@ -11,8 +11,11 @@ import url from "@/URL";
 import { Ring } from "@uiball/loaders";
 import { toast } from "react-toastify";
 import Cookies from "js-cookie";
+import createAxiosInstance from "@/API";
 
 const SignUp = () => {
+  const router = useRouter();
+  const Api = createAxiosInstance(router);
   const customerUserNameRef = useRef();
   const customerNumberRef = useRef();
   const sellerUserNameRef = useRef();
@@ -23,8 +26,6 @@ const SignUp = () => {
   const [registeree, setRegisteree] = useState(1); // 1 for customer 2 for seller
   const [isChecked, setIsChecked] = useState(false);
 
-  const router = useRouter();
-
   async function customerSubmit(e) {
     e.preventDefault();
 
@@ -33,6 +34,8 @@ const SignUp = () => {
       toast.error(
         "Please agree on our terms and conditions and privacy policy.",
         {
+          toastId:
+            "Please agree on our terms and conditions and privacy policy.",
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -46,27 +49,10 @@ const SignUp = () => {
       return;
     }
 
-    setIsLoading(true);
-    try {
-      const response = await axios.post(`${url}/api/customer/register`, {
-        name: customerUserNameRef.current.value,
-        phone_number: customerNumberRef.current.value,
-        location: address.address,
-        longitude: address.lat,
-        latitude: address.lng,
-      });
-      if (response.status !== 200) {
-        throw new Error(response);
-      }
-      setIsLoading(false);
-      console.log(response.data);
-      Cookies.set("number", response.data.customer.phone_number , {expires : 365 * 10});
-      Cookies.set("user", "customer" , {expires : 365 * 10});
-      Cookies.set("registered", true , {expires : 365 * 10});
-      router.push("/verification");
-    } catch (error) {
-      // if(error.response.data.message){
-      toast.error(error.response.data.message, {
+    if (address == undefined || address == null) {
+      // Check if the checkbox is not checked
+      toast.error("Please select an address.", {
+        toastId: "Please agree on our terms and conditions and privacy policy.",
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -76,9 +62,44 @@ const SignUp = () => {
         progress: undefined,
         theme: "colored",
       });
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      const response = await Api.post(`/api/customer/register`, {
+        name: customerUserNameRef.current.value,
+        phone_number: customerNumberRef.current.value,
+        location: address ? address.address : null,
+        longitude: address ? address.lat : null,
+        latitude: address ? address.lng : null,
+      });
+      setIsLoading(false);
+      console.log(response.data);
+      Cookies.set("number", response.data.customer.phone_number, {
+        expires: 365 * 10,
+      });
+      Cookies.set("user", "customer", { expires: 365 * 10 });
+      Cookies.set("registered", true, { expires: 365 * 10 });
+      router.push("/verification");
+    } catch (error) {
+      // if(error.response.data.message){
+      //   console.log(error);
+      // toast.error(error.response.data.message, {
+      //   toastId : error.response.data.message,
+      //   position: "top-right",
+      //   autoClose: 5000,
+      //   hideProgressBar: false,
+      //   closeOnClick: true,
+      //   pauseOnHover: true,
+      //   draggable: true,
+      //   progress: undefined,
+      //   theme: "colored",
+      // });
       // }
       setIsLoading(false);
     }
+    setIsLoading(false);
   }
 
   async function sellerSubmit(e) {
@@ -88,6 +109,8 @@ const SignUp = () => {
       toast.error(
         "Please agree on our terms and conditions and privacy policy.",
         {
+          toastId:
+            "Please agree on our terms and conditions and privacy policy.",
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -101,27 +124,10 @@ const SignUp = () => {
       return;
     }
 
-    setIsLoading(true);
-    try {
-      const response = await axios.post(`${url}/api/seller/register`, {
-        name: sellerUserNameRef.current.value,
-        phone_number: sellerNumberRef.current.value,
-        location: sellerCity,
-        longitude: address.lat,
-        latitude: address.lng,
-        city: sellerCity,
-      });
-      if (response.status !== 200) {
-        throw new Error(response);
-      }
-      setIsLoading(false);
-      console.log(response.data);
-      Cookies.set("number", response.data.seller.phone_number , {expires : 365 * 10});
-      Cookies.set("user", "seller" , {expires : 365 * 10});
-      Cookies.set("registered", true , {expires : 365 * 10});
-      router.push("/verification");
-    } catch (error) {
-      toast.error(error.response.data.message, {
+    if (address == undefined || address == null) {
+      // Check if the checkbox is not checked
+      toast.error("Please select an address.", {
+        toastId: "Please agree on our terms and conditions and privacy policy.",
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -131,8 +137,45 @@ const SignUp = () => {
         progress: undefined,
         theme: "colored",
       });
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      const response = await Api.post(`/api/seller/register`, {
+        name: sellerUserNameRef.current.value,
+        phone_number: sellerNumberRef.current.value,
+        location: sellerCity,
+        longitude: address.lat,
+        latitude: address.lng,
+        city: sellerCity,
+      });
+      // if (response.status !== 200) {
+      //   throw new Error(response);
+      // }
+      setIsLoading(false);
+      console.log(response.data);
+      Cookies.set("number", response.data.seller.phone_number, {
+        expires: 365 * 10,
+      });
+      Cookies.set("user", "seller", { expires: 365 * 10 });
+      Cookies.set("registered", true, { expires: 365 * 10 });
+      router.push("/verification");
+    } catch (error) {
+      // toast.error(response.data.message, {
+      //   toastId : response.data.message ,
+      //   position: "top-right",
+      //   autoClose: 5000,
+      //   hideProgressBar: false,
+      //   closeOnClick: true,
+      //   pauseOnHover: true,
+      //   draggable: true,
+      //   progress: undefined,
+      //   theme: "colored",
+      // });
       setIsLoading(false);
     }
+    setIsLoading(false);
   }
 
   const handleCityChange = (value) => {
@@ -176,14 +219,17 @@ const SignUp = () => {
                 ref={customerUserNameRef}
                 className="outline-none border-b-2 bg-skin-primary border-white placeholder:text-white w-full transition-all duration-700 text-white "
                 placeholder="Username"
+                required
               />
               <input
                 id="customernumber"
-                type="text"
+                type="number"
                 // value={email}
                 ref={customerNumberRef}
                 className="outline-none border-b-2 bg-skin-primary border-white placeholder:text-white w-full transition-all duration-700 text-white "
                 placeholder="Phone Number"
+                pattern="\d{10}"
+                required
               />
               <Locations
                 onLocation={handleData}
@@ -198,6 +244,7 @@ const SignUp = () => {
                   checked={isChecked}
                   onChange={() => setIsChecked(!isChecked)}
                   className="accent-white"
+                  required
                 />
                 <span className="text-white flex justify-start items-center gap-1 ">
                   I agree to the
@@ -280,22 +327,35 @@ const SignUp = () => {
                 ref={sellerUserNameRef}
                 className="outline-none border-b-2 bg-skin-primary border-white placeholder:text-white w-full transition-all duration-700 text-white "
                 placeholder="Username"
+                required
               />
               <input
                 id="sellernumber"
-                type="text"
+                type="number"
                 // value={email}
                 ref={sellerNumberRef}
-                className="outline-none border-b-2 bg-skin-primary border-white placeholder:text-white w-full transition-all duration-700 text-white "
+                className="outline-none border-b-2 bg-skin-primary border-white placeholder:text-white w-full transition-all duration-700 text-white appearance-none "
                 placeholder="Phone Number"
+                // pattern="[0-9]{10}"
+                // style={{ --webkit-appearance: none,
+                //         margin: 0,
+                //          -moz-appearance: textfield,
+                //           }}
+                style={{
+                  WebkitAppearance: "none",
+                  margin: 0,
+                  MozAppearance: "none",
+                }}
+                required
               />
               <div className="flex justify-start items-center gap-3 w-full">
                 <label className="text-white px-2 w-max ">City </label>
                 <select
                   className="w-full outline-none p-1 bg-transparent border-b-2 border-white text-white "
                   onChange={(e) => handleCityChange(e.currentTarget.value)}
+                  required
                 >
-                  <option className="text-black" key={"دمشق"} value={"دمشق"}>
+                  <option className="text-white" key={"دمشق"} value={"دمشق"}>
                     دمشق
                   </option>
                   <option

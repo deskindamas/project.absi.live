@@ -16,8 +16,9 @@ import { Ring } from "@uiball/loaders";
 import ImageUpload from "../ImageUpload/ImageUpload";
 import { convertDateStringToDate } from "../AdminOrders/OrderAdmin";
 import Locations from "../Location/Location";
-import logo from '@/public/images/tawasylogo.png'
+import logo from "@/public/images/tawasylogo.png";
 import TawasyLoader from "../UI/tawasyLoader";
+import { useEffect } from "react";
 
 const openingDays = [
   "Saturday",
@@ -60,7 +61,7 @@ function StoreAdmin({ names, refetch }) {
     setStoreImage(data);
   }
 
-  let days = JSON.parse(names.opening_days);
+  let days = names.opening_days && names.opening_days;
 
   var capitalizedDaysArray =
     days &&
@@ -80,6 +81,11 @@ function StoreAdmin({ names, refetch }) {
       setCheckedDays(checkedDays.filter((d) => d !== day));
     }
   };
+
+  useEffect(()=>{
+    setLogoImage();
+    setStoreImage();
+  },[])
 
   async function openEdit() {
     setIsEditing(true);
@@ -140,16 +146,33 @@ function StoreAdmin({ names, refetch }) {
       editData[`opening_days`] = checkedDays;
     }
 
-    if (logoImage || storeImage) {
-      const response = await Api.post(
-        `/api/admin/edit-store/image-logo/${names.id}`,
+    if (logoImage) {
+     try{ const response = await Api.post(
+        `/api/admin/update-store-logo/${names.id}`,
         {
-          new_image: storeImage,
-          new_logo: storeImage,
-        } , {
+          new_logo: logoImage ? logoImage : null,
+        },
+        {
           headers: { "Content-Type": `multipart/form-data` },
         }
-      );
+      );}catch(error){
+      setIsSaving(false);
+        return ;
+      }
+    }
+
+    if (storeImage) {
+      try {
+        const response = await Api.post(
+          `/api/admin/update-store-image/${names.id}`,
+          {
+            new_image: storeImage ? storeImage : null,
+          },
+          {
+            headers: { "Content-Type": `multipart/form-data` },
+          }
+        );
+      } catch (error) {}
     }
 
     try {
@@ -209,7 +232,9 @@ function StoreAdmin({ names, refetch }) {
           />
         </td>
 
-        <td className="px-4 py-4">{names.store_type ? names.store_type : names.store_type_id}</td>
+        <td className="px-4 py-4">
+          {names.store_type ? names.store_type : names.store_type_id}
+        </td>
         <td className="px-4 py-4">
           {days &&
             days.map((day) => {
@@ -429,7 +454,7 @@ function StoreAdmin({ names, refetch }) {
                 </div>
 
                 <div className="flex items-center">
-                  <label >Store Image</label>
+                  <label>Store Image</label>
                   <ImageUpload
                     onSelectImage={handleStoreImage}
                     width={100}
@@ -439,7 +464,7 @@ function StoreAdmin({ names, refetch }) {
                 </div>
 
                 <div className="flex items-center">
-                  <label >Store Logo</label>
+                  <label>Store Logo</label>
                   <ImageUpload
                     onSelectImage={handleLogoImage}
                     width={100}

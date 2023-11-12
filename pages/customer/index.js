@@ -15,7 +15,27 @@ import { MdArrowForward, MdClose } from "react-icons/md";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 
-function CustomerPage() {
+export async function getServerSideProps(context) {
+  const { params, locale } = context;
+  const Api = createAxiosInstance();
+  const response = await Api.get(`/api/store-types` , {
+    headers : { 'Accept-Language': locale || 'en',}
+  });
+  if (!response.data) {
+    return {
+      notFound: true,
+    };
+  }
+
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common"])),
+      data: response.data,
+    },
+  };
+}
+
+function CustomerPage({data}) {
   const router = useRouter();
   const Api = createAxiosInstance(router);
   const searchRef = useRef();
@@ -26,11 +46,11 @@ function CustomerPage() {
   const [searching, setSearching] = useState(false);
   const { t } = useTranslation("");
 
-  const { data, isLoading, isError, error } = useQuery(
-    `mainPage`,
-    fetchMainPage,
-    { refetchOnMount: true, refetchOnWindowFocus: false, staleTime: 1 }
-  );
+  // const { data, isLoading, isError, error } = useQuery(
+  //   `mainPage`,
+  //   fetchMainPage,
+  //   { refetchOnMount: true, refetchOnWindowFocus: false, staleTime: 1 }
+  // );
 
   // let searchResult ;
 
@@ -131,12 +151,11 @@ function CustomerPage() {
           break;
         case `brand`:
           try {
-            const { data: brandStores } = await Api.get(
+            const { data: brandStores } = await Api.post(
               `/api/brands/search`,
               {
-                params: {
                   query: searchRef.current.value,
-                },
+                
               },
               {
                 noSuccessToast: true,
@@ -177,22 +196,22 @@ function CustomerPage() {
     console.log(data);
   }
 
-  if (isLoading) {
-    return (
-      <div className="w-full h-full">
-        <TawasyLoader width={400} height={400} />
-      </div>
-    );
-  }
+  // if (isLoading) {
+  //   return (
+  //     <div className="w-full h-full">
+  //       <TawasyLoader width={400} height={400} />
+  //     </div>
+  //   );
+  // }
 
   return (
     <>
       <div className="w-full h-full">
         {data && (
           <div className="flex flex-col justify-start items-center h-full w-full gap-4 ">
-            {data && data.data.ads && (
+            {data && data.ads && (
               <div className="mx-auto w-full pb-3 " dir="ltr">
-                <ResponsiveCarousel ads={data.data.ads} />
+                <ResponsiveCarousel ads={data.ads} />
               </div>
             )}
 
@@ -265,8 +284,8 @@ function CustomerPage() {
                   {/* {`Discover Oxur Store Types`} */}
                   {t("home.discover")}
                 </div>
-                { data && data.data.data ? <div className=" w-[70%] h-[60%] grid grid-cols md:grid-cols-4 sm:grid-cols-3  grid-cols-1 gap-y-6 gap-x-6 pb-20 ">
-                  {data.data.data.map((storeType) => {
+                { data && data.data ? <div className=" w-[70%] h-[60%] grid grid-cols md:grid-cols-4 sm:grid-cols-3  grid-cols-1 gap-y-6 gap-x-6 pb-20 ">
+                  {data.data.map((storeType) => {
                     return (
                       <StoreTypeComponent
                         key={storeType.id}
@@ -274,7 +293,7 @@ function CustomerPage() {
                       />
                     );
                   })}
-                </div> : <div className="w-max mx-auto text-lg" > {data.data.message ? data.data.message : `There are no storeTypes`} </div>}
+                </div> : <div className="w-max mx-auto text-lg" > {data.message ? data.message : `There are no storeTypes`} </div>}
               </div>
             )}
             {inSearch && (
@@ -298,10 +317,10 @@ function CustomerPage() {
 
 export default withLayoutCustomer(CustomerPage);
 
-export async function getStaticProps({ locale }) {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, ["common"])),
-    },
-  };
-}
+// export async function getStaticProps({ locale }) {
+//   return {
+//     props: {
+//       ...(await serverSideTranslations(locale, ["common"])),
+//     },
+//   };
+// }
