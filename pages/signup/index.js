@@ -75,7 +75,7 @@ const SignUp = () => {
         latitude: address ? address.lng : null,
       });
       setIsLoading(false);
-      console.log(response.data);
+      // console.log(response.data);
       Cookies.set("number", response.data.customer.phone_number, {
         expires: 365 * 10,
       });
@@ -154,7 +154,7 @@ const SignUp = () => {
       //   throw new Error(response);
       // }
       setIsLoading(false);
-      console.log(response.data);
+      // console.log(response.data);
       Cookies.set("number", response.data.seller.phone_number, {
         expires: 365 * 10,
       });
@@ -183,8 +183,8 @@ const SignUp = () => {
   };
 
   function handleData(data) {
-    console.log(`address`);
-    console.log(data);
+    // console.log(`address`);
+    // console.log(data);
     setAddress(data);
   }
 

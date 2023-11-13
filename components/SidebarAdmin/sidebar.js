@@ -19,16 +19,27 @@ import { TbBrandShopee, TbCategory2, TbTruckDelivery } from "react-icons/tb";
 import { RiCoupon2Line } from "react-icons/ri";
 import { FaStore } from "react-icons/fa";
 import Cookies from "js-cookie";
+import createAxiosInstance from "@/API";
+import { Ring } from "@uiball/loaders";
 
 export default function SidebarAdmin(props) {
-
   const [open, setOpen] = useState(false);
+  const [logginOut , setLoggingOut] = useState(false);
   const router = useRouter();
+  const Api = createAxiosInstance(router);
 
-  function logOut() {
-    Cookies.remove("AT");
-    Cookies.remove("user");
-    router.replace("/admin/AdminLogin");
+ async function logOut() {
+    try{
+      setLoggingOut(true);
+      const response = await Api.get(`/api/admin/logout`);
+      Cookies.remove("AT");
+      Cookies.remove("user");
+      router.replace("/admin/AdminLogin");
+      setLoggingOut(false);
+    }catch(error){
+      setLoggingOut(false);
+    }
+    setLoggingOut(false);
   }
 
   return (
@@ -436,6 +447,7 @@ export default function SidebarAdmin(props) {
                   <p className="hidden md:block" style={{ marginLeft: "43px" }}>
                     Logout
                   </p>
+                  { logginOut == true && <Ring size={20} lineWeight={5} speed={2} color="white" />}
                 </button>
               </li>
             </ul>

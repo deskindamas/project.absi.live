@@ -59,7 +59,7 @@ const Cart = ({ onClose, show, className }) => {
         coupon_code: couponRef.current.value,
         cart_id: cart.data.cart.id,
       });
-      console.log(response);
+      // console.log(response);
       setIsVisible(false);
       refetch();
       setApplying(false);
@@ -93,10 +93,10 @@ const Cart = ({ onClose, show, className }) => {
     },
   ];
 
-  if (cart) {
-    console.log(`cart data`);
-    console.log(cart);
-  }
+  // if (cart) {
+  //   console.log(`cart data`);
+  //   console.log(cart);
+  // }
 
   const [isVisible, setIsVisible] = useState(false);
   const [buttonText, setButtonText] = useState("Add Coupon");

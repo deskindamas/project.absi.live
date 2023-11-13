@@ -5,7 +5,7 @@ import Link from "next/link";
 
 function StoreComponent({store}) {
   return (
-    <Link href={`/customer/Store/${store.id}`} className=" lg:w-[70%] md:w-[70%] sm:w-[80%] w-[90%] cursor-pointer bg-white shadow-xl flex justify-start items-center gap-4 rounded-lg overflow-hidden pr-2 border-2 border-gray-200 hover:scale-105 transition-all duration-500 mx-auto ">
+    <Link href={`/customer/Store/${store.id}`} className=" 2xl:w-[70%] lg:w-[90%] md:w-[70%] sm:w-[80%] w-[90%] cursor-pointer bg-white shadow-xl flex justify-start items-center gap-4 rounded-lg overflow-hidden pr-2 border-2 border-gray-200 hover:scale-105 transition-all duration-500 mx-auto ">
       <div className=" md:w-[100px] w-[100px] md:h-[100px] h-[100px]">
       <Image 
        className=' object-cover select-none pointer-events-none '
@@ -25,10 +25,10 @@ function StoreComponent({store}) {
           fasdhjgfsdahgfsdhjgfasdhjkgasfdhjg asd asd asd asd asd asd asd asd asd asd 
         </h5> */}
            <div className="flex sm:flex-row flex-col justify-start items-start w-full sm:gap-2 ">
-            <div className="md:text-lg text-sm">Delivery Fee :</div>
-            <div className="md:text-lg text-sm text-skin-primary ">
+            <h2 className="">Delivery Fee :</h2>
+            <h3 className="text-skin-primary ">
               6000 S.P
-            </div>
+            </h3>
           </div>
           {/* <div className="flex justify-start items-start w-full gap-2 ">
             <div className="md:text-xl text-md ">Delivery Time :</div>

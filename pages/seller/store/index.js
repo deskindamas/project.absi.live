@@ -68,7 +68,7 @@ const Store = () => {
     selectedCategoryData = sellerStoreData.category.find(
       (category) => category.name === selectedCategory
     );
-    console.log(selectedCategoryData);
+    // console.log(selectedCategoryData);
   }
 
   if (isLoading) {

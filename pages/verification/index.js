@@ -33,7 +33,7 @@ const Code = () => {
         Cookies.set("AT", response.data.token , {expires : 365 * 10});
         try {
           const response2 = await Api.get(`/api/seller/store/status`);
-          console.log(`response in verification status`);
+          // console.log(`response in verification status`);
           switch (response2.data.status) {
           case 'Store not found' : 
             router.replace('/seller/requestStore');
@@ -125,6 +125,7 @@ const Code = () => {
             className="flex flex-col justify-start items-center gap-7"
             onSubmit={handleVerify}
             onKeyDown={handleKeyDown}
+            dir="ltr"
           >
             <VerificationInput
               autoFocus={true}

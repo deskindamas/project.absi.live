@@ -1,11 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
-import { AiOutlineSearch } from "react-icons/ai";
 import withLayoutCustomer from "@/components/wrapping components/WrappingCustomerLayout";
-import Image from "next/image";
 import { ResponsiveCarousel } from "@/components/CarouselCustomer/carousel";
 import StoreComponent from "@/components/customerCommponents/StoreComponent";
 import { useRouter } from "next/router";
-import { useQuery } from "react-query";
 import createAxiosInstance from "@/API";
 import TawasyLoader from "@/components/UI/tawasyLoader";
 import { MdArrowForward, MdClose } from "react-icons/md";
@@ -14,14 +11,11 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 
 export async function getServerSideProps(context) {
-  // const router = useRouter();
   const { params , locale } = context;
   const Api = createAxiosInstance();
     const response = await Api.get(`/api/store-types/${params.storeTypeId}` , {
       headers : { 'Accept-Language': locale || 'en',}
     });
-    console.log(response);
-    console.log(response.status);
     if (!response.data.data) {
       return {
         notFound: true,
@@ -44,31 +38,12 @@ const StoreType = ({ stores }) => {
   const searchRef = useRef();
   const { t } = useTranslation("");
 
-  const [storeTypeId, setStoreTypeId] = useState();
-  // const {
-  //   data: stores,
-  //   isLoading,
-  //   isError,
-  //   error,
-  // } = useQuery([`stores`, storeTypeId], fetchStores, {
-  //   staleTime: 1,
-  //   refetchOnMount: true,
-  //   refetchOnWindowFocus: false,
-  //   enabled: Boolean(storeTypeId) == true,
-  // });
-
-  async function fetchStores() {
-    try {
-      return await Api.get(`/api/store-types/${storeTypeId}`);
-    } catch (error) {}
-  }
-
-  useEffect(() => {
-    const sti = router.query.storeTypeId;
-    if (router.query.storeTypeId) {
-      setStoreTypeId(sti);
-    }
-  }, [router.query.storeTypeId]);
+  // useEffect(() => {
+  //   const sti = router.query.storeTypeId;
+  //   if (router.query.storeTypeId) {
+  //     setStoreTypeId(sti);
+  //   }
+  // }, [router.query.storeTypeId]);
 
   async function search(e) {
     e.preventDefault();
@@ -105,19 +80,11 @@ const StoreType = ({ stores }) => {
     setSearching(false);
   }
 
-  // if (isLoading) {
-  //   return (
-  //     <div className="w-full h-full">
-  //       <TawasyLoader width={400} height={400} />
-  //     </div>
-  //   );
-  // }
-
   return (
     <div>
       {/* { stores && <NextSeo
-        title={`Tawasy Shopping - ${stores.data.data.store_type.name}`}
-        description={`Tawasy Shopping store type ${stores.data.data.store_type.name}`}
+        title={`Tawasy Shopping - ${stores.data.store_type.name}`}
+        description={`Tawasy Shopping  ${stores.data.store_type.name}`}
         openGraph={{
           title: stores.data.data.store_type.name,
           description: "shop from our stores that cover a whole combination of categories from our store types",
@@ -199,7 +166,7 @@ const StoreType = ({ stores }) => {
         <div className="">
           {inSearch == false && (
             <div
-              className={`w-[70%] grid lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 grid-col-1 gap-4 mx-auto `}
+              className={`w-[70%] grid xl:grid-cols-2 lg:grid-cols-1 md:grid-cols-1 sm:grid-cols-1 grid-col-1 gap-4 mx-auto `}
             >
               {stores &&
                 stores.data.stores.map((store) => {
@@ -216,7 +183,6 @@ const StoreType = ({ stores }) => {
                   </div>
                 ) : (
                   searchedResults && searchedResults
-                  // </div>
                 ))}
             </div>
           )}
@@ -226,50 +192,6 @@ const StoreType = ({ stores }) => {
   );
 };
 
-// export async function getServerSideProps(context) {
-//   const storeTypeId = context.params.storeTypeId;
-//   const Api = createAxiosInstance();
-//   try {
-//     const storeData = await Api.get(`/api/store-types/${storeTypeId}`);
-
-//     return {
-//       props: {
-//         storeData: storeData.data,
-//         ...(await serverSideTranslations(context.locale, ["common"])),
-//       },
-//     };
-//   } catch (error) {
-//     console.error("Error fetching store data:", error);
-
-//     return {
-//       notFound: true,
-//     };
-//   }
-// }
 
 export default withLayoutCustomer(StoreType);
 
-// export async function getStaticProps({ locale }) {
-//   return {
-//     props: {
-//       ...(await serverSideTranslations(locale, ["common"])),
-//     },
-//   };
-// }
-
-// export async function getStaticPaths () {
-//   const Api = createAxiosInstance();
-//   const response = await Api.get(`/api/store-types`);
-//   // console.log(response);
-//   const paths = response.data.data.map((storeType) => {
-//     return {
-//       params : {
-//         storeTypeId : `${storeType.id}`
-//       }
-//     }
-//   })
-//   return {
-//     paths,
-//     fallback : true
-//   }
-// }

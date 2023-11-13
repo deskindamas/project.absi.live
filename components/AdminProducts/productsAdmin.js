@@ -71,7 +71,7 @@ function AdminProduct({ product, refetch }) {
     let editData = {};
     const addIfDifferent = (fieldValue, fieldName) => {
       const originalValue = product[fieldName];
-      console.log(fieldValue);
+      // console.log(fieldValue);
       if (
         fieldValue !== undefined &&
         fieldValue.trim() !== "" &&
@@ -106,11 +106,11 @@ function AdminProduct({ product, refetch }) {
           headers: { "Content-Type": `multipart/form-data` },
         })
       }catch(error){
-        console.log(error);
+        // console.log(error);
       }
     }
 
-    console.log(editData);
+    // console.log(editData);
 
     try {
       const response = await Api.put(
@@ -191,7 +191,7 @@ function AdminProduct({ product, refetch }) {
         </td> */}
         <td className="px-4 py-4 w-[10%]">{product.description_en}</td>
         <td className="px-4 py-4">{product.category}</td>
-        <td className="px-4 py-4 flex justify-center">
+        <td className="px-4 py-4 flex justify-center w-max ">
         { product.image ? 
           <Image
             src={product.image ? product.image : logo}
@@ -200,6 +200,7 @@ function AdminProduct({ product, refetch }) {
             height={0}
             sizes="100vw"
             style={{ width: "150px", height: "150px" }}
+            className=""
           /> : `No image`
         }
         </td>
@@ -317,7 +318,7 @@ function AdminProduct({ product, refetch }) {
                     name="category"
                     defaultValue={product.category}
                     onChange={(e) => {
-                      console.log(e.target.value);
+                      // console.log(e.target.value);
                       setCategory(e.target.value);
                     }}
                   >
@@ -343,7 +344,7 @@ function AdminProduct({ product, refetch }) {
                     name="category"
                     defaultValue={product.brand}
                     onChange={(e) => {
-                      console.log(e.target.value);
+                      // console.log(e.target.value);
                       setBrand(e.target.value);
                     }}
                   >

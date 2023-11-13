@@ -164,13 +164,13 @@ function StoreTypeADS() {
   }
 
   async function addWebsiteAd(e) {
-    console.log(`website`);
-    console.log(websiteImage)
+    // console.log(`website`);
+    // console.log(websiteImage)
     e.preventDefault();
     if (websiteImage) {
       setAddingWebsite(true);
       try {
-        console.log(`in try`);
+        // console.log(`in try`);
         const response = await Api.post(
           `/api/admin/ad/store-type/website/add`,
           {

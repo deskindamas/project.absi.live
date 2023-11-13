@@ -64,11 +64,11 @@ const Order = () => {
     }
     try {
       const response = await Api.post(`/api/customer/convert-to-order`, postData);
-      console.log(response);
+      // console.log(response);
       router.replace(`/customer/Orders`);
       setSubmitting(false);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
     setSubmitting(false);
     setSubmitting(false);

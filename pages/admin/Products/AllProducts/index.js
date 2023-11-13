@@ -11,6 +11,7 @@ import AdminProduct from "@/components/AdminProducts/productsAdmin";
 import withLayoutAdmin from "@/components/UI/adminLayout";
 import { MdArrowForward, MdClose } from "react-icons/md";
 import { useRef } from "react";
+import { Ring } from "@uiball/loaders";
 
 const tableheading = [
   {
@@ -64,84 +65,6 @@ const tableheading = [
   },
 ];
 
-const products = [
-  {
-    id: 1,
-    nameAr: "lorem1",
-    nameEn: "lorem1",
-    descAr:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry",
-    descEn:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry",
-    category: "lorem",
-    image: item1,
-    status: "lorem",
-    brand: "ldjdsjs",
-    sku: "37732",
-    code: "65444",
-    sortOrder: "5",
-    Created: "12/3/2022",
-    Updated: "12/3/2022",
-    instores: "40000",
-  },
-  {
-    id: 2,
-    name: "lorem2",
-    nameEn: "lorem1",
-    descAr:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry",
-    descEn:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry",
-    category: "lorem",
-    image: item1,
-    status: "lorem",
-    brand: "ldjdsjs",
-    sku: "37732",
-    code: "65444",
-    sortOrder: "5",
-    quantity: "10",
-    Created: "12/3/2022",
-    Updated: "12/3/2022",
-    instores: "40000",
-  },
-  {
-    id: 3,
-    name: "lorem3",
-    nameEn: "lorem1",
-    descAr:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry",
-    descEn:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry",
-    category: "lorem",
-    image: item1,
-    status: "lorem",
-    brand: "ldjdsjs",
-    sku: "37732",
-    code: "65444",
-    sortOrder: "5",
-    Created: "12/3/2022",
-    instores: "40000",
-  },
-  {
-    id: 4,
-    name: "lorem4",
-    nameEn: "lorem1",
-    descAr:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry",
-    descEn:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry",
-    category: "lorem",
-    image: item1,
-    status: "lorem",
-    brand: "ldjdsjs",
-    sku: "37732",
-    code: "65444",
-    sortOrder: "5",
-    Created: "12/3/2022",
-    instores: "40000",
-  },
-];
-
 function ProductsAdmin() {
   const [tablecontent, settablecontent] = useState([]);
   const router = useRouter();
@@ -150,20 +73,23 @@ function ProductsAdmin() {
   const searchRef = useRef();
   const [inSearch, setInSearch] = useState(false);
   const [searching, setSearching] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
   const {
     data: allProduct,
     isLoading,
     refetch,
     isRefetching,
-  } = useQuery("adminAllProduct", fetchadminAllProduct, {
+    isFetching
+  } = useQuery(["adminAllProduct" ,currentPage ], () => fetchadminAllProduct(currentPage), {
     staleTime: 1,
     refetchOnMount: true,
     refetchOnWindowFocus: false,
+    keepPreviousData: true,
   });
 
-  async function fetchadminAllProduct() {
+  async function fetchadminAllProduct(currentPage) {
     try {
-      return await Api.get(`/api/admin/get-products`);
+      return await Api.get(`https://absi.damaszone.com/api/admin/get-products?page=${currentPage}`);
     } catch {}
   }
 
@@ -184,31 +110,31 @@ function ProductsAdmin() {
           <div className="w-max mx-auto">{response.data.message}</div>
         ) : (
           <table className="w-max overflow-auto table-auto">
-          <thead className="sticky top-0 bg-white border-b-2 border-blue-500">
-            <tr className="text-sm font-semibold text-center border-b-2 border-blue-500 uppercase">
-              <th>Id</th>
-              {tableheading.map((index) => (
-                <th className=" px-4 py-4 " key={index.heading}>
-                  {index.heading}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody className="text-lg h-[10%] font-normal text-gray-700 text-center">
-            {response.data.data &&
-              response.data.data.map((names) => {
-                return (
-                  <AdminProduct
-                    product={names}
-                    key={names.id}
-                    refetch={() => {
-                      refetch();
-                    }}
-                  />
-                );
-              })}
-          </tbody>
-        </table>
+            <thead className="sticky top-0 bg-white border-b-2 border-blue-500">
+              <tr className="text-sm font-semibold text-center border-b-2 border-blue-500 uppercase">
+                <th>Id</th>
+                {tableheading.map((index) => (
+                  <th className=" px-4 py-4 " key={index.heading}>
+                    {index.heading}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody className="text-lg h-[10%] font-normal text-gray-700 text-center">
+              {response.data.data &&
+                response.data.data.map((names) => {
+                  return (
+                    <AdminProduct
+                      product={names}
+                      key={names.id}
+                      refetch={() => {
+                        refetch();
+                      }}
+                    />
+                  );
+                })}
+            </tbody>
+          </table>
         );
       setSearchedResults(component);
       setSearching(false);
@@ -296,36 +222,69 @@ function ProductsAdmin() {
           </div>
 
           {inSearch == false && (
-            <div className="mt-6 h-[70%]  overflow-auto">
-              {allProduct && allProduct.data.products.length > 0 ? (
-                <table className="w-max overflow-auto table-auto">
-                  <thead className="sticky top-0 bg-white border-b-2 border-blue-500">
-                    <tr className="text-sm font-semibold text-center border-b-2 border-blue-500 uppercase">
-                      <th>Id</th>
-                      {tableheading.map((index) => (
-                        <th className=" px-4 py-4 " key={index.heading}>
-                          {index.heading}
-                        </th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody className="text-lg h-[10%] font-normal text-gray-700 text-center">
-                    {allProduct.data.products &&
-                      allProduct.data.products.map((names) => {
-                        return (
-                          <AdminProduct
-                            product={names}
-                            key={names.id}
-                            refetch={() => {
-                              refetch();
-                            }}
-                          />
-                        );
-                      })}
-                  </tbody>
-                </table>
-              ) : (
-                <div className="w-max mx-auto"> There are no Products. </div>
+            <div className="w-full h-[80%] flex overflow-hidden flex-col justify-start gap-4 ">
+              <div className="mt-6 h-[70%] overflow-auto">
+                {allProduct && allProduct.data.products.length > 0 ? (
+                  <table className="w-max overflow-auto table-auto">
+                    <thead className="sticky top-0 bg-white border-b-2 border-blue-500">
+                      <tr className="text-sm font-semibold text-center border-b-2 border-blue-500 uppercase">
+                        <th>Id</th>
+                        {tableheading.map((index) => (
+                          <th className=" px-4 py-4 " key={index.heading}>
+                            {index.heading}
+                          </th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody className="text-lg h-[10%] font-normal text-gray-700 text-center">
+                      {allProduct.data.products &&
+                        allProduct.data.products.map((names) => {
+                          return (
+                            <AdminProduct
+                              product={names}
+                              key={names.id}
+                              refetch={() => {
+                                refetch();
+                              }}
+                            />
+                          );
+                        })}
+                    </tbody>
+                  </table>
+                ) : (
+                  <div className="w-max mx-auto"> There are no Products. </div>
+                )}
+              </div>
+              {allProduct && allProduct.data.pagination && (
+                <div className="w-[50%] mx-auto flex justify-center items-center h-max gap-4 ">
+                  <button
+                    className="px-2 py-1 bg-skin-primary text-white rounded-lg hover:bg-[#ff9100] disabled:opacity-50 disabled:cursor-not-allowed w-[20%]"
+                    onClick={() => {
+                      setCurrentPage(allProduct.data.pagination.current_page - 1);
+                      // setCurrentPage(data.data.pagination.previousPage);
+                    }}
+                    disabled={
+                      allProduct.data.pagination.current_page ===
+                      allProduct.data.pagination.from
+                    }
+                  >
+                    Previous Page
+                  </button>
+                  { isFetching && <Ring size={20} lineWeight={5} speed={2} color="#222222" />}
+                  <button
+                    className="px-2 py-1 bg-skin-primary text-white rounded-lg hover:bg-[#ff9100] disabled:opacity-50 disabled:cursor-not-allowed w-[20%]"
+                    onClick={() => {
+                      setCurrentPage(allProduct.data.pagination.current_page + 1);
+                      // setCurrentPage(data.data.pagination.nextPage);
+                    }}
+                    disabled={
+                      allProduct.data.pagination.current_page ===
+                      allProduct.data.pagination.last_page
+                    }
+                  >
+                    Next Page
+                  </button>
+                </div>
               )}
             </div>
           )}

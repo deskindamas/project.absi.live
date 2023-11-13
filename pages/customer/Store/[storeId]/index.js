@@ -116,8 +116,8 @@ function Products({ store }) {
         );
       setSearchedResults(component);
       setSearching(false);
-      console.log(`product search`);
-      console.log(response.data.data);
+      // console.log(`product search`);
+      // console.log(response.data.data);
     } catch (error) {
       setSearching(false);
     }
@@ -138,7 +138,7 @@ function Products({ store }) {
     selectedCategoryData = store.category.find(
       (category) => category.name === selectedCategory
     );
-    console.log(selectedCategoryData);
+    // console.log(selectedCategoryData);
   }
 
   // if (store) {

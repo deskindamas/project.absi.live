@@ -30,7 +30,7 @@ function AdminDelivery() {
   }
 
   async function editMinimumDelivery(e) {
-    console.log(`asdasd`)
+    // console.log(`asdasd`)
     e.preventDefault();
     setSavingMin(true);
     try {
@@ -47,7 +47,7 @@ function AdminDelivery() {
   }
 
   async function editKilometerDelivery(e) {
-    console.log(`min`);
+    // console.log(`min`);
     e.preventDefault();
     setSavingKilo(true);
     try {
@@ -63,9 +63,9 @@ function AdminDelivery() {
     setSavingKilo(false);
   }
 
-  if (pricing) {
-    console.log(pricing);
-  }
+  // if (pricing) {
+  //   // console.log(pricing);
+  // }
 
   if (isLoading) {
     return (

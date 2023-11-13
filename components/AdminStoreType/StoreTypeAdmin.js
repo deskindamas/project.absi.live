@@ -60,7 +60,7 @@ function StoreTypeAdmin({ names, refetch }) {
   }
 
   async function editStoreType() {
-    console.log(`editing`);
+    // console.log(`editing`);
     setEditing(true);
     let editData = {};
     const addIfDifferent = (fieldValue, fieldName) => {
@@ -87,7 +87,7 @@ function StoreTypeAdmin({ names, refetch }) {
           headers: { "Content-Type": `multipart/form-data` },
         })
       }catch(error){
-        console.log(error);
+        // console.log(error);
       }
     }
 
@@ -124,10 +124,10 @@ function StoreTypeAdmin({ names, refetch }) {
     setIsLoading(false);
   }
 
-  if(storeTypeCategories){
-    console.log(`store type catygories`);
-    console.log(storeTypeCategories);
-  }
+  // if(storeTypeCategories){
+  //   // console.log(`store type catygories`);
+  //   // console.log(storeTypeCategories);
+  // }
 
   async function AddCategory() {
     setSavingCategory(true);

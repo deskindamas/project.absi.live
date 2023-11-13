@@ -28,8 +28,8 @@ const Login = () => {
           throw new Error(response);
         }
         setIsLoading(false);
-        console.log(`seller response`);
-        console.log(response);
+        // console.log(`seller response`);
+        // console.log(response);
         Cookies.set("number", NumberRef.current.value , {expires : 365 * 10});
         Cookies.set("user", "seller" , {expires : 365 * 10});
         router.push("/verification");
@@ -69,7 +69,7 @@ const Login = () => {
           throw new Error(response);
         }
         setIsLoading(false);
-        console.log(response);
+        // console.log(response);
         Cookies.set("number", NumberRef.current.value , {expires : 365 * 10});
         Cookies.set("user", "customer" , {expires : 365 * 10});
         router.push("/verification");
@@ -115,11 +115,9 @@ const Login = () => {
   return (
     <div className="flex flex-col items-center justify-start h-screen bg-white gap-12 mx-auto px-4 pt-28 w-full">
       <Image src={Logo} alt="Logo" width={400} height={290} className="mx-3" />
-      <div>
         <h3 className="text-xl text-black font-medium">
           Login using your Phone Number
         </h3>
-      </div>
       <form
         onSubmit={handleLogin}
         className="flex flex-col justify-start items-center gap-9 w-full max-w-md p-4 md:w-[70%] lg:w-[50%] xl:w-[40%] 2xl:w-[30%] mx-auto "
@@ -169,9 +167,7 @@ const Login = () => {
                 for="customer"
                 className="inline-flex items-center justify-center w-full px-3 py-2 text-gray-500 bg-white border border-gray-500 rounded-lg cursor-pointer peer-checked:border-orange-500 peer-checked:text-orange-500 hover:text-gray-600 hover:bg-gray-100 transition-all duration-500"
               >
-                <div className="block">
-                  <div className="w-full text-lg font-semibold">Customer</div>
-                </div>
+                  <p className="w-full block text-lg font-semibold">Customer</p>
               </label>
             </li>
             <li>
@@ -189,9 +185,7 @@ const Login = () => {
                 for="seller"
                 className="inline-flex items-center justify-center w-full px-3 py-2 text-gray-500 bg-white border border-gray-500 rounded-lg cursor-pointer peer-checked:border-orange-500 peer-checked:text-orange-500 hover:text-gray-600 hover:bg-gray-100 transition-all duration-500"
               >
-                <div className="block">
-                  <div className="w-full text-lg font-semibold">Seller</div>
-                </div>
+                  <p className="w-full block text-lg font-semibold">Seller</p>
               </label>
             </li>
           </ul>
@@ -211,7 +205,7 @@ const Login = () => {
         </button>
       </form>
       <div>
-        You have an existing account ?{" "}
+        You have an existing account ?
         <Link
           href={"/signup"}
           className="text-orange-500 border-b-2 border-orange-500"

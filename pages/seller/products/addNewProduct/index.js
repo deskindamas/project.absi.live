@@ -41,8 +41,8 @@ const AddNewProduct = () => {
       }
       try {
         const response2 = await Api.get(`api/seller/categories`);
-        console.log(`store categories`);
-        console.log(response2);
+        // console.log(`store categories`);
+        // console.log(response2);
         setCategories(response2.data.categories);
       } catch (error) {
         console.log(error);
@@ -80,7 +80,7 @@ const AddNewProduct = () => {
       } , {
         headers: { "Content-Type": `multipart/form-data` },
       });
-      console.log(response);
+      // console.log(response);
       router.push("/seller/products/addProducts");
     } catch (error) {
       console.log(error);

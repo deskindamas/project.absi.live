@@ -42,10 +42,10 @@ function SellerProduct({ product , refetch }) {
           availability: availability,
         }
       );
-      console.log(`availability change`);
-      console.log(response);
+      // console.log(`availability change`);
+      // console.log(response);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       setEditingAvailability(false);
       return;
     }
@@ -66,7 +66,7 @@ function SellerProduct({ product , refetch }) {
       setPrice(newPrice.current.value);
       setIsEditing(false);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
     setIsEditing(false);
     setEditingPrice(false);
@@ -84,7 +84,7 @@ function SellerProduct({ product , refetch }) {
     } catch (error) {
       setIsDeleting(false);
       setDeleting(false);
-      console.log(error);
+      // console.log(error);
     }
   }
 

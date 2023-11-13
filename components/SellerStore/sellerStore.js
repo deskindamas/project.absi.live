@@ -51,7 +51,7 @@ function SellerStore({ store, refetch }) {
       setEditingPrice(false);
       refetch();
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
     setSavingPrice(false);
     setEditingPrice(false);

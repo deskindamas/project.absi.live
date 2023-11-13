@@ -105,7 +105,7 @@ function Products() {
   });
 
   async function fetchProducts() {
-    console.log(`fetching`);
+    // console.log(`fetching`);
     switch (productsType) {
       case "activeProducts":
         const available = await Api.get(`api/seller/available-products`);
@@ -148,10 +148,10 @@ function Products() {
     setLoaded(true);
   }, [router.query.type]);
 
-  if(products) {
-    console.log(products);
-    console.log(Array.isArray(products));
-  }
+  // if(products) {
+  //   console.log(products);
+  //   console.log(Array.isArray(products));
+  // }
 
   const closepopup = () => {
     openchange(false);

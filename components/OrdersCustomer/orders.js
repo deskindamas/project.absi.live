@@ -72,7 +72,7 @@ function OrdersCustomer({ order, refetch }) {
     setIsLoading(true);
     try {
       const response = await Api.get(`/api/customer/order/${order.order_id}`);
-      console.log(response);
+      // console.log(response);
       setOrderDetails(response.data.order);
       setIsLoading(false);
     } catch (error) {

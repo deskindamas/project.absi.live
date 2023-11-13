@@ -92,7 +92,7 @@ function StoreAdmin({ names, refetch }) {
     setIsLoading(true);
     try {
       const response = await Api.get(`/api/admin/store-types/all`);
-      console.log(response.data.data);
+      // console.log(response.data.data);
       setStoreTypes(response.data.data);
       setIsLoading(false);
     } catch (error) {
@@ -188,7 +188,7 @@ function StoreAdmin({ names, refetch }) {
     }
     setIsSaving(false);
 
-    console.log(editData);
+    // console.log(editData);
   }
 
   return (

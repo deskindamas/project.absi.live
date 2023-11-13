@@ -16,6 +16,7 @@ import {
   MdRemoveCircleOutline,
   MdRemoveDone,
 } from "react-icons/md";
+import { Ring } from "@uiball/loaders";
 
 const users = [
   {
@@ -34,7 +35,7 @@ function AddProducts() {
   const Api = createAxiosInstance(router);
   const [currentPage, setCurrentPage] = useState(1);
   const searchRef = useRef();
-  const { data, isLoading, isError, error } = useQuery(
+  const { data, isLoading, isError, error , isFetching } = useQuery(
     ["sharedProducts", currentPage],
     () => fetchSharedProducts(currentPage),
     {
@@ -61,7 +62,7 @@ function AddProducts() {
     setLoadingSelected(true);
     try {
       const response = await Api.get(`api/seller/selected-products`);
-      console.log(response);
+      // console.log(response);
       setSelectedProducts(response.data.selected_products);
       setLoadingSelected(false);
     } catch (error) {}
@@ -90,10 +91,10 @@ function AddProducts() {
     );
   }
 
-  if (data) {
-    console.log(`shared products`);
-    console.log(data.data.approvedProducts);
-  }
+  // if (data) {
+  //   console.log(`shared products`);
+  //   console.log(data.data.approvedProducts);
+  // }
 
   function closeSearch() {
     setInSearch(false);
@@ -111,8 +112,8 @@ function AddProducts() {
           noSuccessToast: true,
         }
       );
-      console.log(`search response`);
-      console.log(response);
+      // console.log(`search response`);
+      // console.log(response);
       setSearchedProducts(response.data);
       setSearching(false);
     } catch (error) {
@@ -225,6 +226,7 @@ function AddProducts() {
               >
                 Previous Page
               </button>
+              { isFetching && <Ring size={20} lineWeight={5} speed={2} color="#ff6600" />}
               <button
                 className="px-2 py-1 bg-skin-primary text-white rounded-lg hover:bg-[#ff9100] disabled:opacity-50 disabled:cursor-not-allowed w-[20%]"
                 onClick={() => {

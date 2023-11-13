@@ -85,12 +85,12 @@ function HomeAds() {
     );
   }
 
-  if (websiteHomeAds && mobileHomeAds) {
-    console.log(`website`);
-    console.log(websiteHomeAds);
-    console.log(`mobile`);
-    console.log(mobileHomeAds);
-  }
+  // if (websiteHomeAds && mobileHomeAds) {
+  //   console.log(`website`);
+  //   console.log(websiteHomeAds);
+  //   console.log(`mobile`);
+  //   console.log(mobileHomeAds);
+  // }
 
   return (
     <div>

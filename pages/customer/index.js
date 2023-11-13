@@ -62,7 +62,7 @@ function CustomerPage({data}) {
 
   async function search(e) {
     e.preventDefault();
-    console.log(searchType);
+    // console.log(searchType);
     if (searchRef.current.value) {
       setSearching(true);
       switch (searchType) {
@@ -77,7 +77,7 @@ function CustomerPage({data}) {
                 noSuccessToast: true,
               }
             );
-            console.log(storeTypes);
+            // console.log(storeTypes);
             const components = (
               <div className="flex flex-col justify-start items-center h-full w-full gap-4 ">
                 <p className=" text-4xl text-skin-primary py-5">
@@ -192,9 +192,9 @@ function CustomerPage({data}) {
     }
   }
 
-  if(data){
-    console.log(data);
-  }
+  // if(data){
+  //   console.log(data);
+  // }
 
   // if (isLoading) {
   //   return (
@@ -284,7 +284,7 @@ function CustomerPage({data}) {
                   {/* {`Discover Oxur Store Types`} */}
                   {t("home.discover")}
                 </div>
-                { data && data.data ? <div className=" w-[70%] h-[60%] grid grid-cols md:grid-cols-4 sm:grid-cols-3  grid-cols-1 gap-y-6 gap-x-6 pb-20 ">
+                { data && data.data ? <div className=" w-[70%] h-[60%] grid grid-cols xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2  grid-cols-1 gap-y-6 gap-x-6 pb-20 ">
                   {data.data.map((storeType) => {
                     return (
                       <StoreTypeComponent

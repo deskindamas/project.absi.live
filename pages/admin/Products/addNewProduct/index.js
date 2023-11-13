@@ -44,9 +44,9 @@ const AddNewProductAdmin = () => {
     setImage(image);
   }
 
-  if (categories) {
-    console.log(categories);
-  }
+  // if (categories) {
+  //   console.log(categories);
+  // }
 
   async function createNewProduct(e) {
     e.preventDefault();
@@ -74,7 +74,7 @@ const AddNewProductAdmin = () => {
       router.push("/admin/Products/AllProducts");
     } catch (error) {
       setSaving(false);
-      console.log(error);
+      // console.log(error);
     }
     setSaving(false);
   }

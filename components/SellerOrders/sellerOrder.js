@@ -41,7 +41,7 @@ function SellerOrders({ orders, refetch }) {
     setIsLoading(true);
     try {
       const response = await Api.get(`/api/seller/order/${orders.order_id}`);
-      console.log(response.data.order);
+      // console.log(response.data.order);
       setOrderDetails(response.data.order);
       setIsLoading(false);
     } catch (error) {}
@@ -70,7 +70,7 @@ function SellerOrders({ orders, refetch }) {
       setAccepting(false);
       openchange(false);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       setAccepting(false);
       openchange(false);
     }
@@ -92,7 +92,7 @@ function SellerOrders({ orders, refetch }) {
       setRejecting(false);
       openchange(false);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       setRejecting(false);
       // openchange(false);
     }

@@ -46,7 +46,7 @@ function OrderAdmin({ names, refetch }) {
     router.pathname == "/admin/Orders/RejectedOrders" ||
     router.pathname == "/admin/Orders/CancelledOrders";
 
-  console.log(router);
+  // console.log(router);
 
   const openGoogleMaps = (latitude, longitude) => {
     const url = `https://www.google.com/maps?q=${latitude},${longitude}`;

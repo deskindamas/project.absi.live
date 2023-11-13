@@ -30,7 +30,7 @@ function CartProduct({ product, storeid, refetch }) {
         product_id: product.product.id,
         store_id: storeid,
       });
-      console.log(response);
+      // console.log(response);
       // setQuantity((prev) => {return prev+1});
       refetch();
       setIsAdding(false);
@@ -46,7 +46,7 @@ function CartProduct({ product, storeid, refetch }) {
       const response = await Api.post(`/api/customer/cart/remove`, {
         product_id: product.product.id,
       });
-      console.log(response);
+      // console.log(response);
       refetch();
       setIsReducing(false);
     } catch (error) {

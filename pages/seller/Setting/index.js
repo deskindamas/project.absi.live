@@ -137,7 +137,7 @@ const Setting = () => {
     }
     setIsSaving(false);
 
-    console.log(editData);
+    // console.log(editData);
   }
 
   if (isLoading) {

@@ -47,14 +47,14 @@ const Home = () => {
     async function initialStoreStatus() {
       try {
         const response2 = await Api.get(`/api/seller/store/status`);
-        console.log(response2);
+        // console.log(response2);
         switch (response2.data.status) {
           case "Store not found":
             router.replace("/seller/requestStore");
             break;
 
           case "approved":
-            console.log(`approved store`);
+            // console.log(`approved store`);
             Cookies.set("Sid", response2.data.store_id , {expires : 365 * 10});
             // router.replace(`/seller`);
             setEnable(true);
@@ -81,10 +81,10 @@ const Home = () => {
     }
   }, []);
 
-  if (dashboardData) {
-    console.log(`dashboard data`);
-    console.log(dashboardData);
-  }
+  // if (dashboardData) {
+  //   console.log(`dashboard data`);
+  //   console.log(dashboardData);
+  // }
 
   if (isLoading == true || dataLoading == true) {
     return (

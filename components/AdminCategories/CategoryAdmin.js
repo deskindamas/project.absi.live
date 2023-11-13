@@ -30,7 +30,7 @@ function CategoryAdmin({ names, refetch }) {
     let editData = {};
     const addIfDifferent = (fieldValue, fieldName) => {
       const originalValue = names[fieldName];
-      console.log(fieldValue);
+      // console.log(fieldValue);
       if (
         fieldValue !== undefined &&
         fieldValue.trim() !== "" &&
@@ -43,7 +43,7 @@ function CategoryAdmin({ names, refetch }) {
     addIfDifferent(newNameEn.current.value, "name_en");
     addIfDifferent(newsortOrder.current.value, "sort_order");
 
-    console.log(editData);
+    // console.log(editData);
     try {
       const response = await Api.put(
         `/api/admin/category/update/${names.id}`,

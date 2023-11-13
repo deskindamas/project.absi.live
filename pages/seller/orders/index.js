@@ -26,7 +26,7 @@ const Orders = () => {
   });
 
   async function fetchOrders() {
-    console.log(`fetching`);
+    // console.log(`fetching`);
     switch (ordersType) {
       case "pendingOrders":
         const pending = await Api.get(`/api/seller/pending-orders`);
@@ -51,8 +51,8 @@ const Orders = () => {
         }
       case "allOrders":
         const all = await Api.get(`/api/seller/orders`);
-        console.log(`all orders`);
-        console.log(all.data.orders);
+        // console.log(`all orders`);
+        // console.log(all.data.orders);
         if (all.data.orders) {
           return all.data.orders;
         } else {
@@ -60,8 +60,8 @@ const Orders = () => {
         }
       case undefined:
         const allo = await Api.get(`/api/seller/orders`);
-        console.log(`all orders undefined`);
-        console.log(allo.data.orders);
+        // console.log(`all orders undefined`);
+        // console.log(allo.data.orders);
         if (allo.data.orders) {
           return allo.data.orders;
         } else {
@@ -101,10 +101,10 @@ const Orders = () => {
     title = "All Orders";
   }
 
-  if (orders) {
-    console.log(`final orders`);
-    console.log(orders);
-  }
+  // if (orders) {
+  //   console.log(`final orders`);
+  //   console.log(orders);
+  // }
 
   return (
     <div className="page-orders">

@@ -98,9 +98,9 @@ function AdminPage() {
     </div>
   }
 
-  if(adminDashboard){
-    console.log(adminDashboard);
-  }
+  // if(adminDashboard){
+  //   console.log(adminDashboard);
+  // }
 
   return (
     <>

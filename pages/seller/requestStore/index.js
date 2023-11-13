@@ -83,8 +83,8 @@ const RequestStore = () => {
       const token = Cookies.get("AT");
       try {
         const response = await Api.get(`/api/seller/store-types/all`);
-        console.log(`store types`);
-        console.log(response);
+        // console.log(`store types`);
+        // console.log(response);
         setStoreTypes(response.data.data);
       } catch (error) {
         console.log(error);
@@ -180,12 +180,12 @@ const RequestStore = () => {
         }
       );
       setSubmitting(false);
-      console.log(`request store`);
-      console.log(response);
+      // console.log(`request store`);
+      // console.log(response);
       router.replace('/seller/pendingStore') ;
     } catch (error) {
       setSubmitting(false);
-      console.log(error);
+      // console.log(error);
     }
   }
 
@@ -323,7 +323,7 @@ const RequestStore = () => {
                       className="form-select mb-7 h-[40px] w-full text-zinc-500 pl-2 outline-none"
                       aria-label="Store Type"
                       onChange={(e) => {
-                        console.log(e.target.value);
+                        // console.log(e.target.value);
                         selectedStoreType(e.target.value);
                       }}
                     >
