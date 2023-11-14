@@ -89,7 +89,7 @@ function ProductsAdmin() {
 
   async function fetchadminAllProduct(currentPage) {
     try {
-      return await Api.get(`https://absi.damaszone.com/api/admin/get-products?page=${currentPage}`);
+      return await Api.get(`/api/admin/get-products?page=${currentPage}`);
     } catch {}
   }
 
