@@ -58,81 +58,6 @@ const tableheading = [
   },
 ];
 
-// const stores =[
-//   {
-//       id: 1,
-//       name_ar:'lorem1',
-//       name_en:'lorem1',
-//       opening_time :'10:00',
-//       closing_time: '5:00',
-//       status: 'lorem1',
-//       image:  item1 ,
-//       logo:  item1 ,
-//       store_type:'lorem1',
-//       opening_days :'10:00',
-//       address: 'lorem1',
-//       area: 'lorem1',
-//       street: 'lorem1',
-//       created :"12/3/2022",
-//       update :"12/3/2022",
-//   },
-
-//   {
-//       id: 2,
-//       name_ar:'lorem2',
-//       name_en:'lorem2',
-//       opening_time :'10:00',
-//       closing_time: '5:00',
-//       status: 'lorem1',
-//       image:  item1 ,
-//       logo:  item1 ,
-//       store_type:'lorem1',
-//       opening_days :'10:00',
-//       address: 'lorem1',
-//       area: 'lorem1',
-//       street: 'lorem1',
-//       created :"12/3/2022",
-//       update :"12/3/2022",
-//   },
-
-//   {
-//       id: 3,
-//       name_ar:'lorem3',
-//       name_en:'lorem3',
-//       opening_time :'10:00',
-//       closing_time: '5:00',
-//       status: 'lorem1',
-//       image:  item1 ,
-//       logo:  item1 ,
-//       store_type:'lorem1',
-//       opening_days :'10:00',
-//       address: 'lorem1',
-//       area: 'lorem1',
-//       street: 'lorem1',
-//       created :"12/3/2022",
-//       update :"12/3/2022",
-//   },
-
-//   {
-//       id: 4,
-//       name_ar:'lorem4',
-//       name_en:'lorem4',
-//       opening_time :'10:00',
-//       closing_time: '5:00',
-//       status: 'lorem1',
-//       image:  item1 ,
-//       logo:  item1 ,
-//       store_type:'lorem1',
-//       opening_days :'10:00',
-//       address: 'lorem1',
-//       street: 'lorem1',
-//       area: 'lorem1',
-//       created :"12/3/2022",
-//       update :"12/3/2022",
-//   },
-
-// ]
-
 function ActiveStoreAdmin() {
   const router = useRouter();
   const Api = createAxiosInstance(router);
@@ -144,7 +69,7 @@ function ActiveStoreAdmin() {
 
   async function fetchActiveStores() {
     try {
-      return await Api.get(`/api/admin/stores`);
+      return await Api.get(`/api/admin/approved-stores`);
     } catch (error) {}
   }
 
@@ -180,7 +105,6 @@ function ActiveStoreAdmin() {
               </thead>
               <tbody className="text-lg font-normal text-gray-700 text-center">
                 {activeStores.data.stores.map((store) => {
-                  if (store.status === "approved") {
                     return (
                       <StoreAdmin
                         names={store}
@@ -189,8 +113,7 @@ function ActiveStoreAdmin() {
                           refetch();
                         }}
                       />
-                    );
-                  }
+                    );          
                 })}
               </tbody>
             </table>
