@@ -100,7 +100,7 @@ function AllProducts() {
         {
           allproducts.map(product => (
 
-          <PublicAllProduct product = {product}/>
+          <PublicAllProduct key={product.name} product = {product}/>
           ))
         }
             </div>

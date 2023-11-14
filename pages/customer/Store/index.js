@@ -79,7 +79,7 @@ function PublicStore() {
         <div className="w-[90%] mx-auto py-5 ">
           <div className=" grid md:grid-cols-3 grid-cols-1 gap-4">
             {stores.map((store) => {
-              return <PublicStoreCard store={store} />;
+              return <PublicStoreCard key={store.name} store={store} />;
             })}
           </div>
         </div>

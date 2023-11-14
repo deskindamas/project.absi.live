@@ -1,13 +1,13 @@
 import Image from "next/image";
 import React from "react";
-import kuala from '@/public/images/kuala.jpg';
+import logo from "@/public/images/tawasylogo.png";
 
 function PublicAllProduct({ product }) {
   return (
     <div className="shadow-lg flex flex-col w-fit border-2 border-gray-200 rounded-md ">
       <div className="bg-cover overflow-hidden flex justify-center items-center w-[225px] h-[225px]  md:max-h-[260px] ">
         <Image
-          src={kuala}
+          src={product.image ? product.image : logo}
           alt={product.name}
           className="w-full  transform transition duration-1000 object-contain object-center"
           width={0}
