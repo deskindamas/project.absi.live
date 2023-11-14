@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import images from '../../../../../public/images/kuala.jpg';
+import images from '../../../public/images/kuala.jpg';
 import withLayoutCustomer from "@/components/wrapping components/WrappingCustomerLayout";
 
 function PublicProduct() {
