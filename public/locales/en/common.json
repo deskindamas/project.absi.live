@@ -72,5 +72,8 @@
       "cancel" : "Cancel" ,
       "addCoupon" : "Add Coupon" ,
       "apply" : "Apply"
+    },
+    "product" : {
+      "storeSellers" :"The Stores that sell this product"
     }
 }

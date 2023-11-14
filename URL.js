@@ -1,2 +1,2 @@
-const url = 'https://absi.damaszone.com' ; 
+const url = 'https://absi.tawasyme.com' ; 
 export default url ;

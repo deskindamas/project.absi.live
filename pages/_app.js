@@ -9,6 +9,8 @@ import { DefaultSeo } from "next-seo";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import nProgress, { NProgress } from "nprogress";
+// import {withTranslateRoutes} from "next-translate-routes";
+// import {withTranslateRoutes} from "next-translate-routes" ;
 
 const tawasyFont = localfont({
   src: "../public/fonts/local/MYRIAAMI.ttf",
