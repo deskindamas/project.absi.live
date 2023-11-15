@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
-const { i18n } = require("./next-i18next.config");
-const nextConfig = {
+const { i18n } = require("./next-i18next.config");  
+  const nextConfig = {
   // useFileSystemPublicRoutes: false,
   // output : 'export',
   reactStrictMode: true,

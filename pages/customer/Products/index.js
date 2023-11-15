@@ -1,22 +1,20 @@
 import withLayoutCustomer from "@/components/wrapping components/WrappingCustomerLayout";
-import React, { useRef, useState } from "react";
+import React from "react";
 import { MdArrowForward } from "react-icons/md";
 import test from "@/public/images/flowers.jpeg";
-import testlogo from "@/public/images/tawasylogo.png";
-import PublicStoreCard from "@/components/CustomerPublicStores/PublicStore";
+import PublicAllProduct from "@/components/CustomerAllProducts/AllProducts";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
-import createAxiosInstance from "@/API";
 import { useRouter } from "next/router";
+import products from "@/pages/seller/products";
+import createAxiosInstance from "@/API";
+import { useState } from "react";
+import { useQuery } from "react-query";
 import TawasyLoader from "@/components/UI/tawasyLoader";
 import { Ring } from "@uiball/loaders";
-import { useQuery } from "react-query";
-
-
 
 export async function getServerSideProps(context) {
   const { locale } = context;
-  const Api = createAxiosInstance();
   return {
     props: {
       ...(await serverSideTranslations(locale, ["common"])),
@@ -24,56 +22,31 @@ export async function getServerSideProps(context) {
   };
 }
 
-function PublicStore() {
-  const {t} = useTranslation("");
+function AllProducts() {
+  const { t } = useTranslation("");
   const router = useRouter();
-  const Api = createAxiosInstance(router) ;
+  const Api = createAxiosInstance(router);
   const [currentPage, setCurrentPage] = useState(1);
   const {
-    data: stores,
+    data: products,
     isLoading,
     isFetching,
   } = useQuery(
-    [`allStores`, currentPage],
-    () => fetchAllStores(currentPage),
+    [`allProducts`, currentPage],
+    () => fetchAllProducts(currentPage),
     { staleTime: 1, refetchOnMount: true, refetchOnWindowFocus: false , keepPreviousData : true }
   );
 
-  async function fetchAllStores(currentPage) {
+  async function fetchAllProducts(currentPage) {
     try {
-      return await Api.get(`/api/allstores?page=${currentPage}`);
+      return await Api.get(`/api/allproducts?page=${currentPage}`);
     } catch (error) {}
   }
+
 
   function scroll (id) {
     document.querySelector(`#${id}`).scrollIntoView({behavior : 'smooth' });
   }
-  // const searchRef = useRef();
-  // const [searchedResults, setSearchedResults] = useState();
-  // const [searching, setSearching] = useState(false);
-  // const [inSearch, setInSearch] = useState(false);
-
-  
-  // async function search() {
-  //   setSearching(true);
-  //   try {
-  //     const response = await Api.post(
-  //       `api/allstores`,
-  //       {
-  //         search_term: searchRef.current.value,
-  //       },
-  //       {
-  //         noSuccessToast: true,
-  //       }
-  //     );
-  //     setSearchedStores(response.data);
-  //     setSearching(false);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
-  console.log(`stores`);
-  console.log(stores);
 
   if (isLoading) {
     return (
@@ -85,13 +58,14 @@ function PublicStore() {
 
   return (
     <>
-      <div className="">
-        <div className="bg-gray-100 w-full px-5 py-3" id="top" >
-          <h1 className="text-3xl text-gray-600 font-medium w-[90%] mx-auto">{t("stores.ALLStore")}</h1>
+      <div>
+        <div className="bg-gray-100 w-full py-3" id="top">
+          <h1 className="text-3xl text-gray-600 font-medium w-[90%] mx-auto" >
+            {t("products.ALLProducts")}
+          </h1>
         </div>
-
         {/* <div className="flex justify-center items-center pt-5">
-          <form className="flex bg-gray-100 w-full sm:w-2/5 items-center rounded-lg px-2 border-2 border-transparent focus-within:border-skin-primary transition-all duration-700 ">
+          <form className="flex bg-gray-100 w-full sm:w-2/5 items-center rounded-lg px-2 border-2 border-transparent transition-all duration-700 ">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-4 w-4 mr-2"
@@ -107,10 +81,10 @@ function PublicStore() {
               />
             </svg>
             <input
-            //  ref={searchRef}
+              //  ref={searchRef}
               className="w-full bg-gray-100 outline-none rounded-lg text-sm h-10  "
               type="text"
-              placeholder="Search Stores by name"
+              placeholder={t("products.SearchALLProducts")}
               // onClick={() => {
               //   setInSearch(true);
               // }}
@@ -131,24 +105,30 @@ function PublicStore() {
             />
           )} */}
 
-        <div className="w-[90%] mx-auto py-5 ">
-          { stores.data.stores && stores.data.stores.length > 0 ? <div className=" grid md:grid-cols-3 grid-cols-1 gap-4">
-            { stores.data.stores && stores.data.stores.map((store) => {
-              return <PublicStoreCard store={store} />;
-            })}
-          </div> : <div className="w-max mx-auto" > There are no stores right now . </div>}
-          {stores && stores.data.pagination && (
+        <div className="w-[80%] mx-auto py-5">
+          {products.data.products && products.data.products.length > 0 ? (
+            <div className="grid xl:grid-cols-5 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 gap-y-7 mx-auto  ">
+              {products.data.products &&
+                products.data.products.map((product) => (
+                  <PublicAllProduct key={product.id} product={product} />
+                ))}
+            </div>
+            
+          ) : (
+            <div> There are no products . </div>
+          )}
+          {products && products.data.pagination && (
                 <div className="w-[50%] mx-auto flex justify-center items-center h-max gap-4 py-4 ">
                   <button
                     className="px-2 py-1 bg-skin-primary text-white rounded-lg hover:bg-[#ff9100] disabled:opacity-50 disabled:cursor-not-allowed w-[20%]"
                     onClick={() => {
-                      setCurrentPage(stores.data.pagination.current_page - 1);
+                      setCurrentPage(products.data.pagination.current_page - 1);
                       scroll(`top`);
                       // setCurrentPage(data.data.pagination.previousPage);
                     }}
                     disabled={
-                      stores.data.pagination.current_page ===
-                      stores.data.pagination.from
+                      products.data.pagination.current_page ===
+                      products.data.pagination.from
                     }
                   >
                     Previous Page
@@ -157,24 +137,23 @@ function PublicStore() {
                   <button
                     className="px-2 py-1 bg-skin-primary text-white rounded-lg hover:bg-[#ff9100] disabled:opacity-50 disabled:cursor-not-allowed w-[20%]"
                     onClick={() => {
-                      setCurrentPage(stores.data.pagination.current_page + 1);
+                      setCurrentPage(products.data.pagination.current_page + 1);
                       scroll(`top`);
+                      // setCurrentPage(data.data.pagination.nextPage);
                     }}
                     disabled={
-                      stores.data.pagination.current_page ===
-                      stores.data.pagination.last_page
+                      products.data.pagination.current_page ===
+                      products.data.pagination.last_page
                     }
                   >
                     Next Page
                   </button>
                 </div>
               )}
-
         </div>
       </div>
     </>
   );
 }
 
-export default withLayoutCustomer(PublicStore);
-
+export default withLayoutCustomer(AllProducts);

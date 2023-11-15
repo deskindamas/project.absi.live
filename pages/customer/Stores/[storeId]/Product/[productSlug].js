@@ -1,19 +1,36 @@
 import React from "react";
 import Image from "next/image";
-import images from '../../../public/images/kuala.jpg';
+import images from '../../../../../public/images/kuala.jpg';
 import withLayoutCustomer from "@/components/wrapping components/WrappingCustomerLayout";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
+import { useRouter } from "next/router";
+import createAxiosInstance from "@/API";
 
-function PublicProduct() {
+export async function getServerSideProps(context) {
+    const { locale } = context;
+    return {
+      props: {
+        ...(await serverSideTranslations(locale, ["common"])),
+      },
+    };
+  }
+
+
+function Product() {
    
   // const router = useRouter();
   // const Api = createAxiosInstance(router);
-  // const { data: allproducts, isLoading , refetch } = useQuery(`allproducts`, fetchAllProducts, {
+  const {t} = useTranslation("");
+    
+  
+  // const { data: products, isLoading , refetch } = useQuery(`products`, fetchProducts, {
   //   staleTime: 1,
   //   refetchOnMount: true,
   //   refetchOnWindowFocus: false,
   // });
 
-  // async function fetchAllProducts() {
+  // async function fetchProduct() {
   //   return await Api.get(`/api/customer/`);
   // }
 
@@ -38,21 +55,21 @@ function PublicProduct() {
     <p className="bg-gray-200 py-2 px-2 text-gray-500 font-medium">120 S. P</p>
     </div>
     <p className="text-lg text-gray-400 border-2 border-skin-primary w-max px-5 rounded-full">adidas</p>
-
+    <button className="bg-skin-primary text-white px-3 py-1 my-1 rounded-md md:w-[20%] w-[90%]">{t("products.AddtoCart")}</button>
+    </div>
+    </div>
     <div className="border-t-2 border-gray-200 py-3 my-2">
     <p className="text-gray-500 text-base">
-    Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+    {`Lorem Ipsum is simply dummy text of the printing and typesetting industry.
      Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
       when an unknown printer took a galley of type and scrambled it to make a 
       type specimen book. It has survived not only five centuries, but also the leap into
-       electronic typesetting, remaining essentially unchanged.
+       electronic typesetting, remaining essentially unchanged.`}
     </p>
-    </div>
-    </div>
     </div>
     </div>
      </div>
     )
 }
 
-export default withLayoutCustomer(PublicProduct);
+export default withLayoutCustomer(Product);

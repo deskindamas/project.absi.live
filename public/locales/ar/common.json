@@ -83,5 +83,8 @@
      },
      "componentStore" : {
       "ViewStore" : "عرض المتجر"
-     }
+     },
+    "product" : {
+      "storeSellers" :"المتاجر التي تبيع هذا المنتج"
+    }
   }
