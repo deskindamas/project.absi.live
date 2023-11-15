@@ -4,6 +4,18 @@ import images from '../../../public/images/kuala.jpg';
 import withLayoutCustomer from "@/components/wrapping components/WrappingCustomerLayout";
 
 function PublicProduct() {
+   
+  // const router = useRouter();
+  // const Api = createAxiosInstance(router);
+  // const { data: allproducts, isLoading , refetch } = useQuery(`allproducts`, fetchAllProducts, {
+  //   staleTime: 1,
+  //   refetchOnMount: true,
+  //   refetchOnWindowFocus: false,
+  // });
+
+  // async function fetchAllProducts() {
+  //   return await Api.get(`/api/customer/`);
+  // }
 
     return(
         <div className="w-full h-full flex justify-center">
@@ -36,10 +48,8 @@ function PublicProduct() {
        electronic typesetting, remaining essentially unchanged.
     </p>
     </div>
-
     </div>
     </div>
-
     </div>
      </div>
     )
