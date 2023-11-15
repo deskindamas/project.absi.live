@@ -73,6 +73,17 @@
       "addCoupon" : "أضف قسيمة شراء" ,
       "apply" : "إضافة"
     },
+    "stores" : {
+     "ALLStore" : "كل المتاجر"
+    },
+    "products" : {
+      "ALLProducts" : "كل المنتجات",
+      "SearchALLProducts" : "البحث عن منتج بواسطة الاسم" ,
+      "AddtoCart" : "إضافة الى السلة"
+     },
+     "componentStore" : {
+      "ViewStore" : "عرض المتجر"
+     },
     "product" : {
       "storeSellers" :"المتاجر التي تبيع هذا المنتج"
     }

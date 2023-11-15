@@ -1,7 +1,5 @@
 /** @type {import('next').NextConfig} */
-const { i18n } = require("./next-i18next.config");
-const withTranslateRoutes = require('next-translate-routes/plugin')
-// const nextConfig = withTranslateRoutes({
+const { i18n } = require("./next-i18next.config");  
   const nextConfig = {
   // useFileSystemPublicRoutes: false,
   // output : 'export',

@@ -73,6 +73,17 @@
       "addCoupon" : "Add Coupon" ,
       "apply" : "Apply"
     },
+    "stores" : {
+     "ALLStore" : "All Stores"
+    },
+    "products" : {
+      "ALLProducts" : "All Products",
+      "SearchALLProducts" : "Search Products by name",
+      "AddtoCart" : "Add To Cart"
+     },
+     "componentStore" : {
+      "ViewStore" : "View Store"
+     },
     "product" : {
       "storeSellers" :"The Stores that sell this product"
     }

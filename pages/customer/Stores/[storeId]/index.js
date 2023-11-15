@@ -19,6 +19,7 @@ import logo from "../../../../public/images/tawasylogo.png";
 // import { notFound } from "next/navigation";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
+import PublicAllProduct from "@/components/CustomerAllProducts/AllProducts";
 
 export async function getServerSideProps(context) {
   const { params, locale } = context;
@@ -308,12 +309,13 @@ function Products({ store }) {
               </ul>
             </div>
 
-            <div className="flex justify-center w-full">
-              <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-2 grid-col-1 gap-2 w-[90%] mx-auto ">
+            <div className="flex w-[80%] justify-center mx-auto mt-4 mb-7">
+              <div className="grid xl:grid-cols-5 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 gap-y-7 mx-auto ">
                 {store &&
                   selectedCategoryData &&
                   selectedCategoryData.products.map((product) => (
-                    <ProductCustomer key={product.id} product={product} />
+                    // <ProductCustomer key={product.id} product={product} />
+                    <PublicAllProduct key={product.id} product={product} />
                   ))}
               </div>
             </div>
