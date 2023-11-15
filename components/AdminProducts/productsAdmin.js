@@ -180,18 +180,18 @@ function AdminProduct({ product, refetch }) {
     <>
       <tr
         key={product.id}
-        className="py-10 bg-gray-100 hover:bg-gray-200 font-medium   "
+        className=" bg-gray-100 hover:bg-gray-200 font-medium my-2 py-2 "
       >
-        <td className="px-4 py-4">{product.id}</td>
-        <td className=" px-4 py-4 w-[10%] ">{product.name_ar}</td>
-        <td className="px-4 py-4 w-[10%]">{product.name_en}</td>
-        <td className="px-4 py-4 w-[10%] ">{product.description_ar}</td>
+        <td className="px-4 ">{product.id}</td>
+        <td className=" px-4  w-[10%] ">{product.name_ar}</td>
+        <td className="px-4  w-[10%]">{product.name_en}</td>
+        <td className="px-4  w-[10%] ">{product.description_ar}</td>
         {/* <td className="px-4 py-4 w-[10%] ">
           sdhjkgasd ahjsgdkjahsdgf khjsk jhgbasdjfkh asbhjdfk hbasdkfbvh khvj asldkjhf asdjkha jkhsdbak jhdbaksjhd akjhsbd asd lajksbd 
         </td> */}
-        <td className="px-4 py-4 w-[10%]">{product.description_en}</td>
-        <td className="px-4 py-4">{product.category}</td>
-        <td className="px-4 py-4 flex justify-center w-max ">
+        <td className="px-4  w-[10%]">{product.description_en}</td>
+        <td className="px-4 ">{product.category}</td>
+        <td className="px-4  h-full w-max ">
         { product.image ? 
           <Image
             src={product.image ? product.image : logo}
@@ -199,15 +199,15 @@ function AdminProduct({ product, refetch }) {
             width={0}
             height={0}
             sizes="100vw"
-            style={{ width: "150px", height: "150px" }}
-            className=""
+            style={{ width: "75px", height: "75px" }}
+            className="object-center mx-auto "
           /> : `No image`
         }
         </td>
-        <td className=" px-4 py-4 ">{product.status}</td>
-        <td className="px-4 py-4">{product.brand && product.brand}</td>
-        <td className="px-4 py-4">{product.sku}</td>
-        <td className="px-4 py-4">{product.ean_code}</td>
+        <td className=" px-4  ">{product.status}</td>
+        <td className="px-4 ">{product.brand && product.brand}</td>
+        <td className="px-4 ">{product.sku}</td>
+        <td className="px-4 ">{product.ean_code}</td>
         <td
           className={`${
             router.pathname === "/admin/Products/PendingProduct" && `hidden`
@@ -216,10 +216,10 @@ function AdminProduct({ product, refetch }) {
           {product.sold_quantity}
         </td>
         <td>{product.sort_order}</td>
-        <td className="px-4 py-4">{convertDate(product.created_at)}</td>
-        <td className="px-4 py-4">{convertDate(product.updated_at)}</td>
+        <td className="px-4 ">{convertDate(product.created_at)}</td>
+        <td className="px-4 ">{convertDate(product.updated_at)}</td>
         <td
-          className={` px-4 py-4 ${
+          className={` px-4  ${
             router.pathname === "/admin/Products/PendingProduct" && `hidden`
           }`}
         >

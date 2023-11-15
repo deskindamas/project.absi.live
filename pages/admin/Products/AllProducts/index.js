@@ -114,13 +114,13 @@ function ProductsAdmin() {
               <tr className="text-sm font-semibold text-center border-b-2 border-blue-500 uppercase">
                 <th>Id</th>
                 {tableheading.map((index) => (
-                  <th className=" px-4 py-4 " key={index.heading}>
+                  <th className=" px-4" key={index.heading}>
                     {index.heading}
                   </th>
                 ))}
               </tr>
             </thead>
-            <tbody className="text-lg h-[10%] font-normal text-gray-700 text-center">
+            <tbody className="text-lg h-[700px] font-normal text-gray-700 text-center">
               {response.data.data &&
                 response.data.data.map((names) => {
                   return (
@@ -156,7 +156,7 @@ function ProductsAdmin() {
     <div>
       <div className="md:px-6">
         <div className="w-full h-screen mx-auto">
-          <div className="m-5 p-5">
+          <div className="p-3">
             <h2 className="text-2xl text-stone-500 pb-5 ">All Products</h2>
             <div className="flex">
               <div
@@ -222,8 +222,8 @@ function ProductsAdmin() {
           </div>
 
           {inSearch == false && (
-            <div className="w-full h-[80%] flex overflow-hidden flex-col justify-start gap-4 ">
-              <div className="mt-6 h-[70%] overflow-auto">
+            <div className="w-full h-full flex overflow-hidden flex-col justify-start gap-4 ">
+              <div className="mt-2 h-[90%] overflow-auto">
                 {allProduct && allProduct.data.products.length > 0 ? (
                   <table className="w-max overflow-auto table-auto">
                     <thead className="sticky top-0 bg-white border-b-2 border-blue-500">
