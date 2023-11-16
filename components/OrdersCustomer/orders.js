@@ -318,7 +318,7 @@ function OrdersCustomer({ order, refetch }) {
                             </button>
                           </div>
                         )}
-                        <p>Notes : {orderDetails.notes ? `( ${orderDetails.notes} )` : "( No Notes Provided. )"}</p>
+                        <p>Notes : {orderDetails.note ? `( ${orderDetails.note} )` : "( No Notes Provided. )"}</p>
                     </div>
                   </div>
                 </div>

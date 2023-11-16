@@ -35,11 +35,11 @@
     },
     "home" : {
       "search" : "بحث" ,
-      "storeType" : "نوع متجر" , 
+      "storeType" : "نوع المتجر" , 
       "storeTypes" : "أنواع المتاجر" , 
-      "category" : "تصنيف" ,
-      "brand" : "ماركة" ,
-      "discover" : "إكتشف أنواع متاجرنا" ,
+      "category" : "التصنيفات" ,
+      "brand" : "العلامات التجارية" ,
+      "discover" : " أنواع متاجرنا" ,
       "stores" : "متاجر" 
     } , 
     "store" : {

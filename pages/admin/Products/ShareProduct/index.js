@@ -73,7 +73,7 @@ function ShareProductsAdmin() {
   } = useQuery(["adminSharedProducts" , currentPage], () => fetchSharedProducts(currentPage), {
     staleTime: 1,
     refetchOnMount: true,
-    refetchOnWindowFocus: true,
+    refetchOnWindowFocus: false,
   });
 
   async function fetchSharedProducts(currentPage) {
@@ -94,10 +94,10 @@ function ShareProductsAdmin() {
     <div>
       <div className="md:px-6">
         <div className="w-full h-full mx-auto">
-          <div className="m-5 p-5">
-            <h2 className="text-2xl text-stone-500 pb-5 ">Share Product</h2>
-            <div className="flex">
-              <div className="w-full flex justify-end ">
+          <div className="m-5 p-5 flex justify-between items-center">
+            <h1 className="text-2xl text-stone-500 ">Share Product</h1>
+            {/* <div className="flex"> */}
+              <div className="w-max flex justify-end ">
                 <button
                   className="bg-skin-primary text-white py-1 px-3 rounded-md"
                   onClick={() => {
@@ -107,7 +107,7 @@ function ShareProductsAdmin() {
                   Add Product
                 </button>
               </div>
-            </div>
+            {/* </div> */}
           </div>
           {sharedProducts && sharedProducts.data.products.length > 0 ? (
             <div className="mt-6 max-h-[700px] overflow-x-auto">

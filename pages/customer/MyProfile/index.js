@@ -70,8 +70,8 @@ function MyProfile() {
         new_phone_number: phoneRef.current.value,
       });
       refetch();
-      Cookies.setItem(`number`, phoneRef.current.value, { expires: 365 * 10 });
       router.push(`/verification`);
+      Cookies.setItem(`number`, phoneRef.current.value, { expires: 365 * 10 });
       setIsEditingPhone(false);
       setisSavingPhones(false);
     } catch (error) {
