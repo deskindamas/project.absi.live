@@ -24,12 +24,12 @@ function StoreComponent({store}) {
         {/* <h5 className="md:line-clamp-2 line-clamp-1 w-full text-gray-500 text-base font-medium m-0 select-none " >
           fasdhjgfsdahgfsdhjgfasdhjkgasfdhjg asd asd asd asd asd asd asd asd asd asd 
         </h5> */}
-           <div className="flex sm:flex-row flex-col justify-start items-start w-full sm:gap-2 ">
+           {/* <div className="flex sm:flex-row flex-col justify-start items-start w-full sm:gap-2 ">
             <h2 className="">Delivery Fee :</h2>
             <h3 className="text-skin-primary ">
               6000 S.P
             </h3>
-          </div>
+          </div> */}
           {/* <div className="flex justify-start items-start w-full gap-2 ">
             <div className="md:text-xl text-md ">Delivery Time :</div>
             <div className="md:text-xl text-md text-skin-primary ">

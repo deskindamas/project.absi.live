@@ -111,7 +111,7 @@ function Products({ store }) {
         ) : (
           <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 grid-col-1 gap-2 w-[90%] mx-auto">
             {response.data.data.map((product) => {
-              return <ProductCustomer key={product.id} product={product} />;
+              return <PublicAllProduct key={product.id} product={product} />;
             })}
           </div>
         );
@@ -310,7 +310,7 @@ function Products({ store }) {
             </div>
 
             <div className="flex w-[80%] justify-center mx-auto mt-4 mb-7">
-              <div className="grid xl:grid-cols-5 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 gap-y-7 mx-auto ">
+              <div className="grid 2xl:grid-cols-6 xl:grid-cols-5 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 gap-y-7 mx-auto ">
                 {store &&
                   selectedCategoryData &&
                   selectedCategoryData.products.map((product) => (

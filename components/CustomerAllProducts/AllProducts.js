@@ -36,16 +36,16 @@ function PublicAllProduct({ product }) {
             ? `/customer/Stores/${router.query.storeId}/Product/${product.id}`
             : `/customer/Products/${product.id}`
         }
-        className="bg-cover overflow-hidden flex justify-center items-center  min-h-[260px] max-h-[260px]  "
+        className="bg-cover overflow-hidden flex justify-center items-center min-w-[288px]  min-h-[260px] max-h-[260px]  "
       >
         <Image
           src={product.image ? product.image : logo}
           alt={product.name}
-          className="w-full  transform transition duration-1000 object-contain object-center"
+          className="w-full   transform transition duration-1000 object-contain object-center"
           width={0}
           height={0}
           sizes="100vw"
-          style={{ width: "225px", height: "auto" }}
+          style={{ width: "225px", height: "225px" }}
         />
       </Link>
       <div className="w-[90%] mx-auto py-3 flex flex-col gap-2 md:h-[100%] h-auto justify-between">
