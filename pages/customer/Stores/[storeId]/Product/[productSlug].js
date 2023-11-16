@@ -8,10 +8,20 @@ import { useRouter } from "next/router";
 import createAxiosInstance from "@/API";
 
 export async function getServerSideProps(context) {
-    const { locale } = context;
+    const { params, locale } = context;
+    const Api = createAxiosInstance();
+    const response = await Api.get(`/api/stores/${params.storeId}/products/${params.productSlug}`, {
+      headers : { 'Accept-Language': locale || 'en',}
+    });
+    if (!response.data[`productDetails`]) {
+      return {
+        notFound: true,
+      };
+    }
     return {
       props: {
         ...(await serverSideTranslations(locale, ["common"])),
+        product : response.data
       },
     };
   }

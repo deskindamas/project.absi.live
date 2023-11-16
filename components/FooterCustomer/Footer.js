@@ -70,7 +70,7 @@ const Footer = () => {
                 </li>
                 <li className="mr-2">
                   {/* <Link href="#"> */}
-                  <BsFillTelephoneFill className="w-[25px] h-[25px]" />{" "}
+                  <FaWhatsapp className="w-[25px] h-[25px]" />{" "}
                   {/* </Link> */}
                 </li>
                 <li className="mr-2">
