@@ -22,7 +22,8 @@
   } ,
     "nav" : {
       "orders" : "My Orders" , 
-      "login" : "Login"
+      "login" : "Login",
+      "SignUp" : "SignUp" 
     },
     "profile": {
       "myprofile": "My Profile",
