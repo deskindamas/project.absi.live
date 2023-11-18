@@ -1,6 +1,7 @@
 import createAxiosInstance from "@/API";
 import withLayoutAdmin from "@/components/UI/adminLayout";
 import TawasyLoader from "@/components/UI/tawasyLoader";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 import { BiSolidUserDetail } from "react-icons/bi";
@@ -107,7 +108,7 @@ function AdminPage() {
       { adminDashboard && <div className="md:px-10">
         <h1 className="py-6 text-2xl">Dashboard</h1>
         <div className="grid md:grid-cols-3 sm:grid-cols-1 grid-col-1 gap-4">
-          <div className="border-2 border-gray-400 py-4 px-5 rounded-md">
+          <Link href='/admin/Customers' className="border-2 border-gray-400 py-4 px-5 rounded-md hover:border-skin-primary">
             <div className="flex justify-between pb-4">
               <div>
                 <h2 className="text-xl">Total Customers</h2>
@@ -121,9 +122,9 @@ function AdminPage() {
             <div>
               <p >{adminDashboard.data.data.total_customers}</p>
             </div>
-          </div>
+          </Link>
 
-          <div className="border-2 border-gray-400 py-4 px-5 rounded-md">
+          <Link href='/admin/Sellers' className="border-2 border-gray-400 py-4 px-5 rounded-md hover:border-skin-primary">
             <div className="flex justify-between pb-4">
               <div>
                 <h2 className="text-xl">Total Sellers</h2>
@@ -137,9 +138,9 @@ function AdminPage() {
             <div>
               <p>{adminDashboard.data.data.total_sellers}</p>
             </div>
-          </div>
+          </Link>
 
-          <div className="border-2 border-gray-400 py-4 px-5 rounded-md">
+          <Link href='/admin/Products/AllProducts' className="border-2 border-gray-400 py-4 px-5 rounded-md hover:border-skin-primary">
             <div className="flex justify-between pb-4">
               <div>
                 <h2 className="text-xl">Total Products</h2>
@@ -153,9 +154,9 @@ function AdminPage() {
             <div>
               <p>{adminDashboard.data.data.total_products}</p>
             </div>
-          </div>
+          </Link>
 
-          <div className="border-2 border-gray-400 py-4 px-5 rounded-md">
+          <Link href='/admin/StoreTypes' className="border-2 border-gray-400 py-4 px-5 rounded-md hover:border-skin-primary">
             <div className="flex justify-between pb-4">
               <div>
                 <h2 className="text-xl">Total Store Types</h2>
@@ -169,9 +170,9 @@ function AdminPage() {
             <div>
               <p>{adminDashboard.data.data.total_store_types}</p>
             </div>
-          </div>
+          </Link>
 
-          <div className="border-2 border-gray-400 py-4 px-5 rounded-md">
+          <Link href='/admin/Orders/AllOrders' className="border-2 border-gray-400 py-4 px-5 rounded-md hover:border-skin-primary">
             <div className="flex justify-between pb-4">
               <div>
                 <h2 className="text-xl">Total Orders</h2>
@@ -185,9 +186,9 @@ function AdminPage() {
             <div>
               <p>{adminDashboard.data.data.total_orders}</p>
             </div>
-          </div>
+          </Link>
 
-          <div className="border-2 border-gray-400 py-4 px-5 rounded-md">
+          <Link href='/admin/Store/PendingStores' className="border-2 border-gray-400 py-4 px-5 rounded-md hover:border-skin-primary">
             <div className="flex justify-between pb-4">
               <div>
                 <h2 className="text-xl">Pending Store Requests</h2>
@@ -201,9 +202,9 @@ function AdminPage() {
             <div>
               <p>{adminDashboard.data.data.pending_store_requests}</p>
             </div>
-          </div>
+          </Link>
 
-          <div className="border-2 border-gray-400 py-4 px-5 rounded-md">
+          <Link href='/admin/Products/PendingProduct' className="border-2 border-gray-400 py-4 px-5 rounded-md hover:border-skin-primary">
             <div className="flex justify-between pb-4">
               <div>
                 <h2 className="text-xl">Pending Product Requests</h2>
@@ -217,9 +218,9 @@ function AdminPage() {
             <div>
               <p>{adminDashboard.data.data.pending_product_requests}</p>
             </div>
-          </div>
+          </Link>
 
-          <div className="border-2 border-gray-400 py-4 px-5 rounded-md">
+          <Link href='/admin/Store/AllStore' className="border-2 border-gray-400 py-4 px-5 rounded-md hover:border-skin-primary">
             <div className="flex justify-between pb-4">
               <div>
                 <h2 className="text-xl">Total Stores</h2>
@@ -233,7 +234,7 @@ function AdminPage() {
             <div>
               <p>{adminDashboard.data.data.total_stores}</p>
             </div>
-          </div>
+          </Link>
 
         </div>
       </div>}

@@ -25,8 +25,9 @@ const Cart = ({ onClose, show, className }) => {
   const router = useRouter();
   const Api = createAxiosInstance(router);
   const [Applying, setApplying] = useState(false);
+  const [deleting , setDeleting] = useState(false);
   const couponRef = useRef();
-  const {t} = useTranslation("");
+  const { t } = useTranslation("");
   const {
     data: cart,
     isLoading,
@@ -69,35 +70,6 @@ const Cart = ({ onClose, show, className }) => {
     setApplying(false);
   }
 
-  const items = [
-    {
-      id: 1,
-      image: photo,
-      name: "Suger",
-      price: "130",
-      total: "400",
-    },
-    {
-      id: 2,
-      image: photo,
-      name: "Suger",
-      price: "30",
-      total: "40",
-    },
-    {
-      id: 3,
-      image: photo,
-      name: "Suger",
-      price: "190",
-      total: "410",
-    },
-  ];
-
-  // if (cart) {
-  //   console.log(`cart data`);
-  //   console.log(cart);
-  // }
-
   const [isVisible, setIsVisible] = useState(false);
   const [buttonText, setButtonText] = useState("Add Coupon");
 
@@ -105,6 +77,17 @@ const Cart = ({ onClose, show, className }) => {
     setIsVisible(!isVisible);
     // setButtonText(buttonText === "Add Coupon" ? "Cancel" : "Add Coupon");
   };
+
+  async function deleteCart () {
+    setDeleting(true);
+    try{
+      const response = await Api.delete(`/api/customer/cart/delete`);
+      onClose();
+      setDeleting(false);
+    }catch(error){
+      setDeleting(false);
+    }
+  }
 
   return (
     <div
@@ -123,7 +106,7 @@ const Cart = ({ onClose, show, className }) => {
         style={{
           maxHeight: "92vh", // Set your preferred max height here
           overflowY: "auto",
-          paddingBottom : "40px"
+          paddingBottom: "40px",
         }}
       >
         {isLoading == true ? (
@@ -283,6 +266,17 @@ const Cart = ({ onClose, show, className }) => {
                 >
                   {/* {`Submit Order`} */}
                   {t("cart.submitOrder")}
+                </button>
+              </div>
+
+              <div
+                className={`flex items-center justify-center w-full mt-2 border-b-2 border-t-2 border-red-700`}
+              >
+                <button
+                  className="text-red-600 px-16 py-1 transition-all duration-500 "
+                  onClick={deleteCart}
+                >
+                  {deleting ? <div><Ring size={25} speed={2} lineWeight={5} color="#660000" /></div> : `Delete All Items`}
                 </button>
               </div>
             </div>

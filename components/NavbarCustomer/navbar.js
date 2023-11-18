@@ -106,7 +106,7 @@ function Navbar() {
                 <button onClick={handleCartButtonClick} className="relative">
                   <IoCartOutline className="text-white w-[40px] h-[20px]  " />
                   {cart?.data?.cart?.lines && cart?.data?.cart?.lines?.length > 0 && (
-                    <div className="w-[7px] h-[7px] absolute rounded-full bg-white top-0 right-1"></div>
+                    <div className="w-[7px] h-[7px] absolute rounded-full bg-gray-300 top-0 right-1"></div>
                   )}
                   {/* <BsFillBagFill className="text-white w-[40px] h-[20px]  " /> */}
                 </button>

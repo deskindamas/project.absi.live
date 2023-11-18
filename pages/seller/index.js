@@ -16,6 +16,7 @@ import DashboardCard from "@/components/UI/dashboardCard";
 import { MdOutlinePendingActions, MdOutlineProductionQuantityLimits } from "react-icons/md";
 import { CgUnavailable } from "react-icons/cg";
 import Cookies from "js-cookie";
+import Link from "next/link";
 
 const Home = () => {
   let none ; 
@@ -110,7 +111,7 @@ const Home = () => {
             </h4>
 
             <div className="md:flex md:flex-wrap  md:gap-x-10 gap-x-0 md:gap-y-5 gap-y-4 w-[95%]">
-              <div className="flex justify-between md:border-2 border-[1px] my-2 border-gray-400 md:w-[45%] w-[100%] px-4 py-4">
+              <div className="flex justify-between md:border-2 border-[1px] my-2 border-gray-400 md:w-[45%] w-[100%] px-4 py-4 hover:border-skin-primary">
               <div className="w-[80%]">
               <h1 className="text-2xl font-medium text-gray-800 pb-4">Total Available Products</h1>
               <p className="text-xl text-skin-primary"> {dashboardData.data.totalAvailableProducts} </p>
@@ -119,8 +120,7 @@ const Home = () => {
               <BsBox className="w-[30px] h-[30px] text-skin-primary" />
               </div>
               </div>
-              
-              <div className="flex justify-between md:border-2 border-[1px] my-2 border-gray-400 md:w-[45%] w-[100%] px-4 py-4">
+              <div href="" className="flex justify-between md:border-2 border-[1px] my-2 border-gray-400 md:w-[45%] w-[100%] px-4 py-4 hover:border-skin-primary">
               <div className="w-[80%]">
               <h1 className="text-2xl font-medium text-gray-800 pb-4">Total Orders</h1>
               <p className="text-xl text-skin-primary"> {dashboardData.data.totalOrders}</p>
@@ -130,7 +130,7 @@ const Home = () => {
               </div>
               </div>
 
-              <div className="flex justify-between md:border-2 border-[1px] my-2 border-gray-400 md:w-[45%] w-[100%] px-4 py-4">
+              <div href="" className="flex justify-between md:border-2 border-[1px] my-2 border-gray-400 md:w-[45%] w-[100%] px-4 py-4 hover:border-skin-primary">
               <div className="w-[80%]">
               <h1 className="text-2xl font-medium text-gray-800 pb-4">Total Pending Orders</h1>
               <p className="text-xl text-skin-primary"> {dashboardData.data.totalPendingOrders}</p>
@@ -140,7 +140,7 @@ const Home = () => {
               </div>
               </div>
 
-              <div className="flex justify-between md:border-2 border-[1px] my-2 border-gray-400 md:w-[45%] w-[100%] px-4 py-4">
+              <div href="" className="flex justify-between md:border-2 border-[1px] my-2 border-gray-400 md:w-[45%] w-[100%] px-4 py-4 hover:border-skin-primary">
               <div className="w-[80%]">
               <h1 className="text-2xl font-medium text-gray-800 pb-4">Total Products</h1>
               <p className="text-xl text-skin-primary"> {dashboardData.data.totalProducts}</p>
@@ -150,7 +150,7 @@ const Home = () => {
               </div>
               </div>
 
-              <div className="flex justify-between md:border-2 border-[1px] my-2 border-gray-400 md:w-[45%] w-[100%] px-4 py-4">
+              <div href="" className="flex justify-between md:border-2 border-[1px] my-2 border-gray-400 md:w-[45%] w-[100%] px-4 py-4 hover:border-skin-primary">
               <div className="w-[80%]">
               <h1 className="text-2xl font-medium text-gray-800 pb-4">Total Sales</h1>
               <p className="text-xl text-skin-primary"> {dashboardData.data.totalSales}</p>
@@ -159,9 +159,8 @@ const Home = () => {
               <FcSalesPerformance className="w-[30px] h-[30px] text-skin-primary" />
               </div>
               </div>
-
-              
-              <div className="flex justify-between md:border-2 border-[1px] my-2 border-gray-400 md:w-[45%] w-[100%] px-4 py-4">
+      
+              <div href="" className="flex justify-between md:border-2 border-[1px] my-2 border-gray-400 md:w-[45%] w-[100%] px-4 py-4 hover:border-skin-primary">
               <div className="w-[80%]">
               <h1 className="text-2xl font-medium text-gray-800 pb-4">Total Unavailable Products</h1>
               <p className="text-xl text-skin-primary"> {dashboardData.data.totalUnavailableProducts}</p>
