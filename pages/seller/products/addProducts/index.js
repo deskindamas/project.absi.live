@@ -126,10 +126,10 @@ function AddProducts() {
   return (
     <div className="md:px-16 px-5">
       <div className="flex md:flex-row flex-col md:gap-0 gap-2 justify-between my-10 pt-10 pb-5 border-b-2 border-skin-primary ">
-        <div className="w-[80%] flex justify-start items-center gap-2 ">
+        <div className="w-[50%] flex justify-start items-center gap-2 ">
           <form
             onSubmit={search}
-            className="flex bg-gray-100 w-full sm:w-3/5 items-center rounded-lg mx-2 px-2 border-2 border-transparent focus-within:border-skin-primary transition-all duration-700 "
+            className="flex bg-gray-100 w-full sm:w-4/5 items-center rounded-lg mx-2 px-2 border-2 border-transparent focus-within:border-skin-primary transition-all duration-700 "
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -165,12 +165,15 @@ function AddProducts() {
             />
           )}
         </div>
+        <div className="w-[50%] flex justify-center items-center">
+          <p className="text-gray-500 pr-2">If you do not find the product, you can create a new product</p>
         <Link
           href={"/seller/products/addNewProduct"}
-          className="bg-[#ff6600] px-9 py-3 text-white text-center md:w-auto w-[80%] "
+          className="bg-[#ff6600] px-3 py-3 text-white text-center md:w-auto w-[100%] "
         >
           Add New Product
         </Link>
+        </div>
       </div>
       {/* <select
         className="border mb-6 border-gray-300 rounded-md text-gray-600 px-2 pl-2 pr-8 bg-white hover:border-gray-400 focus:outline-none text-xs

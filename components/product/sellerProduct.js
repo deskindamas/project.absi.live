@@ -14,6 +14,7 @@ import createAxiosInstance from "@/API";
 import { Ring } from "@uiball/loaders";
 import Cookies from "js-cookie";
 import Image from "next/image";
+import Link from "next/link";
 
 function SellerProduct({ product , refetch }) {
   const [isToggled, setIsToggled] = useState(product.availability);
@@ -114,8 +115,12 @@ function SellerProduct({ product , refetch }) {
             </button>
           </div>
         </td>
-        <td className="px-4 py-4">{product.name}</td>
-        <td className="px-4 py-4">{product.description}</td>
+        <td className="px-4 py-4"><Link href={`/customer/Products/${product.id}`} legacyBehavior >
+              <a target="_blank" className="border-b border-transparent hover:border-gray-400 cursor-pointer" >
+              {product.name}
+              </a>
+          </Link></td>
+        {/* <td className="px-4 py-4">{product.description}</td> */}
         <td className="px-4 py-4">{product.category}</td>
         <td className="px-4 py-4">
           <Image  src={product.image} alt="photo" width={100} height={100} className="object-contain"  />

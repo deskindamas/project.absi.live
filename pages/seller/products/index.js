@@ -27,9 +27,7 @@ const tableheading = [
   {
     heading: "Name",
   },
-  {
-    heading: "Desc",
-  },
+
   {
     heading: "Category",
   },
@@ -148,12 +146,20 @@ function Products() {
         <div className="w-full h-full mx-auto">
           <div className="flex sm:flex-row flex-col  justify-between w-full px-4 py-2 items-center">
             <div className="text-xl font-bold">{title}</div>
+            <div>
             <Link
               href={"/seller/products/addProducts"}
-              className="px-4 py-2 text-white bg-[#ff6600] rounded-md hover:bg-[#ff6600] focus:outline-none"
+              className="px-4 py-2 mx-1 text-white bg-[#ff6600] rounded-md hover:bg-[#ff6600] focus:outline-none"
             >
               Add Product to store
             </Link>
+            <Link
+              href={"/seller/products/addNewProduct"}
+              className="px-4 py-2 text-white bg-[#ff6600] rounded-md hover:bg-[#ff6600] focus:outline-none"
+            >
+              Add New Product to store
+            </Link>
+            </div>
           </div>
 
           {isLoading || isRefetching ? (

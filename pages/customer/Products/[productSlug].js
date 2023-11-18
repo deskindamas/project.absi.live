@@ -53,9 +53,9 @@ function PublicProduct({ product }) {
             { product.brand?.name && <p className="text-lg text-skin-primary border-2 border-skin-primary w-max px-5 rounded-full">
               {product.brand.name}
             </p>}
-            <p className="text-gray-500 text-base border-t-2 border-gray-200 py-3 my-2">
+            {/* <p className="text-gray-500 text-base border-t-2 border-gray-200 py-3 my-2">
               {product.decription ? product.description : `No Description`}
-            </p>
+            </p> */}
           </div>
         </div>
       </div>
