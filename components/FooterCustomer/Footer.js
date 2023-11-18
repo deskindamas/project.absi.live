@@ -2,7 +2,7 @@ import React from "react";
 import Logo from "../../public/images/tawasylogowhite.png";
 import Image from "next/image";
 import Link from "next/link";
-import { FaTelegram } from "react-icons/fa";
+import { FaTelegram, FaWhatsapp } from "react-icons/fa";
 import { BsFacebook } from "react-icons/bs";
 import { BsFillTelephoneFill, BsInstagram } from "react-icons/bs";
 import { MdCopyright } from "react-icons/md";

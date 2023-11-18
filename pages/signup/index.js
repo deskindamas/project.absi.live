@@ -384,6 +384,7 @@ const SignUp = () => {
                 <span className="text-white flex justify-start items-center gap-1 ">
                   I agree to the
                   <Link
+                    passHref
                     href={"/TermsAndConditions"}
                     className="text-sky-300 border-b-2 border-sky-300 hover:text-sky-500 hover:border-sky-500"
                   >
