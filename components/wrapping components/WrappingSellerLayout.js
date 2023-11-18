@@ -1,11 +1,13 @@
-import React from 'react';
-import Sidebar from '../sidebars/SellerSideBar';
+import React from "react";
+import Sidebar from "../sidebars/SellerSideBar";
 
 const withLayout = (WrappedComponent) => {
   const WithLayout = (props) => (
-    <div className='w-full h-screen'>
-      <Sidebar />
-      <div className='w-[80%] h-full'>
+    <div style={{ display: "flex" }}>
+      <div className="w-[20%] h-full" style={{ zIndex: 1 }}>
+        <Sidebar />
+      </div>
+      <div className="w-[80%] h-full" style={{ zIndex: 0 }}>
         <WrappedComponent {...props} />
       </div>
     </div>
@@ -19,7 +21,7 @@ const withLayout = (WrappedComponent) => {
 
 // Helper function to get the display name of a component
 const getDisplayName = (WrappedComponent) => {
-  return WrappedComponent.displayName || WrappedComponent.name || 'Component';
+  return WrappedComponent.displayName || WrappedComponent.name || "Component";
 };
 
 export default withLayout;

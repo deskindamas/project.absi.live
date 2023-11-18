@@ -43,9 +43,6 @@ const tableheading = [
     heading: "Brand",
   },
   {
-    heading: "Sold quantity",
-  },
-  {
     heading: "Price",
   },
   

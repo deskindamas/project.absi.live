@@ -6,6 +6,8 @@ import logo from "../../../public/images/tawasylogo.png";
 import { Ring } from "@uiball/loaders";
 import { useRouter } from "next/router";
 import createAxiosInstance from "@/API";
+import Link from "next/link";
+import { MdCheck, MdClose } from "react-icons/md";
 
 function TotalAddProduct({ selectproduct, refetch }) {
   const [isSaving, setIsSaving] = useState(false);
@@ -50,9 +52,11 @@ function TotalAddProduct({ selectproduct, refetch }) {
         key={selectproduct.id}
         className="even:bg-zinc-150 odd:bg-zinc-50 text-center py-1 border-b-2 border-slate-300"
       >
-        <td className="pb-6 pt-6 sm:text-base text-sm ">{selectproduct.product_id}</td>
-        <td>{selectproduct.name}</td>
-        <td>{selectproduct.description}</td>
+        <td><Link href={`/customer/Products/${selectproduct.product_id}`} legacyBehavior >
+            <a target="_blank" className="border-b border-transparent hover:border-gray-400" >
+            {selectproduct.name}
+            </a>
+          </Link></td>
         <td>{selectproduct.brand}</td>
         <td>{selectproduct.category}</td>
         <td>
@@ -61,8 +65,8 @@ function TotalAddProduct({ selectproduct, refetch }) {
             onClick={() => {setAvailable(false)}}
               className="cursor-pointer"
               style={{
-                width: "18px",
-                height: "25px",
+                width: "25px",
+                height: "35px",
                 color: "#ff6600",
                 margin: `auto`,
               }}
@@ -72,8 +76,8 @@ function TotalAddProduct({ selectproduct, refetch }) {
             onClick={() => {setAvailable(true)}}
               className="cursor-pointer"
               style={{
-                width: "18px",
-                height: "25px",
+                width: "25px",
+                height: "35px",
                 color: "#ff6600",
                 margin: `auto`,
               }}
@@ -100,7 +104,7 @@ function TotalAddProduct({ selectproduct, refetch }) {
         <td className="">
           <div className="h-full w-full flex justify-center items-center gap-2">
             {!isDeleting ? (
-              <AiFillDelete
+              <MdClose
                 onClick={unSelectProduct}
                 style={{
                   width: "26px",
@@ -113,9 +117,9 @@ function TotalAddProduct({ selectproduct, refetch }) {
               <Ring size={20} lineWeight={4} speed={2} color="#ff6600" />
             )}
             {!isSaving ? (
-              <TfiSave
+              <MdCheck
               onClick={saveProduct}
-                style={{ width: "20px", height: "20px", color: "black" }}
+                style={{ width: "26px", height: "26px", color: "#005500" }}
                 className="cursor-pointer"
               />
             ) : (

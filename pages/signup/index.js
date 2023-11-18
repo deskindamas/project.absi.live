@@ -37,10 +37,10 @@ const SignUp = () => {
     if (!isChecked) {
       // Check if the checkbox is not checked
       toast.error(
-        "Please agree on our terms and conditions and privacy policy.",
+        "Please agree on our terms and conditions and privacy policy. | الرجاء الموافقة على الشروط والأحكام وسياسة الخصوصية الخاصة بنا",
         {
           toastId:
-            "Please agree on our terms and conditions and privacy policy.",
+          "Please agree on our terms and conditions and privacy policy. | الرجاء الموافقة على الشروط والأحكام وسياسة الخصوصية الخاصة بنا",
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -56,8 +56,8 @@ const SignUp = () => {
 
     if (address == undefined || address == null) {
       // Check if the checkbox is not checked
-      toast.error("Please select an address.", {
-        toastId: "Please agree on our terms and conditions and privacy policy.",
+      toast.error("Please select an address. | الرجاء اختيار العنوان", {
+        toastId: "Please select an address. | الرجاء اختيار العنوان",
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -99,10 +99,10 @@ const SignUp = () => {
     e.preventDefault();
     if (!isChecked) {
       toast.error(
-        "Please agree on our terms and conditions and privacy policy.",
+        "Please agree on our terms and conditions and privacy policy. | الرجاء الموافقة على الشروط والأحكام وسياسة الخصوصية الخاصة بنا",
         {
           toastId:
-            "Please agree on our terms and conditions and privacy policy.",
+          "Please agree on our terms and conditions and privacy policy. | الرجاء الموافقة على الشروط والأحكام وسياسة الخصوصية الخاصة بنا",
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -117,8 +117,8 @@ const SignUp = () => {
     }
 
     if (address == undefined || address == null) {
-      toast.error("Please select an address.", {
-        toastId: "Please agree on our terms and conditions and privacy policy.",
+      toast.error("Please select an address. | الرجاء اختيار العنوان", {
+        toastId: "Please select an address. | الرجاء اختيار العنوان",
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,

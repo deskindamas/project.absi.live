@@ -60,8 +60,8 @@ function HomeMobileADS({ ads, refetch }) {
       }
       setIsEditing(false);
     } else {
-      toast.error(`Please Select a photo to add`, {
-        toastId : `Please Select a photo to add`,
+      toast.error(`Please Select a photo to add | الرجاء اختيار صورة`, {
+        toastId : `Please Select a photo to add | الرجاء اختيار صورة`,
         position: "top-right",
         autoClose: 2000,
         hideProgressBar: false,

@@ -17,6 +17,7 @@ import {
   MdRemoveDone,
 } from "react-icons/md";
 import { Ring } from "@uiball/loaders";
+import SellerSelectProduct from "@/components/sellerSelectProduct/SellerSelectProduct";
 
 const users = [
   {
@@ -100,7 +101,8 @@ function AddProducts() {
     setInSearch(false);
   }
 
-  async function search() {
+  async function search(e) {
+    e.preventDefault();
     setSearching(true);
     try {
       const response = await Api.post(
@@ -188,9 +190,10 @@ function AddProducts() {
           {data && data.data.approvedProducts && inSearch == false && (
             <div className="w-full h-full">
               {data.data.approvedProducts.length > 0 ? (
-                <div class="grid md:grid-cols-3 grid-col-1 gap-4 ">
+                <div class="grid 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 grid-col-1 gap-4 ">
                   {data.data.approvedProducts.map((curElem) => {
-                    return <AddProduct key={curElem.id} addproduct={curElem} />;
+                    return <SellerSelectProduct key={curElem.id} product={curElem} />;
+                    // return <AddProduct key={curElem.id} addproduct={curElem} />;
                   })}
                 </div>
               ) : (
@@ -203,9 +206,9 @@ function AddProducts() {
           {inSearch == true &&
             searchedProducts &&
             (searchedProducts.transformedProducts.length > 0 ? (
-              <div class="grid md:grid-cols-3 grid-col-1 gap-4 ">
+              <div class="grid 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 grid-col-1 gap-4 ">
                 {searchedProducts.transformedProducts.map((curElem) => {
-                  return <AddProduct key={curElem.id} addproduct={curElem} />;
+                  return <SellerSelectProduct key={curElem.id} product={curElem} />;
                 })}
               </div>
             ) : (
@@ -273,14 +276,12 @@ function AddProducts() {
                         <table className="table w-full" border={4}>
                           <thead className="md:text-xl text-base ">
                             <tr>
-                              <th className="pb-4  md:px-0 px-4">Id</th>
                               <th className="pb-4 md:px-0 px-4">
                                 Product Name
                               </th>
-                              <th className="pb-4 md:px-0 px-4">Description</th>
                               <th className="pb-4 md:px-0 px-4">Brand</th>
                               <th className="pb-4 md:px-0 px-4">Category</th>
-                              <th className="pb-4 md:px-0 px-4">Available</th>
+                              <th className="pb-4 md:px-0 px-4">Publish / Unpublish</th>
                               <th className="pb-4 md:px-0 px-4">Image</th>
                               <th className="pb-4 md:px-0 px-4">Price </th>
                               <th className="pb-4 md:px-0 px-4"> </th>
@@ -338,7 +339,7 @@ function AddProducts() {
             zIndex: "999",
             position: "fixed",
             bottom: "10px",
-            left: "10px",
+            right: "10px",
           }}
         >
           <TfiShoppingCartFull className="bg-skin-primary w-[60px] h-[60px] rounded-[50%] p-[15px]" />{" "}

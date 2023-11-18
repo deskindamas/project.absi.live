@@ -14,6 +14,7 @@ import { useQuery } from "react-query";
 import TawasyLoader from "@/components/UI/tawasyLoader";
 import styles from "../../../components/componentsStyling/sellerStorePage.module.css";
 import { GiConsoleController } from "react-icons/gi";
+import SellerStoreProduct from "@/components/sellerStoreProduct/sellerStoreProduct";
 
 export function convertTo12HourFormat(time24) {
   const timeParts = time24.split(":");
@@ -216,11 +217,12 @@ const Store = () => {
         </ul>
       </div>
       <div className="flex justify-center w-full">
-      <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 grid-col-1 gap-2 w-[90%] mx-auto mb-10 ">
+      <div className="grid 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-2 grid-col-1 gap-2 w-full mx-auto mb-10 ">
         {sellerStoreData &&
           selectedCategoryData &&
           selectedCategoryData.products.map((product) => (
-            <SellerStore key={product.id} store={product} refetch = {() => {refetch();}} />
+            <SellerStoreProduct key={product.id} product={product} refetch = {() => {refetch();}} />
+            // <SellerStore key={product.id} store={product} refetch = {() => {refetch();}} />
           ))}
       </div>
       </div>

@@ -59,7 +59,7 @@ const createAxiosInstance = (router) => {
           response.config.method === "delete") &&
         !response.config.noSuccessToast
       ) {
-        toast.success(response.data.message || "Request successful", {
+        toast.success(response.data.message || "Request successful \b نفّذ الطلب بنجاح ", {
           toastId: response.data.message,
           position: "top-right",
           autoClose: 5000,
@@ -109,7 +109,7 @@ const createAxiosInstance = (router) => {
           toast.error(
             error.response.data.message ||
               error.response.data.error ||
-              "Request failed",
+              "Request failed | فشل في طلب قاعدة البيانات",
             {
               toastId: error.response.data.message || error.response.data.error,
               position: "top-right",
@@ -125,7 +125,7 @@ const createAxiosInstance = (router) => {
         }
       } else {
         // Show error notification for other types of errors
-        toast.error("Request failed", {
+        toast.error(`Request failed \b فشل في طلب قاعدة البيانات `, {
           toastId: "Request failed",
           position: "top-right",
           autoClose: 5000,

@@ -85,7 +85,7 @@
       "AddtoCart" : "إضافة الى السلة"
      },
      "componentStore" : {
-      "ViewStore" : "عرض المتجر"
+      "ViewStore" : "عرض المنتج"
      },
     "product" : {
       "storeSellers" :"المتاجر التي تبيع هذا المنتج"

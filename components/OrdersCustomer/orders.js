@@ -86,8 +86,8 @@ function OrdersCustomer({ order, refetch }) {
 
   async function cancelOrder() {
     if (reasonRef.current.value.trim() == "" || !reasonRef.current.value) {
-      toast.error(`Please give us a reason for cancelling the order `, {
-        toastId: `Please give us a reason for cancelling the order `,
+      toast.error(`Please give us a reason for cancelling the order | الرجاء تزويدنا بسبب رفض الطلب `, {
+        toastId: `Please give us a reason for cancelling the order | الرجاء تزويدنا بسبب رفض الطلب `,
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,

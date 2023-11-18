@@ -32,7 +32,7 @@ export default function Sidebar(props) {
     <div className={`w-max h-max  `} >
       <div
         style={{ position: "fixed", overflow: "auto" }}
-        className={`top-0 bottom-0 right-0 w-[20%]  bg-[#ff6600] shadow duration-300 pl-2`}
+        className={`top-0 bottom-0 left-0 w-[20%]  bg-[#ff6600] shadow duration-300 pl-2`}
       >
         <div className="space-y-3">
           <div className=" flex justify-center">
@@ -184,7 +184,7 @@ export default function Sidebar(props) {
                         }}
                       >
                         <MdOutlineDisabledVisible className="block text-[20px] text-white " />
-                        <p className="hidden md:block">Disabled Products</p>
+                        <p className="hidden md:block">Unpublished Products</p>
                       </button>
                     </li>
                     <li className={`pt-3`}>
@@ -198,7 +198,7 @@ export default function Sidebar(props) {
                         }}
                       >
                         <AiTwotoneEye className="block text-[20px] text-white " />
-                        <p className="hidden md:block">Active Products</p>
+                        <p className="hidden md:block">Published Products</p>
                       </button>
                     </li>
 

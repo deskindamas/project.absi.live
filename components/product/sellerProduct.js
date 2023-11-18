@@ -69,7 +69,7 @@ function SellerProduct({ product , refetch }) {
     } catch (error) {
       // console.log(error);
     }
-    setIsEditing(false);
+    // setIsEditing(false);
     setEditingPrice(false);
   }
 
@@ -83,7 +83,7 @@ function SellerProduct({ product , refetch }) {
       setIsDeleting(false);
       setDeleting(false);
     } catch (error) {
-      setIsDeleting(false);
+      // setIsDeleting(false);
       setDeleting(false);
       // console.log(error);
     }
@@ -148,7 +148,7 @@ function SellerProduct({ product , refetch }) {
           )}
         </td>
         <td className="px-4 py-4">{product.brand && product.brand.name}</td>
-        <td className="px-4 py-4">{product.sold_quantity}</td>
+        {/* <td className="px-4 py-4">{product.sold_quantity}</td> */}
         <td className="px-4 py-4" >{price}</td>
         
       </tr>

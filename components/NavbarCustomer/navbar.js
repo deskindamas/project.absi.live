@@ -143,7 +143,7 @@ function Navbar() {
             </Link>
           )}
               <Link
-              href={"/login" }
+              href={"/signup" }
               className="text-white mx-1 h-[80%] flex items-center justify-center md:border-[1px] md:border-white md:px-6 px-1 hover:bg-white hover:text-skin-primary rounded-md justify-self-end"
             >
               {/* {`Login`} */}

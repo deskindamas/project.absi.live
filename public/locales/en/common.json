@@ -85,7 +85,7 @@
       "AddtoCart" : "Add To Cart"
      },
      "componentStore" : {
-      "ViewStore" : "View Store"
+      "ViewStore" : "View Product"
      },
     "product" : {
       "storeSellers" :"The Stores that sell this product"

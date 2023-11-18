@@ -105,7 +105,6 @@ const Setting = () => {
     //   });
     //   return;
     // }
-    setIsSaving(true);
     let editData = {};
 
     const addIfDifferent = (fieldValue, fieldName) => {
@@ -124,18 +123,33 @@ const Setting = () => {
     if (arraysAreEqual(oldDays, checkedDays) == false) {
       editData[`opening_days`] = checkedDays;
     }
-    try {
-      const response = await Api.put(
+    if(Object.keys(editData).length < 1) {
+      toast.error(`Please fill all the fields | الرجاء تعبئة جميع الحقول المطلوبة `, {
+        toastId: `Please fill all the fields | الرجاء تعبئة جميع الحقول المطلوبة `,
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+      })
+      return ;
+    }else{
+    setIsSaving(true);
+      try {
+        const response = await Api.put(
         `/api/seller/store/edit`,
         editData
       );
       refetch();
       setIsSaving(false);
-      // setIsEditing(false);
     } catch (error) {
       setIsSaving(false);
     }
     setIsSaving(false);
+  }
 
     // console.log(editData);
   }

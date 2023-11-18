@@ -48,8 +48,8 @@ const Login = () => {
           theme: "colored",
         });
       } catch (error) {
-        toast.error(error?.response?.data?.message || `Request failed`, {
-          toastId: error?.response?.data?.message || `Request failed`,
+        toast.error(error?.response?.data?.message || `Request failed | فشل في طلب قاعدة البيانات`, {
+          toastId: error?.response?.data?.message || `Request failed | فشل في طلب قاعدة البيانات `,
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -91,8 +91,8 @@ const Login = () => {
           theme: "colored",
         });
       } catch (error) {
-        toast.error(error.response.data.message || `Request failed`, {
-          toastId: error.response.data.message || `Request failed`,
+        toast.error(error.response.data.message || `Request failed | فشل في طلب قاعدة البيانات `, {
+          toastId: error.response.data.message || `Request failed | فشل في طلب قاعدة البيانات `,
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
