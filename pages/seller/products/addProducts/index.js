@@ -35,7 +35,7 @@ function AddProducts() {
   const Api = createAxiosInstance(router);
   const [currentPage, setCurrentPage] = useState(1);
   const searchRef = useRef();
-  const { data, isLoading, isError, error , isFetching } = useQuery(
+  const { data, isLoading, isError, error, isFetching } = useQuery(
     ["sharedProducts", currentPage],
     () => fetchSharedProducts(currentPage),
     {
@@ -125,7 +125,10 @@ function AddProducts() {
     <div className="md:px-16 px-5">
       <div className="flex md:flex-row flex-col md:gap-0 gap-2 justify-between my-10 pt-10 pb-5 border-b-2 border-skin-primary ">
         <div className="w-[80%] flex justify-start items-center gap-2 ">
-          <div className="flex bg-gray-100 w-full sm:w-3/5 items-center rounded-lg mx-2 px-2 border-2 border-transparent focus-within:border-skin-primary transition-all duration-700 ">
+          <form
+            onSubmit={search}
+            className="flex bg-gray-100 w-full sm:w-3/5 items-center rounded-lg mx-2 px-2 border-2 border-transparent focus-within:border-skin-primary transition-all duration-700 "
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-4 w-4 mr-2"
@@ -149,11 +152,10 @@ function AddProducts() {
                 setInSearch(true);
               }}
             />
-            <MdArrowForward
-              className="hover:border-b-2 border-skin-primary cursor-pointer"
-              onClick={search}
-            />
-          </div>
+            <button type="submit" >
+              <MdArrowForward className="hover:border-b-2 border-skin-primary cursor-pointer" />
+            </button>
+          </form>
           {inSearch == true && (
             <MdClose
               className="text-red-500 hover:text-red-600 w-[25px] h-[25px] hover:border-b-2 hover:border-red-600 cursor-pointer "
@@ -198,7 +200,8 @@ function AddProducts() {
               )}
             </div>
           )}
-          {inSearch == true && searchedProducts &&
+          {inSearch == true &&
+            searchedProducts &&
             (searchedProducts.transformedProducts.length > 0 ? (
               <div class="grid md:grid-cols-3 grid-col-1 gap-4 ">
                 {searchedProducts.transformedProducts.map((curElem) => {
@@ -226,7 +229,9 @@ function AddProducts() {
               >
                 Previous Page
               </button>
-              { isFetching && <Ring size={20} lineWeight={5} speed={2} color="#ff6600" />}
+              {isFetching && (
+                <Ring size={20} lineWeight={5} speed={2} color="#ff6600" />
+              )}
               <button
                 className="px-2 py-1 bg-skin-primary text-white rounded-lg hover:bg-[#ff9100] disabled:opacity-50 disabled:cursor-not-allowed w-[20%]"
                 onClick={() => {
@@ -253,7 +258,10 @@ function AddProducts() {
           >
             <DialogTitle className="flex justify-between">
               <h4 className="sm:text-2xl text-sm "> Selected Products:</h4>
-              <MdClose onClick={closepopup} className="w-[35px] h-[35px] cursor-pointer " />
+              <MdClose
+                onClick={closepopup}
+                className="w-[35px] h-[35px] cursor-pointer "
+              />
             </DialogTitle>
             <hr />
             <DialogContent>
@@ -266,7 +274,9 @@ function AddProducts() {
                           <thead className="md:text-xl text-base ">
                             <tr>
                               <th className="pb-4  md:px-0 px-4">Id</th>
-                              <th className="pb-4 md:px-0 px-4">Product Name</th>
+                              <th className="pb-4 md:px-0 px-4">
+                                Product Name
+                              </th>
                               <th className="pb-4 md:px-0 px-4">Description</th>
                               <th className="pb-4 md:px-0 px-4">Brand</th>
                               <th className="pb-4 md:px-0 px-4">Category</th>

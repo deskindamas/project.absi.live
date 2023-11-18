@@ -188,7 +188,7 @@ function StoreAdmin({ names, refetch }) {
     }
     setIsSaving(false);
 
-    // console.log(editData);
+    console.log(editData);
   }
 
   return (
@@ -198,6 +198,24 @@ function StoreAdmin({ names, refetch }) {
         className="py-10 bg-gray-100 hover:bg-gray-200 font-medium   "
       >
         <td className="px-4 py-4">{names.id}</td>
+        <td class="px-4 py-4">
+          <div class="flex-col lg:flex-row lg:space-x-2 items-center space-y-2 lg:space-y-0">
+            <button
+              onClick={openEdit}
+              class="items-center px-2 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none"
+            >
+              <FiEdit2 />
+            </button>
+            {/* <button
+              class="items-center px-2 py-2 text-white bg-red-500 rounded-md hover:bg-red-600 focus:outline-none"
+              onClick={() => {
+                setIsDeleting(true);
+              }}
+            >
+              <RiDeleteBin6Line />
+            </button> */}
+          </div>
+        </td>
         <td className="px-4 py-4">{names.seller_id}</td>
         <td className="px-4 py-4" width={`10%`}>
           {names.name_ar}
@@ -246,24 +264,7 @@ function StoreAdmin({ names, refetch }) {
         <td>{names.area}</td>
         <td>{convertDateStringToDate(names.created_at)}</td>
         <td>{convertDateStringToDate(names.updated_at)}</td>
-        <td class="px-4 py-4">
-          <div class="flex-col lg:flex-row lg:space-x-2 items-center space-y-2 lg:space-y-0">
-            <button
-              onClick={openEdit}
-              class="items-center px-2 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none"
-            >
-              <FiEdit2 />
-            </button>
-            {/* <button
-              class="items-center px-2 py-2 text-white bg-red-500 rounded-md hover:bg-red-600 focus:outline-none"
-              onClick={() => {
-                setIsDeleting(true);
-              }}
-            >
-              <RiDeleteBin6Line />
-            </button> */}
-          </div>
-        </td>
+        
       </tr>
 
       <Dialog
@@ -427,7 +428,7 @@ function StoreAdmin({ names, refetch }) {
                   <Locations
                     onLocation={handlesAddress}
                     defaultAddress={names.address}
-                    className={`"mb-4 outline-none text-zinc-500 bg-transparent border-b-2 border-text-zinc-500 cursor-pointer placeholder:text-zinc-500 w-full `}
+                    className={`"mb-4 outline-none text-zinc-500 bg-transparent border-b-2 border-text-zinc-500 cursor-pointer placeholder:text-zinc-500 `}
                   />
                 </div>
 

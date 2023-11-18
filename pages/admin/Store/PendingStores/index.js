@@ -9,6 +9,9 @@ import TawasyLoader from "@/components/UI/tawasyLoader";
 
 const tableheading = [
   {
+    heading: "Action",
+  },
+  {
     heading: "Seller ID",
   },
   {
@@ -53,9 +56,6 @@ const tableheading = [
   {
     heading: "Updated",
   },
-  {
-    heading: "Action",
-  },
 ];
 
 
@@ -88,7 +88,7 @@ function PendingStoreAdmin() {
 
   return (
     <div className="md:px-6">
-      <div className="h-screen">
+      <div className="h-full">
         <div className="m-5 p-5">
           <h2 className="text-2xl text-stone-500 pb-5 ">Pending Stores</h2>
         </div>

@@ -3,14 +3,14 @@ import Sidebar from '../../components/SidebarAdmin/sidebar';
 
 const withLayoutAdmin = (WrappedComponent) => {
   const WithLayoutAdmin = (props) => (
-    <div>
-      <div className='w-[80%] h-full'>
-        <WrappedComponent {...props} />
-      </div>
-      <div>
-        <Sidebar />
-      </div>
+    <div style={{ display: 'flex' }}>
+    <div className='w-[20%] h-full' style={{ zIndex: 1 }}>
+      <Sidebar />
     </div>
+    <div className='w-[80%] h-full' style={{ zIndex: 0 }}>
+      <WrappedComponent {...props} />
+    </div>
+  </div>
   );
 
   // Provide a display name for the HOC

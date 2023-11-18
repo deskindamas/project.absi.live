@@ -109,7 +109,7 @@ function Products({ store }) {
         response.data.data.length < 1 ? (
           <div className="w-max mx-auto">{response.data.message}</div>
         ) : (
-          <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 grid-col-1 gap-2 w-[90%] mx-auto">
+          <div className="grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 grid-col-1 gap-2 w-[90%] mx-auto">
             {response.data.data.map((product) => {
               return <PublicAllProduct key={product.id} product={product} />;
             })}
@@ -157,6 +157,7 @@ function Products({ store }) {
         {store && (
           <div className=" relative lg:h-[400px] md:h-[300px] sm:h-[200px] h-[100px] w-full box-border ">
             <Image
+            priority
               src={store.store.image ? store.store.image : Logo}
               alt="store"
               width={0}
@@ -173,6 +174,7 @@ function Products({ store }) {
             <div className="flex justify-center items-center mt-2 ">
               <div className=" md:w-[200px] w-[100px] md:h-[200px] h-[100px]">
                 <Image
+                priority
                   className=" shadow w-full h-full object-contain rounded-md"
                   src={store.store.logo ? store.store.logo : logo}
                   alt="store"
@@ -310,7 +312,7 @@ function Products({ store }) {
             </div>
 
             <div className="flex w-[80%] justify-center mx-auto mt-4 mb-7">
-              <div className="grid 2xl:grid-cols-6 xl:grid-cols-5 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 gap-y-7 mx-auto ">
+              <div className="grid 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 gap-y-7 mx-auto ">
                 {store &&
                   selectedCategoryData &&
                   selectedCategoryData.products.map((product) => (
@@ -328,7 +330,7 @@ function Products({ store }) {
               <TawasyLoader width={300} height={300} />
             </div>
           ) : (
-            <div className="w-full flex justify-center min-h-[700px]">
+            <div className="w-full flex justify-center min-h-max">
               {searchedResults && searchedResults}
             </div>
           ))}

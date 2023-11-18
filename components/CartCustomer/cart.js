@@ -172,7 +172,7 @@ const Cart = ({ onClose, show, className }) => {
                 } `}
               >
                 {cart &&
-                  cart.data.cart.lines &&
+                  cart.data.cart?.lines &&
                   cart.data.cart.lines.map((item) => (
                     <CartProduct
                       key={item.product.id}
@@ -282,7 +282,7 @@ const Cart = ({ onClose, show, className }) => {
                   }}
                 >
                   {/* {`Submit Order`} */}
-                  {t("submitOrder.submit")}
+                  {t("cart.submitOrder")}
                 </button>
               </div>
             </div>

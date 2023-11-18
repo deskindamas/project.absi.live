@@ -149,7 +149,7 @@ function StoreTypeADS() {
       setAddingMobile(false);
     } else {
       toast.error(`Please Select a photo to add`, {
-        toastId : `Please Select a photo to add`,
+        toastId: `Please Select a photo to add`,
         position: "top-right",
         autoClose: 2000,
         hideProgressBar: false,
@@ -190,7 +190,7 @@ function StoreTypeADS() {
       setAddingWebsite(false);
     } else {
       toast.error(`Please Select a photo to add`, {
-        toastId : `Please Select a photo to add`,
+        toastId: `Please Select a photo to add`,
         position: "top-right",
         autoClose: 2000,
         hideProgressBar: false,
@@ -330,6 +330,10 @@ function StoreTypeADS() {
                     className="md:w-[400px] w-full border-b-2  outline-none  text-xl focus:border-skin-primary transition-all duration-700"
                     name="store_type Id"
                     type="number"
+                    style={{
+                      WebkitAppearance: "none",
+                      MozAppearance: "textfield",
+                    }}
                     placeholder="store_type Id"
                     ref={websiteStoreTypeId}
                     required
@@ -387,6 +391,10 @@ function StoreTypeADS() {
                     className="md:w-[400px] w-full border-b-2  outline-none  text-xl focus:border-skin-primary transition-all duration-700"
                     name="store_type Id"
                     type="number"
+                    style={{
+                      WebkitAppearance: "none",
+                      MozAppearance: "textfield",
+                    }}
                     placeholder="store_type Id"
                     ref={mobileStoreTypeId}
                     required

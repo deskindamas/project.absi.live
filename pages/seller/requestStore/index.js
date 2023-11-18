@@ -27,7 +27,7 @@ import { useRouter } from "next/router";
 import createAxiosInstance from "@/API";
 import { Ring } from "@uiball/loaders";
 import TawasyLoader from "@/components/UI/tawasyLoader";
-import {toast} from 'react-toastify';
+import { toast } from "react-toastify";
 import Cookies from "js-cookie";
 
 const RequestStore = () => {
@@ -54,10 +54,10 @@ const RequestStore = () => {
   const openDayRef = useRef();
   const [storeType, selectedStoreType] = useState();
   const [storeTypes, setStoreTypes] = useState();
-
-  const handleImageClick = () => {
-    inputRef.current.click();
-  };
+  const maxLength = 255;
+  const [areaMaxLength, setAreaMaxLength] = useState(maxLength);
+  const [streetMaxLength, setStreetMaxLength] = useState(maxLength);
+  // const streetMaxLength = 255 ;
 
   let token;
 
@@ -69,13 +69,7 @@ const RequestStore = () => {
   useEffect(() => {
     setImage(null);
     setLogo(null);
-  } , [])
-
-  // const handleImageChange = (event) => {
-  //   const file = event.target.files[0];
-  //   console.log(file);
-  //   setimage(event.target.files[0]);
-  // };
+  }, []);
 
   useEffect(() => {
     async function fetchStoreTypes() {
@@ -89,7 +83,7 @@ const RequestStore = () => {
       } catch (error) {
         console.log(error);
       }
-      setIsLoading(false)
+      setIsLoading(false);
     }
     fetchStoreTypes();
   }, []);
@@ -119,9 +113,9 @@ const RequestStore = () => {
 
   async function submitStore(e) {
     e.preventDefault();
-    if(!address || !logo || !image ){
-      toast.error('Please fill all of the required fields', {
-        toastId : 'Please fill all of the required fields',
+    if (!address || !logo || !image) {
+      toast.error("Please fill all of the required fields", {
+        toastId: "Please fill all of the required fields",
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -131,32 +125,9 @@ const RequestStore = () => {
         progress: undefined,
         theme: "colored",
       });
-      return ;
+      return;
     }
-    setSubmitting(true) ;
-    // try {
-    //   const response = await axios.post(`${url}/api/seller/store` , {
-    //     name_en : EnNameRef.current.value ,
-    //     name_ar : ArNameRef.current.value ,
-    //     address : address.address,
-    //     street : streetRef.current.value,
-    //     area : areaRef.current.value ,
-    //     image : image ,
-    //     logo : logo,
-    //     opening_time : openTimeRef.current.value ,
-    //     closing_time : closeTimeRef.current.value ,
-    //     store_type_name : storeType ,
-    //     opening_days : checkedDays,
-    //   } , {
-    //     headers: { Authorization: `Bearer ${token}` , Accept : `application/json` , "Content-Type" : `multipart/form-data` },
-
-    //   });
-    //   console.log(`request store`);
-    //   console.log(response) ;
-    // } catch (error) {
-    //   console.log(error);
-    // }
-    ///////////////////////////////////////////////////////////////////////////////
+    setSubmitting(true);
     try {
       const response = await Api.post(
         `/api/seller/create-store`,
@@ -166,8 +137,8 @@ const RequestStore = () => {
           address: address.address,
           street: streetRef.current.value,
           area: areaRef.current.value,
-          longitude : address.lng , 
-          latitude :  address.lat ,
+          longitude: address.lng,
+          latitude: address.lat,
           image: image,
           logo: logo,
           opening_time: openTimeRef.current.value,
@@ -180,31 +151,26 @@ const RequestStore = () => {
         }
       );
       setSubmitting(false);
-      // console.log(`request store`);
-      // console.log(response);
-      router.replace('/seller/pendingStore') ;
+      router.replace("/seller/pendingStore");
     } catch (error) {
       setSubmitting(false);
-      // console.log(error);
     }
   }
 
   function handleLogoImage(logo) {
-    // console.log(`logo`);
-    // console.log(logo);
     setLogo(logo);
   }
 
   function handleStoreImage(image) {
-    // console.log(`store image`);
-    // console.log(image);
     setImage(image);
   }
 
-  if(isLoading == true){
-    return <div className="w-screen h-screen" >
-      <TawasyLoader/>
-    </div>
+  if (isLoading == true) {
+    return (
+      <div className="w-screen h-screen">
+        <TawasyLoader />
+      </div>
+    );
   }
 
   return (
@@ -217,17 +183,18 @@ const RequestStore = () => {
             </div>
           </div>
 
-          <form className="h-full" onSubmit={submitStore}>
+          <form className="h-full  " onSubmit={submitStore}>
             <div className="grid md:grid-cols-2 grid-col-1 gap-2 text-zinc-50 h-max my-16 ">
               <div>
                 <div>
                   <label className="" htmlFor="name">
-                    Arabic Name{" "}
+                    Arabic Store Name{" "}
                   </label>
                   <input
                     id="name"
-                    className="mb-7 text-zinc-500 pl-2 outline-none w-full h-[40px] "
+                    className="mb-7 text-zinc-500 pl-2 focus:text-skin-primary outline-none w-full h-[40px] "
                     type="text"
+                    maxLength={65}
                     placeholder="Name(Arabic)"
                     ref={ArNameRef}
                     required
@@ -237,7 +204,7 @@ const RequestStore = () => {
                   <label>Opening Time</label>
                   <br />
                   <input
-                    className="mb-7 text-zinc-500 pl-2 outline-none w-full h-[40px] "
+                    className="mb-7 text-zinc-500 pl-2 focus:text-skin-primary outline-none w-full h-[40px] "
                     type="time"
                     placeholder="Enter Opening Time "
                     ref={openTimeRef}
@@ -250,7 +217,7 @@ const RequestStore = () => {
                   <br />
                   <div className="print-value">
                     <input
-                      className="mb-7 text-zinc-500 pl-2 outline-none w-full h-[40px] "
+                      className="mb-7 text-zinc-500 pl-2 focus:text-skin-primary outline-none w-full h-[40px] "
                       onClick={functionopenpopup}
                       variant="contained"
                       type="text"
@@ -259,13 +226,21 @@ const RequestStore = () => {
                     />
                   </div>
                 </div>
-                <div>
-                  <label>Area</label>
-                  <br />
-                  <input
-                    className="mb-7 text-zinc-500 pl-2 outline-none w-full h-[40px] "
+                <div className="h-max">
+                  <div className="flex justify-between items-center " >
+                    <label>Area</label>
+                    <p className="text-gray-300" >{areaMaxLength} Characters left</p>
+                  </div>
+                  <textarea
+                    className="mb-7 text-zinc-500 pl-2 focus:text-skin-primary outline-none w-full h-[40px] "
                     type="text"
                     placeholder=" Area"
+                    maxLength={255}
+                    onChange={() => {
+                      setAreaMaxLength(
+                        maxLength - areaRef.current.value.length
+                      );
+                    }}
                     ref={areaRef}
                     required
                   />
@@ -274,7 +249,7 @@ const RequestStore = () => {
                 <div className="w-full ">
                   <label>Address</label>
                   <Locations
-                    className={`mb-7 text-zinc-500 pl-2 outline-none w-full h-[40px]`}
+                    className={`mb-7 text-white pl-2 outline-none w-max h-[40px]`}
                     onLocation={handleAddress}
                   />
                 </div>
@@ -293,9 +268,9 @@ const RequestStore = () => {
 
               <div className="">
                 <div>
-                  <label>English Name </label>
+                  <label>English Store Name </label>
                   <input
-                    className="mb-7 text-zinc-500 pl-2 outline-none w-full h-[40px]"
+                    className="mb-7 text-zinc-500 pl-2 focus:text-skin-primary outline-none w-full h-[40px]"
                     type="text"
                     placeholder="Name(English)"
                     ref={EnNameRef}
@@ -307,7 +282,7 @@ const RequestStore = () => {
                   <label>Closing Time</label>
                   <br />
                   <input
-                    className="mb-7 text-zinc-500 pl-2 outline-none w-full h-[40px] "
+                    className="mb-7 text-zinc-500 pl-2 focus:text-skin-primary outline-none w-full h-[40px] "
                     type="time"
                     placeholder="Enter Closing Time "
                     ref={closeTimeRef}
@@ -342,12 +317,19 @@ const RequestStore = () => {
                 </div>
 
                 <div className="mb-16">
-                  <label>Street</label>
-                  <br />
-                  <input
-                    className="mb-7 outline-none w-full h-[40px] text-zinc-500 pl-2"
+                <div className="flex justify-between  items-center " >
+                    <label>Street</label>
+                    <p className="text-gray-300" >{streetMaxLength} Characters left</p>
+                  </div>
+                  <textarea
+                    className="mb-7 outline-none w-full focus:text-skin-primary h-[40px] text-zinc-500 pl-2"
                     type="text"
                     placeholder=" street"
+                    onChange={() => {
+                      setStreetMaxLength(
+                        maxLength - streetRef.current.value.length
+                      );
+                    }}
                     ref={streetRef}
                     required
                   />

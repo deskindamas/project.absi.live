@@ -2,8 +2,8 @@ import React from "react";
 import Logo from "../../public/images/tawasylogowhite.png";
 import Image from "next/image";
 import Link from "next/link";
-import { FaTelegram, FaWhatsapp } from "react-icons/fa";
-import { BsFacebook } from "react-icons/bs";
+import { FaTelegram } from "react-icons/fa";
+import { BsFacebook, BsWhatsapp } from "react-icons/bs";
 import { BsFillTelephoneFill, BsInstagram } from "react-icons/bs";
 import { MdCopyright } from "react-icons/md";
 import { useTranslation } from "next-i18next";
@@ -14,13 +14,10 @@ const Footer = () => {
   return (
     <div className="bg-[#262626]  bottom-0 w-full">
       <div className="grid md:grid-cols-3 sm:grid-cols-1 grid-col-1 gap-4 px-20 py-10">
-        <div className="items-center">
+        <div className=" flex flex-col items-center justify-between ">
           <Image src={Logo} alt="logo" className="w-[40%] mx-auto" />
           <p className="text-white text-lg text-center md:block hidden ">
-            Today, shopping has become more enjoyable after we were
-            <br />
-            able to collect more than 400 important
-            <br /> brands for you to shop from
+            Never a Better Time Than Now To Start
           </p>
         </div>
 
@@ -69,18 +66,27 @@ const Footer = () => {
                   </Link>
                 </li>
                 <li className="mr-2">
-                  {/* <Link href="#"> */}
-                  <FaWhatsapp className="w-[25px] h-[25px]" />{" "}
-                  {/* </Link> */}
-                </li>
-                <li className="mr-2">
-                  <Link href="#">
-                    <BsFacebook className="w-[25px] h-[25px]" />{" "}
+                  <Link href="tel:+963987000888" legacyBehavior>
+                    <a target="_blank" >
+                      <BsFillTelephoneFill className="w-[25px] h-[25px]" />
+                    </a>
                   </Link>
                 </li>
                 <li className="mr-2">
-                  <Link href="#">
-                    <BsInstagram className="w-[25px] h-[25px]" />{" "}
+                  <Link href="https://www.facebook.com/tawasyshop" legacyBehavior>
+                    <a target="_blank" ><BsFacebook className="w-[25px] h-[25px]" /></a>
+                  </Link>
+                </li>
+                <li className="mr-2">
+                  <Link href="https://www.instagram.com/tawasyshopping/" legacyBehavior>
+                    <a target="_blank" ><BsInstagram className="w-[25px] h-[25px]" /></a>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="https://wa.me/+963987000888" legacyBehavior >
+                    <a target="_blank" >
+                      <BsWhatsapp className="w-[25px] h-[25px]" />
+                    </a>
                   </Link>
                 </li>
               </ul>

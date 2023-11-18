@@ -30,11 +30,14 @@ const Login = () => {
         setIsLoading(false);
         // console.log(`seller response`);
         // console.log(response);
-        Cookies.set("number", NumberRef.current.value , {expires : 365 * 10});
-        Cookies.set("user", "seller" , {expires : 365 * 10});
+        Cookies.remove("AT");
+        Cookies.remove("user");
+        Cookies.remove("Sid");
+        Cookies.set("number", NumberRef.current.value, { expires: 365 * 10 });
+        Cookies.set("user", "seller", { expires: 365 * 10 });
         router.push("/verification");
         toast.success(response.data.message, {
-          toastId : response.data.message ,
+          toastId: response.data.message,
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -45,8 +48,8 @@ const Login = () => {
           theme: "colored",
         });
       } catch (error) {
-        toast.error(error.response.data.message || `Request failed`, {
-          toastId : error.response.data.message || `Request failed` ,
+        toast.error(error?.response?.data?.message || `Request failed`, {
+          toastId: error?.response?.data?.message || `Request failed`,
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -70,11 +73,14 @@ const Login = () => {
         }
         setIsLoading(false);
         // console.log(response);
-        Cookies.set("number", NumberRef.current.value , {expires : 365 * 10});
-        Cookies.set("user", "customer" , {expires : 365 * 10});
+        Cookies.remove("AT");
+        Cookies.remove("user");
+        Cookies.remove("Sid");
+        Cookies.set("number", NumberRef.current.value, { expires: 365 * 10 });
+        Cookies.set("user", "customer", { expires: 365 * 10 });
         router.push("/verification");
         toast.success(response.data.message, {
-          toastId : response.data.message ,
+          toastId: response.data.message,
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -86,7 +92,7 @@ const Login = () => {
         });
       } catch (error) {
         toast.error(error.response.data.message || `Request failed`, {
-          toastId : error.response.data.message || `Request failed`,
+          toastId: error.response.data.message || `Request failed`,
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -115,38 +121,24 @@ const Login = () => {
   return (
     <div className="flex flex-col items-center justify-start h-screen bg-white gap-12 mx-auto px-4 pt-28 w-full">
       <Image src={Logo} alt="Logo" width={400} height={290} className="mx-3" />
-        <h3 className="text-xl text-black font-medium">
-          Login using your Phone Number
-        </h3>
+      <h3 className="text-xl text-black font-medium">
+        Login using your Phone Number
+      </h3>
       <form
         onSubmit={handleLogin}
         className="flex flex-col justify-start items-center gap-9 w-full max-w-md p-4 md:w-[70%] lg:w-[50%] xl:w-[40%] 2xl:w-[30%] mx-auto "
-        onKeyDown={handleKeyDown}
+        // onKeyDown={handleKeyDown}
       >
         <input
-          type="text"
+          type="number"
           ref={NumberRef}
           className="outline-none appearance-none border-b-2 border-gray-300 focus:border-[#FD6500] placeholder:text-gray-300 w-full transition-all duration-700"
           placeholder="Number"
-          inputMode="numeric" 
-          pattern="[0-9]*"
+          inputMode="numeric"
+          pattern="[0-9]{10}"
+          style={{ WebkitAppearance: "none", MozAppearance: "textfield" }}
           required
         />
-        <style jsx>{`
-          /* Chrome, Safari, Edge, Opera */
-          .appearance-none::-webkit-outer-spin-button,
-          .appearance-none::-webkit-inner-spin-button {
-            @apply appearance-none;
-            -webkit-appearance: none;
-            margin: 0;
-          }
-
-          /* Firefox */
-          .appearance-none[type="number"] {
-            @apply appearance-none;
-            -moz-appearance: textfield;
-          }
-        `}</style>
         <div className="flex flex-col justify-start items-start gap-2 w-[80%]">
           <label htmlFor="login" className=" text-lg font-medium ">
             Login as a:
@@ -194,7 +186,6 @@ const Login = () => {
         <button
           type="submit"
           className="text-white bg-orange-500 rounded-md text-lg block px-5 py-2 mx-auto border-2 border-white hover:bg-orange-600 transition-all duration-300"
-          onClick={handleLogin}
         >
           {isLoading == true ? (
             <div className="flex justify-center items-center">

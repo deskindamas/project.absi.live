@@ -254,7 +254,7 @@ export default function Sidebar(props) {
                 >
                   <IoSettingsSharp className="block text-[20px] text-white " />
                   <p className="hidden md:block" style={{ marginLeft: "43px" }}>
-                    Setting
+                    Settings
                   </p>
                 </Link>
               </li>

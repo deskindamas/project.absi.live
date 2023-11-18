@@ -347,6 +347,10 @@ function Categories() {
                     type="number"
                     className="outline-none appearance-none border-b-2 border-gray-300 focus:border-[#FD6500]  w-full transition-all duration-700"
                     placeholder="Sort Order"
+                    style={{
+                      WebkitAppearance: "none",
+                      MozAppearance: "textfield",
+                    }}
                     inputMode="sort order"
                     ref={sortRef}
                     required

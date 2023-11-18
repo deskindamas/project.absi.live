@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import { MdClose } from "react-icons/md";
 import { GoogleMap, MarkerF, useLoadScript } from "@react-google-maps/api";
-
+import { FaMapLocationDot } from "react-icons/fa6";
 const libraries = ["places"];
 
 const mapContainerStyle = {
@@ -65,16 +65,33 @@ const Locations = ({ onLocation, className, defaultAddress }) => {
   };
 
   return (
-    <div className="w-full">
-      <input
-        onClick={functionopenpopuplocation}
-        value={address}
-        type="address"
+    <div className=" w-full ">
+      {/* <button className="p-2 border-2 white" 
+        
+      > */}
+      <div className="flex w-full justify-start items-center space-x-3">
+        <FaMapLocationDot
+          onClick={functionopenpopuplocation}
+          className={`hover:border-b-2 py-[5px] hover:border-white cursor-pointer w-[30px] h-[30px] ${className}`}
+        />
+        {/* {defaultAddress && <p>{defaultAddress}</p>} */}
+        {address ? (
+          // <p className="text-white truncate ">H9H4+6J5, Alassad Suburb, Syria H9H4+6J5, Alassad Suburb, Syria </p>
+          <p className={`text-white text-ellipsis truncate sm:max-w-sm ${className} max-w-[200px]`}>{address}</p>
+        ) : (
+          defaultAddress && <p className = {`${className} text-white`}>{defaultAddress}</p>
+        )}
+      </div>
+
+      {/* </button> */}
+      {/* <span
         id="InputAddress"
-        label="Address"
+
         placeholder={defaultAddress ? defaultAddress : "Address"}
-        className={className}
-      />
+        className={`${className}`}
+      >
+        {address && address}
+      </span> */}
 
       <Dialog
         open={openlocation}
@@ -82,10 +99,11 @@ const Locations = ({ onLocation, className, defaultAddress }) => {
         fullWidth
         maxWidth="md"
       >
-        <DialogTitle>
+        <DialogTitle className="flex justify-between items-center" >
           Location
-          <IconButton onClick={closepopuplocation} style={{ float: "right" }}>
-            <MdClose className="text-black" />
+          <IconButton onClick={closepopuplocation} >
+            {/* <MdClose className="text-black" /> */}
+            <p className="text-black sm:text-lg text-sm border-b border-transparent hover:border-black" >Save</p>
           </IconButton>
         </DialogTitle>
         <DialogContent>

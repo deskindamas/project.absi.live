@@ -28,6 +28,9 @@ const AdminLogin = () => {
         password: passwordRef.current.value,
       });
       // console.log(response) ;
+      Cookies.remove("AT");
+      Cookies.remove("user");
+      Cookies.remove("Sid");
       Cookies.set("AT", response.data.token , {expires : 365 * 10});
       setIsLoading(false);
       router.push("/admin");

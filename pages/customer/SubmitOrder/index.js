@@ -258,11 +258,11 @@ const Order = () => {
                           {!useExisting && (
                             <Locations
                               onLocation={GetLocation}
-                              className={` text-zinc-500 pl-2 outline-none w-[90%] border-b-2 border-zinc-500 focus:border-skin-primary h-[40px]`}
+                              className={` text-zinc-500 pl-2 outline-none w-max border-b-2 border-zinc-500 focus:border-skin-primary h-[40px]`}
                             />
                           )}
                         </div>
-                        {!useExisting && <p className="text-black" >{`*The Delivery Fee my differ if you change your location.`}</p>}
+                        {!useExisting && <p className="text-black" >{t("submitOrder.differ")}</p>}
                       </div>
                     </div>
                     {/* <h4 className="py-3">{`Note`}:</h4> */}

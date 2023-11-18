@@ -15,6 +15,9 @@ import { Ring } from "@uiball/loaders";
 
 const tableheading = [
   {
+    heading: "Action",
+  },
+  {
     heading: "Name Ar",
   },
   {
@@ -59,9 +62,6 @@ const tableheading = [
   },
   {
     heading: "Instores",
-  },
-  {
-    heading: "Action",
   },
 ];
 
@@ -154,9 +154,9 @@ function ProductsAdmin() {
 
   return (
     <div>
-      <div className="md:px-6">
-        <div className="w-full h-screen mx-auto">
-          <div className="p-3">
+      <div className="md:px-6 h-full ">
+        <div className="w-full h-screen max-h-full flex flex-col mx-auto">
+          <div className="p-3 h-[20%] ">
             <h2 className="text-2xl text-stone-500 pb-5 ">All Products</h2>
             <div className="flex">
               <div
