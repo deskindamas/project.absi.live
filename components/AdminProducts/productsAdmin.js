@@ -183,6 +183,24 @@ function AdminProduct({ product, refetch }) {
         className=" bg-gray-100 hover:bg-gray-200 font-medium my-2 py-2 "
       >
         <td className="px-4 ">{product.id}</td>
+        <td class="px-4 py-4">
+          <div class="flex-col lg:flex-row lg:space-x-2 items-center space-y-2 lg:space-y-0">
+            <button
+              onClick={openDialog}
+              class="items-center px-2 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none"
+            >
+              <FiEdit />
+            </button>
+            {/* <button
+              class="items-center px-2 py-2 text-white bg-red-500 rounded-md hover:bg-red-600 focus:outline-none"
+              onClick={() => {
+                setIsDeleting(true);
+              }}
+            >
+              <RiDeleteBin6Line />
+            </button> */}
+          </div>
+        </td>
         <td className=" px-4  w-[10%] ">{product.name_ar}</td>
         <td className="px-4  w-[10%]">{product.name_en}</td>
         <td className="px-4  w-[10%] ">{product.description_ar}</td>
@@ -225,24 +243,7 @@ function AdminProduct({ product, refetch }) {
         >
           {product.instores}
         </td>
-        <td class="px-4 py-4">
-          <div class="flex-col lg:flex-row lg:space-x-2 items-center space-y-2 lg:space-y-0">
-            <button
-              onClick={openDialog}
-              class="items-center px-2 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none"
-            >
-              <FiEdit />
-            </button>
-            {/* <button
-              class="items-center px-2 py-2 text-white bg-red-500 rounded-md hover:bg-red-600 focus:outline-none"
-              onClick={() => {
-                setIsDeleting(true);
-              }}
-            >
-              <RiDeleteBin6Line />
-            </button> */}
-          </div>
-        </td>
+
       </tr>
 
       <Dialog
@@ -255,7 +256,7 @@ function AdminProduct({ product, refetch }) {
       >
         <DialogTitle className="flex justify-between border-b-2 border-black">
           <h4 className="text-gray-500 md:pl-6 font-medium">
-            Edit Product : {product.nameEn}
+            Edit Product : {product.name_en}
           </h4>
         </DialogTitle>
         <DialogContent>
@@ -349,7 +350,7 @@ function AdminProduct({ product, refetch }) {
                     }}
                   >
                     <option className="bg-white" disabled selected value>
-                      Select a category
+                      Select a brand
                     </option>
                     {brands &&
                       brands.map((brand) => {

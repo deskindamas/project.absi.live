@@ -54,7 +54,7 @@ function CouponsAdmin({ names , refetch }) {
         <td className="px-4 py-4  " width={`10%`} >{names.created_at ? convertDateStringToDate(names.created_at) : `None`}</td>
         <td className="px-4 py-4" width={`10%`} >{names.updated_at ? convertDateStringToDate(names.updated_at) : `None`}</td>
         <td class="px-4 py-4">
-          <div class="flex-col lg:flex-row lg:space-x-2 items-center space-y-2 lg:space-y-0">
+          <div class="flex-col lg:flex-row  items-center space-y-2 lg:space-y-0">
             <button
               class="items-center px-2 py-2 text-white bg-red-500 rounded-md hover:bg-red-600 focus:outline-none"
               onClick={() => {

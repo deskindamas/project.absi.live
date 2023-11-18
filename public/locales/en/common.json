@@ -34,7 +34,7 @@
     } , 
     "home" : {
       "search" : "Search" ,
-      "storeType" : "Store type" , 
+      "storeType" : "Store Type" , 
       "storeTypes" : "Store Types" , 
       "category" : "Category" ,
       "brand" : "Brand" ,
@@ -55,7 +55,8 @@
       "submit" : "Submit Order" ,
       "useExisting" : "Use my existing Address" , 
       "useNew" : "Use new address" , 
-      "Note" : "Notes" 
+      "Note" : "Notes" ,
+      "differ" : "*The Delivery Fee my differ if you change your location."
     }, 
     "footer" : {
       "syria" : "Damascus , Syria" , 
@@ -71,7 +72,8 @@
       "cart" : "My Cart",
       "cancel" : "Cancel" ,
       "addCoupon" : "Add Coupon" ,
-      "apply" : "Apply"
+      "apply" : "Apply" , 
+      "submitOrder" : "Proceed to submit the order"
     },
     "stores" : {
      "ALLStore" : "All Stores"
@@ -86,5 +88,11 @@
      },
     "product" : {
       "storeSellers" :"The Stores that sell this product"
+    },
+    "verification" : {
+      "contactUs" : "Please enter the verification code that was sent to you via WhatsApp or " ,
+      "contactUsNumber" : "Contact Us",
+      "resendCode" : "Resend code" ,
+      "didntGetCode" : "Did not recieve a code ?"
     }
 }

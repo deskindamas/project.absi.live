@@ -364,6 +364,10 @@ function StoreType() {
                     className="outline-none appearance-none border-b-2 border-gray-300 focus:border-[#FD6500]  w-full transition-all duration-700"
                     placeholder="Sort order"
                     inputMode="sort order"
+                    style={{
+                      WebkitAppearance: "none",
+                      MozAppearance: "textfield",
+                    }}
                     ref={sortRef}
                     required
                   />
@@ -373,31 +377,6 @@ function StoreType() {
                   width={100}
                   height={100}
                 />
-                {/* <div
-                  className="w-full px-4 py-3"
-                  onClick={handleImageClick}
-                  style={{ marginTop: "20px" }}
-                >
-                  {image ? (
-                    <img
-                      src={URL.createObjectURL(image)}
-                      alt="upload image"
-                      style={{ width: "100px", height: "100px" }}
-                    />
-                  ) : (
-                    <img
-                      src={ChooseFile}
-                      alt="upload image"
-                      style={{ width: "60%", height: "40px" }}
-                    />
-                  )}
-                  <input
-                    type="file"
-                    ref={inputRef}
-                    onChange={handleImageChange}
-                    style={{ display: "none" }}
-                  />
-                </div> */}
               </div>
 
               <div className="flex justify-start pt-6">

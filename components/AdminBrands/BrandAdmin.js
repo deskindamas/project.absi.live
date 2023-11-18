@@ -67,7 +67,7 @@ function BrandAdmin({ names, refetch }) {
           {convertDateStringToDate(names.updated_at)}
         </td>
         <td class="px-4 py-4">
-          <div class="flex-col lg:flex-row lg:space-x-2 items-center space-y-2 lg:space-y-0">
+          <div class="flex-col lg:flex-row items-center space-y-2 lg:space-y-0">
             <button
               onClick={() => setIsEditing(true)}
               class="items-center px-2 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none"

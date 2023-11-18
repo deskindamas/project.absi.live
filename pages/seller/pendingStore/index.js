@@ -7,6 +7,7 @@ import TawasyLoader from "@/components/UI/tawasyLoader";
 import { useRouter } from "next/router";
 import createAxiosInstance from "@/API";
 import Cookies from "js-cookie";
+import Link from 'next/link';
 
 function PendingPage() {
   let token;
@@ -40,8 +41,8 @@ function PendingPage() {
   }
   // we should use useQuery to make a repeatable query about the store status because wen it gets available reRoute to the main dashboard
   return (
-    <div className="flex flex-col items-center justify-start h-screen bg-white gap-32 mx-auto px-4 pt-28 w-full">
-      <Image src={Logo} alt="Logo" width={400} height={290} className="mx-3" />
+    <div className="flex flex-col items-center justify-start h-screen bg-white space-y-5 mx-auto px-4 pt-14 w-full">
+      <Link href={'/customer'} ><Image src={Logo} alt="Logo" width={400} height={290} className="mx-3" /></Link>
       <div className="flex flex-col justify-start items-center gap-3">
         <AiOutlineStop className="text-red-600 text-9xl w-[150px] h-[150px] " />
         <div className="flex flex-col justify-start items-center gap-3">

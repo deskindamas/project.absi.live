@@ -14,6 +14,7 @@ import { useRouter } from "next/router";
 import createAxiosInstance from "@/API";
 import TawasyLoader from "../UI/tawasyLoader";
 import { Ring } from "@uiball/loaders";
+import { MdClose } from "react-icons/md";
 
 export function convertDateStringToDate(inputString) {
   // Create a new Date object using the input string
@@ -138,7 +139,8 @@ function OrderAdmin({ names, refetch }) {
                 <h4 className="text-xl text-gray-600">
                   Store name: {orderDetails.store_name}
                 </h4>
-                <h4>Date : {convertDateStringToDate(names.date)}</h4>
+                <h4>Date : {convertDateStringToDate(names.date)}</h4> 
+                <MdClose className="text-gray-600 hover:text-red-500 w-[30px] h-[30px] " onClick={closepopup} />
               </div>
               <div className="grid grid-cols-3 mx-auto text-lg text-gray-400 font-light gap-3">
                 <h6>Status : {orderDetails.status} </h6>

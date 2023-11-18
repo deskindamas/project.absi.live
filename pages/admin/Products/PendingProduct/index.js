@@ -11,6 +11,9 @@ import { useQuery } from "react-query";
 
 const tableheading = [
   {
+    heading: "Action",
+  },
+  {
     heading: "Name Ar",
   },
   {
@@ -49,9 +52,7 @@ const tableheading = [
   {
     heading: "Updated",
   },
-  {
-    heading: "Action",
-  },
+  
 ];
 
 const products = [

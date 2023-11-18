@@ -24,33 +24,33 @@ import { Ring } from "@uiball/loaders";
 
 export default function SidebarAdmin(props) {
   const [open, setOpen] = useState(false);
-  const [logginOut , setLoggingOut] = useState(false);
+  const [logginOut, setLoggingOut] = useState(false);
   const router = useRouter();
   const Api = createAxiosInstance(router);
 
- async function logOut() {
-    try{
+  async function logOut() {
+    try {
       setLoggingOut(true);
       const response = await Api.get(`/api/admin/logout`);
       Cookies.remove("AT");
       Cookies.remove("user");
       router.replace("/admin/AdminLogin");
       setLoggingOut(false);
-    }catch(error){
+    } catch (error) {
       setLoggingOut(false);
     }
     setLoggingOut(false);
   }
 
   return (
-    <div className="w-full h-full ">
+    <div className="w-full h-screen ">
       <div
         style={{ position: "fixed" }}
-        className={`top-0 overflow-y-auto overflow-x-hidden bottom-0 right-0 w-[20%]  bg-[#ff6600] shadow duration-300 pl-2`}
+        className={`top-0 overflow-y-auto overflow-x-hidden left-0 w-[20%] h-screen  bg-[#ff6600] shadow duration-300 `}
       >
         <div className="space-y-3">
           <div className=" flex justify-center">
-            <Image  src={Logo} className="items-center pt-6 pb-3 md:w-44 w-10"  />
+            <Image src={Logo} className="items-center pt-6 pb-3 md:w-44 w-10" />
           </div>
 
           <div className="flex-1">
@@ -67,7 +67,27 @@ export default function SidebarAdmin(props) {
                 </Link>
               </li>
 
-              <Accordion showDivider={false} className="w-full">
+              <label
+                htmlFor="customerbreaker"
+                className="text-white w-max mx-auto"
+              >
+                Label
+              </label>
+              <hr id="customerbreaker"></hr>
+
+              <li className="rounded-sm">
+                <Link
+                  href="/admin/Customers"
+                  className="flex items-center pl-1 space-x-3 pt-2 pb-1 rounded-md text-gray-100"
+                >
+                  <AiOutlineUser className="block text-[25px] text-white " />
+                  <p className="hidden md:block" style={{ marginLeft: "43px" }}>
+                    Customers
+                  </p>
+                </Link>
+              </li>
+
+              <Accordion className="w-full" >
                 <AccordionItem
                   startContent={
                     <BsCartCheckFill
@@ -90,13 +110,12 @@ export default function SidebarAdmin(props) {
                   }
                 >
                   <ul>
-                  <li className={`pt-3`}>
+                    <li className={`pt-3`}>
                       <button
                         className="flex items-center p-2 space-x-3 rounded-md text-gray-100"
                         onClick={() => {
                           router.push({
                             pathname: "/admin/Orders/CancelledOrders",
-                          
                           });
                         }}
                       >
@@ -110,7 +129,6 @@ export default function SidebarAdmin(props) {
                         onClick={() => {
                           router.push({
                             pathname: "/admin/Orders/PendingOrders",
-                          
                           });
                         }}
                       >
@@ -160,7 +178,17 @@ export default function SidebarAdmin(props) {
                     </li>
                   </ul>
                 </AccordionItem>
+              </Accordion>
 
+              <label
+                htmlFor="productsbreaker"
+                className="text-white w-max mx-auto"
+              >
+                Label
+              </label>
+              <hr id="productsbreaker"></hr>
+
+              <Accordion showDivider={false} className="w-full">
                 <AccordionItem
                   startContent={
                     <BsBox
@@ -184,7 +212,6 @@ export default function SidebarAdmin(props) {
                   }
                 >
                   <ul>
-                 
                     <li className={`pt-3`}>
                       <button
                         className="flex items-center p-2 space-x-3 rounded-md text-gray-100"
@@ -227,7 +254,6 @@ export default function SidebarAdmin(props) {
                   </ul>
                 </AccordionItem>
 
-
                 <AccordionItem
                   startContent={
                     <FaStore
@@ -251,7 +277,6 @@ export default function SidebarAdmin(props) {
                   }
                 >
                   <ul>
-                 
                     <li className={`pt-3`}>
                       <button
                         className="flex items-center p-2 space-x-3 rounded-md text-gray-100"
@@ -295,7 +320,89 @@ export default function SidebarAdmin(props) {
                     </li>
                   </ul>
                 </AccordionItem>
+              </Accordion>
 
+              <li className="rounded-sm pb-3">
+                <Link
+                  href="/admin/Brands"
+                  className="flex items-center pl-2 space-x-3 pt-2 pb-1 rounded-md text-gray-100"
+                >
+                  <TbBrandShopee className="block text-[25px] text-white " />
+                  <p className="hidden md:block" style={{ marginLeft: "43px" }}>
+                    Brands
+                  </p>
+                </Link>
+              </li>
+
+              <li className="rounded-sm pb-3">
+                <Link
+                  href="/admin/StoreTypes"
+                  className="flex items-center pl-2 space-x-3 pt-2 pb-1 rounded-md text-gray-100"
+                >
+                  <FaStore className="block text-[25px] text-white " />
+                  <p className="hidden md:block" style={{ marginLeft: "43px" }}>
+                    Store Types
+                  </p>
+                </Link>
+              </li>
+
+              <li className="rounded-sm pb-3">
+                <Link
+                  href="/admin/Categories"
+                  className="flex items-center pl-2 space-x-3 pt-2 pb-1 rounded-md text-gray-100"
+                >
+                  <TbCategory2 className="block text-[25px] text-white " />
+                  <p className="hidden md:block" style={{ marginLeft: "43px" }}>
+                    Categories
+                  </p>
+                </Link>
+              </li>
+
+              <li className="rounded-sm pb-3">
+                <Link
+                  href="/admin/Sellers"
+                  className="flex items-center pl-2 space-x-3 pt-2 pb-1 rounded-md text-gray-100"
+                >
+                  <SiSellfy className="block text-[25px] text-white " />
+                  <p className="hidden md:block" style={{ marginLeft: "43px" }}>
+                    Sellers
+                  </p>
+                </Link>
+              </li>
+
+              <li className="rounded-sm pb-3">
+                <Link
+                  href="/admin/AdminDelivery"
+                  className="flex items-center pl-2 space-x-3 pt-2 pb-1 rounded-md text-gray-100"
+                >
+                  <TbTruckDelivery className="block text-[25px] text-white " />
+                  <p className="hidden md:block" style={{ marginLeft: "43px" }}>
+                    Delivery
+                  </p>
+                </Link>
+              </li>
+
+              <label
+                htmlFor="couponbreaker"
+                className="text-white w-max mx-auto"
+              >
+                Label
+              </label>
+              <hr id="couponbreaker"></hr>
+
+              <li className="rounded-sm pb-3">
+                <Link
+                  href="/admin/Coupons"
+                  className="flex items-center pl-2 space-x-3 pt-2 pb-1 rounded-md text-gray-100"
+                >
+                  <RiCoupon2Line className="block text-[25px] text-white " />
+                  <p className="hidden md:block" style={{ marginLeft: "43px" }}>
+                    Coupons
+                  </p>
+                </Link>
+              </li>
+
+              <Accordion showDivider={false} className="w-full">
                 <AccordionItem
                   startContent={
                     <SiAdminer
@@ -319,8 +426,7 @@ export default function SidebarAdmin(props) {
                   }
                 >
                   <ul>
-                 
-                    <li className={`pt-3`}>
+                    <li className={``}>
                       <button
                         className="flex items-center p-2 space-x-3 rounded-md text-gray-100"
                         onClick={() => {
@@ -346,97 +452,11 @@ export default function SidebarAdmin(props) {
                         <p className="hidden md:block">Home ADS</p>
                       </button>
                     </li>
-                   
                   </ul>
                 </AccordionItem>
-
               </Accordion>
 
-              <li className="rounded-sm pb-3">
-                <Link
-                  href="/admin/Coupons"
-                  className="flex items-center pl-2 space-x-3 pt-2 pb-1 rounded-md text-gray-100"
-                >
-                  <RiCoupon2Line className="block text-[25px] text-white " />
-                  <p className="hidden md:block" style={{ marginLeft: "43px" }}>
-                  Coupons
-                  </p>
-                </Link>
-              </li>
-
-              <li className="rounded-sm pb-3">
-                <Link
-                  href="/admin/Brands"
-                  className="flex items-center pl-2 space-x-3 pt-2 pb-1 rounded-md text-gray-100"
-                >
-                  <TbBrandShopee className="block text-[25px] text-white " />
-                  <p className="hidden md:block" style={{ marginLeft: "43px" }}>
-                  Brands
-                  </p>
-                </Link>
-              </li>
-               
-              <li className="rounded-sm pb-3">
-                <Link
-                  href="/admin/StoreTypes"
-                  className="flex items-center pl-2 space-x-3 pt-2 pb-1 rounded-md text-gray-100"
-                >
-                  <FaStore className="block text-[25px] text-white " />
-                  <p className="hidden md:block" style={{ marginLeft: "43px" }}>
-                  Store Types
-                  </p>
-                </Link>
-              </li>
-                 
-              <li className="rounded-sm pb-3">
-                <Link
-                  href="/admin/Categories"
-                  className="flex items-center pl-2 space-x-3 pt-2 pb-1 rounded-md text-gray-100"
-                >
-                  <TbCategory2 className="block text-[25px] text-white " />
-                  <p className="hidden md:block" style={{ marginLeft: "43px" }}>
-                  Categories
-                  </p>
-                </Link>
-              </li>
-
-              <li className="rounded-sm pb-3">
-                <Link
-                  href="/admin/Customers"
-                  className="flex items-center pl-2 space-x-3 pt-2 pb-1 rounded-md text-gray-100"
-                >
-                  <AiOutlineUser className="block text-[25px] text-white " />
-                  <p className="hidden md:block" style={{ marginLeft: "43px" }}>
-                  Customers
-                  </p>
-                </Link>
-              </li>
-
-              
-              <li className="rounded-sm pb-3">
-                <Link
-                  href="/admin/Sellers"
-                  className="flex items-center pl-2 space-x-3 pt-2 pb-1 rounded-md text-gray-100"
-                >
-                  <SiSellfy className="block text-[25px] text-white " />
-                  <p className="hidden md:block" style={{ marginLeft: "43px" }}>
-                  Sellers
-                  </p>
-                </Link>
-              </li>
-
-                     
-              <li className="rounded-sm pb-3">
-                <Link
-                  href="/admin/AdminDelivery"
-                  className="flex items-center pl-2 space-x-3 pt-2 pb-1 rounded-md text-gray-100"
-                >
-                  <TbTruckDelivery className="block text-[25px] text-white " />
-                  <p className="hidden md:block" style={{ marginLeft: "43px" }}>
-                  Delivery
-                  </p>
-                </Link>
-              </li>
+              <hr></hr>
 
               <li className="rounded-sm pb-3">
                 <button
@@ -447,7 +467,9 @@ export default function SidebarAdmin(props) {
                   <p className="hidden md:block" style={{ marginLeft: "43px" }}>
                     Logout
                   </p>
-                  { logginOut == true && <Ring size={20} lineWeight={5} speed={2} color="white" />}
+                  {logginOut == true && (
+                    <Ring size={20} lineWeight={5} speed={2} color="white" />
+                  )}
                 </button>
               </li>
             </ul>

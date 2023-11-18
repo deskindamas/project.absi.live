@@ -233,6 +233,10 @@ function Coupons() {
                     placeholder="Discount"
                     inputMode="discount"
                     ref={discountRef}
+                    style={{
+                      WebkitAppearance: "none",
+                      MozAppearance: "textfield",
+                    }}
                     required
                   />
                 </div>

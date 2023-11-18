@@ -20,38 +20,10 @@ import Link from "next/link";
 
 
 
-const data = [
-  {
-    id: 14,
-    name: "HiLife - Steam Iron Aluminum Soleplate Purple  2200W HLIA22WB",
-    description: "",
-    image: "images/products/1111111112013_1.jpg",
-    category: "Home & Kitchen Appliances",
-    brand: "adidas - اديداس",
-    price: "20000",
-    ean_code: 0,
-    availability: 1,
-    sold_quantity: 0,
-    created_at: null,
-    updated_at: null,
-  },
-  {
-    id: 16,
-    name: "HiLife - Proessional Hair Straighterner 30 Watts Black HLHS30W ",
-    description: "",
-    image: "images/products/1111111112015.jpg",
-    category: "Home & Kitchen Appliances",
-    brand: "adidas - اديداس",
-    price: "50000",
-    ean_code: 0,
-    availability: 1,
-    sold_quantity: 0,
-    created_at: null,
-    updated_at: null,
-  },
-];
-
 const tableheading = [
+  {
+    heading: "Action",
+  },
   {
     heading: "Name",
   },
@@ -76,9 +48,7 @@ const tableheading = [
   {
     heading: "Price",
   },
-  {
-    heading: "Delete",
-  },
+  
 ];
 
 function Products() {
@@ -194,7 +164,7 @@ function Products() {
               <TawasyLoader width={300} height={300} />
             </div>
           ) : products && Array.isArray(products) && products.length > 0 ? (
-            <div className="mt-6 overflow-x-auto">
+            <div className="mt-6 overflow-x-auto  ">
               <table className="w-full overflow-x-auto table-auto">
                 <thead className="">
                   <tr className="text-sm font-semibold text-center border-b-2 border-blue-500 uppercase">

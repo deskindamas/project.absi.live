@@ -9,13 +9,28 @@ import { MdArrowForward, MdClose } from "react-icons/md";
 import { NextSeo } from "next-seo";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
+import Cookies from "js-cookie";
 
 export async function getServerSideProps(context) {
-  const { params , locale } = context;
+  const { params , locale , req } = context;
   const Api = createAxiosInstance();
-    const response = await Api.get(`/api/store-types/${params.storeTypeId}` , {
+  const token  = req.cookies.AT;
+  const user = req.cookies.user;
+  let response ;
+  // console.log(req.cookies);
+  // console.log(token);
+  // console.log(user);
+  // if(token != null && token != undefined && user && user === "customer"){
+  //   console.log(`authenticated`);
+  //   response = await Api.get(`/api/customer/store-types/${params.storeTypeId}` , {
+  //     headers : { 'Accept-Language': locale || 'en',}
+  //   });
+  // }else{
+    // console.log(`Unauthenticated`);
+     response = await Api.get(`/api/store-types/${params.storeTypeId}` , {
       headers : { 'Accept-Language': locale || 'en',}
     });
+  // }
     if (!response.data.data) {
       return {
         notFound: true,

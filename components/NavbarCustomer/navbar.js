@@ -5,17 +5,18 @@ import Link from "next/link";
 import { BsFillBagFill } from "react-icons/bs";
 import Cart from "../CartCustomer/cart";
 import { CgProfile } from "react-icons/cg";
-import styles from "../../components/componentsStyling/sellerStyles.module.css";
-import { propTypesSelected } from "@material-tailwind/react/types/components/select";
 import { useRouter } from "next/router";
 import LocaleSwitcher from "../UI/localeSwitcher/localeSwitcher";
-import {useTranslation} from "next-i18next" ;
+import { useTranslation } from "next-i18next";
+import { IoCartOutline } from "react-icons/io5";
 // import {
 //   useTranslation,
 //   useLanguageQuery,
 //   LanguageSwitcher,
 // } from "next-export-i18n";
 import Cookies from "js-cookie";
+import createAxiosInstance from "@/API";
+import { useQuery } from "react-query";
 
 function Navbar() {
   const router = useRouter();
@@ -24,8 +25,20 @@ function Navbar() {
   const { t } = useTranslation("");
   // const { t } = useTranslation();
   // const [query] = useLanguageQuery();
-
+  const Api = createAxiosInstance(router);
+  const { data: cart } = useQuery([`cart`, isLoggedIn], fetchCartData, {
+    staleTime: 1,
+    refetchOnMount: true,
+    enabled: isLoggedIn == true,
+    refetchOnWindowFocus: false,
+  });
   // console.log(query);
+
+  async function fetchCartData() {
+    try {
+      return await Api.get(`/api/customer/cart/show`);
+    } catch (error) {}
+  }
 
   useEffect(() => {
     const token = Cookies.get("AT");
@@ -40,10 +53,10 @@ function Navbar() {
   useEffect(() => {
     // Apply overflow-y: hidden; to the body when the cart is open
     if (showCartSidebar) {
-      document.body.style.overflowY = 'hidden';
+      document.body.style.overflowY = "hidden";
     } else {
       // Remove overflow-y: hidden; when the cart is closed
-      document.body.style.overflowY = 'auto';
+      document.body.style.overflowY = "auto";
     }
   }, [showCartSidebar]);
 
@@ -54,7 +67,6 @@ function Navbar() {
     document.querySelector("html").setAttribute("lang", lang);
     // router.reload();
   }, [router.locale]);
-
 
   const handleCartButtonClick = () => {
     setShowCartSidebar(true);
@@ -84,14 +96,19 @@ function Navbar() {
         <div className="w-[50%] flex justify-end items-center md:pr-10 pr-3">
           {isLoggedIn == true && (
             <div className="flex justify-end items-center w-full sm:gap-2  ">
-              <Link className="text-white sm:text-base text-xs w-max " href={"/customer/Orders"}>
-              {/* <Link className="text-white" href={{pathname :"/customer/Orders" , query : query}}> */}
-                {/* {`My Orders`} */}
+              <Link
+                className="text-white sm:text-base text-xs w-max "
+                href={"/customer/Orders"}
+              >
                 {t("nav.orders")}
               </Link>
               {router.pathname != `/customer/SubmitOrder` && (
-                <button onClick={handleCartButtonClick}>
-                  <BsFillBagFill className="text-white w-[40px] h-[20px]  " />
+                <button onClick={handleCartButtonClick} className="relative">
+                  <IoCartOutline className="text-white w-[40px] h-[20px]  " />
+                  {cart?.data?.cart?.lines && cart?.data?.cart?.lines?.length > 0 && (
+                    <div className="w-[7px] h-[7px] absolute rounded-full bg-white top-0 right-1"></div>
+                  )}
+                  {/* <BsFillBagFill className="text-white w-[40px] h-[20px]  " /> */}
                 </button>
               )}
 
@@ -104,7 +121,7 @@ function Navbar() {
               </button>
             </div>
           )}
-          <LocaleSwitcher/>
+          <LocaleSwitcher />
           {/* <div className="flex px-3 py-1 gap-2 text-white " >
             <LanguageSwitcher lang="ar">ar</LanguageSwitcher> |{" "}
             <LanguageSwitcher lang="en">en</LanguageSwitcher>
@@ -117,7 +134,7 @@ function Navbar() {
             </button> */}
           {isLoggedIn == false && (
             <Link
-              href={"/login" }
+              href={"/login"}
               // href={{ pathname :"/login" , query : query}}
               className="text-white h-[80%] flex items-center justify-center md:border-[1px] md:border-white md:px-6 px-1 hover:bg-white hover:text-skin-primary rounded-md justify-self-end"
             >

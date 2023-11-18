@@ -90,6 +90,10 @@ function AdminDelivery() {
                 <input
                   className="my-3 w-[60%] text-black placeholder:text-zinc-500 pl-2 outline-none border-b-2 focus:border-skin-primary transition-all duration-700"
                   type="number"
+                  style={{
+                    WebkitAppearance: "none",
+                    MozAppearance: "textfield",
+                  }}
                   placeholder={pricing.data.min_delivery_cost}
                   ref={minDRef}
                   required
@@ -123,6 +127,10 @@ function AdminDelivery() {
                 <input
                   className="my-3 w-[60%] text-black placeholder:text-zinc-500 pl-2 outline-none border-b-2 focus:border-skin-primary transition-all duration-700"
                   type="number"
+                  style={{
+                    WebkitAppearance: "none",
+                    MozAppearance: "textfield",
+                  }}
                   placeholder={pricing.data.price_per_kilometer}
                   ref={kiloDRef}
                   required

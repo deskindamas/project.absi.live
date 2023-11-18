@@ -122,7 +122,7 @@ function AllCustomer() {
 
   return (
     <div className="md:px-6">
-      <div className="h-screen">
+      <div className="h-full">
         <div className="m-5 p-5">
           <h2 className="text-2xl text-stone-500 pb-5 ">Sellers</h2>
           <div className="flex">

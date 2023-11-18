@@ -13,6 +13,7 @@ import { useRouter } from "next/router";
 import createAxiosInstance from "@/API";
 import { Ring } from "@uiball/loaders";
 import Cookies from "js-cookie";
+import Image from "next/image";
 
 function SellerProduct({ product , refetch }) {
   const [isToggled, setIsToggled] = useState(product.availability);
@@ -92,47 +93,11 @@ function SellerProduct({ product , refetch }) {
     <>
       <tr
         key={product.id}
-        className="py-10 bg-gray-100 hover:bg-gray-200 font-medium"
+        className="py-10 px-0 bg-gray-100 hover:bg-gray-200 font-medium"
       >
         <td className="px-4 py-4">{product.id}</td>
-        <td className="px-4 py-4">{product.name}</td>
-        <td className="px-4 py-4">{product.description}</td>
-        <td className="px-4 py-4">{product.category}</td>
-        <td className="px-4 py-4">
-          <img src={product.image} alt="photo" width={150} height={150}  />
-        </td>
-        <td onClick={handleAvailable} className="  ">
-          {editingAvailability ? (
-            <div className="w-min h-min mx-auto ">
-              <Ring size={15} lineWeight={5} speed={2} color="#ff6600" />
-            </div>
-          ) : isToggled ? (
-            <BsToggleOn
-              className="cursor-pointer"
-              style={{
-                width: "18px",
-                height: "25px",
-                color: "#ff6600",
-                margin: `auto`,
-              }}
-            />
-          ) : (
-            <BsToggleOff
-              className="cursor-pointer"
-              style={{
-                width: "18px",
-                height: "25px",
-                color: "#ff6600",
-                margin: `auto`,
-              }}
-            />
-          )}
-        </td>
-        <td className="px-4 py-4">{product.brand && product.brand.name}</td>
-        <td className="px-4 py-4">{product.sold_quantity}</td>
-        <td>{price}</td>
         <td class="px-4 py-4">
-          <div class="md:flex-row flex-col lg:space-x-2 items-center space-y-2 lg:space-y-0">
+          <div class="md:flex-row flex-col items-center space-y-3 lg:space-y-0">
             <button
               onClick={() => setIsEditing(true)}
               class="items-center px-2 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none"
@@ -149,6 +114,43 @@ function SellerProduct({ product , refetch }) {
             </button>
           </div>
         </td>
+        <td className="px-4 py-4">{product.name}</td>
+        <td className="px-4 py-4">{product.description}</td>
+        <td className="px-4 py-4">{product.category}</td>
+        <td className="px-4 py-4">
+          <Image  src={product.image} alt="photo" width={100} height={100} className="object-contain"  />
+        </td>
+        <td onClick={handleAvailable} className="  ">
+          {editingAvailability ? (
+            <div className="w-min h-min mx-auto ">
+              <Ring size={15} lineWeight={5} speed={2} color="#ff6600" />
+            </div>
+          ) : isToggled ? (
+            <BsToggleOn
+              className="cursor-pointer"
+              style={{
+                width: "25px",
+                height: "35px",
+                color: "#ff6600",
+                margin: `auto`,
+              }}
+            />
+          ) : (
+            <BsToggleOff
+              className="cursor-pointer"
+              style={{
+                width: "25px",
+                height: "35px",
+                color: "#ff6600",
+                margin: `auto`,
+              }}
+            />
+          )}
+        </td>
+        <td className="px-4 py-4">{product.brand && product.brand.name}</td>
+        <td className="px-4 py-4">{product.sold_quantity}</td>
+        <td className="px-4 py-4" >{price}</td>
+        
       </tr>
 
       <Dialog

@@ -13,6 +13,7 @@ import createAxiosInstance from "@/API";
 import { useState } from "react";
 import { Ring } from "@uiball/loaders";
 import { useTranslation } from "next-i18next";
+import Link from "next/link";
 
 function CartProduct({ product, storeid, refetch }) {
   const router = useRouter();
@@ -74,9 +75,13 @@ function CartProduct({ product, storeid, refetch }) {
           />
         </div>
         <div className=" flex flex-col justify-center items-start gap-2  w-[50%]">
-          <h2 className=" text-gray-500 text-lg font-medium ">
-            {product.product.name}
-          </h2>
+          <Link
+            href={`/customer/Products/${product.product.id}`}
+            legacyBehavior
+            className="  "
+          >
+            <a target="_blank" className="text-gray-500 text-lg font-medium border-b-2 border-transparent hover:border-gray-500 cursor-pointer" >{product.product.name}</a>
+          </Link>
           <p className=" text-skin-primary text-base font-light ">
             {product.price} S.P
           </p>

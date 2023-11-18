@@ -18,7 +18,7 @@ import Category from "../AdminStoreTypeCategory/AdminStoreTypeCategory";
 import { MdAdd, MdClose, MdHdrPlus } from "react-icons/md";
 import TawasyLoader from "../UI/tawasyLoader";
 import { useQuery } from "react-query";
-import logo from '@/public/images/tawasylogo.png';
+import logo from "@/public/images/tawasylogo.png";
 
 function StoreTypeAdmin({ names, refetch }) {
   const router = useRouter();
@@ -80,29 +80,33 @@ function StoreTypeAdmin({ names, refetch }) {
 
     if (storeTypeImage) {
       // editData.image = logoImage;
-      try{
-        const response2 = await Api.post(`/api/admin/store-types/${names.id}/edit-image`,  {
-          image_path : storeTypeImage
-        } , {
-          headers: { "Content-Type": `multipart/form-data` },
-        })
-      }catch(error){
+      try {
+        const response2 = await Api.post(
+          `/api/admin/store-types/${names.id}/edit-image`,
+          {
+            image_path: storeTypeImage,
+          },
+          {
+            headers: { "Content-Type": `multipart/form-data` },
+          }
+        );
+      } catch (error) {
         // console.log(error);
       }
     }
 
     // if (JSON.stringify(editData) !== "{}") {
-      try {
-        const response = await Api.put(
-          `/api/admin/store-type/update/${names.id}`,
-          editData
-        );
-        refetch();
-        setEditing(false);
-        setIsEditing(false);
-      } catch (error) {
-        setEditing(false);
-      }
+    try {
+      const response = await Api.put(
+        `/api/admin/store-type/update/${names.id}`,
+        editData
+      );
+      refetch();
+      setEditing(false);
+      setIsEditing(false);
+    } catch (error) {
+      setEditing(false);
+    }
     // } else {
     //   setEditing(false);
     // }
@@ -132,9 +136,12 @@ function StoreTypeAdmin({ names, refetch }) {
   async function AddCategory() {
     setSavingCategory(true);
     try {
-      const response = await Api.post(`/api/admin/store-types/${names.id}/categories/attach`, {
-        category_id: selectedCategory,
-      });
+      const response = await Api.post(
+        `/api/admin/store-types/${names.id}/categories/attach`,
+        {
+          category_id: selectedCategory,
+        }
+      );
       refetchStoreTypeCategories();
       setAddCategory(false);
       setSavingCategory(false);
@@ -236,6 +243,10 @@ function StoreTypeAdmin({ names, refetch }) {
                   <input
                     className="my-3 w-[70%] text-black placeholder:text-zinc-500 pl-2 outline-none border-b-2 focus:border-skin-primary transition-all duration-700"
                     type="number"
+                    style={{
+                      WebkitAppearance: "none",
+                      MozAppearance: "textfield",
+                    }}
                     placeholder={names.sort_order}
                     ref={newsortOrder}
                     required
@@ -251,11 +262,20 @@ function StoreTypeAdmin({ names, refetch }) {
                   />
                 </div>
               </div>
-              <div className="flex justify-start items-center gap-2">
+              <div className="flex flex-wrap justify-start items-center gap-2">
                 Categories of this store type :
-                { storeTypeCategories &&  storeTypeCategories.data.categories && storeTypeCategories.data.categories.map((category) => {
-                  return (<Category key={category.id} category={category} storeTypeId = {names.id} refetch={() => refetchStoreTypeCategories()} />)
-                })}
+                {storeTypeCategories &&
+                  storeTypeCategories.data.categories &&
+                  storeTypeCategories.data.categories.map((category) => {
+                    return (
+                      <Category
+                        key={category.id}
+                        category={category}
+                        storeTypeId={names.id}
+                        refetch={() => refetchStoreTypeCategories()}
+                      />
+                    );
+                  })}
                 {/* <Category storeType={names.name_en} refetch={() => refetch()} /> */}
                 {addCategory == true && (
                   <div className="flex justify-start items-center gap-2">
@@ -293,7 +313,7 @@ function StoreTypeAdmin({ names, refetch }) {
                         color="#FF6600"
                       />
                     ) : (
-                      <div className="flex justify-start gap-3" >
+                      <div className="flex justify-start gap-3">
                         <MdAdd
                           className="text-gray-500 hover:text-green-500 w-[15px] h-[17px] border-b-2 border-transparent hover:border-green-500 transition-all duration-700 cursor-pointer "
                           onClick={AddCategory}

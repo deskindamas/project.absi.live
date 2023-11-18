@@ -11,6 +11,9 @@ import { Ring } from "@uiball/loaders";
 
 const tableheading = [
   {
+    heading: "Action",
+  },
+  {
     heading: "Name Ar",
   },
   {
@@ -56,9 +59,6 @@ const tableheading = [
   {
     heading: "Instores",
   },
-  {
-    heading: "Action",
-  },
 ];
 
 function ShareProductsAdmin() {
@@ -70,11 +70,15 @@ function ShareProductsAdmin() {
     isLoading,
     refetch,
     isFetching,
-  } = useQuery(["adminSharedProducts" , currentPage], () => fetchSharedProducts(currentPage), {
-    staleTime: 1,
-    refetchOnMount: true,
-    refetchOnWindowFocus: false,
-  });
+  } = useQuery(
+    ["adminSharedProducts", currentPage],
+    () => fetchSharedProducts(currentPage),
+    {
+      staleTime: 1,
+      refetchOnMount: true,
+      refetchOnWindowFocus: false,
+    }
+  );
 
   async function fetchSharedProducts(currentPage) {
     try {
@@ -97,16 +101,16 @@ function ShareProductsAdmin() {
           <div className="m-5 p-5 flex justify-between items-center">
             <h1 className="text-2xl text-stone-500 ">Share Product</h1>
             {/* <div className="flex"> */}
-              <div className="w-max flex justify-end ">
-                <button
-                  className="bg-skin-primary text-white py-1 px-3 rounded-md"
-                  onClick={() => {
-                    router.push("/admin/Products/addNewProduct");
-                  }}
-                >
-                  Add Product
-                </button>
-              </div>
+            <div className="w-max flex justify-end ">
+              <button
+                className="bg-skin-primary text-white py-1 px-3 rounded-md"
+                onClick={() => {
+                  router.push("/admin/Products/addNewProduct");
+                }}
+              >
+                Add Product
+              </button>
+            </div>
             {/* </div> */}
           </div>
           {sharedProducts && sharedProducts.data.products.length > 0 ? (
@@ -146,7 +150,9 @@ function ShareProductsAdmin() {
               <button
                 className="px-2 py-1 bg-skin-primary text-white rounded-lg hover:bg-[#ff9100] disabled:opacity-50 disabled:cursor-not-allowed w-[20%]"
                 onClick={() => {
-                  setCurrentPage(sharedProducts.data.pagination.current_page - 1);
+                  setCurrentPage(
+                    sharedProducts.data.pagination.current_page - 1
+                  );
                   // setCurrentPage(data.data.pagination.previousPage);
                 }}
                 disabled={
@@ -162,7 +168,9 @@ function ShareProductsAdmin() {
               <button
                 className="px-2 py-1 bg-skin-primary text-white rounded-lg hover:bg-[#ff9100] disabled:opacity-50 disabled:cursor-not-allowed w-[20%]"
                 onClick={() => {
-                  setCurrentPage(sharedProducts.data.pagination.current_page + 1);
+                  setCurrentPage(
+                    sharedProducts.data.pagination.current_page + 1
+                  );
                   // setCurrentPage(data.data.pagination.nextPage);
                 }}
                 disabled={

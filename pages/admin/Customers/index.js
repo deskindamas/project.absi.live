@@ -43,44 +43,6 @@ const tableheading = [
   },
 ];
 
-const customers = [
-  {
-    id: 1,
-    name: "lorem",
-    phone: "1074958621",
-    lng: "10",
-    lat: "10",
-    created_at: "5/4/2013",
-    updated_at: "5/4/2013",
-  },
-  {
-    id: 2,
-    name: "lorem",
-    phone: "1074958621",
-    lng: "10",
-    lat: "10",
-    created_at: "5/4/2013",
-    updated_at: "5/4/2013",
-  },
-  {
-    id: 3,
-    name: "lorem",
-    phone: "1074958621",
-    lng: "10",
-    lat: "10",
-    created_at: "5/4/2013",
-    updated_at: "5/4/2013",
-  },
-  {
-    id: 4,
-    name: "lorem",
-    phone: "1074958621",
-    lng: "10",
-    lat: "10",
-    created_at: "5/4/2013",
-    updated_at: "5/4/2013",
-  },
-];
 
 function AllCustomer() {
   const router = useRouter();
@@ -158,7 +120,7 @@ function AllCustomer() {
 
   return (
     <div className="md:px-6">
-      <div className="h-screen">
+      <div className="h-[100%]">
         <div className="m-5 p-5">
           <h2 className="text-2xl text-skin-primary pb-5 ">Customers</h2>
           <div className="flex">
@@ -214,7 +176,7 @@ function AllCustomer() {
         </div>
 
         {customers && inSearch == false && (
-          <div className="w-full h-[70%] overflow-x-auto ">
+          <div className="w-full max-h-[70%] overflow-x-auto ">
             <table className="w-full overflow-x-auto table-auto">
               <thead className="">
                 <tr className="text-sm font-semibold text-center border-b-2 border-gray-400 uppercase">

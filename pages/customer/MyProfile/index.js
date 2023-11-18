@@ -193,7 +193,10 @@ function MyProfile() {
               </div>
             </form>
 
-            <form onSubmit={handleSavePhoneClick} className="flex justify-between md:w-[400px] w-auto mb-4">
+            <form
+              onSubmit={handleSavePhoneClick}
+              className="flex justify-between md:w-[400px] w-auto mb-4"
+            >
               <div className="flex">
                 <label className="md:text-xl text-base text-gray-700 font-medium pr-2 w-24">
                   {/* {`Phone`} : */}
@@ -205,6 +208,10 @@ function MyProfile() {
                     type="number"
                     placeholder={profile.data.customer.phone_number}
                     ref={phoneRef}
+                    style={{
+                      WebkitAppearance: "none",
+                      MozAppearance: "textfield",
+                    }}
                     required
                     maxLength={10}
                     minLength={10}
@@ -221,11 +228,8 @@ function MyProfile() {
                     <Ring size={20} lineWeight={5} speed={2} color="#ff6600" />
                   ) : (
                     <div className="flex items-center gap-3">
-                      <button type="submit" >
-                        <MdCheck
-                          
-                          className="w-[20px] h-[20px] cursor-pointer text-green-600 border-b-2 border-transparent hover:border-green-600 transition-all duration-500 "
-                        />
+                      <button type="submit">
+                        <MdCheck className="w-[20px] h-[20px] cursor-pointer text-green-600 border-b-2 border-transparent hover:border-green-600 transition-all duration-500 " />
                       </button>
                       <MdClose
                         onClick={() => {

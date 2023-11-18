@@ -11,12 +11,24 @@ import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import createAxiosInstance from "@/API";
 import Cookies from "js-cookie";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
+import Link from "next/link";
+
+export async function getServerSideProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common"])),
+    },
+  };
+}
 
 const Code = () => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const verifyNumber = useRef();
-  const Api = createAxiosInstance(router) ; 
+  const Api = createAxiosInstance(router);
+  const { t } = useTranslation("");
 
   const handleVerify = async (e) => {
     e.preventDefault();
@@ -30,24 +42,28 @@ const Code = () => {
           verification_code: verifyNumber.current.value,
         });
         Cookies.remove("number");
-        Cookies.set("AT", response.data.token , {expires : 365 * 10});
+        Cookies.set("AT", response.data.token, { expires: 365 * 10 });
         try {
           const response2 = await Api.get(`/api/seller/store/status`);
           // console.log(`response in verification status`);
           switch (response2.data.status) {
-          case 'Store not found' : 
-            router.replace('/seller/requestStore');
-          break;
+            case "Store not found":
+              router.replace("/seller/requestStore");
+              break;
 
-          case 'approved' : 
-          Cookies.set('Sid' , response2.data.store_id , {expires : 365 * 10} );
-          router.replace(`/seller`);
-          break;
+            case "approved":
+              Cookies.set("Sid", response2.data.store_id, {
+                expires: 365 * 10,
+              });
+              router.replace(`/seller`);
+              break;
 
-          case 'pending' :
-          Cookies.set('Sid' , response2.data.store_id , {expires : 365 * 10});
-            router.replace(`/seller/pendingStore`);
-          break;
+            case "pending":
+              Cookies.set("Sid", response2.data.store_id, {
+                expires: 365 * 10,
+              });
+              router.replace(`/seller/pendingStore`);
+              break;
           }
         } catch (error) {
           console.log(error);
@@ -58,7 +74,7 @@ const Code = () => {
         }
       } catch (error) {
         toast.error(error.response.data.error, {
-          toastId : error.response.data.error ,
+          toastId: error.response.data.error,
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -77,7 +93,7 @@ const Code = () => {
           verify_code: verifyNumber.current.value,
         });
         Cookies.remove("number");
-        Cookies.set("AT", response.data.token , {expires : 365 * 10});
+        Cookies.set("AT", response.data.token, { expires: 365 * 10 });
         router.replace("/customer");
         setIsLoading(false);
         if (response.status !== 200) {
@@ -85,7 +101,7 @@ const Code = () => {
         }
       } catch (error) {
         toast.error(error.response.data.error, {
-          toastId : error.response.data.error ,
+          toastId: error.response.data.error,
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -111,16 +127,26 @@ const Code = () => {
     <Fragment>
       <div className={`w-screen h-screen bg-white `}>
         <div className="flex flex-col justify-start items-center gap-12 mx-auto px-4 pt-28 w-fit ">
-          <Image
-            src={Logo}
-            alt="Logo"
-            width={400}
-            height={290}
-            className="mx-3"
-          />
-          <p className="text-xl font-medium">
-            الرجاء ادخال رمز التحقق الذي تم ارساله اليكم{" "}
-          </p>
+          <Link href={"/"}>
+            <Image
+              src={Logo}
+              alt="Logo"
+              width={400}
+              height={290}
+            />
+          </Link>
+          <span className="text-xl font-medium text-center ">
+            {/* الرجاء ادخال رمز التحقق الذي تم ارساله اليكم عن طؤيق الواتس أب أو التواصل معنل على الرقم التالي  */}
+            <p> {t("verification.contactUs")}</p>
+            <Link href="tel:+963987000888" legacyBehavior>
+              <a
+                target="_blank"
+                className="text-skin-primary border-b border-skin-primary"
+              >
+                {t("verification.contactUsNumber")}
+              </a>
+            </Link>
+          </span>
           <form
             className="flex flex-col justify-start items-center gap-7"
             onSubmit={handleVerify}
@@ -148,6 +174,10 @@ const Code = () => {
               </button>
             </div>
           </form>
+
+          <span className="sm:text-lg text-base" >
+            {t("verification.didntGetCode")} <button className="text-skin-primary border-b border-skin-primary" > {t("verification.resendCode")} </button>
+          </span>
         </div>
       </div>
     </Fragment>
