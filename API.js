@@ -109,7 +109,7 @@ const createAxiosInstance = (router) => {
           toast.error(
             error.response.data.message ||
               error.response.data.error ||
-              "Request failed | فشل في طلب قاعدة البيانات",
+              "Request failed \b فشل في طلب قاعدة البيانات",
             {
               toastId: error.response.data.message || error.response.data.error,
               position: "top-right",
@@ -125,7 +125,7 @@ const createAxiosInstance = (router) => {
         }
       } else {
         // Show error notification for other types of errors
-        toast.error(`Request failed \b فشل في طلب قاعدة البيانات `, {
+        toast.error(`Please check your connection \bالرجاء التأكد من الاتصال`, {
           toastId: "Request failed",
           position: "top-right",
           autoClose: 5000,

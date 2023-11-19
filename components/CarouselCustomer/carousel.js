@@ -1,8 +1,21 @@
 import Image from "next/image";
+import { useState } from "react";
+import { useEffect } from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 export function ResponsiveCarousel({ ads }) {
+
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prevSlide) => (prevSlide + 1) % ads.length);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <Carousel
       autoPlay={true}
@@ -35,5 +48,6 @@ export function ResponsiveCarousel({ ads }) {
       })}
       
     </Carousel>
+
   );
 }

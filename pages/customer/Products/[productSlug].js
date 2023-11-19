@@ -14,6 +14,7 @@ export async function getServerSideProps(context) {
   const response = await Api.get(`/api/product/${params.productSlug}`, {
     headers: { "Accept-Language": locale || "en" },
   });
+  console.log(response);
   if (!response.data[`productDetails`]) {
     return {
       notFound: true,

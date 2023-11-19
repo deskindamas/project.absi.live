@@ -127,10 +127,10 @@ function Products() {
   if (productsType) {
     switch (productsType) {
       case "activeProducts":
-        title = "Active Products";
+        title = "Published Products";
         break;
       case "disabledProducts":
-        title = "Disabled Products";
+        title = "Unpublished Products";
         break;
       case "allProducts":
         title = "All Products";

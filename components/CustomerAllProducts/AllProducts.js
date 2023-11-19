@@ -9,6 +9,7 @@ import createAxiosInstance from "@/API";
 import { Ring } from "@uiball/loaders";
 import Link from "next/link";
 import { useState } from "react";
+import { convertMoney } from "../SellerOrders/sellerOrder";
 
 function PublicAllProduct({ product }) {
   const { t } = useTranslation("");
@@ -57,8 +58,7 @@ function PublicAllProduct({ product }) {
         </h1>
         {product.price && (
           <h2 className="text-gray-600 text-xl md:h-[10%]">
-            {" "}
-            {product.price} S.P{" "}
+            {convertMoney(product.price)} S.P
           </h2>
         )}
         <p className="text-skin-primary text-lg md:h-[20%] ">{product.brand}</p>

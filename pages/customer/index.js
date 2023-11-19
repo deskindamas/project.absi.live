@@ -14,6 +14,7 @@ import { useRef, useState } from "react";
 import { MdArrowForward, MdClose } from "react-icons/md";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
+import { FadingCarousel } from "@/components/FadingCarouselCustomer/FadinCarousel";
 
 export async function getServerSideProps(context) {
   const { params, locale } = context;
@@ -211,7 +212,7 @@ function CustomerPage({data}) {
           <div className="flex flex-col justify-start items-center h-full w-full gap-4 ">
             {data && data.ads && (
               <div className="mx-auto w-full max-h-[540px] pb-3 " dir="ltr">
-                <ResponsiveCarousel ads={data.ads} />
+                <FadingCarousel ads={data.ads} />
               </div>
             )}
 

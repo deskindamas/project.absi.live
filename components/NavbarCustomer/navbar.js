@@ -105,9 +105,10 @@ function Navbar() {
               {router.pathname != `/customer/SubmitOrder` && (
                 <button onClick={handleCartButtonClick} className="relative">
                   <IoCartOutline className="text-white w-[40px] h-[20px]  " />
-                  {cart?.data?.cart?.lines && cart?.data?.cart?.lines?.length > 0 && (
-                    <div className="w-[7px] h-[7px] absolute rounded-full bg-gray-300 top-0 right-1"></div>
-                  )}
+                  {cart?.data?.cart?.lines &&
+                    cart?.data?.cart?.lines?.length > 0 && (
+                      <div className="w-[7px] h-[7px] absolute rounded-full bg-gray-300 top-0 right-1"></div>
+                    )}
                   {/* <BsFillBagFill className="text-white w-[40px] h-[20px]  " /> */}
                 </button>
               )}
@@ -133,23 +134,24 @@ function Navbar() {
               Become A Seller
             </button> */}
           {isLoggedIn == false && (
-            <Link
-              href={"/login"}
-              // href={{ pathname :"/login" , query : query}}
-              className="text-white h-[80%] flex items-center justify-center md:border-[1px] md:border-white md:px-6 px-1 hover:bg-white hover:text-skin-primary rounded-md justify-self-end"
-            >
-              {/* {`Login`} */}
-              {t("nav.login")}
-            </Link>
-          )}
+            <div className="flex space-x-1" >
               <Link
-              href={"/signup" }
-              className="text-white mx-1 h-[80%] flex items-center justify-center md:border-[1px] md:border-white md:px-6 px-1 hover:bg-white hover:text-skin-primary rounded-md justify-self-end"
-            >
-              {/* {`Login`} */}
-              {t("nav.SignUp")}
-            </Link>
-
+                href={"/login"}
+                // href={{ pathname :"/login" , query : query}}
+                className="text-white h-[80%] flex items-center justify-center md:border-[1px] md:border-white md:px-6 px-1 hover:bg-white hover:text-skin-primary rounded-md justify-self-end"
+              >
+                {/* {`Login`} */}
+                {t("nav.login")}
+              </Link>
+              <Link
+                href={"/signup"}
+                className="text-white mx-1 h-[80%] flex items-center justify-center md:border-[1px] md:border-white md:px-6 px-1 hover:bg-white hover:text-skin-primary rounded-md justify-self-end"
+              >
+                {/* {`Login`} */}
+                {t("nav.SignUp")}
+              </Link>
+            </div>
+          )}
         </div>
       </div>
       <Cart show={showCartSidebar} onClose={() => setShowCartSidebar(false)} />
