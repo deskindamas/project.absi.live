@@ -18,8 +18,11 @@ export async function getServerSideProps(context) {
   const { params, locale } = context;
   const Api = createAxiosInstance();
   const response = await Api.get(`/api/store-types` , {
-    headers : { 'Accept-Language': locale || 'en',}
+    headers : { 'Accept-Language': locale || 'en',} ,
+    "Content-Type" : "application/json" ,
+    "Accept" : "application/json"
   });
+  // console.log(response);
   if (!response.data) {
     return {
       notFound: true,
@@ -209,9 +212,9 @@ function CustomerPage({data}) {
         {data && (
           <div className="flex flex-col justify-start items-center h-full w-full gap-4 ">
             {data && data.ads && (
-              <div className="mx-auto w-full max-h-[540px] pb-3 " dir="ltr">
-                <FadingCarousel ads={data.ads} />
-                {/* <ResponsiveCarousel ads={data.ads} /> */}
+              <div className="mx-auto w-full pb-3 " dir="ltr">
+                {/* <FadingCarousel ads={data.ads} /> */}
+                <ResponsiveCarousel ads={data.ads} />
               </div>
             )}
 

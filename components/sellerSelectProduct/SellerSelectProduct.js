@@ -10,12 +10,15 @@ import { Ring } from "@uiball/loaders";
 import Link from "next/link";
 import { useState } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
+import { useDispatch } from "react-redux";
+import { selectedActions } from "@/Store/SelectedSlice";
 
 function SellerSelectProduct({ product }) {
   const { t } = useTranslation("");
   const router = useRouter();
   const Api = createAxiosInstance(router);
   const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useDispatch(); 
 
   const [adding, setAdding] = useState(false);
 
@@ -25,6 +28,7 @@ function SellerSelectProduct({ product }) {
       const response = await Api.post(
         `/api/seller/select-product/${product.id}`
       );
+      dispatch(selectedActions.selectProduct());
     } catch (error) {
       // console.log(error);
     }

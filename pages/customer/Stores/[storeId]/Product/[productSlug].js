@@ -8,6 +8,9 @@ import logo from "@/public/images/tawasylogo.png";
 import { useRouter } from "next/router";
 import createAxiosInstance from "@/API";
 import { Ring } from "@uiball/loaders";
+import { useDispatch } from "react-redux";
+import { cartActions } from "@/Store/CartSlice";
+import { convertMoney } from "@/components/SellerOrders/sellerOrder";
 
 export async function getServerSideProps(context) {
   const { params, locale } = context;
@@ -35,6 +38,7 @@ export async function getServerSideProps(context) {
 function Product({ product }) {
   const [adding, setAdding] = useState(false);
   const router = useRouter();
+  const dispatch = useDispatch();
   const Api = createAxiosInstance(router);
   async function addToCart() {
     setAdding(true);
@@ -43,6 +47,7 @@ function Product({ product }) {
         product_id: product.id,
         store_id: router.query.storeId,
       });
+      dispatch(cartActions.addProduct());
       setAdding(false);
     } catch (error) {}
     setAdding(false);
@@ -70,7 +75,7 @@ function Product({ product }) {
                 {product.name}
               </h1>
               <p className="bg-gray-200 sm:text-xl  w-max text-sm h-max sm:flex-none flex py-2 px-2 text-black font-medium">
-                {product.price} S.P
+                {convertMoney(product.price)} S.P
               </p>
             </div>
             <div className="flex flex-wrap gap-2">
@@ -102,8 +107,7 @@ function Product({ product }) {
         <div className="border-t-2 border-gray-200 py-3 my-2">
           <p className="text-gray-500 text-base">
             {product.description
-              ? product.description
-              : "No Description Given."}
+              && product.description}
           </p>
         </div>
       </div>

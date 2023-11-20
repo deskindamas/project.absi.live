@@ -109,7 +109,7 @@ function Products({ store }) {
         response.data.data.length < 1 ? (
           <div className="w-max mx-auto">{response.data.message}</div>
         ) : (
-          <div className="grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 grid-col-1 gap-2 w-[90%] mx-auto">
+          <div className=" w-[90%] grid 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 gap-y-7 mx-auto">
             {response.data.data.map((product) => {
               return <PublicAllProduct key={product.id} product={product} />;
             })}
@@ -311,7 +311,7 @@ function Products({ store }) {
               </ul>
             </div>
 
-            <div className="flex w-[80%] justify-center mx-auto mt-4 mb-7">
+            <div className="flex w-[90%] justify-center mx-auto mt-4 mb-7">
               <div className="grid 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 gap-y-7 mx-auto ">
                 {store &&
                   selectedCategoryData &&

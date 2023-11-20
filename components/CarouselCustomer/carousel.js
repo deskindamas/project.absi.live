@@ -21,12 +21,13 @@ export function ResponsiveCarousel({ ads }) {
       autoPlay={true}
       autoFocus={true}
       infiniteLoop={true}
-      showArrows={true}
-      showIndicators={true}
+      // showArrows={true}
+      // showIndicators={true}
       showStatus={false}
       showThumbs={false}
-      stopOnHover={false}
+      // stopOnHover={false}
       swipeable = {false}
+      animationHandler="fade"
       // width={`70%`}
       className="select-none"
       dynamicHeight={false}

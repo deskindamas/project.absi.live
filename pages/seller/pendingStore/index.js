@@ -22,7 +22,7 @@ function PendingPage() {
   const { data, isLoading, isError, error } = useQuery(
     `StoreStatus`,
     getStoreStatus,
-    { staleTime: 1, refetchOnMount: true, refetchOnWindowFocus: false  , refetchInterval : 10000}
+    { staleTime: 1, refetchOnMount: true, refetchOnWindowFocus: false  , refetchInterval : 300000}
   );
 
   if (data) {

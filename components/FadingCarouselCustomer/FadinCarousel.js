@@ -15,7 +15,7 @@ export function FadingCarousel({ ads }) {
   }, []);
 
   return (
-    <div className="relative h-[540px]">
+    <div className="static h-max">
     {ads.map((image, index) => (
       <Image
         key={index}

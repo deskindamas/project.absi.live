@@ -27,7 +27,7 @@ function StoreTypeComponent({ storeType }) {
           alt = {storeType.name}
           width={150}
           height={150}
-          className="object-cover overflow-hidden w-[40%] h-auto "
+          className="object-cover rounded-l-lg overflow-hidden w-[40%] h-auto "
         />
         <div className="flex text-start flex-col justify-between space-y-2 px-2 h-[85%] my-auto rounded-r-xl w-[90%] " >
           <h2 className="sm:text-xl line-clamp-2 text-ellipsis text-black text-sm " title={storeType.name} >{storeType.name} </h2>

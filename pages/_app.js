@@ -9,6 +9,9 @@ import { DefaultSeo } from "next-seo";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import nProgress, { NProgress } from "nprogress";
+import { Provider } from "react-redux";
+// import { store } from "@/Store";
+import {store} from "../Store/index";
 
 const tawasyFont = localfont({
   src: "../public/fonts/local/MYRIAAMI.ttf",
@@ -17,31 +20,32 @@ const tawasyFont = localfont({
 const queryClient = new QueryClient();
 
 function App({ Component, pageProps }) {
-
   const router = useRouter();
 
   useEffect(() => {
-    router.events.on('routeChangeStart', () =>  nProgress.start());
+    router.events.on("routeChangeStart", () => nProgress.start());
 
-    router.events.on('routeChangeComplete', () =>  nProgress.done());
-    router.events.on('routeChangeError', () =>  nProgress.done());
+    router.events.on("routeChangeComplete", () => nProgress.done());
+    router.events.on("routeChangeError", () => nProgress.done());
   }, []);
 
   return (
     <>
       {/* <main className={tawasyFont.className}> */}
-        <QueryClientProvider client={queryClient}>
-          <ThemeProvider>
-            <DefaultSeo
-              title="Tawasy Shopping"
-              description="shopping has become more enjoyable after Tawasy Shopping was
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider>
+          <DefaultSeo
+            title="Tawasy Shopping"
+            description="shopping has become more enjoyable after Tawasy Shopping was
               able to collect more than 400 important
               brands for you to shop from"
-            />
+          />
+          <Provider store={store} >
             <Component {...pageProps} />
-            <ToastContainer  />
-          </ThemeProvider>
-        </QueryClientProvider>
+          </Provider>
+          <ToastContainer />
+        </ThemeProvider>
+      </QueryClientProvider>
       {/* </main> */}
     </>
   );
