@@ -77,14 +77,14 @@ const Footer = () => {
        </Link>
 
        <div className="flex justify-center">
-       <Link href="/customer" className="hover:text-skin-primary">
-               About Us
+       <Link href="/AboutUs" className="hover:text-skin-primary">
+                {t("footer.aboutUs")}
               </Link>
        </div>
 
        <div>
-       <Link href="/customer" className="hover:text-skin-primary">
-                Contact Us
+       <Link href="/ContactUs" className="hover:text-skin-primary">
+                {t("footer.contactUS")}
               </Link>
        </div>
          
