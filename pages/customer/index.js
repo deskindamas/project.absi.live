@@ -1,8 +1,8 @@
 import TiltCard from "@/components/UI/TileCard";
 import TawasyLoader from "@/components/UI/tawasyLoader";
 import image from "../../public/images/app_view_iphone_en.png";
-import imagee from "../../public/images/become-a-partner.png";
-import images from "../../public/images/customer.png";
+import images from "../../public/images/12084790_20943943.jpg";
+import imagee from "../../public/images/6163184_2502.jpg";
 import StoreComponent from "@/components/customerCommponents/StoreComponent";
 import StoreTypeComponent from "@/components/customerCommponents/StoreTypeComponent/StoreTypeComponent";
 import Image from "next/image";
@@ -15,12 +15,13 @@ import { MdArrowForward, MdClose } from "react-icons/md";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import { FadingCarousel } from "@/components/FadingCarouselCustomer/FadinCarousel";
+import Link from "next/link";
 
 export async function getServerSideProps(context) {
   const { params, locale } = context;
   const Api = createAxiosInstance();
-  const response = await Api.get(`/api/store-types` , {
-    headers : { 'Accept-Language': locale || 'en',}
+  const response = await Api.get(`/api/store-types`, {
+    headers: { "Accept-Language": locale || "en" },
   });
   if (!response.data) {
     return {
@@ -36,7 +37,7 @@ export async function getServerSideProps(context) {
   };
 }
 
-function CustomerPage({data}) {
+function CustomerPage({ data }) {
   const router = useRouter();
   const Api = createAxiosInstance(router);
   const searchRef = useRef();
@@ -155,8 +156,7 @@ function CustomerPage({data}) {
             const { data: brandStores } = await Api.post(
               `/api/brands/search`,
               {
-                  query: searchRef.current.value,
-                
+                query: searchRef.current.value,
               },
               {
                 noSuccessToast: true,
@@ -209,7 +209,7 @@ function CustomerPage({data}) {
     <>
       <div className="w-full h-full">
         {data && (
-          <div className="flex flex-col justify-start items-center h-full w-full gap-4 ">
+          <div className="relative flex flex-col justify-start items-center h-full w-full gap-4 ">
             {data && data.ads && (
               <div className="mx-auto w-full max-h-[540px] pb-3 " dir="ltr">
                 <FadingCarousel ads={data.ads} />
@@ -218,7 +218,7 @@ function CustomerPage({data}) {
             )}
 
             <div
-              className="w-[80%] flex justify-center items-center gap-2 mx-auto "
+              className="absolute top-[13%] w-[80%] flex justify-center items-center gap-2 mx-auto "
               dir="ltr"
             >
               <form
@@ -286,17 +286,25 @@ function CustomerPage({data}) {
                   {/* {`Discover Oxur Store Types`} */}
                   {t("home.discover")}
                 </h2>
-                { data && data.data ? <div className=" sm:w-[80%] w-[90%] h-[60%] grid grid-cols 2xl:grid-cols-3 xl:grid-cols-2 lg:grid-cols-2  md:grid-cols-1 sm:grid-cols-1  grid-cols-1 gap-y-6 gap-x-6 pb-20 ">
-                  {data.data.map((storeType) => {
-                    return (
-                      <StoreTypeComponent
-                        key={storeType.id}
-                        storeType={storeType}
-                      />
-                    );
-                  })}
-                </div> : <div className="w-max mx-auto text-lg" > {data.message ? data.message : `There are no storeTypes`} </div>}
-                
+                {data && data.data ? (
+                  <div className=" sm:w-[80%] w-[90%] h-[60%] grid grid-cols 2xl:grid-cols-3 xl:grid-cols-2 lg:grid-cols-2  md:grid-cols-1 sm:grid-cols-1  grid-cols-1 gap-y-6 gap-x-6 pb-20 ">
+                    {data.data.map((storeType) => {
+                      return (
+                        <StoreTypeComponent
+                          key={storeType.id}
+                          storeType={storeType}
+                        />
+                      );
+                    })}
+                  </div>
+                ) : (
+                  <div className="w-max mx-auto text-lg">
+                    {" "}
+                    {data.message
+                      ? data.message
+                      : `There are no storeTypes`}{" "}
+                  </div>
+                )}
               </div>
             )}
             {inSearch && (
@@ -311,66 +319,76 @@ function CustomerPage({data}) {
                 )}
               </div>
             )}
-            <div className="flex flex-col  py-6 w-full " >
-                    <h2 className="text-2xl text-center" >Join us</h2>
-                    <div className="flex flex-row justify-center items-center gap-2">
-                    <div className="flex flex-row gap-2 justify-start my-3 border border-gray-300 shadow-xl md:w-[474px] md:h-[188px] "> 
-                    <div className="w-[186px] h-[186px]">
+            <div className="flex flex-col  py-6 w-full md:mb-5 ">
+              <h2 className="text-3xl text-gray-600 text-center">Join us</h2>
+              <div className="flex flex-row justify-center items-center gap-2">
+                <Link
+                  href={`/signup?user=seller`}
+                  className="flex flex-row space-x-2 justify-start my-3 border border-gray-300 shadow-xl md:w-[35%] md:h-fit "
+                >
+                  <div className="w-[50%]">
                     <Image
-                     src={imagee}
+                      src={imagee}
                       alt=""
-                      width={0}
-                      height={0}
-                      style={{ width: "186px", height: "100%" }} />
-                      </div>
-                    <div className="flex flex-col gap-2 items-center justify-center" >
-                      <h1 className="text-2xl text-gray-600">Sign Up a Seller</h1>
-                    </div>
-                     </div>
+                      width={150}
+                      height={150}
+                      style={{ width: "100%", height: "auto" }}
+                    />
+                  </div>
+                  <div className="flex flex-col gap-2 justify-center mx-auto">
+                    <h1 className="text-2xl text-gray-600">Sign Up a Seller</h1>
+                    <p>Reach more customers and achieve growth with us</p>
+                  </div>
+                </Link>
 
-                     <div className="flex flex-row gap-2 justify-start my-3 border border-gray-300 shadow-xl md:w-[474px] md:h-[188px] "> 
-                    <div className="w-[186px] h-[186px]">
+                <Link
+                  href={`/signup?user=customer`}
+                  className="flex flex-row space-x-2 justify-start my-3 border border-gray-300 shadow-xl md:w-[35%] md:h-fit "
+                >
+                  <div className="w-[50%]">
                     <Image
-                     src={images}
+                      src={images}
                       alt=""
-                      width={0}
-                      height={0}
-                      style={{ width: "186px", height: "100%" }} />
-                      </div>
-                    <div className="flex flex-col gap-2 items-center justify-center mx-auto" >
-                      <h1 className="text-2xl text-gray-600">Sign Up a Customer</h1>
-                      {/* <p>
-                      Reach more customers and achieve growth with us
-                      </p> */}
-                    </div>
-                     </div>
-                     </div>
-                     
-                </div>
+                      width={150}
+                      height={150}
+                      style={{ width: "100%", height: "auto" }}
+                    />
+                  </div>
+                  <div className="flex flex-col gap-2 justify-center mx-auto">
+                    <h1 className="text-2xl text-gray-600">
+                      Sign Up a Customer
+                    </h1>
+                    <p>Reach more customers and achieve growth with us</p>
+                  </div>
+                </Link>
+              </div>
+            </div>
 
-                <div className="flex md:flex-row flex-col w-[70%] gap-3 items-center justify-center">
-             <div className="md:w-[350px] w-auto md:h-[300px] h-auto">
-             <Image
-              src={image}
-              // className="w-full object-contain object-center transform transition duration-1000 "
-              width={0}
-              height={0}
-              sizes="100vw"
-              style={{ width: "auto", height: "auto" }}
-            />
+            <div className="flex md:flex-row overflow-clip flex-col w-[70%] gap-3 items-center justify-center ">
+              <div className="md:w-[350px] w-auto md:h-[300px] h-auto">
+                <Image
+                  src={image}
+                  // className="w-full object-contain object-center transform transition duration-1000 "
+                  width={0}
+                  height={0}
+                  sizes="100vw"
+                  style={{ width: "auto", height: "auto" }}
+                  className=" object-cover "
+                />
               </div>
               <div className="flex flex-col gap-2 md:mx-7 mx-2 md:my-0 my-2">
-              <h1 className="text-3xl text-gray-600 font-medium text-center">
-              Discover the new Tawasy app
-              </h1>
-              <p className="text-gray-500 md:my-3">Get what you need, when you need it.</p>
-              <button className="border-2 border-skin-primary py-2 px-5 text-skin-primary rounded-md">Download App</button>
+                <h1 className="text-3xl text-gray-600 font-medium text-center">
+                  Discover the Tawasy app
+                </h1>
+                <p className="text-gray-500 md:my-3">
+                  Get what you need, when you need it.
+                </p>
+                <button className="border-2 border-skin-primary py-2 px-5 text-skin-primary rounded-md">
+                  Download App
+                </button>
               </div>
-              </div>
-
+            </div>
           </div>
-
-
         )}
       </div>
     </>
