@@ -3,6 +3,7 @@ import image from "../../../public/images/storetype.png";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import ggg from "@/public/images/01.png";
+import logo from "@/public/images/tawasylogo.png"
 // import image from "../../../public/images/flowers.jpeg";
 
 function StoreTypeComponent({ storeType }) {
@@ -22,7 +23,7 @@ function StoreTypeComponent({ storeType }) {
       /> */}
       <div className="border-2 border-gray-100  hover:scale-[103%] transition-all shadow-2xl duration-[333.3ms] flex justify-start rounded-lg space-x-2 "> 
         <Image
-          src={ggg}
+          src={storeType.image ? storeType.image : logo }
           alt = {storeType.name}
           width={150}
           height={150}
