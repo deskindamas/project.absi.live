@@ -1,6 +1,8 @@
 import TiltCard from "@/components/UI/TileCard";
 import TawasyLoader from "@/components/UI/tawasyLoader";
-import image from "../../public/images/supermarket.jpeg";
+import image from "../../public/images/app_view_iphone_en.png";
+import imagee from "../../public/images/become-a-partner.png";
+import images from "../../public/images/customer.png";
 import StoreComponent from "@/components/customerCommponents/StoreComponent";
 import StoreTypeComponent from "@/components/customerCommponents/StoreTypeComponent/StoreTypeComponent";
 import Image from "next/image";
@@ -309,11 +311,66 @@ function CustomerPage({data}) {
                 )}
               </div>
             )}
-            <div className="flex flex-col space-y-4 py-6 text-center w-full " >
-                    <h2 className="text-2xl" >Join Tawasy as a Seller</h2>
-                    <div className="flex justify-start w-[20%] border border-gray-200 shadow-xl h-[150px] mx-auto">  </div>
+            <div className="flex flex-col  py-6 w-full " >
+                    <h2 className="text-2xl text-center" >Join us</h2>
+                    <div className="flex flex-row justify-center items-center gap-2">
+                    <div className="flex flex-row gap-2 justify-start my-3 border border-gray-300 shadow-xl md:w-[474px] md:h-[188px] "> 
+                    <div className="w-[186px] h-[186px]">
+                    <Image
+                     src={imagee}
+                      alt=""
+                      width={0}
+                      height={0}
+                      style={{ width: "186px", height: "100%" }} />
+                      </div>
+                    <div className="flex flex-col gap-2 items-center justify-center" >
+                      <h1 className="text-2xl text-gray-600">Sign Up a Seller</h1>
+                    </div>
+                     </div>
+
+                     <div className="flex flex-row gap-2 justify-start my-3 border border-gray-300 shadow-xl md:w-[474px] md:h-[188px] "> 
+                    <div className="w-[186px] h-[186px]">
+                    <Image
+                     src={images}
+                      alt=""
+                      width={0}
+                      height={0}
+                      style={{ width: "186px", height: "100%" }} />
+                      </div>
+                    <div className="flex flex-col gap-2 items-center justify-center mx-auto" >
+                      <h1 className="text-2xl text-gray-600">Sign Up a Customer</h1>
+                      {/* <p>
+                      Reach more customers and achieve growth with us
+                      </p> */}
+                    </div>
+                     </div>
+                     </div>
+                     
                 </div>
+
+                <div className="flex md:flex-row flex-col w-[70%] gap-3 items-center justify-center">
+             <div className="md:w-[350px] w-auto md:h-[300px] h-auto">
+             <Image
+              src={image}
+              // className="w-full object-contain object-center transform transition duration-1000 "
+              width={0}
+              height={0}
+              sizes="100vw"
+              style={{ width: "auto", height: "auto" }}
+            />
+              </div>
+              <div className="flex flex-col gap-2 md:mx-7 mx-2 md:my-0 my-2">
+              <h1 className="text-3xl text-gray-600 font-medium text-center">
+              Discover the new Tawasy app
+              </h1>
+              <p className="text-gray-500 md:my-3">Get what you need, when you need it.</p>
+              <button className="border-2 border-skin-primary py-2 px-5 text-skin-primary rounded-md">Download App</button>
+              </div>
+              </div>
+
           </div>
+
+
         )}
       </div>
     </>
