@@ -40,6 +40,7 @@ function OrderAdmin({ names, refetch }) {
   const [isLoading, setIsLoading] = useState(false);
   const [isCancelling, setIsCancelling] = useState(false);
   const [isDelivering, setIsDelivering] = useState(false);
+  const [isAccepting, setIsAccepting] = useState(false);
   const [orderDetails, setOrderDetails] = useState();
   const [open, openchange] = useState(false);
 
@@ -98,6 +99,23 @@ function OrderAdmin({ names, refetch }) {
       openchange(false);
     } catch (error) {
       setIsDelivering(false);
+    }
+  }
+
+  async function Accepted() {
+    setIsAccepting(true);
+    try {
+      const response = await Api.put(
+        `/api/admin/updateOrderStatus/${names.order_id}`,
+        {
+          status: "accepted",
+        }
+      );
+      refetch();
+      setIsAccepting(false);
+      openchange(false);
+    } catch (error) {
+      setIsAccepting(false);
     }
   }
 
@@ -249,11 +267,11 @@ function OrderAdmin({ names, refetch }) {
 
         {orderDetails &&
           (orderDetails.status === "pending" ||
-            orderDetails.status === `accepted`) && (
+            orderDetails.status === "accepted") && (
             <DialogActions className="grid md:grid-cols-2 grid-cols-1 ">
               <button
                 type="button"
-                className="bg-red-600 text-white px-14 py-2"
+                className="bg-red-600 w-[20%] text-white px-14 py-2"
                 data-dismiss="modal"
                 onClick={cancelOrder}
               >
@@ -267,7 +285,7 @@ function OrderAdmin({ names, refetch }) {
               </button>
               <button
                 type="button"
-                className="bg-green-600 text-white px-14 py-2"
+                className="bg-green-600 w-[20%] text-white px-14 py-2"
                 data-dismiss="modal"
                 onClick={delivered}
               >
@@ -277,6 +295,20 @@ function OrderAdmin({ names, refetch }) {
                   </div>
                 ) : (
                   `Order Delivered`
+                )}
+              </button>
+              <button
+                type="button"
+                className="bg-green-400 w-[20%] text-white px-14 py-2"
+                data-dismiss="modal"
+                onClick={Accepted}
+              >
+                {isAccepting ? (
+                  <div className="w-full flex justify-center items-center">
+                    <Ring size={20} lineWeight={5} speed={2} color="white" />
+                  </div>
+                ) : (
+                  `Accept Order`
                 )}
               </button>
             </DialogActions>

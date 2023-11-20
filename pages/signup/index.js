@@ -24,7 +24,7 @@ const SignUp = () => {
   const [address, setAddress] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [sellerCity, setSellerCity] = useState("دمشق");
-  const [registeree, setRegisteree] = useState(1); // 1 for customer 2 for seller
+  const [registeree, setRegisteree] = useState(router.isReady && router.query.user ? (router.query.user == 'customer'  ? 1 : 2 ) : 1); // 1 for customer 2 for seller
   const [isChecked, setIsChecked] = useState(false);
 
   function handleRoleChange(event) {
@@ -37,10 +37,10 @@ const SignUp = () => {
     if (!isChecked) {
       // Check if the checkbox is not checked
       toast.error(
-        "Please agree on our terms and conditions and privacy policy. | الرجاء الموافقة على الشروط والأحكام وسياسة الخصوصية الخاصة بنا",
+        "Please agree on our terms and conditions and privacy policy. \b الرجاء الموافقة على الشروط والأحكام وسياسة الخصوصية الخاصة بنا",
         {
           toastId:
-          "Please agree on our terms and conditions and privacy policy. | الرجاء الموافقة على الشروط والأحكام وسياسة الخصوصية الخاصة بنا",
+          "Please agree on our terms and conditions and privacy policy. \b الرجاء الموافقة على الشروط والأحكام وسياسة الخصوصية الخاصة بنا",
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,

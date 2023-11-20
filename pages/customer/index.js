@@ -6,10 +6,8 @@ import StoreTypeComponent from "@/components/customerCommponents/StoreTypeCompon
 import Image from "next/image";
 import { ResponsiveCarousel } from "@/components/CarouselCustomer/carousel";
 import withLayoutCustomer from "@/components/wrapping components/WrappingCustomerLayout";
-import Head from "next/head";
 import { useRouter } from "next/router";
 import createAxiosInstance from "@/API";
-import { useQuery } from "react-query";
 import { useRef, useState } from "react";
 import { MdArrowForward, MdClose } from "react-icons/md";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
@@ -213,6 +211,7 @@ function CustomerPage({data}) {
             {data && data.ads && (
               <div className="mx-auto w-full max-h-[540px] pb-3 " dir="ltr">
                 <FadingCarousel ads={data.ads} />
+                {/* <ResponsiveCarousel ads={data.ads} /> */}
               </div>
             )}
 
@@ -246,9 +245,9 @@ function CustomerPage({data}) {
                   stroke="currentColor"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                   />
                 </svg>
@@ -280,12 +279,12 @@ function CustomerPage({data}) {
             </div>
 
             {inSearch === false && (
-              <div className="flex flex-col justify-start items-center h-full w-full gap-4">
-                <div className=" md:text-4xl text-2xl text-skin-primary py-5 ">
+              <div className="flex flex-col justify-start items-center h-full w-full space-y-5">
+                <h2 className=" md:text-4xl text-2xl text-black py-5 ">
                   {/* {`Discover Oxur Store Types`} */}
                   {t("home.discover")}
-                </div>
-                { data && data.data ? <div className=" w-[70%] h-[60%] grid grid-cols xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2  grid-cols-1 gap-y-6 gap-x-6 pb-20 ">
+                </h2>
+                { data && data.data ? <div className=" sm:w-[80%] w-[90%] h-[60%] grid grid-cols 2xl:grid-cols-3 xl:grid-cols-2 lg:grid-cols-2  md:grid-cols-1 sm:grid-cols-1  grid-cols-1 gap-y-6 gap-x-6 pb-20 ">
                   {data.data.map((storeType) => {
                     return (
                       <StoreTypeComponent
@@ -295,6 +294,7 @@ function CustomerPage({data}) {
                     );
                   })}
                 </div> : <div className="w-max mx-auto text-lg" > {data.message ? data.message : `There are no storeTypes`} </div>}
+                
               </div>
             )}
             {inSearch && (
@@ -309,6 +309,10 @@ function CustomerPage({data}) {
                 )}
               </div>
             )}
+            <div className="flex flex-col space-y-4 py-6 text-center w-full " >
+                    <h2 className="text-2xl" >Join Tawasy as a Seller</h2>
+                    <div className="flex justify-start w-[20%] border border-gray-200 shadow-xl h-[150px] mx-auto">  </div>
+                </div>
           </div>
         )}
       </div>

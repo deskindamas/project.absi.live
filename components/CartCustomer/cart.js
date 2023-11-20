@@ -89,6 +89,10 @@ const Cart = ({ onClose, show, className }) => {
     }
   }
 
+  if(cart){
+    console.log(cart);
+  }
+
   return (
     <div
       className={`fixed flex lg:top-[80px] md:top-[60px] sm:top-[50px] top-[50px] z-50 right-0 h-full  bg-transparent transition-all duration-700 ${

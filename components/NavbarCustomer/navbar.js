@@ -26,19 +26,19 @@ function Navbar() {
   // const { t } = useTranslation();
   // const [query] = useLanguageQuery();
   const Api = createAxiosInstance(router);
-  const { data: cart } = useQuery([`cart`, isLoggedIn], fetchCartData, {
-    staleTime: 1,
-    refetchOnMount: true,
-    enabled: isLoggedIn == true,
-    refetchOnWindowFocus: false,
-  });
-  // console.log(query);
+  // const { data: cart } = useQuery([`cart`, isLoggedIn], fetchCartData, {
+  //   staleTime: 1,
+  //   refetchOnMount: true,
+  //   enabled: isLoggedIn == true,
+  //   refetchOnWindowFocus: false,
+  // });
+  // // console.log(query);
 
-  async function fetchCartData() {
-    try {
-      return await Api.get(`/api/customer/cart/show`);
-    } catch (error) {}
-  }
+  // async function fetchCartData() {
+  //   try {
+  //     return await Api.get(`/api/customer/cart/show`);
+  //   } catch (error) {}
+  // }
 
   useEffect(() => {
     const token = Cookies.get("AT");
@@ -105,10 +105,10 @@ function Navbar() {
               {router.pathname != `/customer/SubmitOrder` && (
                 <button onClick={handleCartButtonClick} className="relative">
                   <IoCartOutline className="text-white w-[40px] h-[20px]  " />
-                  {cart?.data?.cart?.lines &&
+                  {/* {cart?.data?.cart?.lines &&
                     cart?.data?.cart?.lines?.length > 0 && (
                       <div className="w-[7px] h-[7px] absolute rounded-full bg-gray-300 top-0 right-1"></div>
-                    )}
+                    )} */}
                   {/* <BsFillBagFill className="text-white w-[40px] h-[20px]  " /> */}
                 </button>
               )}

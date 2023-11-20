@@ -30,54 +30,6 @@ const tableheading = [
   },
 ];
 
-const orders = [
-  {
-    id: 1,
-    store_name: "lorem1",
-    customerName: "lorem1",
-    status: "lorem",
-    location: "syria",
-    created: "12/3/2022",
-    update: "12/3/2022",
-  },
-  {
-    id: 2,
-    store_name: "lorem2",
-    customerName: "lorem1",
-    status: "lorem",
-    location: "syria",
-    created: "12/3/2022",
-    update: "12/3/2022",
-  },
-  {
-    id: 3,
-    store_name: "lorem3",
-    customerName: "lorem1",
-    status: "lorem",
-    location: "syria",
-    created: "12/3/2022",
-    update: "12/3/2022",
-  },
-  {
-    id: 4,
-    store_name: "lorem4",
-    customerName: "lorem1",
-    status: "lorem",
-    location: "syria",
-    created: "12/3/2022",
-    update: "12/3/2022",
-  },
-  {
-    id: 5,
-    store_name: "lorem5",
-    customerName: "lorem1",
-    status: "lorem",
-    location: "syria",
-    created: "12/3/2022",
-    update: "12/3/2022",
-  },
-];
-
 function CancelledOrdersAdmin() {
   const router = useRouter();
   const Api = createAxiosInstance(router);

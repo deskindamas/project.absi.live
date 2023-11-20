@@ -197,7 +197,7 @@ const Login = () => {
         </button> 
          <span>or</span>
         <Link
-          href={"/signup"}
+          href={selectedRole == 1 ? `/signup?user=customer` : `/signup?user=seller` }
           className="text-white bg-orange-500 rounded-md text-lg block px-5 py-2 mx-auto border-2 border-white hover:bg-orange-600 transition-all duration-300"
         >
           SignUp
