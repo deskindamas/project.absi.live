@@ -23,50 +23,6 @@ const Footer = () => {
     <p className="cursor-pointer">Return to Top</p>
     </div>
     <div className="bg-[#262626] bottom-0 w-full">
-      {/* <div className="grid md:grid-cols-3 sm:grid-cols-1 grid-col-1 gap-4 px-20 py-4 border-b-2 border-gray-200">
-       <Link href= "#" >
-       <Image src={Logo} alt="logo" className="w-[20%] mx-auto" />
-       </Link>
-
-       <div className="flex justify-center">
-       <p className="text-white text-lg">{t("footer.syria")}</p>
-       </div>
-
-       <div>
-       <ul className="flex text-white justify-center">
-                <li className="mr-2">
-                  <Link href="https://t.me/tawasyshopping">
-                    <FaTelegram className="w-[25px] h-[25px]" />{" "}
-                  </Link>
-                </li>
-                <li className="mr-2">
-                  <Link href="tel:+963987000888" legacyBehavior>
-                    <a target="_blank" >
-                      <BsFillTelephoneFill className="w-[25px] h-[25px]" />
-                    </a>
-                  </Link>
-                </li>
-                <li className="mr-2">
-                  <Link href="https://www.facebook.com/tawasyshop" legacyBehavior>
-                    <a target="_blank" ><BsFacebook className="w-[25px] h-[25px]" /></a>
-                  </Link>
-                </li>
-                <li className="mr-2">
-                  <Link href="https://www.instagram.com/tawasyshopping/" legacyBehavior>
-                    <a target="_blank" ><BsInstagram className="w-[25px] h-[25px]" /></a>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="https://wa.me/+963987000888" legacyBehavior >
-                    <a target="_blank" >
-                      <BsWhatsapp className="w-[25px] h-[25px]" />
-                    </a>
-                  </Link>
-                </li>
-              </ul>
-       </div>
-         
-      </div> */}
 
     <div className="grid md:grid-cols-3 sm:grid-cols-1 grid-col-1 gap-4 text-white text-center px-20 py-4 border-b-2 border-gray-200">
        {/* <Link href= "#" > */}
@@ -93,39 +49,22 @@ const Footer = () => {
       <div className="grid md:grid-cols-3 sm:grid-cols-1 grid-col-1 gap-4 px-20 py-10">
 
         <div className="text-white items-center text-center">
-          {/* <h2 className="mb-4 text-skin-primary">Menu</h2> */}
-          {/* <ul className="text-xl">
-            <li className="mb-2">
-              <Link href="/customer" className="hover:text-skin-primary">
-                {t("footer.home")}
-              </Link>
-            </li>
-            <li className="mb-2">
-              <Link href="/AboutUs" className="hover:text-skin-primary">
-                {t("footer.aboutUs")}
-              </Link>
-            </li>
-            <li className="mb-2">
-              <Link href="/ContactUs" className="hover:text-skin-primary">
-                {t("footer.contactUS")}
-              </Link>
-            </li>
-          </ul> */}
+
           <Link href= "/customer" >
        <Image src={Logo} alt="logo" className="w-[30%] mx-auto" />
        </Link>
 
        <div className="flex justify-center py-4">
        <p className="text-white text-lg">
-       Never a Better Time Than Now To Start
+       {t("footer.Text")}
        </p>
        </div>
 
         </div>
 
         <div className=" flex flex-col items-center space-y-5 ">
-        <Link href='#' className="border-2 text-center bg-skin-primary border-skin-primary text-white py-1 w-[40%]">All Products</Link>
-        <Link href='#' className="border-2 text-center border-skin-primary text-white py-1 w-[40%]">All Stores</Link>
+        <Link href='/customer/Products' className="border-2 text-center bg-skin-primary border-skin-primary text-white py-1 w-[40%]">{t("footer.ALLProducts")}</Link>
+        <Link href='/customer/Stores' className="border-2 text-center border-skin-primary text-white py-1 w-[40%]">{t("footer.ALLStores")}</Link>
         </div>
 
         <div className="text-white items-center text-center">

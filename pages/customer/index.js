@@ -354,61 +354,51 @@ function CustomerPage({ data }) {
                 )}
               </div>
             )} */}
-            <div className="flex flex-col  py-6 w-full md:mb-5 ">
-              <h2 className="text-3xl text-gray-600 text-center">Join us</h2>
-              <div className="flex flex-col md:flex-row space-y-4 justify-center items-center md:space-x-2">
-                <Link
-                  href={`/signup?user=seller`}
-                  className="flex flex-col md:flex-row space-x-2 justify-start my-3 border border-gray-300 hover:border-skin-primary rounded-md shadow-xl md:w-[25%]  "
-                >
-                  <div className="w-[40%]">
-                    <Image
-                      src={imagee}
-                      alt="sign up as a seller"
-                      className=""
-                      width={150}
-                      height={150}
-                      style={{ width: "100%", height: "auto" }}
-                    />
-                  </div>
-                  <div className="flex flex-col gap-2 justify-center mx-auto w-[90%] ">
-                    <h3 className="text-2xl text-gray-600">
-                      Sign Up as a seller
-                    </h3>
-                    <p>
-                    Reach more customers and achieve growth with us.
-                    </p>
-                  </div>
-                </Link>
 
-                <Link
-                  href={`/signup?user=customer`}
-                  className="flex flex-col md:flex-row space-x-2 justify-start my-3 border border-gray-300 hover:border-skin-primary rounded-md shadow-xl md:w-[25%] "
-                >
-                  <div className="w-[40%]">
-                    <Image
-                      src={images}
-                      alt="sign up as a customer"
-                      className=""
-                      width={150}
-                      height={150}
-                      style={{ width: "100%", height: "auto" }}
-                    />
-                  </div>
-                  <div className="flex flex-col gap-2 justify-center mx-auto w-[90%] ">
-                    <h3 className="text-2xl text-gray-600">
-                      Sign Up as a Customer
-                    </h3>
-                    <p>
-                      Get your needs from your home , Delivered to your home.
-                    </p>
-                  </div>
-                </Link>
-              </div>
+        
+          <div className="w-full mb-7">
+            <div className="py-3 mb-4">
+            <h1 className="text-center text-3xl text-gray-600">
+            {t("home.JoinUs")}
+            </h1>
+            </div>
+            <div className="flex lg:flex-row flex-col justify-center items-center mx-auto my-auto md:space-x-2 space-x-0 ">
+
+            <Link href='/signup?user=seller' className="lg:w-[40%] md:w-[60%] w-[90%] lg:my-0 my-2 flex flex-row space-x-2 rounded-md border-2 border-gray-300 hover:border-skin-primary shadow-md">
+            <Image
+            src={imagee}
+            alt = ''
+            width={150}
+            height={150}
+            className="object-cover rounded-l-lg overflow-hidden md:w-[40%] w-[50%] h-auto "
+            />
+
+            <div className="flex flex-col justify-center gap-2">
+              <h1 className="md:text-2xl text-lg text-gray-600 font-medium"> {t("home.BecomeASeller")}</h1>
+              <p className="md:text-lg text-base text-gray-500">Reach more customers and achieve growth with us</p>
+            </div>
+            </Link>
+
+            <Link href='/signup?user=customer' className="lg:w-[40%] md:w-[60%] w-[90%] lg:my-0 my-2  flex flex-row space-x-2 rounded-md border-2 border-gray-300 hover:border-skin-primary shadow-md">
+            <Image
+            src={images}
+            alt = ''
+            width={150}
+            height={150}
+            className="object-cover rounded-l-lg overflow-hidden md:w-[40%] w-[50%] h-auto "
+            />
+
+            <div className="flex flex-col justify-center gap-2">
+              <h1 className="md:text-2xl text-lg text-gray-600 font-medium"> {t("home.BecomeACustomer")}</h1>
+              <p className="md:text-lg text-base text-gray-500">Reach more customers and achieve growth with us</p>
+            </div>
+            </Link>
+
+            </div>
             </div>
 
-            <div className="flex md:flex-row overflow-clip flex-col-reverse w-[70%] md:space-x-3 space-y-[12px] items-center justify-center ">
-              <div className="lg:w-[30%] md:w-[40%] sm:w-[70%] w-auto  h-auto">
+            <div className="flex md:flex-row overflow-clip flex-col-reverse w-[70%] md:space-x-3 space-y-[12px] items-center justify-center pt-6 ">
+              <div className="lg:w-[35%] md:w-[45%] sm:w-[70%] w-auto  h-auto">
                 <Image
                   src={image}
                   // className="w-full object-contain object-center transform transition duration-1000 "
@@ -421,13 +411,13 @@ function CustomerPage({ data }) {
               </div>
               <div className="flex flex-col space-y-2 md:mx-7 mx-2 md:my-0 my-2">
                 <h1 className="text-3xl text-gray-600 font-medium text-center">
-                  Discover the Tawasy app
+                {t("home.TawasyApp")}
                 </h1>
                 <p className="text-gray-500 md:my-3">
-                  Get what you need, when you need it.
+                {t("home.WhatYouNeed")}
                 </p>
                 <button className="border-2 border-skin-primary py-2 px-5 text-skin-primary rounded-md">
-                  Download App
+                {t("home.DownloadApp")}
                 </button>
               </div>
             </div>
