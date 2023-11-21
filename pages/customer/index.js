@@ -17,6 +17,7 @@ import { useTranslation } from "next-i18next";
 import { FadingCarousel } from "@/components/FadingCarouselCustomer/FadinCarousel";
 import Link from "next/link";
 import { Ring } from "@uiball/loaders";
+import logo from "@/public/images/tawasylogo.png";
 
 export async function getServerSideProps(context) {
   const { params, locale } = context;
@@ -66,13 +67,13 @@ function CustomerPage({ data }) {
     } catch (error) {}
   }
 
-  const inputDelay = 1000;
+  const inputDelay = 500;
 
   useEffect(() => {
     let timerId;
 
     const delayedSearch = () => {
-      if (searchRef.current.value.length > 3) {
+      if (searchRef.current.value.trim().length > 2) {
         search();
       }
     };
@@ -84,17 +85,19 @@ function CustomerPage({ data }) {
       setSearching(false);
     };
 
-    searchRef.current.addEventListener('input', handleInputChange);
+    searchRef.current.addEventListener("input", handleInputChange);
 
     return () => {
       clearTimeout(timerId);
-      searchRef.current.removeEventListener('input', handleInputChange);
+      searchRef.current.removeEventListener("input", handleInputChange);
     };
-  }, []);
+  }, [searchType]);
 
-  async function search() {
-    // e.preventDefault();
-    // console.log(searchType);
+  async function search(e = null) {
+    if (e) {
+      e.preventDefault();
+    }
+    console.log(searchType);
     if (searchRef.current.value) {
       setSearching(true);
       switch (searchType) {
@@ -111,26 +114,37 @@ function CustomerPage({ data }) {
             );
             console.log(storeTypes);
             const components = (
-              <div className="flex flex-col justify-start items-center h-full w-full gap-4 ">
-                <p className=" text-4xl text-skin-primary py-5">
+              <div className="flex flex-col justify-start items-center h-full w-full ">
+                <p className=" text-base text-start text-skin-primary py-1 border-b w-full border-skin-primary ">
                   {/* {`Store Types`} : */}
                   {t("home.storeTypes")} :
                 </p>
                 {storeTypes.message ? (
-                  <div className="w-[80%] mx-auto text-lg text-center">
+                  <div className="w-[80%] mx-auto text-lg text-center py-2">
                     {storeTypes.message}
                   </div>
                 ) : (
                   <div
-                    className=" w-[70%] grid grid-cols md:grid-cols-4 sm:grid-cols-3  grid-cols-1 gap-y-6 gap-x-6 pb-20 "
+                    className=" w-full flex flex-col space-y-2 py-3 "
                     dir="ltr"
                   >
                     {storeTypes?.map((storeType) => {
                       return (
-                        <StoreTypeComponent
+                        <Link
                           key={storeType.id}
-                          storeType={storeType}
-                        />
+                          href={`/customer/StoreType/${storeType.id}`}
+                          className="flex justify-start items-center space-x-2 hover:bg-gray-100 px-1 py-2 "
+                        >
+                          <Image
+                            loading="eager"
+                            src={storeType.image ? storeType.image : logo}
+                            alt={storeType.name}
+                            width={50}
+                            height={50}
+                            className="object-center object-contain rounded-sm "
+                          />
+                          <p>{storeType.name}</p>
+                        </Link>
                       );
                     })}
                   </div>
@@ -156,8 +170,7 @@ function CustomerPage({ data }) {
             );
             const components = (
               <div className="flex flex-col justify-start items-center h-full w-full gap-4 ">
-                <p className=" text-4xl text-skin-primary py-5">
-                  {/* {`Stores`} : */}
+                <p className=" text-base text-start text-skin-primary py-1 border-b w-full border-skin-primary">
                   {t("home.stores")} :
                 </p>
                 {categoryStores.message ? (
@@ -165,9 +178,25 @@ function CustomerPage({ data }) {
                     {categoryStores.message}
                   </div>
                 ) : (
-                  <div className=" w-[70%] grid lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 grid-col-1 gap-4 mx-auto ">
+                  <div className=" w-full flex flex-col space-y-2 py-3 ">
                     {categoryStores?.data?.map((store) => {
-                      return <StoreComponent key={store.id} store={store} />;
+                      return (
+                        <Link
+                          key={store.id}
+                          href={`/customer/Stores/${store.id}`}
+                          className="flex justify-start items-center space-x-2 hover:bg-gray-100 px-1 py-2 "
+                        >
+                          <Image
+                            loading="eager"
+                            src={store.logo ? store.logo : logo}
+                            alt={store.name}
+                            width={50}
+                            height={50}
+                            className="object-center object-contain rounded-sm "
+                          />
+                          <p>{store.name}</p>
+                        </Link>
+                      );
                     })}
                   </div>
                 )}
@@ -194,7 +223,7 @@ function CustomerPage({ data }) {
             );
             const components = (
               <div className="flex flex-col justify-start items-center h-full w-full gap-4 ">
-                <p className="text-4xl text-skin-primary py-5">
+                <p className="text-base text-start text-skin-primary py-1 border-b w-full border-skin-primary">
                   {/* {`Stores`} : */}
                   {t("home.stores")} :
                 </p>
@@ -203,9 +232,25 @@ function CustomerPage({ data }) {
                     {brandStores.message}
                   </div>
                 ) : (
-                  <div className=" w-[70%] grid lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 grid-col-1 gap-4 mx-auto ">
+                  <div className="  w-full flex flex-col space-y-2 py-3">
                     {brandStores?.data?.map((store) => {
-                      return <StoreComponent key={store.id} store={store} />;
+                      return (
+                        <Link
+                          key={store.id}
+                          href={`/customer/Stores/${store.id}`}
+                          className="flex justify-start items-center space-x-2 hover:bg-gray-100 px-1 py-2 "
+                        >
+                          <Image
+                            loading="eager"
+                            src={store.logo ? store.logo : logo}
+                            alt={store.name}
+                            width={50}
+                            height={50}
+                            className="object-center object-contain rounded-sm "
+                          />
+                          <p>{store.name}</p>
+                        </Link>
+                      );
                     })}
                   </div>
                 )}
@@ -248,66 +293,77 @@ function CustomerPage({ data }) {
             )}
 
             <div
-              className="md:absolute md:top-[90px] w-[80%] flex justify-center items-center space-x-2 mx-auto "
+              className="md:absolute md:top-[90px] w-[80%] mx-auto justify-center items-center space-x-2"
               dir="ltr"
             >
-              <form
-                onSubmit={search}
-                className="flex bg-gray-100 w-full lg:w-2/5 md:w-3/5 items-center rounded-lg px-2 border-2 border-transparent focus-within:border-skin-primary transition-all duration-700 "
-              >
-                <select
-                  value={searchType}
-                  onChange={(e) => {
-                    setSearchType(e.target.value);
-                  }}
-                  className="bg-gray-100 outline-none text-sm h-10 mx-2 px-2"
+              <div className="flex flex-col justify-start items-center">
+                <form
+                  onSubmit={search}
+                  className="flex bg-gray-100 w-full lg:w-3/5 md:w-3/5 items-center rounded-sm px-2 border-2 border-transparent focus-within:border-skin-primary transition-all duration-700 mx-auto "
                 >
-                  <option value="storeType">{t("home.storeType")}</option>
-                  <option value="category">{t("home.category")}</option>
-                  <option value="brand">{t("home.brand")}</option>
-                  {/* <option value="storeType">{`Store Type`}</option>
+                  <select
+                    value={searchType}
+                    onChange={(e) => {
+                      setSearchType(e.target.value);
+                    }}
+                    className="bg-gray-100 outline-none text-sm h-10 mx-2 px-2"
+                  >
+                    <option value="storeType">{t("home.storeType")}</option>
+                    <option value="category">{t("home.category")}</option>
+                    <option value="brand">{t("home.brand")}</option>
+                    {/* <option value="storeType">{`Store Type`}</option>
                   <option value="category">{`Category`}</option>
                   <option value="brand">{`Brand`}</option> */}
-                </select>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-4 w-4 mr-2"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  </select>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-4 w-4 mr-2"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                    />
+                  </svg>
+                  <input
+                    className="w-full bg-gray-100 outline-none rounded-lg text-sm h-10"
+                    type="text"
+                    ref={searchRef}
+                    // placeholder={`Search`}
+                    placeholder={t("home.search")}
+                    onClick={() => {
+                      setInSearch(true);
+                    }}
                   />
-                </svg>
-                <input
-                  className="w-full bg-gray-100 outline-none rounded-lg text-sm h-10"
-                  type="text"
-                  ref={searchRef}
-                  // placeholder={`Search`}
-                  placeholder={t("home.search")}
-                  onClick={() => {
-                    setInSearch(true);
-                  }}
-                />
-                {/* <button type="submit">
+                  {/* <button type="submit">
                   <MdArrowForward
                     className="hover:border-b-2 border-skin-primary cursor-pointer"
                     onClick={search}
                   />
                 </button> */}
-                 {searching == true ? <Ring size={25} lineWeight={5} speed={2} color="#ff6600" /> : (
-                <MdClose
-                  className={`text-red-500 ${inSearch == true ? `opacity-100` : `opacity-0`} transition-opacity duration-300s hover:text-red-600 w-[25px] h-[25px] hover:border-b-2 hover:border-red-600 cursor-pointer`}
-                  onClick={() => {
-                    setInSearch(false);
-                  }}
-                />
-              )}
-              </form>
+                  {searching == true ? (
+                    <Ring size={25} lineWeight={5} speed={2} color="#ff6600" />
+                  ) : (
+                    <MdClose
+                      className={`text-red-500 ${
+                        inSearch == true ? `opacity-100` : `opacity-0`
+                      } transition-opacity duration-300s hover:text-red-600 w-[25px] h-[25px] hover:border-b-2 hover:border-red-600 cursor-pointer`}
+                      onClick={() => {
+                        setInSearch(false);
+                      }}
+                    />
+                  )}
+                </form>
+                {inSearch == true && searchedResults && searchType && (
+                  <div className="px-4 z-10 mx-auto w-full lg:w-3/5 md:w-3/5 bg-white border border-gray-300 rounded-sm ">
+                    {searchedResults}
+                  </div>
+                )}
+              </div>
               {/* {inSearch == true && (
                 <MdClose
                   className="text-red-500 hover:text-red-600 w-[25px] h-[25px] hover:border-b-2 hover:border-red-600 cursor-pointer "
@@ -375,9 +431,7 @@ function CustomerPage({ data }) {
                     <h3 className="text-2xl text-gray-600">
                       Sign Up as a seller
                     </h3>
-                    <p>
-                    Reach more customers and achieve growth with us.
-                    </p>
+                    <p>Reach more customers and achieve growth with us.</p>
                   </div>
                 </Link>
 

@@ -20,7 +20,14 @@ const { i18n } = require("./next-i18next.config");
         port: '',
         // pathname: '/storage/**',
       },
+      {
+        protocol: 'http',
+        hostname: '192.168.1.201',
+        port: '8000',
+        // pathname: '/storage/**',
+      },
     ],
+    
   },
   // swcMinify : true ,
   // i18n : {
