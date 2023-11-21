@@ -89,7 +89,7 @@ function CustomerPage({ data }) {
 
     return () => {
       clearTimeout(timerId);
-      searchRef.current.removeEventListener("input", handleInputChange);
+      // searchRef.current.removeEventListener("input", handleInputChange);
     };
   }, [searchType]);
 
@@ -268,18 +268,6 @@ function CustomerPage({ data }) {
     }
   }
 
-  // if(data){
-  //   console.log(data);
-  // }
-
-  // if (isLoading) {
-  //   return (
-  //     <div className="w-full h-full">
-  //       <TawasyLoader width={400} height={400} />
-  //     </div>
-  //   );
-  // }
-
   return (
     <>
       <div className="w-full h-full">
@@ -339,12 +327,6 @@ function CustomerPage({ data }) {
                       setInSearch(true);
                     }}
                   />
-                  {/* <button type="submit">
-                  <MdArrowForward
-                    className="hover:border-b-2 border-skin-primary cursor-pointer"
-                    onClick={search}
-                  />
-                </button> */}
                   {searching == true ? (
                     <Ring size={25} lineWeight={5} speed={2} color="#ff6600" />
                   ) : (
@@ -364,14 +346,6 @@ function CustomerPage({ data }) {
                   </div>
                 )}
               </div>
-              {/* {inSearch == true && (
-                <MdClose
-                  className="text-red-500 hover:text-red-600 w-[25px] h-[25px] hover:border-b-2 hover:border-red-600 cursor-pointer "
-                  onClick={() => {
-                    setInSearch(false);
-                  }}
-                />
-              )} */}
             </div>
 
             {/* {inSearch === false && ( */}
@@ -398,18 +372,6 @@ function CustomerPage({ data }) {
                 </div>
               )}
             </div>
-            {/* // )} */}
-            {/* {inSearch && (
-              <div className="min-h-[500px] h-auto w-full ">
-                {searching ? (
-                  <div className="w-full h-auto">
-                    <TawasyLoader width={300} height={300} />
-                  </div>
-                ) : (
-                  searchedResults && searchType && searchedResults
-                )}
-              </div>
-            )} */}
 
         
           <div className="w-full mb-7">

@@ -118,9 +118,9 @@ function AllProducts() {
             <div> There are no products . </div>
           )}
           {products && products.data.pagination && (
-                <div className="w-[50%] mx-auto flex justify-center items-center h-max gap-4 py-4 ">
+                <div className="w-fit mx-auto flex justify-center items-center h-max gap-4 py-4 ">
                   <button
-                    className="px-2 py-1 bg-skin-primary text-white rounded-lg hover:bg-[#ff9100] disabled:opacity-50 disabled:cursor-not-allowed w-[20%]"
+                    className="px-2 py-1 bg-skin-primary text-white rounded-lg hover:bg-[#ff9100] disabled:opacity-50 disabled:cursor-not-allowed w-max"
                     onClick={() => {
                       setCurrentPage(products.data.pagination.current_page - 1);
                       scroll(`top`);
@@ -135,7 +135,7 @@ function AllProducts() {
                   </button>
                   { isFetching && <Ring size={20} lineWeight={5} speed={2} color="#222222" />}
                   <button
-                    className="px-2 py-1 bg-skin-primary text-white rounded-lg hover:bg-[#ff9100] disabled:opacity-50 disabled:cursor-not-allowed w-[20%]"
+                    className="px-2 py-1 bg-skin-primary text-white rounded-lg hover:bg-[#ff9100] disabled:opacity-50 disabled:cursor-not-allowed w-max"
                     onClick={() => {
                       setCurrentPage(products.data.pagination.current_page + 1);
                       scroll(`top`);

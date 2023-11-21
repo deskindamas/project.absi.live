@@ -132,15 +132,15 @@ function PublicStore() {
           )} */}
 
         <div className="w-[90%] mx-auto py-5 ">
-          { stores.data.stores && stores.data.stores.length > 0 ? <div className=" grid md:grid-cols-3 grid-cols-1 gap-4">
+          { stores.data.stores && stores.data.stores.length > 0 ? <div className=" grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4">
             { stores.data.stores && stores.data.stores.map((store) => {
               return <PublicStoreCard key={store.id} store={store} />;
             })}
           </div> : <div className="w-max mx-auto" > There are no stores right now . </div>}
           {stores && stores.data.pagination && (
-                <div className="w-[50%] mx-auto flex justify-center items-center h-max gap-4 py-4 ">
+                <div className="w-fit mx-auto flex justify-center items-center h-max gap-4 py-4 ">
                   <button
-                    className="px-2 py-1 bg-skin-primary text-white rounded-lg hover:bg-[#ff9100] disabled:opacity-50 disabled:cursor-not-allowed w-[20%]"
+                    className="px-2 py-1 bg-skin-primary text-white rounded-lg hover:bg-[#ff9100] disabled:opacity-50 disabled:cursor-not-allowed w-max"
                     onClick={() => {
                       setCurrentPage(stores.data.pagination.current_page - 1);
                       scroll(`top`);
@@ -155,7 +155,7 @@ function PublicStore() {
                   </button>
                   { isFetching && <Ring size={20} lineWeight={5} speed={2} color="#222222" />}
                   <button
-                    className="px-2 py-1 bg-skin-primary text-white rounded-lg hover:bg-[#ff9100] disabled:opacity-50 disabled:cursor-not-allowed w-[20%]"
+                    className="px-2 py-1 bg-skin-primary text-white rounded-lg hover:bg-[#ff9100] disabled:opacity-50 disabled:cursor-not-allowed w-max"
                     onClick={() => {
                       setCurrentPage(stores.data.pagination.current_page + 1);
                       scroll(`top`);
