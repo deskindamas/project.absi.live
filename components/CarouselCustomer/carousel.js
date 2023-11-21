@@ -21,12 +21,13 @@ export function ResponsiveCarousel({ ads }) {
       autoPlay={true}
       autoFocus={true}
       infiniteLoop={true}
-      showArrows={true}
-      showIndicators={true}
+      // showArrows={true}
+      // showIndicators={true}
       showStatus={false}
       showThumbs={false}
-      stopOnHover={false}
+      // stopOnHover={false}
       swipeable = {false}
+      animationHandler="fade"
       // width={`70%`}
       className="select-none"
       dynamicHeight={false}
@@ -35,6 +36,7 @@ export function ResponsiveCarousel({ ads }) {
         return (
           <div key={ad.id} className="relative  h-max 2xl:w-[1920] w-full ">
             <Image
+              loading="eager"
               src={ad.image}
               // src="https://i0.wp.com/www.westlondonstudio.co.uk/wp-content/uploads/2020/11/Image-1920x540-Clip-for-ls-v06-00_00_07_19.Still001.jpg?ssl=1"
               width={1920}

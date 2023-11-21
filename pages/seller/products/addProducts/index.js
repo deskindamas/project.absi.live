@@ -18,6 +18,8 @@ import {
 } from "react-icons/md";
 import { Ring } from "@uiball/loaders";
 import SellerSelectProduct from "@/components/sellerSelectProduct/SellerSelectProduct";
+import { useDispatch, useSelector } from "react-redux";
+import { selectedActions } from "@/Store/SelectedSlice";
 
 const users = [
   {
@@ -56,8 +58,9 @@ function AddProducts() {
   const [searchedProducts, setSearchedProducts] = useState();
   const [inSearch, setInSearch] = useState(false);
   const [searching, setSearching] = useState(false);
-
+  const selectedProduct = useSelector((state) => state.selected.selectedProduct);
   const [open, openchange] = useState(false);
+  const dispatch = useDispatch();
 
   async function fetchSelectedProducts() {
     setLoadingSelected(true);
@@ -71,6 +74,7 @@ function AddProducts() {
 
   const functionopenpopup = async () => {
     openchange(true);
+    dispatch(selectedActions.openselected());
     await fetchSelectedProducts();
   };
 
@@ -345,7 +349,13 @@ function AddProducts() {
             right: "10px",
           }}
         >
-          <TfiShoppingCartFull className="bg-skin-primary w-[60px] h-[60px] rounded-[50%] p-[15px]" />{" "}
+          <div className="relative" >
+
+          { selectedProduct && <div className="w-[15px] h-[15px] absolute top-0.5 right-0 rounded-full bg-green-400 " ></div>}
+          <TfiShoppingCartFull className="bg-gray-400 w-[60px] h-[60px] rounded-[50%] p-[15px]" >
+
+          </TfiShoppingCartFull>
+          </div>
         </div>
       </button>
       {/* </div> */}

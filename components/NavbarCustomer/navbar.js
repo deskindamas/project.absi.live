@@ -17,28 +17,33 @@ import { IoCartOutline } from "react-icons/io5";
 import Cookies from "js-cookie";
 import createAxiosInstance from "@/API";
 import { useQuery } from "react-query";
+import { useDispatch, useSelector } from "react-redux";
+import { cartActions } from "@/Store/CartSlice";
 
 function Navbar() {
   const router = useRouter();
   const [showCartSidebar, setShowCartSidebar] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState();
   const { t } = useTranslation("");
+  const addedProduct = useSelector((state) => state.cart.addedProduct);
+  const dispatch = useDispatch();
+  // const addedProduct = 
   // const { t } = useTranslation();
   // const [query] = useLanguageQuery();
   const Api = createAxiosInstance(router);
-  // const { data: cart } = useQuery([`cart`, isLoggedIn], fetchCartData, {
-  //   staleTime: 1,
-  //   refetchOnMount: true,
-  //   enabled: isLoggedIn == true,
-  //   refetchOnWindowFocus: false,
-  // });
+  const { data: cart } = useQuery([`cart`, isLoggedIn], fetchCartData, {
+    staleTime: 1,
+    refetchOnMount: true,
+    enabled: isLoggedIn == true,
+    refetchOnWindowFocus: false,
+  });
   // // console.log(query);
 
-  // async function fetchCartData() {
-  //   try {
-  //     return await Api.get(`/api/customer/cart/show`);
-  //   } catch (error) {}
-  // }
+  async function fetchCartData() {
+    try {
+      return await Api.get(`/api/customer/cart/show`);
+    } catch (error) {}
+  }
 
   useEffect(() => {
     const token = Cookies.get("AT");
@@ -69,10 +74,12 @@ function Navbar() {
   }, [router.locale]);
 
   const handleCartButtonClick = () => {
+    dispatch(cartActions.openCart());
     setShowCartSidebar(true);
   };
 
   // console.log(router);
+  console.log(addedProduct);
 
   return (
     <>
@@ -106,9 +113,9 @@ function Navbar() {
                 <button onClick={handleCartButtonClick} className="relative">
                   <IoCartOutline className="text-white w-[40px] h-[20px]  " />
                   {/* {cart?.data?.cart?.lines &&
-                    cart?.data?.cart?.lines?.length > 0 && (
-                      <div className="w-[7px] h-[7px] absolute rounded-full bg-gray-300 top-0 right-1"></div>
-                    )} */}
+                    cart?.data?.cart?.lines?.length > 0 && ( */}
+                       { addedProduct == true && <div className="w-[7px] h-[7px] absolute rounded-full bg-gray-300 top-0 right-1"></div>}
+                    {/* // )} */}
                   {/* <BsFillBagFill className="text-white w-[40px] h-[20px]  " /> */}
                 </button>
               )}

@@ -10,10 +10,13 @@ import { Ring } from "@uiball/loaders";
 import Link from "next/link";
 import { useState } from "react";
 import { convertMoney } from "../SellerOrders/sellerOrder";
+import { useDispatch } from "react-redux";
+import { cartActions } from "@/Store/CartSlice";
 
 function PublicAllProduct({ product }) {
   const { t } = useTranslation("");
   const router = useRouter();
+  const dispatch = useDispatch();
   const Api = createAxiosInstance(router);
   const [adding, setAdding] = useState(false);
 
@@ -24,13 +27,14 @@ function PublicAllProduct({ product }) {
         product_id: product.id,
         store_id: router.query.storeId,
       });
+      dispatch(cartActions.addProduct());
       setAdding(false);
     } catch (error) {}
     setAdding(false);
   }
 
   return (
-    <div className="shadow-lg flex flex-col sm:w-fit max-w-[288px] border-2 md:min-h-[406px] min-h-[381px] border-gray-200 rounded-md ">
+    <div className="shadow-lg flex flex-col sm:w-fit max-w-[288px] mx-auto border-2 md:min-h-[406px] min-h-[381px] border-gray-200 rounded-md ">
       <Link
         href={
           product.price

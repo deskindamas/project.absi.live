@@ -20,7 +20,7 @@ const Footer = () => {
                       behavior: "smooth"
                     });
                     }} className="bg-[#262626d2] py-2 text-white text-center">
-    <p className="cursor-pointer">Back To Up</p>
+    <p className="cursor-pointer">Return to Top</p>
     </div>
     <div className="bg-[#262626] bottom-0 w-full">
       {/* <div className="grid md:grid-cols-3 sm:grid-cols-1 grid-col-1 gap-4 px-20 py-4 border-b-2 border-gray-200">
@@ -69,12 +69,12 @@ const Footer = () => {
       </div> */}
 
     <div className="grid md:grid-cols-3 sm:grid-cols-1 grid-col-1 gap-4 text-white text-center px-20 py-4 border-b-2 border-gray-200">
-       <Link href= "#" >
+       {/* <Link href= "#" > */}
        <Link href="/customer" className="hover:text-skin-primary">
                 {t("footer.home")}
                 {/* {`Home Page`} */}
               </Link>
-       </Link>
+       {/* </Link> */}
 
        <div className="flex justify-center">
        <Link href="/AboutUs" className="hover:text-skin-primary">
@@ -111,7 +111,7 @@ const Footer = () => {
               </Link>
             </li>
           </ul> */}
-          <Link href= "#" >
+          <Link href= "/customer" >
        <Image src={Logo} alt="logo" className="w-[30%] mx-auto" />
        </Link>
 
