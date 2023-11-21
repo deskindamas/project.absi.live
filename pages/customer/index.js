@@ -321,7 +321,7 @@ function CustomerPage({ data }) {
             )}
             <div className="flex flex-col  py-6 w-full md:mb-5 ">
               <h2 className="text-3xl text-gray-600 text-center">Join us</h2>
-              <div className="flex flex-row justify-center items-center gap-2">
+              <div className="flex md:flex-row flex-col justify-center items-center gap-2">
                 <Link
                   href={`/signup?user=seller`}
                   className="flex flex-row space-x-2 justify-start my-3 border border-gray-300 shadow-xl md:w-[35%] md:h-fit "
