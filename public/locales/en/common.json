@@ -88,7 +88,7 @@
       "ViewStore" : "View Product"
      },
     "product" : {
-      "storeSellers" :"The Stores that sell this product"
+      "storeSellers" :"Stores that sell this product"
     },
     "verification" : {
       "contactUs" : "Please enter the verification code that was sent to you via WhatsApp or " ,

@@ -10,20 +10,21 @@ import { ResponsiveCarousel } from "@/components/CarouselCustomer/carousel";
 import withLayoutCustomer from "@/components/wrapping components/WrappingCustomerLayout";
 import { useRouter } from "next/router";
 import createAxiosInstance from "@/API";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { MdArrowForward, MdClose } from "react-icons/md";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import { FadingCarousel } from "@/components/FadingCarouselCustomer/FadinCarousel";
 import Link from "next/link";
+import { Ring } from "@uiball/loaders";
 
 export async function getServerSideProps(context) {
   const { params, locale } = context;
   const Api = createAxiosInstance();
-  const response = await Api.get(`/api/store-types` , {
-    headers : { 'Accept-Language': locale || 'en',} ,
-    "Content-Type" : "application/json" ,
-    "Accept" : "application/json"
+  const response = await Api.get(`/api/store-types`, {
+    headers: { "Accept-Language": locale || "en" },
+    "Content-Type": "application/json",
+    Accept: "application/json",
   });
   // console.log(response);
   if (!response.data) {
@@ -65,8 +66,34 @@ function CustomerPage({ data }) {
     } catch (error) {}
   }
 
-  async function search(e) {
-    e.preventDefault();
+  const inputDelay = 1000;
+
+  useEffect(() => {
+    let timerId;
+
+    const delayedSearch = () => {
+      if (searchRef.current.value.length > 3) {
+        search();
+      }
+    };
+
+    const handleInputChange = () => {
+      clearTimeout(timerId);
+      setSearching(true);
+      timerId = setTimeout(delayedSearch, inputDelay);
+      setSearching(false);
+    };
+
+    searchRef.current.addEventListener('input', handleInputChange);
+
+    return () => {
+      clearTimeout(timerId);
+      searchRef.current.removeEventListener('input', handleInputChange);
+    };
+  }, []);
+
+  async function search() {
+    // e.preventDefault();
     // console.log(searchType);
     if (searchRef.current.value) {
       setSearching(true);
@@ -82,7 +109,7 @@ function CustomerPage({ data }) {
                 noSuccessToast: true,
               }
             );
-            // console.log(storeTypes);
+            console.log(storeTypes);
             const components = (
               <div className="flex flex-col justify-start items-center h-full w-full gap-4 ">
                 <p className=" text-4xl text-skin-primary py-5">
@@ -212,7 +239,7 @@ function CustomerPage({ data }) {
     <>
       <div className="w-full h-full">
         {data && (
-          <div className="relative flex flex-col justify-start items-center h-full w-full gap-4 ">
+          <div className="relative flex flex-col justify-start items-center h-max w-full gap-4 ">
             {data && data.ads && (
               <div className="mx-auto w-full pb-3 " dir="ltr">
                 {/* <FadingCarousel ads={data.ads} /> */}
@@ -221,12 +248,12 @@ function CustomerPage({ data }) {
             )}
 
             <div
-              className="absolute top-[13%] w-[80%] flex justify-center items-center gap-2 mx-auto "
+              className="md:absolute md:top-[90px] w-[80%] flex justify-center items-center space-x-2 mx-auto "
               dir="ltr"
             >
               <form
                 onSubmit={search}
-                className="flex bg-gray-100 w-full sm:w-2/5 items-center rounded-lg px-2 border-2 border-transparent focus-within:border-skin-primary transition-all duration-700 "
+                className="flex bg-gray-100 w-full lg:w-2/5 md:w-3/5 items-center rounded-lg px-2 border-2 border-transparent focus-within:border-skin-primary transition-all duration-700 "
               >
                 <select
                   value={searchType}
@@ -266,53 +293,58 @@ function CustomerPage({ data }) {
                     setInSearch(true);
                   }}
                 />
-                <button type="submit">
+                {/* <button type="submit">
                   <MdArrowForward
                     className="hover:border-b-2 border-skin-primary cursor-pointer"
                     onClick={search}
                   />
-                </button>
+                </button> */}
+                 {searching == true ? <Ring size={25} lineWeight={5} speed={2} color="#ff6600" /> : (
+                <MdClose
+                  className={`text-red-500 ${inSearch == true ? `opacity-100` : `opacity-0`} transition-opacity duration-300s hover:text-red-600 w-[25px] h-[25px] hover:border-b-2 hover:border-red-600 cursor-pointer`}
+                  onClick={() => {
+                    setInSearch(false);
+                  }}
+                />
+              )}
               </form>
-              {inSearch == true && (
+              {/* {inSearch == true && (
                 <MdClose
                   className="text-red-500 hover:text-red-600 w-[25px] h-[25px] hover:border-b-2 hover:border-red-600 cursor-pointer "
                   onClick={() => {
                     setInSearch(false);
                   }}
                 />
-              )}
+              )} */}
             </div>
 
-            {inSearch === false && (
-              <div className="flex flex-col justify-start items-center h-full w-full space-y-5">
-                <h2 className=" md:text-4xl text-2xl text-black py-5 ">
-                  {/* {`Discover Oxur Store Types`} */}
-                  {t("home.discover")}
-                </h2>
-                {data && data.data ? (
-                  <div className=" sm:w-[80%] w-[90%] h-[60%] grid grid-cols 2xl:grid-cols-3 xl:grid-cols-2 lg:grid-cols-2  md:grid-cols-1 sm:grid-cols-1  grid-cols-1 gap-y-6 gap-x-6 pb-20 ">
-                    {data.data.map((storeType) => {
-                      return (
-                        <StoreTypeComponent
-                          key={storeType.id}
-                          storeType={storeType}
-                        />
-                      );
-                    })}
-                  </div>
-                ) : (
-                  <div className="w-max mx-auto text-lg">
-                    {" "}
-                    {data.message
-                      ? data.message
-                      : `There are no storeTypes`}{" "}
-                  </div>
-                )}
-              </div>
-            )}
-            {inSearch && (
+            {/* {inSearch === false && ( */}
+            <div className="flex flex-col justify-start items-center h-full w-full space-y-5">
+              <h1 className=" md:text-4xl text-2xl text-black py-5 ">
+                {/* {`Discover Oxur Store Types`} */}
+                {t("home.discover")}
+              </h1>
+              {data && data.data ? (
+                <div className=" sm:w-[80%] w-[90%] h-[60%] grid grid-cols 2xl:grid-cols-3 xl:grid-cols-2 lg:grid-cols-2  md:grid-cols-1 sm:grid-cols-1  grid-cols-1 gap-y-6 gap-x-6 pb-20 ">
+                  {data.data.map((storeType) => {
+                    return (
+                      <StoreTypeComponent
+                        key={storeType.id}
+                        storeType={storeType}
+                      />
+                    );
+                  })}
+                </div>
+              ) : (
+                <div className="w-max mx-auto text-lg">
+                  {" "}
+                  {data.message ? data.message : `There are no storeTypes`}{" "}
+                </div>
+              )}
+            </div>
+            {/* // )} */}
+            {/* {inSearch && (
               <div className="min-h-[500px] h-auto w-full ">
-                {/* {searchedResults && searchedResults} */}
                 {searching ? (
                   <div className="w-full h-auto">
                     <TawasyLoader width={300} height={300} />
@@ -321,54 +353,62 @@ function CustomerPage({ data }) {
                   searchedResults && searchType && searchedResults
                 )}
               </div>
-            )}
+            )} */}
             <div className="flex flex-col  py-6 w-full md:mb-5 ">
               <h2 className="text-3xl text-gray-600 text-center">Join us</h2>
-              <div className="flex flex-row justify-center items-center gap-2">
+              <div className="flex flex-col md:flex-row space-y-4 justify-center items-center md:space-x-2">
                 <Link
                   href={`/signup?user=seller`}
-                  className="flex flex-row space-x-2 justify-start my-3 border border-gray-300 shadow-xl md:w-[25%] md:h-fit "
+                  className="flex flex-col md:flex-row space-x-2 justify-start my-3 border border-gray-300 hover:border-skin-primary rounded-md shadow-xl md:w-[25%]  "
                 >
                   <div className="w-[40%]">
                     <Image
                       src={imagee}
-                      alt=""
+                      alt="sign up as a seller"
+                      className=""
                       width={150}
                       height={150}
                       style={{ width: "100%", height: "auto" }}
                     />
                   </div>
                   <div className="flex flex-col gap-2 justify-center mx-auto w-[90%] ">
-                    <h1 className="text-2xl text-gray-600">Sign Up a Seller</h1>
-                    <p>Reach more customers and achieve growth with us</p>
+                    <h3 className="text-2xl text-gray-600">
+                      Sign Up as a seller
+                    </h3>
+                    <p>
+                    Reach more customers and achieve growth with us.
+                    </p>
                   </div>
                 </Link>
 
                 <Link
                   href={`/signup?user=customer`}
-                  className="flex flex-row space-x-2 justify-start my-3 border border-gray-300 shadow-xl md:w-[25%] md:h-fit "
+                  className="flex flex-col md:flex-row space-x-2 justify-start my-3 border border-gray-300 hover:border-skin-primary rounded-md shadow-xl md:w-[25%] "
                 >
                   <div className="w-[40%]">
                     <Image
                       src={images}
-                      alt=""
+                      alt="sign up as a customer"
+                      className=""
                       width={150}
                       height={150}
                       style={{ width: "100%", height: "auto" }}
                     />
                   </div>
-                  <div className="flex flex-col gap-2 justify-center mx-auto w-[90%]">
-                    <h1 className="text-2xl text-gray-600">
-                      Sign Up a Customer
-                    </h1>
-                    <p>Reach more customers and achieve growth with us</p>
+                  <div className="flex flex-col gap-2 justify-center mx-auto w-[90%] ">
+                    <h3 className="text-2xl text-gray-600">
+                      Sign Up as a Customer
+                    </h3>
+                    <p>
+                      Get your needs from your home , Delivered to your home.
+                    </p>
                   </div>
                 </Link>
               </div>
             </div>
 
-            <div className="flex md:flex-row overflow-clip flex-col w-[70%] gap-3 items-center justify-center ">
-              <div className="md:w-[350px] w-auto md:h-[300px] h-auto">
+            <div className="flex md:flex-row overflow-clip flex-col-reverse w-[70%] md:space-x-3 space-y-[12px] items-center justify-center ">
+              <div className="lg:w-[30%] md:w-[40%] sm:w-[70%] w-auto  h-auto">
                 <Image
                   src={image}
                   // className="w-full object-contain object-center transform transition duration-1000 "
@@ -379,7 +419,7 @@ function CustomerPage({ data }) {
                   className=" object-cover "
                 />
               </div>
-              <div className="flex flex-col gap-2 md:mx-7 mx-2 md:my-0 my-2">
+              <div className="flex flex-col space-y-2 md:mx-7 mx-2 md:my-0 my-2">
                 <h1 className="text-3xl text-gray-600 font-medium text-center">
                   Discover the Tawasy app
                 </h1>

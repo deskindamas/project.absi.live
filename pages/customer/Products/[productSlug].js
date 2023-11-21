@@ -14,7 +14,7 @@ export async function getServerSideProps(context) {
   const response = await Api.get(`/api/product/${params.productSlug}`, {
     headers: { "Accept-Language": locale || "en" },
   });
-  console.log(response);
+  // console.log(response);
   if (!response.data[`productDetails`]) {
     return {
       notFound: true,
@@ -32,9 +32,9 @@ export async function getServerSideProps(context) {
 function PublicProduct({ product }) {
   const { t } = useTranslation("");
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center gap-4 py-10">
+    <div className="w-full h-full flex flex-col items-center justify-center space-y-4 py-10">
       <div className="w-[70%] shadow-[0_4px_9px_-4px_rgba(0,0,0,0.2)]  md:my-5 my-2">
-        <div className="w-full flex  sm:flex-row flex-col gap-4 py-2">
+        <div className="w-full flex  sm:flex-row flex-col sm:space-x-4 space-y-4 py-2">
           <div className=" m-auto min-h-[200px] min-w-[200px] ">
             <Image
               src={product.image ? product.image : logo}
@@ -45,7 +45,7 @@ function PublicProduct({ product }) {
               style={{ width: "200px", height: "200px" }}
             />
           </div>
-          <div className="w-full flex flex-col gap-2 justify-center">
+          <div className="w-full flex flex-col space-y-2 justify-center">
             <div className="flex justify-between">
               <h2 className="text-2xl text-gray-600 capitalize">
                 {product.name}
@@ -60,13 +60,13 @@ function PublicProduct({ product }) {
           </div>
         </div>
       </div>
-      <div className="w-full flex flex-col gap-4">
+      <div className="w-full flex flex-col space-y-4">
         {product.stores && product.stores.length > 0 ? (
-          <div className="w-full">
+          <div className="w-full flex flex-col space-y-4 ">
             <h2 className="text-2xl w-max mx-auto ">
               {t("product.storeSellers")} :
             </h2>
-            <div className="grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 w-[90%] mx-auto ">
+            <div className="grid xl:grid-cols-3 lg:grid-cols-2 grid-cols-1 gap-y-6 w-[90%] mx-auto ">
               {product.stores &&
                 product.stores.map((store) => {
                   return <StoreComponent store={store} key={store.id} />;
