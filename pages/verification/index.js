@@ -116,6 +116,24 @@ const Code = () => {
     }
   };
 
+  const resendCode = async () => {
+    const number = Cookies.get("number");
+    const user = Cookies.get("user");
+    if(user == "seller"){
+      try{
+        const response = Api.post(`/api/seller/resend-verification` , {
+          phone_number : number
+        });
+      }catch(error){}
+    }else if (user == "customer"){
+      try{
+        const response = Api.post(`/api/customer/resend-verification` , {
+          phone_number : number
+        });
+      }catch(error){}
+    }
+  }
+
   function handleKeyDown(e) {
     if (e.key === "Enter") {
       e.preventDefault();
@@ -176,7 +194,7 @@ const Code = () => {
           </form>
 
           <span className="sm:text-lg text-base" >
-            {t("verification.didntGetCode")} <button className="text-skin-primary border-b border-skin-primary" > {t("verification.resendCode")} </button>
+            {t("verification.didntGetCode")} <button className="text-skin-primary border-b border-skin-primary" onClick={resendCode} > {t("verification.resendCode")} </button>
           </span>
         </div>
       </div>
