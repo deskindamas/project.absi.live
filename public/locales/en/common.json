@@ -40,7 +40,13 @@
       "category" : "Category" ,
       "brand" : "Brand" ,
       "discover" : "Discover Our Store Types" ,
-      "stores" : "Stores" 
+      "stores" : "Stores" ,
+      "BecomeASeller" : " Become A Seller ",
+      "BecomeACustomer" : "Become A Customer " ,
+      "TawasyApp" : "Discover the Tawasy app" ,
+      "WhatYouNeed" : " Get what you need, when you need it.",
+      "DownloadApp" : "Download App" ,
+      "JoinUs" : "Join us"
     } , 
     "store" : {
       "openingTime" : "Opening Time" ,
@@ -66,7 +72,10 @@
       "contactUS" : "Contact Us" , 
       "terms" : "Terms and conditions" ,
       "privacy" : " Privacy policy " ,
-      "copyrights" : "Copyrights , Tawasy"
+      "copyrights" : "Copyrights , Tawasy" ,
+      "ALLProducts" : "ALL Products",
+      "ALLStores" : "ALL Stores" ,
+      "Text" : "Never a Better Time Than Now To Start"
     } , 
     "cart" : {
       "emptyCart" : "Your cart is Empty , Go and buy some of our products." ,
