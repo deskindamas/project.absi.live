@@ -297,7 +297,7 @@ function OrderAdmin({ names, refetch }) {
                   `Order Delivered`
                 )}
               </button>
-              <button
+              { orderDetails.status !== "accepted" &&  <button
                 type="button"
                 className="bg-green-400 w-[20%] text-white px-14 py-2"
                 data-dismiss="modal"
@@ -310,7 +310,7 @@ function OrderAdmin({ names, refetch }) {
                 ) : (
                   `Accept Order`
                 )}
-              </button>
+              </button>}
             </DialogActions>
           )}
       </Dialog>

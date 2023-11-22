@@ -34,7 +34,7 @@ export function ResponsiveCarousel({ ads }) {
     >
       {ads && ads.map((ad) => {
         return (
-          <div key={ad.id} className="relative  h-max 2xl:w-[1920] w-full ">
+          <div key={ad.id} className="relative  h-auto 2xl:w-[1920] w-full ">
             <Image
               loading="eager"
               src={ad.image}

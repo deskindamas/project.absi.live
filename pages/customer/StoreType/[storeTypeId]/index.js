@@ -10,28 +10,37 @@ import { NextSeo } from "next-seo";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import Cookies from "js-cookie";
+import axios from "axios";
+import url from "@/URL";
 
 export async function getServerSideProps(context) {
   const { params , locale , req } = context;
-  const Api = createAxiosInstance();
+  const Api = createAxiosInstance(`asdasd`);
   const token  = req.cookies.AT;
   const user = req.cookies.user;
+  let mainResponse ;
   let response ;
+  // console.log(context);
   // console.log(req.cookies);
   // console.log(token);
   // console.log(user);
-  // if(token != null && token != undefined && user && user === "customer"){
-  //   console.log(`authenticated`);
-  //   response = await Api.get(`/api/customer/store-types/${params.storeTypeId}` , {
-  //     headers : { 'Accept-Language': locale || 'en',}
-  //   });
-  // }else{
+  // console.log(req)
+  if(token && user && user === "customer"){
+    console.log(`authenticated`);
+    response = await axios.get(`${url}/api/customer/store-types/${params.storeTypeId}` , {
+      withCredentials : true ,
+      headers : { 'Accept-Language': locale || 'en', Authorization : `Bearer ${token}`}
+    });
+    console.log(response.data);
+    // mainResponse = response.data
+  }else{
     // console.log(`Unauthenticated`);
-     response = await Api.get(`/api/customer/store-types/${params.storeTypeId}` , {
+     response = await Api.get(`/api/store-types/${params.storeTypeId}` , {
       headers : { 'Accept-Language': locale || 'en',}
     });
+    // mainResponse = response.data ;
     // console.log(response);
-  // }
+  }
     if (!response.data.data) {
       return {
         notFound: true,

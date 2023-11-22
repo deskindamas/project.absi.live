@@ -151,7 +151,7 @@ function Products({ store }) {
   return (
     <>
       <NextSeo
-        canonical={`/customer/store/${store.store.name}`}
+        canonical={`https://vercel.damaszone.com/customer/store/${store.store.name}`}
       />
       <div className="">
         {store && (
@@ -172,7 +172,7 @@ function Products({ store }) {
         <div className="md:flex md:justify-between items-center mx-auto w-[90%] ">
           {store && (
             <div className="flex justify-center items-center mt-2 ">
-              <div className=" md:w-[200px] w-[100px] md:h-[200px] h-[100px]">
+              <div className=" md:w-[200px] w-[100px] h-auto min-h-[75px] ">
                 <Image
                 priority
                   className=" shadow w-full h-full object-contain rounded-md"
