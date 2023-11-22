@@ -27,7 +27,7 @@ export async function getServerSideProps(context) {
   //   });
   // }else{
     // console.log(`Unauthenticated`);
-     response = await Api.get(`/api/store-types/${params.storeTypeId}` , {
+     response = await Api.get(`/api/customer/store-types/${params.storeTypeId}` , {
       headers : { 'Accept-Language': locale || 'en',}
     });
     // console.log(response);
