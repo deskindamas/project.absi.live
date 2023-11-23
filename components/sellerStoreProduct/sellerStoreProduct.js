@@ -11,6 +11,7 @@ import Link from "next/link";
 import { useState } from "react";
 import Cookies from "js-cookie";
 import { MdCheck, MdClose, MdModeEdit } from "react-icons/md";
+import { convertMoney } from "../SellerOrders/sellerOrder";
 
 function SellerStoreProduct({ product }) {
   const { t } = useTranslation("");
@@ -51,12 +52,10 @@ function SellerStoreProduct({ product }) {
 
   return (
     <div className="shadow-lg flex flex-col sm:w-fit max-w-[288px] border-2 md:min-h-[406px] min-h-[381px] border-gray-200 rounded-md ">
-      <Link
-        href={`/customer/Products/${product.id}`}
-        legacyBehavior
-      >
-        <a target="_blank" 
-        className="bg-cover overflow-hidden flex justify-center items-center min-w-[288px]  min-h-[260px] max-h-[260px]  "
+      <Link href={`/customer/Products/${product.id}`} legacyBehavior>
+        <a
+          target="_blank"
+          className="bg-cover overflow-hidden flex justify-center items-center min-w-[288px]  min-h-[260px] max-h-[260px]  "
         >
           <Image
             src={product.image ? product.image : logo}
@@ -77,52 +76,47 @@ function SellerStoreProduct({ product }) {
           {product.name}
         </h1>
         <p className="text-skin-primary text-lg md:h-[20%] ">{product.brand}</p>
-        <div className="flex justify-end gap-3">
-              {editingPrice == true ? (
-                <input
-                  type="text"
-                  className="text-white rounded-md w-24 bg-skin-primary placeholder:text-white focus:outline-none px-2 py-1 text-sm  "
-                  defaultValue={price}
-                  ref={newPriceRef}
-                />
-              ) : (
-                <span className="text-white rounded-md w-24 flex justify-center items-center  bg-skin-primary">
-                  {price}
-                </span>
-              )}
-              {editingPrice === true ? (
-                <div className="flex items-center">
-                  {savingPrice === true ? (
-                    <div className="">
-                      <Ring
-                        size={18}
-                        lineWeight={5}
-                        speed={2}
-                        color="#ff6600"
-                      />
-                    </div>
-                  ) : (
-                    <MdCheck
-                      className="w-[25px] h-[25px] text-green-600 hover:text-green-500 "
-                      onClick={savePrice}
-                    />
-                  )}
-                  <MdClose
-                    className="w-[25px] h-[25px] text-red-600 hover:text-red-500"
-                    onClick={() => {
-                      setEditingPrice(false);
-                    }}
-                  />
+        { price && <div className="flex justify-end gap-3">
+          {editingPrice == true ? (
+            <input
+              type="text"
+              className="text-white rounded-md w-24 bg-skin-primary placeholder:text-white focus:outline-none px-2 py-1 text-sm  "
+              defaultValue={convertMoney(price)}
+              ref={newPriceRef}
+            />
+          ) : (
+            <span className="text-white rounded-md w-24 flex justify-center items-center  bg-skin-primary">
+              {convertMoney(price)}
+            </span>
+          )}
+          {editingPrice === true ? (
+            <div className="flex items-center">
+              {savingPrice === true ? (
+                <div className="">
+                  <Ring size={18} lineWeight={5} speed={2} color="#ff6600" />
                 </div>
               ) : (
-                <MdModeEdit
-                  className="w-[25px] h-[25px] bg-gray-400 text-white p-[3px] rounded-[50%]"
-                  onClick={() => {
-                    setEditingPrice(true);
-                  }}
+                <MdCheck
+                  className="w-[25px] h-[25px] text-green-600 hover:text-green-500 "
+                  onClick={savePrice}
                 />
               )}
+              <MdClose
+                className="w-[25px] h-[25px] text-red-600 hover:text-red-500"
+                onClick={() => {
+                  setEditingPrice(false);
+                }}
+              />
             </div>
+          ) : (
+            <MdModeEdit
+              className="w-[25px] h-[25px] bg-gray-400 text-white p-[3px] rounded-[50%]"
+              onClick={() => {
+                setEditingPrice(true);
+              }}
+            />
+          )}
+        </div>}
       </div>
     </div>
   );

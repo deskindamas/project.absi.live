@@ -155,7 +155,7 @@ function Products({ store }) {
       />
       <div className="">
         {store && (
-          <div className=" relative lg:h-[400px] md:h-[300px] sm:h-[200px] h-[100px] w-full box-border ">
+          <div className=" relative lg:h-[400px] md:h-[300px] sm:h-[200px] bg-gray-200 h-[100px] w-full box-border ">
             <Image
             priority
               src={store.store.image ? store.store.image : Logo}
@@ -186,10 +186,10 @@ function Products({ store }) {
               </div>
 
               <div className="mx-6  ">
-                <h1 className="md:text-4xl sm:text-2xl text-xl text-gray-800 font-medium capitalize">
+                <h1 className="md:text-2xl sm:text-xl text-lg text-gray-800 font-medium capitalize">
                   {store.store.name}
                 </h1>
-                <div className="flex flex-col justify-center items-center w-full">
+                <div className="flex flex-col justify-center items-start w-full">
                   <div>
                     {/* <div>
                     <h2 className="md:text-2xl text-lg text-gray-500 font-medium  ">
@@ -200,7 +200,7 @@ function Products({ store }) {
                     </p>
                   </div> */}
                     <div className="flex flex-col md:flex-row justify-start items-center gap-2 w-full">
-                      <div className="md:text-2xl sm:text-lg text-base text-gray-500 font-medium">
+                      <div className="md:text-xl sm:text-lg text-sm text-gray-500 font-medium">
                         <h3 className="sm:my-2 capitalize">
                           {/* {`Opening Days`} : */}
                           {t("store.openingDays")} :
@@ -230,16 +230,16 @@ function Products({ store }) {
                 <h2 className="md:text-xl text-lg text-gray-600 font-medium sm:my-2">
                   {/* {`Opening Time`} : */}
                   {t("store.openingTime")} :
-                  <span className="text-gray-400 md:text-2xl text-lg px-1 ">
+                  <span className="text-gray-400 md:text-xl sm:text-lg text-sm px-1 ">
                     {convertTo12HourFormat(store.store.opening_time)}
                   </span>
                 </h2>
               </div>
               <div>
-                <h2 className="md:text-xl text-lg text-gray-600 font-medium sm:my-3">
+                <h2 className="md:text-xl sm:text-lg text-sm text-gray-600 font-medium sm:my-3">
                   {/* {`Closing Time`} : */}
                   {t("store.closingTime")} :
-                  <span className="text-gray-400 md:text-2xl text-lg px-1 ">
+                  <span className="text-gray-400 md:text-xl sm:text-lg text-sm">
                     {convertTo12HourFormat(store.store.closing_time)}
                   </span>
                 </h2>

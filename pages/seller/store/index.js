@@ -82,7 +82,6 @@ const Store = () => {
 
   return (
     <div className="md:px-7 w-full h-full flex flex-col justify-start items-center ">
-
       {sellerStoreData && (
         <div className=" relative lg:h-[400px] md:h-[300px]  h-[200px] w-full box-border ">
           <Image
@@ -117,11 +116,7 @@ const Store = () => {
               <h1 className="text-4xl text-gray-800 font-medium capitalize">
               {sellerStoreData.store.name}
               </h1>
-              <div className="flex flex-col justify-center items-center w-full pb-5">
-                <div>
-                  <div>
-            
-                  </div>
+              <div className="flex flex-col justify-center items-start w-full pb-5">
                   <div className="flex flex-col md:flex-row justify-start items-center gap-2 w-full">
                     <div className="md:text-2xl text-lg text-gray-500 font-medium">
                       <h3 className="my-2 capitalize">
@@ -141,7 +136,6 @@ const Store = () => {
                       )}
                     </div>
                   </div>
-                </div>
               </div>
             </div>
           </div>

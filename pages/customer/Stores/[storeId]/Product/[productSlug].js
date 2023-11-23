@@ -21,7 +21,7 @@ export async function getServerSideProps(context) {
       headers: { "Accept-Language": locale || "en" },
     }
   );
-  console.log(response.data);
+  // console.log(response.data);
   if (!response.data[`product`]) {
     return {
       notFound: true,

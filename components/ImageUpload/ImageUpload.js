@@ -29,6 +29,7 @@ const ImageUpload = (props) => {
             <Image
               src={props.defaultImage && imag == props.defaultImage ? props.defaultImage : URL.createObjectURL(imag)}
               alt="upload image"
+              unoptimized
               width={props.width}
               height={props.height}
               objectFit="cover"

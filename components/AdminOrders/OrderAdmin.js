@@ -265,7 +265,7 @@ function OrderAdmin({ names, refetch }) {
           )}
         </DialogContent>
 
-        {orderDetails &&
+        {orderDetails && isLoading == false &&
           (orderDetails.status === "pending" ||
             orderDetails.status === "accepted") && (
             <DialogActions className="grid md:grid-cols-2 grid-cols-1 ">

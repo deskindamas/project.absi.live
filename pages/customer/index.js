@@ -274,7 +274,7 @@ function CustomerPage({ data }) {
         {data && (
           <div className="relative flex flex-col justify-start items-center h-max w-full gap-4 ">
             {data && data.ads && (
-              <div className="mx-auto w-full pb-3 " dir="ltr">
+              <div className="mx-auto h-[540px] w-full pb-3 " dir="ltr">
                 {/* <FadingCarousel ads={data.ads} /> */}
                 <ResponsiveCarousel ads={data.ads} />
               </div>
@@ -373,46 +373,59 @@ function CustomerPage({ data }) {
               )}
             </div>
 
-        
-          <div className="w-full mb-7">
-            <div className="py-3 mb-4">
-            <h1 className="text-center text-3xl text-gray-600">
-            {t("home.JoinUs")}
-            </h1>
-            </div>
-            <div className="flex lg:flex-row flex-col justify-center items-center mx-auto my-auto md:space-x-2 space-x-0 ">
+            <div className="w-full mb-7">
+              <div className="py-3 mb-4">
+                <h1 className="text-center text-3xl text-gray-600">
+                  {t("home.JoinUs")}
+                </h1>
+              </div>
+              <div className="flex lg:flex-row flex-col justify-center items-center mx-auto my-auto md:space-x-2 space-x-0 ">
+                <Link
+                  href="/signup?user=seller"
+                  className="lg:w-[40%] md:w-[60%] w-[90%] lg:my-0 my-2 flex flex-row space-x-2 rounded-md border-2 border-gray-300 hover:border-skin-primary shadow-md"
+                >
+                  <Image
+                    src={imagee}
+                    alt=""
+                    width={150}
+                    height={150}
+                    className="object-cover rounded-l-lg overflow-hidden md:w-[40%] w-[50%] h-auto "
+                  />
 
-            <Link href='/signup?user=seller' className="lg:w-[40%] md:w-[60%] w-[90%] lg:my-0 my-2 flex flex-row space-x-2 rounded-md border-2 border-gray-300 hover:border-skin-primary shadow-md">
-            <Image
-            src={imagee}
-            alt = ''
-            width={150}
-            height={150}
-            className="object-cover rounded-l-lg overflow-hidden md:w-[40%] w-[50%] h-auto "
-            />
+                  <div className="flex flex-col justify-center gap-2">
+                    <h1 className="md:text-2xl text-lg text-gray-600 font-medium">
+                      {" "}
+                      {t("home.BecomeASeller")}
+                    </h1>
+                    <p className="md:text-lg text-base text-gray-500">
+                      Reach more customers and achieve growth with us
+                    </p>
+                  </div>
+                </Link>
 
-            <div className="flex flex-col justify-center gap-2">
-              <h1 className="md:text-2xl text-lg text-gray-600 font-medium"> {t("home.BecomeASeller")}</h1>
-              <p className="md:text-lg text-base text-gray-500">Reach more customers and achieve growth with us</p>
-            </div>
-            </Link>
+                <Link
+                  href="/signup?user=customer"
+                  className="lg:w-[40%] md:w-[60%] w-[90%] lg:my-0 my-2  flex flex-row space-x-2 rounded-md border-2 border-gray-300 hover:border-skin-primary shadow-md"
+                >
+                  <Image
+                    src={images}
+                    alt=""
+                    width={150}
+                    height={150}
+                    className="object-cover rounded-l-lg overflow-hidden md:w-[40%] w-[50%] h-auto "
+                  />
 
-            <Link href='/signup?user=customer' className="lg:w-[40%] md:w-[60%] w-[90%] lg:my-0 my-2  flex flex-row space-x-2 rounded-md border-2 border-gray-300 hover:border-skin-primary shadow-md">
-            <Image
-            src={images}
-            alt = ''
-            width={150}
-            height={150}
-            className="object-cover rounded-l-lg overflow-hidden md:w-[40%] w-[50%] h-auto "
-            />
-
-            <div className="flex flex-col justify-center gap-2">
-              <h1 className="md:text-2xl text-lg text-gray-600 font-medium"> {t("home.BecomeACustomer")}</h1>
-              <p className="md:text-lg text-base text-gray-500">Reach more customers and achieve growth with us</p>
-            </div>
-            </Link>
-
-            </div>
+                  <div className="flex flex-col justify-center gap-2">
+                    <h1 className="md:text-2xl text-lg text-gray-600 font-medium">
+                      {" "}
+                      {t("home.BecomeACustomer")}
+                    </h1>
+                    <p className="md:text-lg text-base text-gray-500">
+                      Reach more customers and achieve growth with us
+                    </p>
+                  </div>
+                </Link>
+              </div>
             </div>
 
             <div className="flex md:flex-row overflow-clip flex-col-reverse w-[70%] md:space-x-3 space-y-[12px] items-center justify-center pt-6 ">
@@ -429,14 +442,19 @@ function CustomerPage({ data }) {
               </div>
               <div className="flex flex-col space-y-2 md:mx-7 mx-2 md:my-0 my-2">
                 <h1 className="text-3xl text-gray-600 font-medium text-center">
-                {t("home.TawasyApp")}
+                  {t("home.TawasyApp")}
                 </h1>
-                <p className="text-gray-500 md:my-3">
-                {t("home.WhatYouNeed")}
-                </p>
-                <button className="border-2 border-skin-primary py-2 px-5 text-skin-primary rounded-md">
-                {t("home.DownloadApp")}
-                </button>
+                <p className="text-gray-500 md:my-3">{t("home.WhatYouNeed")}</p>
+                <Link
+                href={`https://www.facebook.com/ayham.arafeh.31`}
+                  legacyBehavior
+                >
+                  <a 
+                  target="_blank"
+                  className="border-2 border-skin-primary py-2 text-center px-5 text-skin-primary rounded-md"
+                  
+                  >{t("home.DownloadApp")}</a>
+                </Link>
               </div>
             </div>
           </div>

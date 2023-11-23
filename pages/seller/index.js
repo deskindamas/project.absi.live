@@ -20,6 +20,7 @@ import {
 import { CgUnavailable } from "react-icons/cg";
 import Cookies from "js-cookie";
 import Link from "next/link";
+import { convertMoney } from "@/components/SellerOrders/sellerOrder";
 
 const Home = () => {
   let none;
@@ -192,7 +193,7 @@ const Home = () => {
                     </h1>
                     <p className="text-xl text-skin-primary">
                       {" "}
-                      {dashboardData.data.totalSales}
+                      {convertMoney(dashboardData.data.totalSales)}
                     </p>
                   </div>
                   <div className="w-[20%] flex justify-center items-center">

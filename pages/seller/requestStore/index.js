@@ -114,17 +114,21 @@ const RequestStore = () => {
   async function submitStore(e) {
     e.preventDefault();
     if (!address || !logo || !image) {
-      toast.error("Please fill all of the required fields | الرجاء تعبئة جميع الحقول ", {
-        toastId: "Please fill all of the required fields | الرجاء تعبئة جميع الحقول ",
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-      });
+      toast.error(
+        "Please fill all of the required fields | الرجاء تعبئة جميع الحقول ",
+        {
+          toastId:
+            "Please fill all of the required fields | الرجاء تعبئة جميع الحقول ",
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        }
+      );
       return;
     }
     setSubmitting(true);
@@ -185,168 +189,173 @@ const RequestStore = () => {
 
           <form className="h-full  " onSubmit={submitStore}>
             <div className="grid md:grid-cols-2 grid-col-1 gap-2 text-zinc-50 h-max my-16 ">
+              {/* <div> */}
               <div>
-                <div>
-                  <label className="" htmlFor="name">
-                    Arabic Store Name{" "}
-                  </label>
-                  <input
-                    id="name"
-                    className="mb-7 text-zinc-500 pl-2 focus:text-skin-primary outline-none w-full h-[40px] "
-                    type="text"
-                    maxLength={65}
-                    placeholder="Name(Arabic)"
-                    ref={ArNameRef}
-                    required
-                  />
-                </div>
-                <div>
-                  <label>Opening Time</label>
-                  <br />
-                  <input
-                    className="mb-7 text-zinc-500 pl-2 focus:text-skin-primary outline-none w-full h-[40px] "
-                    type="time"
-                    placeholder="Enter Opening Time "
-                    ref={openTimeRef}
-                    required
-                  />
-                </div>
+                <label className="" htmlFor="name">
+                  Arabic Store Name{" "}
+                </label>
+                <input
+                  id="name"
+                  className="mb-7 text-zinc-500 pl-2 focus:text-skin-primary outline-none w-full h-[40px] "
+                  type="text"
+                  maxLength={65}
+                  placeholder="Name(Arabic)"
+                  ref={ArNameRef}
+                  required
+                />
+              </div>
+              <div>
+                <label>Opening Time</label>
+                <br />
+                <input
+                  className="mb-7 text-zinc-500 pl-2 focus:text-skin-primary outline-none w-full h-[40px] "
+                  type="time"
+                  placeholder="Enter Opening Time "
+                  ref={openTimeRef}
+                  required
+                />
+              </div>
 
-                <div>
-                  <label>Opening Days</label>
-                  <br />
-                  <div className="print-value">
-                    <input
-                      className="mb-7 text-zinc-500 pl-2 focus:text-skin-primary outline-none w-full h-[40px] "
-                      onClick={functionopenpopup}
-                      variant="contained"
-                      type="text"
-                      value={checkedDays.join(", ")}
-                      placeholder="Opening Days"
-                    />
-                  </div>
-                </div>
-                <div className="h-max">
-                  <div className="flex justify-between items-center " >
-                    <label>Area</label>
-                    <p className="text-gray-300" >{areaMaxLength} Characters left</p>
-                  </div>
-                  <textarea
+              <div>
+                <label>Opening Days</label>
+                <br />
+                <div className="print-value">
+                  <input
                     className="mb-7 text-zinc-500 pl-2 focus:text-skin-primary outline-none w-full h-[40px] "
+                    onClick={functionopenpopup}
+                    variant="contained"
                     type="text"
-                    placeholder=" Area"
-                    maxLength={255}
-                    onChange={() => {
-                      setAreaMaxLength(
-                        maxLength - areaRef.current.value.length
-                      );
+                    value={checkedDays.join(", ")}
+                    placeholder="Opening Days"
+                  />
+                </div>
+              </div>
+              <div className="h-max">
+                <div className="flex justify-between items-center ">
+                  <label>Area</label>
+                  <p className="text-gray-300">
+                    {areaMaxLength} Characters left
+                  </p>
+                </div>
+                <textarea
+                  className="mb-7 text-zinc-500 pl-2 focus:text-skin-primary outline-none w-full h-[40px] "
+                  type="text"
+                  placeholder=" Area"
+                  maxLength={255}
+                  onChange={() => {
+                    setAreaMaxLength(maxLength - areaRef.current.value.length);
+                  }}
+                  ref={areaRef}
+                  required
+                />
+              </div>
+
+              {/* </div> */}
+
+              {/* <div className=""> */}
+              <div>
+                <label>English Store Name </label>
+                <input
+                  className="mb-7 text-zinc-500 pl-2 focus:text-skin-primary outline-none w-full h-[40px]"
+                  type="text"
+                  placeholder="Name(English)"
+                  ref={EnNameRef}
+                  required
+                />
+              </div>
+
+              <div>
+                <label>Closing Time</label>
+                <br />
+                <input
+                  className="mb-7 text-zinc-500 pl-2 focus:text-skin-primary outline-none w-full h-[40px] "
+                  type="time"
+                  placeholder="Enter Closing Time "
+                  ref={closeTimeRef}
+                  required
+                />
+              </div>
+
+              <div>
+                <label>Store Type</label>
+                <br />
+                {storeTypes && (
+                  <select
+                    className="form-select mb-7 h-[40px] w-full text-zinc-500 pl-2 outline-none"
+                    aria-label="Store Type"
+                    onChange={(e) => {
+                      // console.log(e.target.value);
+                      selectedStoreType(e.target.value);
                     }}
-                    ref={areaRef}
-                    required
-                  />
-                </div>
+                  >
+                    <option disabled selected value>
+                      -- select an option --
+                    </option>
+                    {storeTypes.map((storeType) => {
+                      return (
+                        <option key={storeType.id} value={storeType.name}>
+                          {storeType.name}
+                        </option>
+                      );
+                    })}
+                  </select>
+                )}
+              </div>
 
-                <div className="w-full ">
-                  <label>Address</label>
-                  <Locations
-                    className={`mb-7 text-white pl-2 outline-none w-max h-[40px]`}
-                    onLocation={handleAddress}
-                  />
+              <div className="mb-16">
+                <div className="flex justify-between  items-center ">
+                  <label>Street</label>
+                  <p className="text-gray-300">
+                    {streetMaxLength} Characters left
+                  </p>
                 </div>
+                <textarea
+                  className="mb-7 outline-none w-full focus:text-skin-primary h-[40px] text-zinc-500 pl-2"
+                  type="text"
+                  placeholder=" street"
+                  onChange={() => {
+                    setStreetMaxLength(
+                      maxLength - streetRef.current.value.length
+                    );
+                  }}
+                  ref={streetRef}
+                  required
+                />
+              </div>
+              <div className="w-full ">
+                <label>Address</label>
+                <Locations
+                  className={`mb-7 text-white pl-2 outline-none w-max h-[40px]`}
+                  onLocation={handleAddress}
+                />
+              </div>
 
-                <div className="flex flex-col justify-start items-start  box-border ">
-                  <label className=" ">Store Image</label>
-                  <div className="w-[200px] h-[100px]">
-                    <ImageUpload
-                      onSelectImage={handleStoreImage}
-                      width={150}
-                      height={50}
-                    />
-                  </div>
+              <div className="flex justify-start items-center" >
+
+              </div>
+              <div className="flex flex-col justify-start items-start  box-border ">
+                <label className=" ">Store Image</label>
+                <div className="w-[200px] h-[100px]">
+                  <ImageUpload
+                    onSelectImage={handleStoreImage}
+                    width={150}
+                    height={50}
+                  />
                 </div>
               </div>
 
               <div className="">
+                <label>Store Logo</label>
+                <br />
                 <div>
-                  <label>English Store Name </label>
-                  <input
-                    className="mb-7 text-zinc-500 pl-2 focus:text-skin-primary outline-none w-full h-[40px]"
-                    type="text"
-                    placeholder="Name(English)"
-                    ref={EnNameRef}
-                    required
+                  <ImageUpload
+                    onSelectImage={handleLogoImage}
+                    width={100}
+                    height={100}
                   />
-                </div>
-
-                <div>
-                  <label>Closing Time</label>
-                  <br />
-                  <input
-                    className="mb-7 text-zinc-500 pl-2 focus:text-skin-primary outline-none w-full h-[40px] "
-                    type="time"
-                    placeholder="Enter Closing Time "
-                    ref={closeTimeRef}
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label>Store Type</label>
-                  <br />
-                  {storeTypes && (
-                    <select
-                      className="form-select mb-7 h-[40px] w-full text-zinc-500 pl-2 outline-none"
-                      aria-label="Store Type"
-                      onChange={(e) => {
-                        // console.log(e.target.value);
-                        selectedStoreType(e.target.value);
-                      }}
-                    >
-                      <option disabled selected value>
-                        -- select an option --
-                      </option>
-                      {storeTypes.map((storeType) => {
-                        return (
-                          <option key={storeType.id} value={storeType.name}>
-                            {storeType.name}
-                          </option>
-                        );
-                      })}
-                    </select>
-                  )}
-                </div>
-
-                <div className="mb-16">
-                <div className="flex justify-between  items-center " >
-                    <label>Street</label>
-                    <p className="text-gray-300" >{streetMaxLength} Characters left</p>
-                  </div>
-                  <textarea
-                    className="mb-7 outline-none w-full focus:text-skin-primary h-[40px] text-zinc-500 pl-2"
-                    type="text"
-                    placeholder=" street"
-                    onChange={() => {
-                      setStreetMaxLength(
-                        maxLength - streetRef.current.value.length
-                      );
-                    }}
-                    ref={streetRef}
-                    required
-                  />
-                </div>
-
-                <div className="pt-8">
-                  <label>Store Logo</label>
-                  <br />
-                  <div>
-                    <ImageUpload
-                      onSelectImage={handleLogoImage}
-                      width={100}
-                      height={100}
-                    />
-                  </div>
                 </div>
               </div>
+              {/* </div> */}
             </div>
 
             <div className="flex items-center justify-center w-full ">
