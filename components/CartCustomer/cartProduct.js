@@ -76,7 +76,7 @@ function CartProduct({ product, storeid, refetch }) {
         </div>
         <div className=" flex flex-col justify-center items-start gap-2  w-[50%]">
           <Link
-            href={`/customer/Products/${product.product.id}`}
+            href={`/customer/Products/${product.product.slug}`}
             legacyBehavior
             className="  "
           >

@@ -52,7 +52,7 @@ function SellerStoreProduct({ product }) {
 
   return (
     <div className="shadow-lg flex flex-col sm:w-fit max-w-[288px] border-2 md:min-h-[406px] min-h-[381px] border-gray-200 rounded-md ">
-      <Link href={`/customer/Products/${product.id}`} legacyBehavior>
+      <Link href={`/customer/Products/${product.slug}`} legacyBehavior>
         <a
           target="_blank"
           className="bg-cover overflow-hidden flex justify-center items-center min-w-[288px]  min-h-[260px] max-h-[260px]  "

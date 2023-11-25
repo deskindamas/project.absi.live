@@ -92,6 +92,8 @@ function Products({ store }) {
     } catch {}
   }
 
+  console.log(store);
+
   async function search(e) {
     e.preventDefault();
     setSearching(true);
@@ -317,7 +319,7 @@ function Products({ store }) {
                   selectedCategoryData &&
                   selectedCategoryData.products.map((product) => (
                     // <ProductCustomer key={product.id} product={product} />
-                    <PublicAllProduct key={product.id} product={product} />
+                    <PublicAllProduct key={product.id} product={product} storeId={store.store.id} />
                   ))}
               </div>
             </div>
@@ -330,7 +332,7 @@ function Products({ store }) {
               <TawasyLoader width={300} height={300} />
             </div>
           ) : (
-            <div className="w-full flex justify-center min-h-max">
+            <div className="w-full flex justify-center min-h-[500px]">
               {searchedResults && searchedResults}
             </div>
           ))}

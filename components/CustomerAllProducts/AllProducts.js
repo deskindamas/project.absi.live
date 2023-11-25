@@ -13,7 +13,7 @@ import { convertMoney } from "../SellerOrders/sellerOrder";
 import { useDispatch } from "react-redux";
 import { cartActions } from "@/Store/CartSlice";
 
-function PublicAllProduct({ product }) {
+function PublicAllProduct({ product , storeId }) {
   const { t } = useTranslation("");
   const router = useRouter();
   const dispatch = useDispatch();
@@ -22,16 +22,19 @@ function PublicAllProduct({ product }) {
 
   async function addToCart() {
     setAdding(true);
+    console.log(product.id);
     try {
       const response = await Api.post(`/api/customer/cart/add`, {
         product_id: product.id,
-        store_id: router.query.storeId,
+        store_id: storeId,
       });
       dispatch(cartActions.addProduct());
       setAdding(false);
     } catch (error) {}
     setAdding(false);
   }
+
+  console.log(product);
 
   return (
     <div className="shadow-lg flex flex-col sm:w-fit max-w-[288px] mx-auto border-2 md:min-h-[406px] min-h-[381px] border-gray-200 rounded-md ">

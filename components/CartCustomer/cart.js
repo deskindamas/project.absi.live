@@ -25,7 +25,7 @@ const Cart = ({ onClose, show, className }) => {
   const router = useRouter();
   const Api = createAxiosInstance(router);
   const [Applying, setApplying] = useState(false);
-  const [deleting , setDeleting] = useState(false);
+  const [deleting, setDeleting] = useState(false);
   const couponRef = useRef();
   const { t } = useTranslation("");
   const {
@@ -78,13 +78,13 @@ const Cart = ({ onClose, show, className }) => {
     // setButtonText(buttonText === "Add Coupon" ? "Cancel" : "Add Coupon");
   };
 
-  async function deleteCart () {
+  async function deleteCart() {
     setDeleting(true);
-    try{
+    try {
       const response = await Api.delete(`/api/customer/cart/delete`);
       onClose();
       setDeleting(false);
-    }catch(error){
+    } catch (error) {
       setDeleting(false);
     }
   }
@@ -130,13 +130,15 @@ const Cart = ({ onClose, show, className }) => {
                 onClick={onClose}
               />
             </div>
-            <Image
-              src={grayLogo}
-              alt="gray Tawasy"
-              className="w-[60%] h-auto "
-            />
-            {t("cart.emptyCart")}
-            {/* {`Your cart is Empty.`} */}
+            <div className="flex flex-col justify-center items-center h-full space-y-5 " >
+              <Image
+                src={grayLogo}
+                alt="gray Tawasy"
+                className="w-[60%] h-auto "
+              />
+              {t("cart.emptyCart")}
+              {/* {`Your cart is Empty.`} */}
+            </div>
           </div>
         ) : (
           cart && (
@@ -280,7 +282,18 @@ const Cart = ({ onClose, show, className }) => {
                   className="text-red-600 px-16 py-1 transition-all duration-500 "
                   onClick={deleteCart}
                 >
-                  {deleting ? <div><Ring size={25} speed={2} lineWeight={5} color="#660000" /></div> : `Delete All Items`}
+                  {deleting ? (
+                    <div>
+                      <Ring
+                        size={25}
+                        speed={2}
+                        lineWeight={5}
+                        color="#660000"
+                      />
+                    </div>
+                  ) : (
+                    `Delete All Items`
+                  )}
                 </button>
               </div>
             </div>

@@ -52,7 +52,7 @@ function TotalAddProduct({ selectproduct, refetch }) {
         key={selectproduct.id}
         className="even:bg-zinc-150 odd:bg-zinc-50 text-center py-1 border-b-2 border-slate-300"
       >
-        <td><Link href={`/customer/Products/${selectproduct.product_id}`} legacyBehavior >
+        <td><Link href={`/customer/Products/${selectproduct.slug}`} legacyBehavior >
             <a target="_blank" className="border-b border-transparent hover:border-gray-400" >
             {selectproduct.name}
             </a>

@@ -20,26 +20,16 @@ export async function getServerSideProps(context) {
   const user = req.cookies.user;
   let mainResponse ;
   let response ;
-  // console.log(context);
-  // console.log(req.cookies);
-  // console.log(token);
-  // console.log(user);
-  // console.log(req)
   if(token && user && user === "customer"){
     // console.log(`authenticated`);
     response = await axios.get(`${url}/api/customer/store-types/${params.storeTypeId}` , {
       withCredentials : true ,
-      headers : { 'Accept-Language': locale || 'en', Authorization : `Bearer ${token}`}
+      headers : { 'Accept-Language': locale ? locale : 'en', Authorization : `Bearer ${token}`}
     });
-    // console.log(response.data);
-    // mainResponse = response.data
   }else{
-    // console.log(`Unauthenticated`);
-     response = await Api.get(`/api/store-types/${params.storeTypeId}` , {
-      headers : { 'Accept-Language': locale || 'en',}
+     response = await axios.get(`${url}/api/storetypes/${params.storeTypeId}` , {
+      headers : { 'Accept-Language': locale ? locale : 'en',}
     });
-    // mainResponse = response.data ;
-    // console.log(response);
   }
     if (!response.data.data) {
       return {

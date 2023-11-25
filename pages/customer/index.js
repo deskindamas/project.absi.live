@@ -131,8 +131,8 @@ function CustomerPage({ data }) {
                     {storeTypes?.map((storeType) => {
                       return (
                         <Link
-                          key={storeType.id}
-                          href={`/customer/StoreType/${storeType.id}`}
+                          key={storeType.slug}
+                          href={`/customer/StoreType/${storeType.slug}`}
                           className="flex justify-start items-center space-x-2 hover:bg-gray-100 px-1 py-2 "
                         >
                           <Image
@@ -182,8 +182,8 @@ function CustomerPage({ data }) {
                     {categoryStores?.data?.map((store) => {
                       return (
                         <Link
-                          key={store.id}
-                          href={`/customer/Stores/${store.id}`}
+                          key={store.slug}
+                          href={`/customer/Stores/${store.slug}`}
                           className="flex justify-start items-center space-x-2 hover:bg-gray-100 px-1 py-2 "
                         >
                           <Image
@@ -237,7 +237,7 @@ function CustomerPage({ data }) {
                       return (
                         <Link
                           key={store.id}
-                          href={`/customer/Stores/${store.id}`}
+                          href={`/customer/Stores/${store.slug}`}
                           className="flex justify-start items-center space-x-2 hover:bg-gray-100 px-1 py-2 "
                         >
                           <Image

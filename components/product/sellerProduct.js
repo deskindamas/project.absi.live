@@ -115,7 +115,7 @@ function SellerProduct({ product , refetch }) {
             </button>
           </div>
         </td>
-        <td className="px-4 py-4"><Link href={`/customer/Products/${product.id}`} legacyBehavior >
+        <td className="px-4 py-4"><Link href={`/customer/Products/${product.slug}`} legacyBehavior >
               <a target="_blank" className="border-b border-transparent hover:border-gray-400 cursor-pointer" >
               {product.name}
               </a>

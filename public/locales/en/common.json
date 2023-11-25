@@ -112,5 +112,87 @@
       "meanwhile" : "Mean while; If you need any information please contact Us on 0987000888 We will contact you when it becomes available",
       "ourTeam" : "Our team will review the details soon and will revert back to you if we need any information" , 
       "weRecieved" : "We have recieved your request" 
+    }, 
+    "privacy" :{ 
+        "introTitle" : "Introduction:",
+        "introInfo" : "The Privacy Policy of Tawasy Shopping outlines the company's policy on privacy and cookies. The purpose of this policy is to inform the user about how we handle his personal data. In compliance with applicable data protection and privacy laws, Tawasy Shopping e-platform is responsible for the personal information covered in this Privacy Policy unless otherwise stated. We are dedicated to protecting the privacy of our user's personal information, and this privacy policy explains how Tawasy Shopping will use any personal information submitted by the user. If the user wants to access, modify, or delete his personal information, or if he wishes to opt out or change the usage of his personal information, please contact us. “Tawasy Shopping” appreciates user interest and concerns about the privacy of their data on the Internet."
+    , 
+        "personal" : {
+          "title" : "Personal Information Retention And Disposal:",
+          "info" : "We collect your personal information when you interact with our e-platform. We use this information to provide you with our services and to protect your account. We will only keep your information for as long as we need it, and we will destroy it securely when we don't need it anymore."
+      } ,
+      "use" : {
+        "title" : "Use Of Your Information:",
+        "info" : [
+          "Tawasy Shopping e-platform collects your personal information to provide you with its services and to improve its business.",
+          "Tawasy Shopping e-platform may also use your personal information for marketing purposes, such as sending you newsletters or information about new products and services.",
+          "Tawasy Shopping e-platform will only share your personal information with other companies if it is necessary to provide you with its services or if it is required by law.",
+          "Tawasy Shopping e-platform will take all reasonable steps to protect your personal information from unauthorized access or use.",
+          "We take your privacy seriously. When you contact customer support, your information will be kept confidential and used to help you improve the e-platform."
+        ]
+      } ,
+      "cookies" : {
+        "title" : "Cookies:",
+        "info" : [
+          "Tawasy Shopping e-platform uses cookies to make your experience on its e-platform more personalized and convenient.",
+          "Cookies are small files that are stored on your computer or mobile phones when you visit our e-platform.",
+          "Tawasy Shopping e-platform uses cookies for a variety of purposes, such as keeping you logged in, tracking your browsing habits, and serving you relevant ads.",
+          "Most web browsers accept cookies by default, but you can change your browser settings to block or delete cookies.",
+          "However, blocking cookies may limit your ability to use some or all features on the Tawasy Shopping e-platform."
+        ]
+    } ,
+    "third" : {
+      "title" : "Third-Party:",
+      "info" : [
+        "Tawasy Shopping e-platform is not responsible for what other companies do with your personal information.",
+        "If you click on a link to another platform from Tawasy Shopping e-platform, be sure to read that platform's privacy policy to understand how they will use your personal information.",
+        "We may use third-party companies to show you ads when you visit our e-platform.",
+        "These companies can use information about your browsing habits to show you ads for products and services that you might be interested in.",
+        "Tawasy Shopping e-platform only asks for your personal information when we need it, and we will only use it for the purposes for which you provided it.",
+        "We will never sell your personal information to other companies for marketing purposes without your permission.",
+        "If we use your personal information for statistical or research purposes, we will not identify you personally."
+      ]
+    },
+    "registration" : {
+      "title" : "Registration:",
+      "info" : [
+        "If you want to use some parts of the Tawasy Shopping e-platform, you may need to create an account and give Tawasy Shopping e-platform some information about yourself.",
+        "In this case, you agree to give Tawasy Shopping e-platform accurate information and to keep it up to date."
+      ]
+    },
+    "tele" : {
+      "title" : "Telephone Calls:",
+      "info" : [
+        "Please be aware that your phone conversations with Tawasy Shopping e-platform may be recorded for quality control."
+      ]
+    },
+    "tawasy" : {
+      "title" : "Tawasy Shopping E-Platform Customer Satisfaction Survey:",
+      "info" : [
+        "Tawasy Shopping e-platform conducts surveys directly on its e-platform to collect specific data about customer satisfaction.",
+        "This data is used to improve the e-platform and the customer experience.",
+        "Customers have the choice to provide their name and other information, but this is not required."
+      ]
+    },
+    "amendments" : {
+      "title" : "Amendments To The Information Privacy And Confidentiality Policy:",
+      "info" : [
+        "Tawasy Shopping e-platform may change its privacy policy from time to time.",
+        "If it does, it will post the changes on its e-platform.",
+        "It is the user’s responsibility to periodically check our e-platform the user uses to ensure that the user is aware of the current privacy policy and to update user preferences accordingly."
+      ]
+    },
+    "contact" : {
+      "title" : "Contact Us:",
+      "info" : [
+        "You can contact us if needed by clicking on the contact us link provided in our e-platform links or sending an email to info@tawasyme.com."
+      ]
+    },
+    "finally" : {
+      "title" : "Finally:",
+      "info" : [
+          "We at Tawasy Shopping e-platform care about your privacy. We hope that this policy has answered your questions and concerns about how we keep your data safe and confidential."
+      ]
     }
+  }
 }
