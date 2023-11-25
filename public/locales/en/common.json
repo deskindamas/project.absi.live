@@ -75,7 +75,8 @@
       "copyrights" : "Copyrights , Tawasy" ,
       "ALLProducts" : "ALL Products",
       "ALLStores" : "ALL Stores" ,
-      "Text" : "Never a Better Time Than Now To Start"
+      "Text" : "Never a Better Time Than Now To Start" ,
+      "Advertise" : "Advertise with tawasy"
     } , 
     "cart" : {
       "emptyCart" : "Your cart is Empty , Go and buy some of our products." ,
@@ -97,12 +98,19 @@
       "ViewStore" : "View Product"
      },
     "product" : {
-      "storeSellers" :"Stores that sell this product"
+      "storeSellers" :"Stores that sell this product" ,
+      "noStores" : "There are no stores the sells this product."
     },
     "verification" : {
       "contactUs" : "Please enter the verification code that was sent to you via WhatsApp or " ,
       "contactUsNumber" : "Contact Us",
       "resendCode" : "Resend code" ,
       "didntGetCode" : "Did not recieve a code ?"
+    }, 
+    "pending" : {
+      "thankyou" : "Thank you" ,
+      "meanwhile" : "Mean while; If you need any information please contact Us on 0987000888 We will contact you when it becomes available",
+      "ourTeam" : "Our team will review the details soon and will revert back to you if we need any information" , 
+      "weRecieved" : "We have recieved your request" 
     }
 }

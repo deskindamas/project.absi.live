@@ -39,6 +39,7 @@
     "react-dropzone": "^14.2.3",
     "react-i18next": "^13.3.1",
     "react-icons": "^4.11.0",
+    "react-image-magnifiers-v2": "^2.0.1",
     "react-parallax-tilt": "^1.7.171",
     "react-pro-sidebar": "^1.1.0-alpha.1",
     "react-query": "^3.39.3",

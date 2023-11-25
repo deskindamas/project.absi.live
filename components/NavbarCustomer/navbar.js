@@ -79,7 +79,7 @@ function Navbar() {
   };
 
   // console.log(router);
-  console.log(addedProduct);
+  // console.log(addedProduct);
 
   return (
     <>

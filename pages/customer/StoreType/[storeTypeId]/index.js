@@ -26,12 +26,12 @@ export async function getServerSideProps(context) {
   // console.log(user);
   // console.log(req)
   if(token && user && user === "customer"){
-    console.log(`authenticated`);
+    // console.log(`authenticated`);
     response = await axios.get(`${url}/api/customer/store-types/${params.storeTypeId}` , {
       withCredentials : true ,
       headers : { 'Accept-Language': locale || 'en', Authorization : `Bearer ${token}`}
     });
-    console.log(response.data);
+    // console.log(response.data);
     // mainResponse = response.data
   }else{
     // console.log(`Unauthenticated`);

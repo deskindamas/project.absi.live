@@ -80,24 +80,26 @@ const Footer = () => {
                 <p>{t("footer.syria")}</p>
               </li>
               <li className="mb-2">
-                <p>Advertise with tawasy</p>
+                <p className="hover:text-skin-primary" >{t("footer.Advertise")}</p>
               </li>
               <li className="mb-2">
-                <p>sales@tawasyme.com</p>
+                <Link href="mailto:sales@tawasyme.com" legacyBehavior >
+                  <a target="_blank" className="hover:text-skin-primary" >sales@tawasyme.com</a>
+                </Link>
               </li>
               <div className="mt-4">
                 <ul className="flex justify-center">
                   <li className="mr-2">
                     <Link href="https://t.me/tawasyshopping" legacyBehavior>
-                      <a target="_blank" >
-                        <FaTelegram className="w-[25px] h-[25px]" />
+                      <a target="_blank">
+                        <FaTelegram className="w-[25px] h-[25px] hover:text-skin-primary" />
                       </a>
                     </Link>
                   </li>
                   <li className="mr-2">
                     <Link href="tel:+963987000888" legacyBehavior>
                       <a target="_blank">
-                        <BsFillTelephoneFill className="w-[25px] h-[25px]" />
+                        <BsFillTelephoneFill className="w-[25px] h-[25px] hover:text-skin-primary" />
                       </a>
                     </Link>
                   </li>
@@ -107,7 +109,7 @@ const Footer = () => {
                       legacyBehavior
                     >
                       <a target="_blank">
-                        <BsFacebook className="w-[25px] h-[25px]" />
+                        <BsFacebook className="w-[25px] h-[25px] hover:text-skin-primary" />
                       </a>
                     </Link>
                   </li>
@@ -117,14 +119,14 @@ const Footer = () => {
                       legacyBehavior
                     >
                       <a target="_blank">
-                        <BsInstagram className="w-[25px] h-[25px]" />
+                        <BsInstagram className="w-[25px] h-[25px] hover:text-skin-primary" />
                       </a>
                     </Link>
                   </li>
-                  <li>
+                  <li className="mr-2">
                     <Link href="https://wa.me/+963987000888" legacyBehavior>
                       <a target="_blank">
-                        <BsWhatsapp className="w-[25px] h-[25px]" />
+                        <BsWhatsapp className="w-[25px] h-[25px] hover:text-skin-primary" />
                       </a>
                     </Link>
                   </li>

@@ -113,12 +113,12 @@ const RequestStore = () => {
 
   async function submitStore(e) {
     e.preventDefault();
-    if (!address || !logo || !image) {
+    if (!address) {
       toast.error(
-        "Please fill all of the required fields | الرجاء تعبئة جميع الحقول ",
+        "Please fill all of the required fields \b الرجاء تعبئة جميع الحقول ",
         {
           toastId:
-            "Please fill all of the required fields | الرجاء تعبئة جميع الحقول ",
+            "Please fill all of the required fields \b الرجاء تعبئة جميع الحقول ",
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,

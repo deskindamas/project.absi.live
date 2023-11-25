@@ -7,6 +7,14 @@ import { useTranslation } from "next-i18next";
 import createAxiosInstance from "@/API";
 import logo from "@/public/images/tawasylogo.png";
 import StoreComponent from "@/components/customerCommponents/StoreComponent";
+import {
+  Magnifier,
+  MOUSE_ACTIVATION,
+  TOUCH_ACTIVATION,
+  SideBySideMagnifier,
+  GlassMagnifier
+} from "react-image-magnifiers-v2";
+import { useRouter } from "next/router";
 
 export async function getServerSideProps(context) {
   const { params, locale } = context;
@@ -30,19 +38,39 @@ export async function getServerSideProps(context) {
 }
 
 function PublicProduct({ product }) {
+  const router = useRouter();
   const { t } = useTranslation("");
   return (
     <div className="w-full h-full flex flex-col items-center justify-center space-y-4 py-10">
       <div className="w-[70%] shadow-[0_4px_9px_-4px_rgba(0,0,0,0.2)]  md:my-5 my-2">
         <div className="w-full flex  sm:flex-row flex-col sm:space-x-4 space-y-4 py-2">
-          <div className=" m-auto min-h-[200px] min-w-[200px] ">
-            <Image
+          <div className=" m-auto max-h-[200px] max-w-[200px] ">
+            {/* <Image
               src={product.image ? product.image : logo}
               className="w-full object-contain transform transition duration-1000 "
               width={0}
               height={0}
               sizes="100vw"
               style={{ width: "200px", height: "200px" }}
+            /> */}
+
+            <SideBySideMagnifier
+              imageSrc={product.image}
+              imageAlt={product.name}
+              // largeImageSrc={product.image}
+              alwaysInPlace={false}
+              overlayOpacity={0.5}
+              switchSides={router.locale == "ar" ? true : false}
+              inPlaceMinBreakpoint={641}
+              fillAvailableSpace={true}
+              fillAlignTop={true}
+              fillGapTop={100}
+              fillGapRight={10}
+              fillGapBottom={200}
+              fillGapLeft={10}
+              className="zoom"
+              zoomContainerBorder="1px solid #ccc"
+              zoomContainerBoxShadow="0 4px 8px rgba(0,0,0,.5)"
             />
           </div>
           <div className="w-full flex flex-col space-y-2 justify-center">
@@ -51,12 +79,14 @@ function PublicProduct({ product }) {
                 {product.name}
               </h2>
             </div>
-            { product.brand?.name && <p className="text-lg text-skin-primary border-2 border-skin-primary w-max px-5 rounded-full">
-              {product.brand.name}
-            </p>}
-            {/* <p className="text-gray-500 text-base border-t-2 border-gray-200 py-3 my-2">
-              {product.decription ? product.description : `No Description`}
-            </p> */}
+            {product.brand && (
+              <p className="text-lg text-skin-primary border-2 border-skin-primary w-max px-5 rounded-full">
+                {product.brand}
+              </p>
+            )}
+            <p className="text-gray-500 text-base border-t-2 border-gray-200 py-3 my-2">
+              {product.decription && product.description}
+            </p>
           </div>
         </div>
       </div>
@@ -75,7 +105,7 @@ function PublicProduct({ product }) {
           </div>
         ) : (
           <div className="w-max mx-auto md:text-2xl text-base ">
-            There are no stores the sells this product.
+            {t("product.noStores")}
           </div>
         )}
       </div>

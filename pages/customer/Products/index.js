@@ -48,6 +48,10 @@ function AllProducts() {
     document.querySelector(`#${id}`).scrollIntoView({behavior : 'smooth' });
   }
 
+  if(products){
+    console.log(products)
+  }
+
   if (isLoading) {
     return (
       <div className="w-full h-full">

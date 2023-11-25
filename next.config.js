@@ -7,12 +7,9 @@ const { i18n } = require("./next-i18next.config");
   images: {
     formats: ['image/webp', 'image/avif' ],
     dangerouslyAllowSVG: true,  
-    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-    minimumCacheTTL: 60,
     // placeholder: "blur",
-    domains: ['admin.leaderstranslation.com' , 'palderma.com','regentsy.com'],
     remotePatterns: [
       {
         protocol: 'https',
@@ -29,14 +26,7 @@ const { i18n } = require("./next-i18next.config");
     ],
     
   },
-  // swcMinify : true ,
-  // i18n : {
-  //   locales: ["en", "ar"],
-  //   defaultLocale: "en" ,
-  // //   localeDetection: false,
-  // // },
   i18n ,
-  // localePath: "./public/locales",
 };
 
 const removeImports = require("next-remove-imports")({

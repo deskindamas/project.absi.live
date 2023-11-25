@@ -35,6 +35,7 @@ const Code = () => {
     const number = Cookies.get(`number`);
     setIsLoading(true);
     const user = Cookies.get("user");
+    const formerUrl = Cookies.get("url");
     if (user === "seller") {
       try {
         const response = await axios.post(`${url}/api/seller/verify`, {
@@ -88,13 +89,18 @@ const Code = () => {
       }
     } else if (user === "customer") {
       try {
-        const response = await axios.post(`${url}/api/customer/verify`, {
+        const response = await Api.post(`/api/customer/verify`, {
           phone_number: number,
           verify_code: verifyNumber.current.value,
         });
         Cookies.remove("number");
         Cookies.set("AT", response.data.token, { expires: 365 * 10 });
-        router.replace("/customer");
+        if (url) {
+          router.replace(formerUrl);
+          Cookies.remove("url");
+        } else {
+          router.replace("/customer");
+        }
         setIsLoading(false);
         if (response.status !== 200) {
           throw new Error(response);
@@ -119,20 +125,20 @@ const Code = () => {
   const resendCode = async () => {
     const number = Cookies.get("number");
     const user = Cookies.get("user");
-    if(user == "seller"){
-      try{
-        const response = Api.post(`/api/seller/resend-verification` , {
-          phone_number : number
+    if (user == "seller") {
+      try {
+        const response = Api.post(`/api/seller/resend-verification`, {
+          phone_number: number,
         });
-      }catch(error){}
-    }else if (user == "customer"){
-      try{
-        const response = Api.post(`/api/customer/resend-verification` , {
-          phone_number : number
+      } catch (error) {}
+    } else if (user == "customer") {
+      try {
+        const response = Api.post(`/api/customer/resend-verification`, {
+          phone_number: number,
         });
-      }catch(error){}
+      } catch (error) {}
     }
-  }
+  };
 
   function handleKeyDown(e) {
     if (e.key === "Enter") {
@@ -146,12 +152,7 @@ const Code = () => {
       <div className={`w-screen h-screen bg-white `}>
         <div className="flex flex-col justify-start items-center gap-12 mx-auto px-4 pt-28 w-fit ">
           <Link href={"/"}>
-            <Image
-              src={Logo}
-              alt="Logo"
-              width={400}
-              height={290}
-            />
+            <Image src={Logo} alt="Logo" width={400} height={290} />
           </Link>
           <span className="text-xl font-medium text-center ">
             {/* الرجاء ادخال رمز التحقق الذي تم ارساله اليكم عن طؤيق الواتس أب أو التواصل معنل على الرقم التالي  */}
@@ -193,8 +194,15 @@ const Code = () => {
             </div>
           </form>
 
-          <span className="sm:text-lg text-base" >
-            {t("verification.didntGetCode")} <button className="text-skin-primary border-b border-skin-primary" onClick={resendCode} > {t("verification.resendCode")} </button>
+          <span className="sm:text-lg text-base">
+            {t("verification.didntGetCode")}{" "}
+            <button
+              className="text-skin-primary border-b border-skin-primary"
+              onClick={resendCode}
+            >
+              {" "}
+              {t("verification.resendCode")}{" "}
+            </button>
           </span>
         </div>
       </div>

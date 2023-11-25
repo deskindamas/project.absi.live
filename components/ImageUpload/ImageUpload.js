@@ -14,7 +14,7 @@ const ImageUpload = (props) => {
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
-    console.log(file);
+    // console.log(file);
     var formData = new FormData();
     formData.append("fileToUpload", file);
     setimage(event.target.files[0]);

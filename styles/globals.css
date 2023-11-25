@@ -81,4 +81,6 @@
     100% { transform: rotate(360deg); }
   }
   
-  
+  .zoom img {
+    max-width: none;
+  }

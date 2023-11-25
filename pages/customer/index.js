@@ -97,7 +97,7 @@ function CustomerPage({ data }) {
     if (e) {
       e.preventDefault();
     }
-    console.log(searchType);
+    // console.log(searchType);
     if (searchRef.current.value) {
       setSearching(true);
       switch (searchType) {
@@ -112,7 +112,7 @@ function CustomerPage({ data }) {
                 noSuccessToast: true,
               }
             );
-            console.log(storeTypes);
+            // console.log(storeTypes);
             const components = (
               <div className="flex flex-col justify-start items-center h-full w-full ">
                 <p className=" text-base text-start text-skin-primary py-1 border-b w-full border-skin-primary ">

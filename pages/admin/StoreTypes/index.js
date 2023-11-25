@@ -26,6 +26,12 @@ const tableheading = [
     heading: "Name En",
   },
   {
+    heading: "Desc Ar",
+  },
+  {
+    heading: "Desc En",
+  },
+  {
     heading: "Sort Order",
   },
   {
@@ -97,6 +103,8 @@ function StoreType() {
   const arNameRef = useRef();
   const enNameRef = useRef();
   const sortRef = useRef();
+  const descArRef = useRef();
+  const descEnRef = useRef();
   const [searchedResults, setSearchedResults] = useState();
   const searchRef = useRef();
   const [inSearch, setInSearch] = useState(false);
@@ -149,6 +157,8 @@ function StoreType() {
           name_ar: arNameRef.current.value,
           name_en: enNameRef.current.value,
           image: storeTypeImage,
+          description_ar : descArRef.current.value,
+          description_en : descEnRef.current.value,
           sort_order: sortRef.current.value,
         },
         {
@@ -209,6 +219,10 @@ function StoreType() {
       setSearching(false);
     }
     setSearching(false);
+  }
+
+  if(storeTypes){
+    console.log(storeTypes);
   }
 
   if (isLoading) {
@@ -372,6 +386,29 @@ function StoreType() {
                     required
                   />
                 </div>
+
+                <div className="w-full px-4 py-3">
+                  <textarea
+                    type="text"
+                    className="outline-none appearance-none border-b-2 border-gray-300 focus:border-[#FD6500]  w-full transition-all duration-700"
+                    placeholder="Arabic Store type Description"
+                    inputMode="text"
+                    ref={descArRef}
+                    required
+                  />
+                </div>
+
+                <div className="w-full px-4 py-3">
+                  <textarea
+                    type="text"
+                    className="outline-none appearance-none border-b-2 border-gray-300 focus:border-[#FD6500]  w-full transition-all duration-700"
+                    placeholder="English Store type Description"
+                    inputMode="text"
+                    ref={descEnRef}
+                    required
+                  />
+                </div>
+
                 <ImageUpload
                   onSelectImage={handleStoreTypeImage}
                   width={100}

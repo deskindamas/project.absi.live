@@ -120,7 +120,7 @@ function ProductsAdmin() {
                 ))}
               </tr>
             </thead>
-            <tbody className="text-lg h-[700px] font-normal text-gray-700 text-center">
+            <tbody className="text-lg h-fit font-normal text-gray-700 text-center">
               {response.data.data &&
                 response.data.data.map((names) => {
                   return (

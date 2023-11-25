@@ -38,8 +38,8 @@ function PublicAllProduct({ product }) {
       <Link
         href={
           product.price
-            ? `/customer/Stores/${router.query.storeId}/Product/${product.id}`
-            : `/customer/Products/${product.id}`
+            ? `/customer/Stores/${router.query.storeId}/Product/${product.slug}`
+            : `/customer/Products/${product.slug}`
         }
         className="bg-cover overflow-hidden flex justify-center items-center min-w-[288px]  min-h-[260px] max-h-[260px]  "
       >
@@ -68,7 +68,7 @@ function PublicAllProduct({ product }) {
         <p className="text-skin-primary text-lg md:h-[20%] ">{product.brand}</p>
         {!product.price && (
           <Link
-            href={`/customer/Products/${product.id}`}
+            href={`/customer/Products/${product.slug}`}
             className="capitalize text-center md:h-[20%] border-2 border-skin-primary px-4 rounded-full text-base hover:bg-skin-primary hover:text-white transform duration-500"
           >
             {t("componentStore.ViewStore")}

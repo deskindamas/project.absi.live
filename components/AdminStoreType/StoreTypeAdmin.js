@@ -53,6 +53,8 @@ function StoreTypeAdmin({ names, refetch }) {
   const [storeTypeImage, setStoreTypeImage] = useState();
   const newNameAr = useRef();
   const newNameEn = useRef();
+  const newDescEn = useRef();
+  const newDescAr = useRef();
   const newsortOrder = useRef();
 
   function handleLogoImage(data) {
@@ -76,6 +78,8 @@ function StoreTypeAdmin({ names, refetch }) {
     };
     addIfDifferent(newNameAr.current.value, "name_ar");
     addIfDifferent(newNameEn.current.value, "name_en");
+    addIfDifferent(newDescAr.current.value, "description_ar");
+    addIfDifferent(newDescEn.current.value, "description_en");
     addIfDifferent(newsortOrder.current.value, "sort_order");
 
     if (storeTypeImage) {
@@ -152,21 +156,23 @@ function StoreTypeAdmin({ names, refetch }) {
     <>
       <tr
         key={names.id}
-        className="py-10 bg-gray-100 hover:bg-gray-200 font-medium   "
+        className="py-5 bg-gray-100 hover:bg-gray-200 font-medium   "
       >
         <td className="px-4 py-4">{names.id}</td>
         <td className="px-4 py-4">{names.name_ar}</td>
         <td className="px-4 py-4">{names.name_en}</td>
+        <td className="px-4 py-4">{names.description_en}</td>
+        <td className="px-4 py-4">{names.description_ar}</td>
         <td className="px-4 py-4">{names.sort_order}</td>
-        <td className="px-4 py-4 flex justify-center">
+        <td className=" flex justify-center">
           <Image
             src={names.image ? names.image : logo}
             alt="photo"
             width={0}
             height={0}
             sizes="100vw"
-            style={{ width: "200px", height: "200px" }}
-            className="object-contain"
+            style={{ width: "250px", height: "250px" }}
+            className="object-contain "
           />
         </td>
         <td className="px-4 py-4  " width={`10%`}>
@@ -249,6 +255,28 @@ function StoreTypeAdmin({ names, refetch }) {
                     }}
                     placeholder={names.sort_order}
                     ref={newsortOrder}
+                    required
+                  />
+                </div>
+
+                <div className="flex items-center">
+                  <label className="w-[30%] text-lg px-2">Arabic Desc :</label>
+                  <textarea
+                    className="my-3 w-[70%] text-black placeholder:text-zinc-500 pl-2 outline-none border-b-2 focus:border-skin-primary transition-all duration-700"
+                    type="number"
+                    defaultValue={names.description_ar}
+                    ref={newDescAr}
+                    required
+                  />
+                </div>
+
+                <div className="flex items-center">
+                  <label className="w-[30%] text-lg px-2">English Desc :</label>
+                  <textarea
+                    className="my-3 w-[70%] text-black placeholder:text-zinc-500 pl-2 outline-none border-b-2 focus:border-skin-primary transition-all duration-700"
+                    type="number"
+                    defaultValue={names.description_en}
+                    ref={newDescEn}
                     required
                   />
                 </div>

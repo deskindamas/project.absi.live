@@ -72,8 +72,8 @@ function PublicStore() {
   //     console.log(error);
   //   }
   // }
-  console.log(`stores`);
-  console.log(stores);
+  // console.log(`stores`);
+  // console.log(stores);
 
   if (isLoading) {
     return (

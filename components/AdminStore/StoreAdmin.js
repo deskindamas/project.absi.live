@@ -188,7 +188,7 @@ function StoreAdmin({ names, refetch }) {
     }
     setIsSaving(false);
 
-    console.log(editData);
+    // console.log(editData);
   }
 
   return (
