@@ -31,19 +31,19 @@ function Navbar() {
   // const { t } = useTranslation();
   // const [query] = useLanguageQuery();
   const Api = createAxiosInstance(router);
-  const { data: cart } = useQuery([`cart`, isLoggedIn], fetchCartData, {
-    staleTime: 1,
-    refetchOnMount: true,
-    enabled: isLoggedIn == true,
-    refetchOnWindowFocus: false,
-  });
-  // // console.log(query);
+  // const { data: cart } = useQuery([`cart`, isLoggedIn], fetchCartData, {
+  //   staleTime: 1,
+  //   refetchOnMount: true,
+  //   enabled: isLoggedIn == true,
+  //   refetchOnWindowFocus: false,
+  // });
+  // // // console.log(query);
 
-  async function fetchCartData() {
-    try {
-      return await Api.get(`/api/customer/cart/show`);
-    } catch (error) {}
-  }
+  // async function fetchCartData() {
+  //   try {
+  //     return await Api.get(`/api/customer/cart/show`);
+  //   } catch (error) {}
+  // }
 
   useEffect(() => {
     const token = Cookies.get("AT");

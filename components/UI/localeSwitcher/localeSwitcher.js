@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { RiEnglishInput } from "react-icons/ri";
 
-export default function LocaleSwitcher() {
+export default function LocaleSwitcher({color}) {
   const router = useRouter();
 
   const { locales, locale: activeLocale } = router;
@@ -19,7 +19,7 @@ export default function LocaleSwitcher() {
               href={{ pathname, query }}
               as={asPath}
               locale={locale}
-              className="px-2 text-white"
+              className={`px-2  ${color ? color : `text-white`}`}
             >
               {locale === "en" ? (
                 <RiEnglishInput className="w-[20px] h-[20px] mx-5 " />

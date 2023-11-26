@@ -205,6 +205,16 @@ const RequestStore = () => {
                 />
               </div>
               <div>
+                <label>English Store Name </label>
+                <input
+                  className="mb-7 text-zinc-500 pl-2 focus:text-skin-primary outline-none w-full h-[40px]"
+                  type="text"
+                  placeholder="Name(English)"
+                  ref={EnNameRef}
+                  required
+                />
+              </div>
+              <div>
                 <label>Opening Time</label>
                 <br />
                 <input
@@ -212,6 +222,17 @@ const RequestStore = () => {
                   type="time"
                   placeholder="Enter Opening Time "
                   ref={openTimeRef}
+                  required
+                />
+              </div>
+              <div>
+                <label>Closing Time</label>
+                <br />
+                <input
+                  className="mb-7 text-zinc-500 pl-2 focus:text-skin-primary outline-none w-full h-[40px] "
+                  type="time"
+                  placeholder="Enter Closing Time "
+                  ref={closeTimeRef}
                   required
                 />
               </div>
@@ -253,28 +274,27 @@ const RequestStore = () => {
               {/* </div> */}
 
               {/* <div className=""> */}
-              <div>
-                <label>English Store Name </label>
-                <input
-                  className="mb-7 text-zinc-500 pl-2 focus:text-skin-primary outline-none w-full h-[40px]"
+              <div className="mb-16">
+                <div className="flex justify-between  items-center ">
+                  <label>Street</label>
+                  <p className="text-gray-300">
+                    {streetMaxLength} Characters left
+                  </p>
+                </div>
+                <textarea
+                  className="mb-7 outline-none w-full focus:text-skin-primary h-[40px] text-zinc-500 pl-2"
                   type="text"
-                  placeholder="Name(English)"
-                  ref={EnNameRef}
+                  placeholder=" street"
+                  onChange={() => {
+                    setStreetMaxLength(
+                      maxLength - streetRef.current.value.length
+                    );
+                  }}
+                  ref={streetRef}
                   required
                 />
               </div>
 
-              <div>
-                <label>Closing Time</label>
-                <br />
-                <input
-                  className="mb-7 text-zinc-500 pl-2 focus:text-skin-primary outline-none w-full h-[40px] "
-                  type="time"
-                  placeholder="Enter Closing Time "
-                  ref={closeTimeRef}
-                  required
-                />
-              </div>
 
               <div>
                 <label>Store Type</label>
@@ -302,26 +322,6 @@ const RequestStore = () => {
                 )}
               </div>
 
-              <div className="mb-16">
-                <div className="flex justify-between  items-center ">
-                  <label>Street</label>
-                  <p className="text-gray-300">
-                    {streetMaxLength} Characters left
-                  </p>
-                </div>
-                <textarea
-                  className="mb-7 outline-none w-full focus:text-skin-primary h-[40px] text-zinc-500 pl-2"
-                  type="text"
-                  placeholder=" street"
-                  onChange={() => {
-                    setStreetMaxLength(
-                      maxLength - streetRef.current.value.length
-                    );
-                  }}
-                  ref={streetRef}
-                  required
-                />
-              </div>
               <div className="w-full ">
                 <label>Address</label>
                 <Locations

@@ -52,7 +52,7 @@ function Product({ product }) {
     try {
       const response = await Api.post(`/api/customer/cart/add`, {
         product_id: product.id,
-        store_id: router.query.storeId,
+        store_id: product.store_id,
       });
       dispatch(cartActions.addProduct());
       setAdding(false);

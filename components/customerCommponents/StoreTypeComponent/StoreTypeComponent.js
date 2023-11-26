@@ -31,7 +31,7 @@ function StoreTypeComponent({ storeType }) {
         />
         <div className="flex text-start flex-col justify-between space-y-2 px-2 h-[85%] my-auto rounded-r-xl w-[90%] " >
           <h2 className="sm:text-xl line-clamp-2 text-ellipsis text-black text-sm " title={storeType.name} >{storeType.name} </h2>
-          <h6 className=" sm:text-base text-gray-600 text-sm " >It is a long established fact that a reader will be distracted</h6>
+          <h6 className=" sm:text-base text-gray-600 text-sm " >{storeType.description}</h6>
           {/* <p className="group-hover:text-skin-primary md:text-lg font-medium text-sm " >Explore</p> */}
         </div>
        </div>
