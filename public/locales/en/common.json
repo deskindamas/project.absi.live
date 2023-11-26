@@ -46,7 +46,9 @@
       "TawasyApp" : "Discover the Tawasy app" ,
       "WhatYouNeed" : " Get what you need, when you need it.",
       "DownloadApp" : "Download App" ,
-      "JoinUs" : "Join us"
+      "JoinUs" : "Join us",
+      "seller" : "Reach more customers and achieve growth with us" ,
+      "customer" : "Shop from your home with us"
     } , 
     "store" : {
       "openingTime" : "Opening Time" ,

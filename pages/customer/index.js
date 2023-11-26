@@ -274,7 +274,7 @@ function CustomerPage({ data }) {
         {data && (
           <div className="relative flex flex-col justify-start items-center h-max w-full gap-4 ">
             {data && data.ads && (
-              <div className="mx-auto h-[540px] w-full pb-3 " dir="ltr">
+              <div className="mx-auto max-h-[540px] w-full pb-3 " dir="ltr">
                 {/* <FadingCarousel ads={data.ads} /> */}
                 <ResponsiveCarousel ads={data.ads} />
               </div>
@@ -398,7 +398,7 @@ function CustomerPage({ data }) {
                       {t("home.BecomeASeller")}
                     </h1>
                     <p className="md:text-lg text-base text-gray-500">
-                      Reach more customers and achieve growth with us
+                      {t("home.seller")}
                     </p>
                   </div>
                 </Link>
@@ -421,7 +421,7 @@ function CustomerPage({ data }) {
                       {t("home.BecomeACustomer")}
                     </h1>
                     <p className="md:text-lg text-base text-gray-500">
-                      Reach more customers and achieve growth with us
+                      {t("home.customer")}
                     </p>
                   </div>
                 </Link>
