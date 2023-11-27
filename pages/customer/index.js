@@ -274,7 +274,7 @@ function CustomerPage({ data }) {
         {data && (
           <div className="relative flex flex-col justify-start items-center h-max w-full gap-4 ">
             {data && data.ads && (
-              <div className="mx-auto max-h-[540px] w-full pb-3 " dir="ltr">
+              <div className="mx-auto w-full pb-3 " dir="ltr">
                 {/* <FadingCarousel ads={data.ads} /> */}
                 <ResponsiveCarousel ads={data.ads} />
               </div>
