@@ -124,8 +124,9 @@ function Navbar() {
                 onClick={() => {
                   router.push(`/customer/MyProfile`);
                 }}
+                className="flex justify-center items-center"
               >
-                <CgProfile className="text-white w-[25px] h-[25px] mb-[-3px] " />
+                <CgProfile className="text-white w-[20px] h-[20px] mb-[-3px] " />
               </button>
             </div>
           )}

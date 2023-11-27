@@ -4,7 +4,7 @@ module.exports = {
   i18n: {
     locales: ["en", "ar"],
     defaultLocale: "en" ,
-    localeDetection: false,
+    localeDetection: true,
     // localePath: "./public/locales",
   },
   localePath: path.resolve("./public/locales"),

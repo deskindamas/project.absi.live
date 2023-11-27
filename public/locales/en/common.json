@@ -34,7 +34,7 @@
       "logout" : "LogOut" 
     } , 
     "home" : {
-      "search" : "Search" ,
+      "search" : "Search for Store Type (Ex.Stationary) or Category (Ex.Pens) or Brand (Ex.Zero)" ,
       "storeType" : "Store Type" , 
       "storeTypes" : "Store Types" , 
       "category" : "Category" ,
@@ -74,11 +74,12 @@
       "contactUS" : "Contact Us" , 
       "terms" : "Terms and conditions" ,
       "privacy" : " Privacy policy " ,
-      "copyrights" : "Copyrights , Tawasy" ,
+      "copyrights" : "Copyrights, Tawasy Shopping" ,
       "ALLProducts" : "ALL Products",
       "ALLStores" : "ALL Stores" ,
       "Text" : "Never a Better Time Than Now To Start" ,
-      "Advertise" : "Advertise with tawasy"
+      "Advertise" : "Advertise with tawasy",
+      "developed" : "Designed & Developed By"
     } , 
     "cart" : {
       "emptyCart" : "Your cart is Empty , Go and buy some of our products." ,

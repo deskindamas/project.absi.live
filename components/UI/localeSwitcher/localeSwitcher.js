@@ -22,9 +22,9 @@ export default function LocaleSwitcher({color}) {
               className={`px-2  ${color ? color : `text-white`}`}
             >
               {locale === "en" ? (
-                <RiEnglishInput className="w-[20px] h-[20px] mx-5 " />
+                <RiEnglishInput className="sm:w-[20px] sm:h-[20px] w-[14px] h-[14px] mx-5 " />
               ) : locale === "ar" ? (
-                <p className="text-xl mx-5 " >عربى</p>
+                <p className="sm:text-xl text-sm mx-5 " >عربى</p>
               ) : null}
             </Link>
           </span>

@@ -287,14 +287,14 @@ function CustomerPage({ data }) {
               <div className="flex flex-col justify-start items-center">
                 <form
                   onSubmit={search}
-                  className="flex bg-gray-100 w-full lg:w-3/5 md:w-3/5 items-center rounded-sm px-2 border-2 border-transparent focus-within:border-skin-primary transition-all duration-700 mx-auto "
+                  className="flex bg-gray-100 w-full lg:w-5/12 md:w-5/12 items-center rounded-sm px-2 border-2 border-transparent focus-within:border-skin-primary transition-all duration-700 mx-auto "
                 >
                   <select
                     value={searchType}
                     onChange={(e) => {
                       setSearchType(e.target.value);
                     }}
-                    className="bg-gray-100 outline-none text-sm h-10 mx-2 px-2"
+                    className="bg-gray-100 outline-none sm:text-sm text-xs w-fit h-10 mx-2 px-2"
                   >
                     <option value="storeType">{t("home.storeType")}</option>
                     <option value="category">{t("home.category")}</option>
@@ -305,7 +305,7 @@ function CustomerPage({ data }) {
                   </select>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-4 w-4 mr-2"
+                    className="h-4 w-4 mr-2 sm:block hidden "
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -318,9 +318,10 @@ function CustomerPage({ data }) {
                     />
                   </svg>
                   <input
-                    className="w-full bg-gray-100 outline-none rounded-lg text-sm h-10"
+                    className="w-full bg-gray-100 outline-none rounded-lg text-sm h-10 placeholder:text-xs"
                     type="text"
                     ref={searchRef}
+                    dir={router.locale == "ar" ? "rtl" : "ltr"}
                     // placeholder={`Search`}
                     placeholder={t("home.search")}
                     onClick={() => {
@@ -341,7 +342,7 @@ function CustomerPage({ data }) {
                   )}
                 </form>
                 {inSearch == true && searchedResults && searchType && (
-                  <div className="px-4 z-10 mx-auto w-full lg:w-3/5 md:w-3/5 bg-white border border-gray-300 rounded-sm ">
+                  <div className="px-4 z-10 mx-auto w-full lg:w-2/5 md:w-2/5 bg-white border border-gray-300 rounded-sm ">
                     {searchedResults}
                   </div>
                 )}
@@ -428,8 +429,8 @@ function CustomerPage({ data }) {
               </div>
             </div>
 
-            <div className="flex md:flex-row overflow-clip flex-col-reverse w-[70%] md:space-x-3 space-y-[12px] items-center justify-center pt-6 ">
-              <div className="lg:w-[35%] md:w-[45%] sm:w-[70%] w-auto  h-auto">
+            <div className="flex md:flex-row overflow-clip flex-col-reverse w-[70%] md:space-x-3 space-y-[12px] items-center justify-center py-6 ">
+              {/* <div className="lg:w-[35%] md:w-[45%] sm:w-[70%] w-auto  h-auto">
                 <Image
                   src={image}
                   // className="w-full object-contain object-center transform transition duration-1000 "
@@ -439,7 +440,7 @@ function CustomerPage({ data }) {
                   style={{ width: "auto", height: "auto" }}
                   className=" object-cover "
                 />
-              </div>
+              </div> */}
               <div className="flex flex-col space-y-2 md:mx-7 mx-2 md:my-0 my-2">
                 <h1 className="text-3xl text-gray-600 font-medium text-center">
                   {t("home.TawasyApp")}
