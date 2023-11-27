@@ -77,14 +77,14 @@ function SellerSelectProduct({ product }) {
           {product.message &&
           product.message == "Product found in another store type." ? (
             <div className="text-red-500">
-              This Product is not compatible with your store type
+              {t("seller.addProduct.notCompatible")}
             </div>
           ) : !isLoading ? (
             <button
               onClick={saveProduct}
               className="cursor-pointer border-2 border-gray-400 text-gray-600 hover:border-skin-primary hover:text-skin-primary px-4 rounded-full text-base transform duration-500 "
             >
-                Select Product
+                {t("seller.addProduct.selectProduct")}
             </button>
           ) : (
             <div className="bg-skin-primary py-1 flex justify-center items-center rounded-full">

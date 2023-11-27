@@ -13,6 +13,18 @@ import { toast } from "react-toastify";
 import Cookies from "js-cookie";
 import createAxiosInstance from "@/API";
 import { TextField } from "@mui/material";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
+
+export async function getServerSideProps(context) {
+  const { locale } = context;
+  
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common"])),
+    },
+  };
+}
 
 const SignUp = () => {
   const router = useRouter();
@@ -26,6 +38,7 @@ const SignUp = () => {
   const [sellerCity, setSellerCity] = useState("دمشق");
   const [registeree, setRegisteree] = useState(router.isReady && router.query.user ? (router.query.user == 'customer'  ? 1 : 2 ) : 1); // 1 for customer 2 for seller
   const [isChecked, setIsChecked] = useState(false);
+  const {t} = useTranslation("");
 
   function handleRoleChange(event) {
     setRegisteree(Number(event.target.value));
@@ -185,7 +198,7 @@ const SignUp = () => {
               className="mx-3"
             />
             <p className="text-white text-2xl font-semibold">
-              Register as a customer
+            {t("signup.customerRegister")}
             </p>
             <form
               onSubmit={customerSubmit}
@@ -197,7 +210,7 @@ const SignUp = () => {
                 // value={email}
                 ref={customerUserNameRef}
                 className="outline-none border-b-2 bg-skin-primary border-white placeholder:text-white w-full transition-all duration-700 text-white "
-                placeholder="Username"
+                placeholder={t("signup.userName")}
                 required
               />
               <input
@@ -206,13 +219,13 @@ const SignUp = () => {
                 // value={email}
                 ref={customerNumberRef}
                 className="appearance-none outline-none border-b-2 bg-skin-primary border-white placeholder:text-white w-full transition-all duration-700 text-white "
-                placeholder="Phone Number"
+                placeholder={t("signup.phone")}
                 pattern="[0-9]{10}"
                 style={{WebkitAppearance : "none" , MozAppearance : "textfield"}}
                 required
               />
               <div className="flex justify-start items-center w-full space-x-3 ">
-                <span className="text-white w-max ">Address</span>
+                <span className="text-white w-max ">{t("signup.address")}</span>
                 <Locations
                   onLocation={handleData}
                   className={
@@ -230,7 +243,7 @@ const SignUp = () => {
                   required
                 />
                 <span className="text-white sm:text-base text-sm flex justify-start flex-wrap items-center space-x-1 ">
-                  <p>I agree to the</p>
+                  <p>{t("signup.ia")}</p>
                   <Link
                     legacyBehavior
                     href={"/TermsAndConditions"}
@@ -240,10 +253,10 @@ const SignUp = () => {
                       target="_blank"
                       className="text-sky-300 border-b-2 border-sky-300 hover:text-sky-500 hover:border-sky-500"
                     >
-                      terms and conditions
+                      {t("signup.terms")}
                     </a>
                   </Link>
-                  <p>and the</p>
+                  <p>{t("signup.andThe")}</p>
                   <Link
                     legacyBehavior
                     href={"/PrivacyPolicy"}
@@ -253,10 +266,10 @@ const SignUp = () => {
                       target="_blank"
                       className="text-sky-300 border-b-2 border-sky-300 hover:text-sky-500 hover:border-sky-500"
                     >
-                      <p>privacy policy</p>
+                      <p>{t("signup.privacy")}</p>
                     </a>
                   </Link>
-                  <p>of Tawasy.</p>
+                  <p>{t("signup.ofTawasy")}</p>
                 </span>
               </label>
 
@@ -265,7 +278,7 @@ const SignUp = () => {
                   htmlFor="login"
                   className=" text-lg text-white font-medium "
                 >
-                  SignUp as a:
+                  {t("signup.signupAs")}
                 </label>
                 <ul className="grid w-full gap-6 md:grid-cols-2 mx-auto ">
                   <li>
@@ -284,7 +297,7 @@ const SignUp = () => {
                       className="inline-flex items-center justify-center text-center w-full px-3 py-2 text-white-500 bg-white border border-white rounded-lg cursor-pointer peer-checked:border-orange-500 peer-checked:text-orange-500 hover:text-gray-600 hover:bg-gray-100 transition-all duration-500"
                     >
                       <p className="w-full block text-lg font-semibold">
-                        Customer
+                      {t("signup.customer")}
                       </p>
                     </label>
                   </li>
@@ -304,7 +317,7 @@ const SignUp = () => {
                       className="inline-flex items-center justify-center text-center w-full px-3 py-2 text-white bg-transparent border border-white rounded-lg cursor-pointer peer-checked:border-orange-500 peer-checked:text-orange-500 hover:text-skin-primary hover:bg-gray-100 transition-all duration-500"
                     >
                       <p className="w-full block text-lg font-semibold">
-                        Seller
+                      {t("signup.seller")}
                       </p>
                     </label>
                   </li>
@@ -320,15 +333,15 @@ const SignUp = () => {
                     <Ring size={30} lineWeight={5} speed={2} color="#ff6600" />
                   </div>
                 ) : (
-                  "SignUp"
+                  t("login.signup")
                 )}
               </button>
             </form>
             <div className="flex flex-col justify-start items-center space-x-1">
               <p className="text-md text-white ">
-                Have an existing account ?
+              {t("signup.existing")}
                 <Link href={"/login"} className="border-b-2 border-white ml-2">
-                  Login
+                {t("signup.login")}
                 </Link>
               </p>
             </div>
@@ -349,7 +362,7 @@ const SignUp = () => {
               className="mx-3"
             />
             <p className="text-white text-2xl font-semibold">
-              Register as a seller
+            {t("signup.sellerRegister")}
             </p>
             <form
               onSubmit={sellerSubmit}
@@ -360,7 +373,7 @@ const SignUp = () => {
                 type="text"
                 ref={sellerUserNameRef}
                 className="outline-none border-b-2 bg-skin-primary border-white placeholder:text-white w-full transition-all duration-700 text-white "
-                placeholder="Username"
+                placeholder={t("signup.userName")}
                 required
               />
               <input
@@ -368,13 +381,13 @@ const SignUp = () => {
                 type="number"
                 ref={sellerNumberRef}
                 className="outline-none border-b-2 bg-skin-primary border-white placeholder:text-white w-full transition-all duration-700 text-white appearance-none "
-                placeholder="Phone Number"
+                placeholder={t("signup.phone")}
                 style={{WebkitAppearance : "none" , MozAppearance : "textfield"}}
                 pattern="[0-9]{10}"
                 required
               />
               <div className="flex justify-start items-center space-x-3 w-full">
-                <label className="text-white px-2 w-max ">City </label>
+                <label className="text-white px-2 w-max ">{ router.locale == "ar" ? "المدينة" : "City"} </label>
                 <select
                   className="w-full outline-none p-1 bg-transparent border-b-2 border-white text-white "
                   onChange={(e) => handleCityChange(e.currentTarget.value)}
@@ -393,7 +406,7 @@ const SignUp = () => {
                 </select>
               </div>
               <div className="flex justify-start items-center w-full space-x-1 ">
-                <span className="text-white w-max ">Address</span>
+                <span className="text-white w-max ">{t("signup.address")}</span>
                 <Locations
                   onLocation={handleData}
                   className={
@@ -410,7 +423,7 @@ const SignUp = () => {
                   className="accent-white"
                 />
                 <span className="text-white sm:text-base text-sm flex justify-start flex-wrap items-center space-x-1 ">
-                  <p>I agree to the</p>
+                  <p>{t("signup.ia")}</p>
                   <Link
                     legacyBehavior
                     href={"/TermsAndConditions"}
@@ -420,10 +433,10 @@ const SignUp = () => {
                       target="_blank"
                       className="text-sky-300 border-b-2 border-sky-300 hover:text-sky-500 hover:border-sky-500"
                     >
-                      terms and conditions
+                      {t("signup.terms")}
                     </a>
                   </Link>
-                  <p>and the</p>
+                  <p>{t("signup.andThe")}</p>
                   <Link
                     legacyBehavior
                     href={"/PrivacyPolicy"}
@@ -433,10 +446,10 @@ const SignUp = () => {
                       target="_blank"
                       className="text-sky-300 border-b-2 border-sky-300 hover:text-sky-500 hover:border-sky-500"
                     >
-                      <p>privacy policy</p>
+                      <p>{t("signup.privacy")}</p>
                     </a>
                   </Link>
-                  <p>of Tawasy.</p>
+                  <p>{t("signup.ofTawasy")}.</p>
                 </span>
               </label>
 
@@ -445,7 +458,7 @@ const SignUp = () => {
                   htmlFor="login"
                   className=" text-lg text-white font-medium "
                 >
-                  SignUp as a:
+                  {t("signup.signupAs")}
                 </label>
                 <ul className="grid w-full gap-6 md:grid-cols-2 mx-auto ">
                   <li>
@@ -464,7 +477,7 @@ const SignUp = () => {
                       className="inline-flex items-center justify-center text-center w-full px-3 py-2 text-white bg-transparent border border-white rounded-lg cursor-pointer peer-checked:border-orange-500 peer-checked:text-orange-500 hover:text-skin-primary hover:bg-gray-100 transition-all duration-500"
                     >
                       <p className="w-full block text-lg font-semibold">
-                        Customer
+                      {t("signup.customer")}
                       </p>
                     </label>
                   </li>
@@ -484,7 +497,7 @@ const SignUp = () => {
                       className="inline-flex items-center justify-center text-center w-full px-3 py-2 text-white bg-transparent border border-white rounded-lg cursor-pointer peer-checked:border-orange-500 peer-checked:text-orange-500 peer-checked:bg-white hover:text-skin-primary hover:bg-gray-100 transition-all duration-500"
                     >
                       <p className="w-full block text-lg font-semibold">
-                        Seller
+                      {t("signup.seller")}
                       </p>
                     </label>
                   </li>
@@ -500,16 +513,16 @@ const SignUp = () => {
                     <Ring size={30} lineWeight={5} speed={2} color="#ff6600" />
                   </div>
                 ) : (
-                  "SignUp"
+                  t("login.signup")
                 )}
               </button>
             </form>
             <div className="flex flex-col justify-start items-center space-y-1">
 
               <p className="text-md text-white ">
-                Have an existing account ?
+              {t("signup.existing")}
                 <Link href={"/login"} className="border-b-2 border-white ml-2">
-                  Login
+                {t("signup.login")}
                 </Link>
               </p>
             </div>

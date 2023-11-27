@@ -15,6 +15,7 @@ import { Ring } from "@uiball/loaders";
 import Cookies from "js-cookie";
 import Image from "next/image";
 import Link from "next/link";
+import { useTranslation } from "next-i18next";
 
 function SellerProduct({ product , refetch }) {
   const [isToggled, setIsToggled] = useState(product.availability);
@@ -28,6 +29,7 @@ function SellerProduct({ product , refetch }) {
   const router = useRouter();
   const Api = createAxiosInstance(router);
   const storeId = Cookies.get("Sid");
+  const {t} = useTranslation("");
 
   async function handleAvailable() {
     setEditingAvailability(true);
@@ -164,9 +166,10 @@ function SellerProduct({ product , refetch }) {
           setIsEditing(false);
         }}
         fullWidth
+        dir={router.locale == "ar" ? "rtl" : "ltr"}
       >
         <DialogTitle className="flex justify-between border-b-2 border-black ">
-          <h4 className="">Edit Product: {product.name}</h4>
+          <h4 className="">{t("seller.products.action.edit.editProduct")}: {product.name}</h4>
         </DialogTitle>
         <DialogContent>
           <Stack spacing={1} margin={3}>
@@ -191,7 +194,7 @@ function SellerProduct({ product , refetch }) {
                 <Ring size={25} lineWeight={5} speed={2} color="white" />
               </div>
             ) : (
-              "Save"
+              t("seller.products.action.edit.save")
             )}
           </button>
           <button
@@ -202,7 +205,7 @@ function SellerProduct({ product , refetch }) {
               setIsEditing(false);
             }}
           >
-            Cancel
+            {t("seller.products.action.edit.cancel")}
           </button>
         </DialogActions>
       </Dialog>
@@ -213,15 +216,16 @@ function SellerProduct({ product , refetch }) {
           setIsDeleting(false);
         }}
         fullWidth
+        dir={router.locale == "ar" ? "rtl" : "ltr"}
       >
         <DialogTitle className="flex justify-between border-b-2 border-black ">
-          <h4 className="">Delete Product:</h4>
+          <h4 className="">{t("seller.products.action.delete.deleteProduct")}:</h4>
         </DialogTitle>
         <DialogContent>
           <Stack spacing={1} margin={3}>
             <div className="flex flex-col justify-start items-start w-full ">
               <p className="text-lg ">
-                Are you sure you want to delete this product from your store ?
+              {t("seller.products.action.delete.areYouSure")}
               </p>
               <p className="text-xl">{product.name}</p>
             </div>
@@ -239,7 +243,7 @@ function SellerProduct({ product , refetch }) {
                 <Ring size={25} lineWeight={5} speed={2} color="white" />
               </div>
             ) : (
-              "Yes"
+              t("seller.products.action.delete.yes")
             )}
           </button>
           <button
@@ -250,7 +254,7 @@ function SellerProduct({ product , refetch }) {
               setIsDeleting(false);
             }}
           >
-            Cancel
+            {t("seller.products.action.delete.no")}
           </button>
         </DialogActions>
       </Dialog>

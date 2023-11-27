@@ -17,34 +17,19 @@ import createAxiosInstance from "@/API";
 import { QueryClient, useQueryClient } from "react-query";
 import TawasyLoader from "@/components/UI/tawasyLoader";
 import Link from "next/link";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
-
-
-const tableheading = [
-  {
-    heading: "Action",
-  },
-  {
-    heading: "Name",
-  },
-
-  {
-    heading: "Category",
-  },
-  {
-    heading: "Image",
-  },
-  {
-    heading: "Status",
-  },
-  {
-    heading: "Brand",
-  },
-  {
-    heading: "Price",
-  },
+export async function getServerSideProps(context) {
+  const { locale } = context;
   
-];
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common"])),
+    },
+  };
+}
+
 
 function Products() {
   const [tablecontent, settablecontent] = useState([]);
@@ -55,6 +40,7 @@ function Products() {
   const Api = createAxiosInstance(router);
   const [productsType, setProductsType] = useState();
   const [loaded, setLoaded] = useState(false);
+  const {t} = useTranslation("");
   const {
     data: products,
     isLoading,
@@ -68,6 +54,31 @@ function Products() {
     refetchOnWindowFocus: false,
     enabled: true,
   });
+
+  const tableheading = [
+    {
+      heading: t("seller.products.table.action"),
+    },
+    {
+      heading: t("seller.products.table.name"),
+    },
+    {
+      heading: t("seller.products.table.category"),
+    },
+    {
+      heading: t("seller.products.table.image"),
+    },
+    {
+      heading: t("seller.products.table.status"),
+    },
+    {
+      heading: t("seller.products.table.brand"),
+    },
+    {
+      heading: t("seller.products.table.price"),
+    },
+    
+  ];
 
   async function fetchProducts() {
     // console.log(`fetching`);
@@ -127,21 +138,21 @@ function Products() {
   if (productsType) {
     switch (productsType) {
       case "activeProducts":
-        title = "Published Products";
+        title = t("seller.sidebar.product.published");
         break;
       case "disabledProducts":
-        title = "Unpublished Products";
+        title = t("seller.sidebar.product.unpublished");
         break;
       case "allProducts":
-        title = "All Products";
+        title = t("seller.sidebar.product.all");
         break;
     }
   } else {
-    title = "All Products";
+    title = t("seller.sidebar.product.all");
   }
 
   return (
-    <div>
+    <div dir={router.locale == "ar" ? "rtl" : "ltr"} >
       <div className="items-center w-full  mx-auto my-10 bg-white rounded-lg shadow-md sm:w-11/12">
         <div className="w-full h-full mx-auto">
           <div className="flex sm:flex-row flex-col  justify-between w-full px-4 py-2 items-center">
@@ -151,13 +162,13 @@ function Products() {
               href={"/seller/products/addProducts"}
               className="px-4 py-2 mx-1 text-white bg-[#ff6600] rounded-md hover:bg-[#ff6600] focus:outline-none"
             >
-              Add Product to store
+              {t("seller.products.addProduct")}
             </Link>
             <Link
               href={"/seller/products/addNewProduct"}
               className="px-4 py-2 text-white bg-[#ff6600] rounded-md hover:bg-[#ff6600] focus:outline-none"
             >
-              Add New Product to store
+              {t("seller.products.addNewProduct")}
             </Link>
             </div>
           </div>
@@ -171,7 +182,7 @@ function Products() {
               <table className="w-full overflow-x-auto table-auto">
                 <thead className="">
                   <tr className="text-sm font-semibold text-center border-b-2 border-blue-500 uppercase">
-                    <th>Id</th>
+                    <th>{t("seller.products.table.id")}</th>
                     {tableheading.map((index) => (
                       <th key={index.heading}>{index.heading}</th>
                     ))}
@@ -185,8 +196,8 @@ function Products() {
               </table>
             </div>
           ) : (
-            <div className="w-full h-full flex justify-center items-center">
-              <p>There are no products.</p>
+            <div className="w-full h-full flex justify-center items-center py-3">
+              <p>{t("seller.products.noProducts")}</p>
             </div>
           )}
         </div>

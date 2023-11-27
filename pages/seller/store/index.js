@@ -15,6 +15,18 @@ import TawasyLoader from "@/components/UI/tawasyLoader";
 import styles from "../../../components/componentsStyling/sellerStorePage.module.css";
 import { GiConsoleController } from "react-icons/gi";
 import SellerStoreProduct from "@/components/sellerStoreProduct/sellerStoreProduct";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
+
+export async function getServerSideProps(context) {
+  const { locale } = context;
+  
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common"])),
+    },
+  };
+}
 
 export function convertTo12HourFormat(time24) {
   const timeParts = time24.split(":");
@@ -81,7 +93,7 @@ const Store = () => {
   }
 
   return (
-    <div className="md:px-7 w-full h-full flex flex-col justify-start items-center ">
+    <div className="md:px-7 w-full h-full flex flex-col justify-start items-center " dir={router.locale == "ar" ? "rtl" : "ltr"} >
       {sellerStoreData && (
         <div className=" relative lg:h-[400px] md:h-[300px]  h-[200px] w-full box-border ">
           <Image
@@ -120,7 +132,7 @@ const Store = () => {
                   <div className="flex flex-col md:flex-row justify-start items-center gap-2 w-full">
                     <div className="md:text-2xl text-lg text-gray-500 font-medium">
                       <h3 className="my-2 capitalize">
-                       opening days :
+                       {router.locale == "ar" ? "ايام توافر المتجر" : "opening days"} :
                       </h3>
                       {sellerStoreData.store.opening_days?.map(
                         (day, index) => {
@@ -145,7 +157,7 @@ const Store = () => {
           <div className="flex flex-col md:items-end items-center">
             <div>
               <h2 className="md:text-xl text-lg text-gray-600 font-medium my-2">
-                Opening Time :
+                { router.locale == "ar" ? "من الساعة" :  "Opening Time"} :
                 <span className="text-gray-400 text-2xl  ">
               {" "}
               {convertTo12HourFormat(sellerStoreData.store.opening_time)}
@@ -154,7 +166,7 @@ const Store = () => {
             </div>
             <div>
               <h2 className="md:text-xl text-lg text-gray-600 font-medium my-3">
-                closing Time :
+              { router.locale == "ar" ? "إلى الساعة" :  "Closing Time"} :
                 <span className="text-gray-400 text-2xl  ">
               {convertTo12HourFormat(sellerStoreData.store.closing_time)}
             </span>

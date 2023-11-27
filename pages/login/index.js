@@ -8,12 +8,26 @@ import { toast } from "react-toastify";
 import { Ring } from "@uiball/loaders";
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
+
+export async function getServerSideProps(context) {
+  const { locale } = context;
+  
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common"])),
+    },
+  };
+}
+
 
 const Login = () => {
   const NumberRef = useRef();
   const router = useRouter();
   const [selectedRole, setSelectedRole] = useState(1); // 1 for customer 2 for seller
   const [isLoading, setIsLoading] = useState(false);
+  const {t} = useTranslation("");
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -122,7 +136,7 @@ const Login = () => {
     <div className="flex flex-col items-center justify-start h-screen bg-white gap-12 mx-auto px-4 pt-28 w-full">
       <Image src={Logo} alt="Logo" width={400} height={290} className="mx-3" />
       <h3 className="text-xl text-black font-medium">
-        Login using your Phone Number
+        {t("login.login")}
       </h3>
       <form
         onSubmit={handleLogin}
@@ -133,7 +147,7 @@ const Login = () => {
           type="number"
           ref={NumberRef}
           className="outline-none appearance-none border-b-2 border-gray-300 focus:border-[#FD6500] placeholder:text-gray-300 w-full transition-all duration-700"
-          placeholder="Number"
+          placeholder={t("login.number")}
           inputMode="numeric"
           pattern="[0-9]{10}"
           style={{ WebkitAppearance: "none", MozAppearance: "textfield" }}
@@ -141,7 +155,7 @@ const Login = () => {
         />
         <div className="flex flex-col justify-start items-start gap-2 w-[80%]">
           <label htmlFor="login" className=" text-lg font-medium ">
-            Login as a:
+          {t("login.loginAs")}
           </label>
           <ul className="grid w-full gap-6 md:grid-cols-2 ">
             <li>
@@ -159,7 +173,7 @@ const Login = () => {
                 for="customer"
                 className="inline-flex items-center justify-center w-full px-3 py-2 text-gray-500 bg-white border border-gray-500 rounded-lg cursor-pointer peer-checked:border-orange-500 peer-checked:text-orange-500 hover:text-gray-600 hover:bg-gray-100 transition-all duration-500"
               >
-                  <p className="w-full block text-lg font-semibold text-center">Customer</p>
+                  <p className="w-full block text-lg font-semibold text-center">{t("signup.customer")}</p>
               </label>
             </li>
             <li>
@@ -177,7 +191,7 @@ const Login = () => {
                 for="seller"
                 className="inline-flex items-center justify-center w-full px-3 py-2 text-gray-500 bg-white border border-gray-500 rounded-lg cursor-pointer peer-checked:border-orange-500 peer-checked:text-orange-500 hover:text-gray-600 hover:bg-gray-100 transition-all duration-500"
               >
-                  <p className="w-full block text-lg font-semibold text-center">Seller</p>
+                  <p className="w-full block text-lg font-semibold text-center">{t("signup.seller")}</p>
               </label>
             </li>
           </ul>
@@ -192,15 +206,15 @@ const Login = () => {
               <Ring size={25} lineWeight={5} speed={2} color="white" />
             </div>
           ) : (
-            "Login"
+            t("login.logins")
           )}
         </button> 
-         <span>or</span>
+         <span>{router.locale == "ar" ? "أو" : "or"}</span>
         <Link
           href={selectedRole == 1 ? `/signup?user=customer` : `/signup?user=seller` }
           className="text-white bg-orange-500 rounded-md text-lg block px-5 py-2 mx-auto border-2 border-white hover:bg-orange-600 transition-all duration-300"
         >
-          SignUp
+          {t("login.signup")}
         </Link>
         </div>
       </form>

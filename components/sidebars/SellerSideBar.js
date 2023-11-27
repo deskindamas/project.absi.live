@@ -17,10 +17,13 @@ import { MdPendingActions, MdOutlineDisabledVisible } from "react-icons/md";
 import { useRouter } from "next/router";
 import { IoSettingsSharp, IoStorefrontSharp } from "react-icons/io5";
 import Cookies from "js-cookie";
+import LocaleSwitcher from "../UI/localeSwitcher/localeSwitcher";
+import { useTranslation } from "next-i18next";
 
 export default function Sidebar(props) {
   const [open, setOpen] = useState(false);
   const router = useRouter();
+  const {t} = useTranslation("");
 
   function logOut() {
     Cookies.remove("AT");
@@ -39,8 +42,11 @@ export default function Sidebar(props) {
             <Image  src={Logo} className="items-center pt-6 pb-3 md:w-44 w-10"  />
           </div>
 
+                <LocaleSwitcher/>
           <div className="flex-1">
-            <ul className="pt-5 pb-4 space-y-1 text-lg font-normal">
+            <ul className="pt-2 pb-4 space-y-1 text-lg font-normal">
+            {/* <li className=""> */}
+              {/* </li> */}
               <li className="rounded-sm pb-3">
                 <Link
                   href="/seller"
@@ -48,7 +54,8 @@ export default function Sidebar(props) {
                 >
                   <BsColumns className="block text-[20px] text-white " />
                   <p className="hidden md:block" style={{ marginLeft: "43px" }}>
-                    Dashboard
+                    {t("seller.sidebar.dashbaord")}
+                    {/* Dashboard */}
                   </p>
                 </Link>
               </li>
@@ -66,7 +73,7 @@ export default function Sidebar(props) {
                   }
                   className={`text-zinc-100 outline-none mb-1 mt-2 w-full text-lg text-left `}
                   key="1"
-                  title="Orders"
+                  title={t("seller.sidebar.orders")}
                   indicator={({ isOpen }) =>
                     isOpen ? (
                       <FiChevronDown className={`stroke-orange-50`} />
@@ -87,7 +94,7 @@ export default function Sidebar(props) {
                         }}
                       >
                         <MdPendingActions className="block text-[20px] text-white " />
-                        <p className="hidden md:block"> Pending Orders</p>
+                        <p className="hidden md:block">{t("seller.sidebar.order.pending")}</p>
                       </button>
                     </li>
 
@@ -102,7 +109,7 @@ export default function Sidebar(props) {
                         }}
                       >
                         <AiOutlineCloseCircle className="block text-[20px] text-white " />
-                        <p className="hidden md:block">Rejected Orders</p>
+                        <p className="hidden md:block">{t("seller.sidebar.order.rejected")}</p>
                       </button>
                     </li>
                     <li className={`pt-3`}>
@@ -116,7 +123,7 @@ export default function Sidebar(props) {
                         }}
                       >
                         <AiOutlineCarryOut className="block text-[20px] text-white " />
-                        <p className="hidden md:block">Accepted Orders</p>
+                        <p className="hidden md:block">{t("seller.sidebar.order.accepted")}</p>
                       </button>
                     </li>
                     <li className={`pt-3`}>
@@ -130,7 +137,7 @@ export default function Sidebar(props) {
                         }}
                       >
                         <BsBox className="block text-[20px] text-white " />
-                        <p className="hidden md:block">All Orders</p>
+                        <p className="hidden md:block">{t("seller.sidebar.order.all")}</p>
                       </button>
                     </li>
                   </ul>
@@ -149,7 +156,7 @@ export default function Sidebar(props) {
                   className={`text-zinc-100 outline-none mb-4`}
                   key="2"
                   aria-label="Products"
-                  title="Products"
+                  title={t("seller.sidebar.products")}
                   indicator={({ isOpen }) =>
                     isOpen ? (
                       <FiChevronDown className={`text-zinc-100`} />
@@ -184,7 +191,7 @@ export default function Sidebar(props) {
                         }}
                       >
                         <MdOutlineDisabledVisible className="block text-[20px] text-white " />
-                        <p className="hidden md:block">Unpublished Products</p>
+                        <p className="hidden md:block">{t("seller.sidebar.product.unpublished")}</p>
                       </button>
                     </li>
                     <li className={`pt-3`}>
@@ -198,7 +205,7 @@ export default function Sidebar(props) {
                         }}
                       >
                         <AiTwotoneEye className="block text-[20px] text-white " />
-                        <p className="hidden md:block">Published Products</p>
+                        <p className="hidden md:block">{t("seller.sidebar.product.published")}</p>
                       </button>
                     </li>
 
@@ -213,7 +220,7 @@ export default function Sidebar(props) {
                         }}
                       >
                         <IoMdAdd className="block text-[20px] text-white mt-1" />
-                        <p className="hidden md:block">Add Product</p>
+                        <p className="hidden md:block">{t("seller.sidebar.product.add")}</p>
                       </button>
                     </li>
 
@@ -228,7 +235,7 @@ export default function Sidebar(props) {
                         }}
                       >
                         <BsBox className="block text-[20px] text-white " />
-                        <p className="hidden md:block">All Products</p>
+                        <p className="hidden md:block">{t("seller.sidebar.product.all")}</p>
                       </button>
                     </li>
                   </ul>
@@ -242,7 +249,7 @@ export default function Sidebar(props) {
                 >
                   <IoStorefrontSharp className="block text-[20px] text-white " />
                   <p className="hidden md:block" style={{ marginLeft: "43px" }}>
-                    Store
+                  {t("seller.sidebar.store")}
                   </p>
                 </Link>
               </li>
@@ -254,7 +261,7 @@ export default function Sidebar(props) {
                 >
                   <IoSettingsSharp className="block text-[20px] text-white " />
                   <p className="hidden md:block" style={{ marginLeft: "43px" }}>
-                    Settings
+                  {t("seller.sidebar.settings")}
                   </p>
                 </Link>
               </li>
@@ -267,10 +274,12 @@ export default function Sidebar(props) {
                 >
                   <CiLogout className="block text-[20px] text-white" />
                   <p className="hidden md:block" style={{ marginLeft: "43px" }}>
-                    Logout
+                  {t("seller.sidebar.logout")}
                   </p>
                 </button>
               </li>
+
+              
             </ul>
           </div>
         </div>

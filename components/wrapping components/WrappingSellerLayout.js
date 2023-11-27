@@ -3,7 +3,7 @@ import Sidebar from "../sidebars/SellerSideBar";
 
 const withLayout = (WrappedComponent) => {
   const WithLayout = (props) => (
-    <div style={{ display: "flex" }}>
+    <div style={{ display: "flex" }} dir="ltr" >
       <div className="w-[20%] h-full" style={{ zIndex: 1 }}>
         <Sidebar />
       </div>

@@ -29,12 +29,25 @@ import { Ring } from "@uiball/loaders";
 import TawasyLoader from "@/components/UI/tawasyLoader";
 import { toast } from "react-toastify";
 import Cookies from "js-cookie";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
+
+export async function getServerSideProps(context) {
+  const { locale } = context;
+  
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common"])),
+    },
+  };
+}
 
 const RequestStore = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const router = useRouter();
   const Api = createAxiosInstance(router);
+  const {t} = useTranslation("");
 
   const handleLogin = () => {
     // setIsLoggedIn(true);
@@ -192,53 +205,53 @@ const RequestStore = () => {
               {/* <div> */}
               <div>
                 <label className="" htmlFor="name">
-                  Arabic Store Name{" "}
+                  {t("seller.request.arName")}
                 </label>
                 <input
                   id="name"
                   className="mb-7 text-zinc-500 pl-2 focus:text-skin-primary outline-none w-full h-[40px] "
                   type="text"
                   maxLength={65}
-                  placeholder="Name(Arabic)"
+                  placeholder={t("seller.request.arName")}
                   ref={ArNameRef}
                   required
                 />
               </div>
               <div>
-                <label>English Store Name </label>
+                <label>{t("seller.request.engName")} </label>
                 <input
                   className="mb-7 text-zinc-500 pl-2 focus:text-skin-primary outline-none w-full h-[40px]"
                   type="text"
-                  placeholder="Name(English)"
+                  placeholder={t("seller.request.engName")}
                   ref={EnNameRef}
                   required
                 />
               </div>
               <div>
-                <label>Opening Time</label>
+                <label>{t("seller.request.openingTime")}</label>
                 <br />
                 <input
                   className="mb-7 text-zinc-500 pl-2 focus:text-skin-primary outline-none w-full h-[40px] "
                   type="time"
-                  placeholder="Enter Opening Time "
+                  placeholder={t("seller.request.openingTime")}
                   ref={openTimeRef}
                   required
                 />
               </div>
               <div>
-                <label>Closing Time</label>
+                <label>{t("seller.request.closingTime")}</label>
                 <br />
                 <input
                   className="mb-7 text-zinc-500 pl-2 focus:text-skin-primary outline-none w-full h-[40px] "
                   type="time"
-                  placeholder="Enter Closing Time "
+                  placeholder={t("seller.request.closingTime")}
                   ref={closeTimeRef}
                   required
                 />
               </div>
 
               <div>
-                <label>Opening Days</label>
+                <label>{t("seller.request.openingDays")}</label>
                 <br />
                 <div className="print-value">
                   <input
@@ -253,7 +266,7 @@ const RequestStore = () => {
               </div>
               <div className="h-max">
                 <div className="flex justify-between items-center ">
-                  <label>Area</label>
+                  <label>{t("seller.request.area")}</label>
                   <p className="text-gray-300">
                     {areaMaxLength} Characters left
                   </p>
@@ -261,7 +274,7 @@ const RequestStore = () => {
                 <textarea
                   className="mb-7 text-zinc-500 pl-2 focus:text-skin-primary outline-none w-full h-[40px] "
                   type="text"
-                  placeholder=" Area"
+                  placeholder={t("seller.request.area")}
                   maxLength={255}
                   onChange={() => {
                     setAreaMaxLength(maxLength - areaRef.current.value.length);
@@ -276,7 +289,7 @@ const RequestStore = () => {
               {/* <div className=""> */}
               <div className="mb-16">
                 <div className="flex justify-between  items-center ">
-                  <label>Street</label>
+                  <label>{t("seller.request.street")}</label>
                   <p className="text-gray-300">
                     {streetMaxLength} Characters left
                   </p>
@@ -284,7 +297,7 @@ const RequestStore = () => {
                 <textarea
                   className="mb-7 outline-none w-full focus:text-skin-primary h-[40px] text-zinc-500 pl-2"
                   type="text"
-                  placeholder=" street"
+                  placeholder={t("seller.request.street")}
                   onChange={() => {
                     setStreetMaxLength(
                       maxLength - streetRef.current.value.length
@@ -297,19 +310,19 @@ const RequestStore = () => {
 
 
               <div>
-                <label>Store Type</label>
+                <label>{t("seller.request.storeType")}</label>
                 <br />
                 {storeTypes && (
                   <select
                     className="form-select mb-7 h-[40px] w-full text-zinc-500 pl-2 outline-none"
-                    aria-label="Store Type"
+                    aria-label={t("seller.request.storeType")}
                     onChange={(e) => {
                       // console.log(e.target.value);
                       selectedStoreType(e.target.value);
                     }}
                   >
                     <option disabled selected value>
-                      -- select an option --
+                      { router.locale == "ar" ? "-- اختر نوع المتجر --" : "-- select a Store Type --"}
                     </option>
                     {storeTypes.map((storeType) => {
                       return (
@@ -323,7 +336,7 @@ const RequestStore = () => {
               </div>
 
               <div className="w-full ">
-                <label>Address</label>
+                <label>{t("seller.request.address")}</label>
                 <Locations
                   className={`mb-7 text-white pl-2 outline-none w-max h-[40px]`}
                   onLocation={handleAddress}
@@ -334,7 +347,7 @@ const RequestStore = () => {
 
               </div>
               <div className="flex flex-col justify-start items-start  box-border ">
-                <label className=" ">Store Image</label>
+                <label className=" ">{t("seller.request.storeImage")}</label>
                 <div className="w-[200px] h-[100px]">
                   <ImageUpload
                     onSelectImage={handleStoreImage}
@@ -345,7 +358,7 @@ const RequestStore = () => {
               </div>
 
               <div className="">
-                <label>Store Logo</label>
+                <label>{t("seller.request.storeLogo")}</label>
                 <br />
                 <div>
                   <ImageUpload
@@ -369,7 +382,7 @@ const RequestStore = () => {
                     <Ring size={25} lineWeight={5} speed={2} color="#ff6600" />
                   </div>
                 ) : (
-                  "Submit Request"
+                  t("seller.request.submit")
                 )}
               </button>
             </div>
@@ -377,7 +390,7 @@ const RequestStore = () => {
 
           <Dialog open={open} onClose={closepopup} fullWidth maxWidth="sm">
             <DialogTitle>
-              Opening Days{" "}
+            {t("seller.request.openingDays")}
               <IconButton onClick={closepopup} style={{ float: "right" }}>
                 <MdClose />
               </IconButton>{" "}
@@ -395,7 +408,7 @@ const RequestStore = () => {
                           checked={checkedDays.includes("Sunday")}
                           onChange={handleCheckboxChange}
                         />{" "}
-                        Sunday
+                        { router.locale == "ar" ? "الأحد" : "Sunday"}
                       </label>
                       <br />
                       <label>
@@ -407,7 +420,7 @@ const RequestStore = () => {
                           checked={checkedDays.includes("Monday")}
                           onChange={handleCheckboxChange}
                         />{" "}
-                        Monday
+                        { router.locale == "ar" ? "الإثنين" : "Monday"}
                       </label>
                       <br />
                       <label>
@@ -418,7 +431,7 @@ const RequestStore = () => {
                           checked={checkedDays.includes("Tuesday")}
                           onChange={handleCheckboxChange}
                         />{" "}
-                        Tuesday
+                        { router.locale == "ar" ? "الثلاثاء" : "Tuesday"}
                       </label>
                       <br />
                       <label>
@@ -430,7 +443,7 @@ const RequestStore = () => {
                           checked={checkedDays.includes("Wednesday")}
                           onChange={handleCheckboxChange}
                         />{" "}
-                        Wednesday
+                        { router.locale == "ar" ? "الأربعاء" : "Wednesday"}
                       </label>
                       <br />
                     </div>
@@ -444,7 +457,7 @@ const RequestStore = () => {
                           checked={checkedDays.includes("Thursday")}
                           onChange={handleCheckboxChange}
                         />{" "}
-                        Thursday
+                        { router.locale == "ar" ? "الخميس" : "Thursday"}
                       </label>
                       <br />
                       <label>
@@ -455,7 +468,7 @@ const RequestStore = () => {
                           checked={checkedDays.includes("Friday")}
                           onChange={handleCheckboxChange}
                         />{" "}
-                        Friday
+                        { router.locale == "ar" ? "الجمعة" : "Friday"}
                       </label>
                       <br />{" "}
                       <label>
@@ -466,7 +479,7 @@ const RequestStore = () => {
                           checked={checkedDays.includes("Saturday")}
                           onChange={handleCheckboxChange}
                         />{" "}
-                        Saturday
+                        { router.locale == "ar" ? "السبت" : "Saturday"}
                       </label>
                       <br />
                     </div>

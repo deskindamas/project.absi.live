@@ -21,6 +21,18 @@ import { CgUnavailable } from "react-icons/cg";
 import Cookies from "js-cookie";
 import Link from "next/link";
 import { convertMoney } from "@/components/SellerOrders/sellerOrder";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
+
+export async function getServerSideProps(context) {
+  const { locale } = context;
+  
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common"])),
+    },
+  };
+}
 
 const Home = () => {
   let none;
@@ -28,6 +40,7 @@ const Home = () => {
   const Api = createAxiosInstance(router);
   const [isLoading, setIsLoading] = useState(true);
   const [enable, setEnable] = useState(false);
+  const {t} = useTranslation("");
   const {
     data: dashboardData,
     isLoading: dataLoading,
@@ -112,14 +125,14 @@ const Home = () => {
                   color: "#ff6600",
                 }}
               >
-                Main Dashboard
+                {t("seller.dashboard.mainDashboard")}
               </h4>
 
               <div className="md:flex md:flex-wrap  md:gap-x-10 gap-x-0 md:gap-y-5 gap-y-4 w-[95%]">
                 <Link href={'/seller/products?type=activeProducts'} className="flex justify-between md:border-2 border-[1px] my-2 border-gray-400 md:w-[45%] w-[100%] px-4 py-4 hover:border-skin-primary">
                   <div className="w-[80%]">
                     <h1 className="text-2xl font-medium text-gray-800 pb-4">
-                      Total Available Products
+                    {t("seller.dashboard.totalAvailableProducts")}
                     </h1>
                     <p className="text-xl text-skin-primary">
                       {dashboardData.data.totalAvailableProducts}
@@ -135,7 +148,7 @@ const Home = () => {
                 >
                   <div className="w-[80%]">
                     <h1 className="text-2xl font-medium text-gray-800 pb-4">
-                      Total Orders
+                    {t("seller.dashboard.totalOrders")}
                     </h1>
                     <p className="text-xl text-skin-primary">
                       {" "}
@@ -153,7 +166,7 @@ const Home = () => {
                 >
                   <div className="w-[80%]">
                     <h1 className="text-2xl font-medium text-gray-800 pb-4">
-                      Total Pending Orders
+                    {t("seller.dashboard.totalPendingOrders")}
                     </h1>
                     <p className="text-xl text-skin-primary">
                       {" "}
@@ -171,7 +184,7 @@ const Home = () => {
                 >
                   <div className="w-[80%]">
                     <h1 className="text-2xl font-medium text-gray-800 pb-4">
-                      Total Products
+                    {t("seller.dashboard.totalProducts")}
                     </h1>
                     <p className="text-xl text-skin-primary">
                       {" "}
@@ -189,7 +202,7 @@ const Home = () => {
                 >
                   <div className="w-[80%]">
                     <h1 className="text-2xl font-medium text-gray-800 pb-4">
-                      Total Sales
+                    {t("seller.dashboard.totalSales")}
                     </h1>
                     <p className="text-xl text-skin-primary">
                       {" "}
@@ -207,7 +220,7 @@ const Home = () => {
                 >
                   <div className="w-[80%]">
                     <h1 className="text-2xl font-medium text-gray-800 pb-4">
-                      Total Unavailable Products
+                    {t("seller.dashboard.totalUnavailableProducts")}
                     </h1>
                     <p className="text-xl text-skin-primary">
                       {" "}

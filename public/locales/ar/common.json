@@ -349,5 +349,171 @@
         "info" : "management@tawasyme.com"
       }
     }
+  }, 
+  "seller" : {
+    "sidebar" : {
+      "dashbaord" : "اللوحة الرئيسية" ,
+      "orders" : " الطلبات" ,
+      "order" : {
+        "pending" : "طلبات قيد الانتظار" ,
+        "rejected" : "الطلبات المرفوضة" ,
+        "accepted" : "الطلبات المقبولة",
+        "all" : "جميع الطلبات"
+      } , 
+      "products" : "المنتجات" , 
+      "product" : {
+        "unpublished" : "المنتجات غير المنشورة" ,
+        "published" : "المنجات المنشورة",
+        "add" : "ضف منتج",
+        "all" : "جميع المنتجات"
+      } , 
+      "store" : "متجري",
+      "settings" : "إعدادات المتجر",
+      "logout" : "تسجيل الخروج"
+    } , 
+    "dashboard" : {
+      "mainDashboard" : "اللوحة الرئيسية" ,
+      "totalAvailableProducts" : "مجموع المنتجات المنشورة" ,
+      "totalOrders" : "مجموع الطلبات" ,
+      "totalPendingOrders" : "مجموع الطلبات قيد الانتظار",
+      "totalProducts" : "مجموع المنتجات" , 
+      "totalSales" : "مجموع المبيعات" ,
+      "totalUnavailableProducts" : "مجموع المنتجات غير المنشورة" 
+    },
+    "orders" : {
+      "table" : {
+        "id" : "المعرف" , 
+        "status" : "الحالة" ,
+        "date" : "التاريخ" ,
+        "total" : "المجموع",
+        "coupon" : "قسيمة",
+        "reason" : "سبب الرفض",
+        "details" : "التفاصيل"
+      } , 
+      "noOrders" : "ليس هناك أية طلبات",
+      "orderDetails" : {
+        "storeName" : "اسم المتجر",
+        "orderStatus" : "حالة الطلب" ,
+        "orderDate" : "تاريخ الطلب",
+        "orderId" : "معرّف الطلب" ,
+        "productName" : "اسم المنتج" ,
+        "quantity" : "الكمية",
+        "price" : "سعر الوحدة" ,
+        "total" : "المجموع" ,
+        "coupon" : "قسيمة" ,
+        "totalQuantity" : "الكمية الكلية" ,
+        "discount" : "الحسم" ,
+        "totalPrice" : "السعر الكلي",
+        "deliveryFee" : "سعر التوصيل" ,
+        "finalPrice" :"السعر النهائي" ,
+        "notes" : "ملاحظات"
+      }
+    }, 
+    "products" : {
+      "addProduct" : "إضافة منتج لمتجرك", 
+      "addNewProduct" : "إضافة منتج جديد",
+      "table" : {
+        "id" : "المعرّف",
+        "action" : "تعديل \" حذف" ,
+        "name" : "الاسم",
+        "category" : "التصنيف ",
+        "image" : "الصورة" ,
+        "status" : "الحالة" ,
+        "brand" : "العلامة التجارية" ,
+        "price" :"السعر"
+      },
+      "action" :{
+        "edit" : {
+          "editProduct" : "تعديل منتج" ,
+          "save" : "حفظ" , 
+          "cancel" : "إالغاء"
+        } ,
+        "delete" : {
+          "deleteProduct" : "حذف منتج" ,
+          "areYouSure" : "هل أنت متأكد أنك تريد حذف المنتج من متجرك :" ,
+          "yes" : "نعم" ,
+          "no" : "لا"
+        }
+      },
+      "noProducts" : "لا يوجد منتجات"
+    },
+    "addProduct" : {
+      "cantFind" : "إن لم تجد المنتج المطلوب, تستطيع إضافة منتج جديد",
+      "search" : "ابحث عن منتج باستخدام الاسم",
+      "noAvailable" : "لا يوجد منتجات تناسب نوع متجرك." ,
+      "selectProduct" : "اختيار منتج" ,
+      "notCompatible" : "هذا المنتج لا يتوافق مع نوع متجرك" ,
+      "nextPage" : "الصفحة التالية" ,
+      "previousPage" : "الصفحة السابقة" ,
+      "selectedProducts" : {
+        "selectedProducts" : "المنتجات المختارة" ,
+        "noProducts" : "لم تختر أي منتج بعد لإضافته لمتجرك",
+        "table" : {
+          "price" : "السعر" , 
+          "image" : "الصورة" ,
+          "publish" : "نشر/عدم النشر" ,
+          "category" : "التصنيف " ,
+          "brand" : "العلامة التجارية" ,
+          "productName" : "اسم المنتج"
+        }
+      }
+    },
+    "addNewProduct" : {
+      "create" : "انشئ منتج جديد",
+      "engProductName" : "اسم المنتج بالانجليزية" , 
+      "arProductName" : "اسم المنتج بالعربية" , 
+      "engDesc" : "وصف المنتج بالانجليزية" , 
+      "arDesc" : "وصف المنتج بالعربية" , 
+      "eanCode" : "كود المادة" ,
+      "brandSelection" : "اختر علامة تجارية للمنتج" ,
+      "categorySelection" : "اختر تصنيف للمنتج" ,
+      "productImage" : "صورة المنتج" ,
+      "addProduct" : "أضف المنتج"
+    },
+    "setting" : {
+      "storeSettings" : "اعدادت المتجر" , 
+      "openingTime" : "وقت فتح المتجر",
+      "closingTime" : "وقت إغلاق المتجر",
+      "openingDays" : "أيام فتح المتجر",
+      "saveChanges" : "حفظ التعديلات"
+    },
+    "request" : {
+      "engName" : "اسم المتجر بالانجليزية",
+      "arName" : "اسم المتجر بالعربية",
+      "area" : "المنطقة",
+      "street" : "الشارع",
+      "storeType" : "نوع المتجر",
+      "address" : "العنوان",
+      "storeImage" : "صورة غلاف المتجر",
+      "storeLogo" : "صورة شعار المتجر",
+      "submit" : "Submit Store",
+      "openingTime" : "Opening Time",
+      "closingTime" : "Closing time",
+      "openingDays" : "Opening Days"
+    }
+  },
+  "login" : {
+    "login" : "تسجيل الدخول باستخدام رقم الهاتف", 
+    "number" : "رقم الهاتف",
+    "logins" : "تسجيل الدخول" , 
+    "loginAs" : "تسجيل الدخول كـ:" ,
+    "signup" : "إنشاء حساب"
+  },
+  "signup" : {
+    "customerRegister" : "إنشاء حساب كزبون" , 
+    "sellerRegister" : "إنشاء حساب كبائع" ,
+    "userName" : "اسم المستخدم" ,
+    "phone" : "رقم الهاتف" ,
+    "address" : "العنوان" , 
+    "ia" : "أنا أوافق على" , 
+    "terms" : "الشروط و الأحكام",
+    "andThe" : "و" , 
+    "privacy" : "سياسة الخصوصية",
+    "ofTawasy" : "لتواصي شوبينغ",
+    "signupAs" : "إنشاء حساب كـ:" ,
+    "customer" : "زبون" ,
+    "seller" : "بائع" ,
+    "existing" : "لديك حساب مسبقاً؟" , 
+    "login" : "تسجيل الدخول"
   }
   }

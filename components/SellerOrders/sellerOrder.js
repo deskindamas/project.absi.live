@@ -11,6 +11,7 @@ import { useRouter } from "next/router";
 import createAxiosInstance from "@/API";
 import TawasyLoader from "../UI/tawasyLoader";
 import { Ring } from "@uiball/loaders";
+import { useTranslation } from "next-i18next";
 
 export function convertMoney(money) {
   const total = money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -36,6 +37,7 @@ function SellerOrders({ orders, refetch }) {
   const [rejecting, setRejecting] = useState(false);
   const [accepting, setAccepting] = useState(false);
   const reasonRef = useRef();
+  const { t } = useTranslation("");
 
   async function fetchOrderDetails() {
     setIsLoading(true);
@@ -117,29 +119,47 @@ function SellerOrders({ orders, refetch }) {
             orders.used_coupon == true ? `text-green-500` : `text-red-500`
           } `}
         >
-          {orders.used_coupon == true ? `Yes` : `No`}
+          {orders.used_coupon == true
+            ? router.locale == "ar"
+              ? "نعم"
+              : `Yes`
+            : router.locale == "ar"
+            ? "لا"
+            : `No`}
         </td>
-        {declinedOrders === true && (router.query.type == 'rejectedOrders' ) && <td className="pb-5"> {orders.reason ? orders.reason : 'None given'} </td>}
+        {declinedOrders === true && router.query.type == "rejectedOrders" && (
+          <td className="pb-5">
+            {" "}
+            {orders.reason
+              ? orders.reason
+              : router.locale == "ar"
+              ? " لا يوجد"
+              : "None given"}{" "}
+          </td>
+        )}
         <td className="pb-5 md:px-0 px-2 ">
           <button
             onClick={functionopenpopup}
             className="bg-transparent border-b-2 border-[#ff6600] "
           >
-            Details
+            {t("seller.orders.table.details")}
           </button>
         </td>
       </tr>
 
-      <Dialog open={open} onClose={closepopup} fullWidth maxWidth="lg">
+      <Dialog open={open} onClose={closepopup} fullWidth maxWidth="lg" dir={router.locale == "ar" ? "rtl" : "ltr"}>
         {isLoading !== true && orderDetails && (
           <DialogTitle className="md:flex  justify-between mx-auto border-b-2 border-skin-primary ">
-            <h4>Store name: {orderDetails.store_name} </h4>
-            <h4>Order Status: {orderDetails.status} </h4>
-            <h6>Order Date: {convertDate(orderDetails.date)}</h6>
-            <h6>Order Id: {orderDetails.order_id}</h6>
+            <h4>{t("seller.orders.orderDetails.storeName")}: {orderDetails.store_name} </h4>
+            <h4>{t("seller.orders.orderDetails.orderStatus")}: {orderDetails.status} </h4>
+            <h6>{t("seller.orders.orderDetails.orderDate")}: {convertDate(orderDetails.date)}</h6>
+            <h6>{t("seller.orders.orderDetails.orderId")}: {orderDetails.order_id}</h6>
           </DialogTitle>
         )}
-        <DialogContent className="md:mx-[24px] mx-[5px]" style={{ paddingLeft: "0px", paddingRight: "0px" }}>
+        <DialogContent
+          className="md:mx-[24px] mx-[5px]"
+          style={{ paddingLeft: "0px", paddingRight: "0px" }}
+        >
           {isLoading === true ? (
             <div className="w-full h-full">
               <TawasyLoader width={300} height={300} />
@@ -150,10 +170,10 @@ function SellerOrders({ orders, refetch }) {
               <table className=" w-full">
                 <thead className="bg-zinc-200 h-8">
                   <tr className="md:text-xl text-sm">
-                    <th className="pb-2 pt-2">Prodcut name</th>
-                    <th className="pb-2 pt-2">Quantity</th>
-                    <th className="pb-2 pt-2">Price</th>
-                    <th className="pb-2 pt-2">Total</th>
+                    <th className="pb-2 pt-2">{t("seller.orders.orderDetails.productName")}</th>
+                    <th className="pb-2 pt-2">{t("seller.orders.orderDetails.quantity")}</th>
+                    <th className="pb-2 pt-2">{t("seller.orders.orderDetails.price")}</th>
+                    <th className="pb-2 pt-2">{t("seller.orders.orderDetails.total")}</th>
                   </tr>
                 </thead>
                 <tbody className="text-center md:text-xl text-sm">
@@ -175,7 +195,7 @@ function SellerOrders({ orders, refetch }) {
                   <p
                     className={`py-1 border-b-2 border-skin-primary flex justify-between items-center `}
                   >
-                    Coupon :
+                    {t("seller.orders.orderDetails.coupon")} :
                     <p
                       className={`${
                         orderDetails?.coupon == true
@@ -183,30 +203,43 @@ function SellerOrders({ orders, refetch }) {
                           : `text-red-500`
                       } pr-5 `}
                     >
-                      {orderDetails?.coupon == true ? `Yes` : `No`}
+                      {orderDetails?.coupon == true
+                        ? router.locale == "ar"
+                          ? "نعم"
+                          : `Yes`
+                        : router.locale == "ar"
+                        ? "لا"
+                        : `No`}
                     </p>
                   </p>
                   <p className="py-1 border-b-2 border-skin-primary flex justify-between items-center">
-                    Total Quantity :
+                  {t("seller.orders.orderDetails.totalQuantity")} :
                     <p className="pr-5">{orderDetails?.total_quantity}</p>
                   </p>
                   <p className="py-1 border-b-2 border-skin-primary flex justify-between items-center">
-                    Discount :<p className="pr-5">{orderDetails?.discount}</p>
+                  {t("seller.orders.orderDetails.discount")} :<p className="pr-5">{orderDetails?.discount}</p>
                   </p>
                   <p className="py-1 border-b-2 border-skin-primary flex justify-between items-center">
-                    Total Price :
+                  {t("seller.orders.orderDetails.totalPrice")} :
                     <p className="pr-5">{orderDetails?.total_price}</p>
                   </p>
                   <p className="py-1 border-b-2 border-skin-primary flex justify-between items-center">
-                    Delivery Fee :
+                  {t("seller.orders.orderDetails.deliveryFee")} :
                     <p className="pr-5">{orderDetails?.delivery_price}</p>
                   </p>
                   <p className="py-1 border-b-2 border-skin-primary flex justify-between items-center">
-                    Final Price :
+                  {t("seller.orders.orderDetails.finalPrice")} :
                     <p className="pr-5">{orderDetails?.final_price}</p>
                   </p>
                 </div>
-                <p className="w-[50%]" >Notes : { orderDetails?.note ? `( ${orderDetails?.note} )` : "( None Given )" }</p>
+                <p className="w-[50%]">
+                {t("seller.orders.orderDetails.notes")} :{" "}
+                  {orderDetails?.note
+                    ? `( ${orderDetails?.note} )`
+                    : router.locale == "ar"
+                    ? "(لا يوجد اي ملاحظات)"
+                    : "( None Given )"}
+                </p>
               </div>
             </div>
             // {/* </Stack> */}
@@ -218,8 +251,11 @@ function SellerOrders({ orders, refetch }) {
             <DialogActions>
               <div className="flex md:flex-row flex-col md:justify-end md:items-center gap-2 ">
                 <div className="md:flex justify-start items-center gap-3 w-fit ">
-                  <label className="pt-1 md:text-lg text-base " for="freeform ">
-                    Reason of Rejection :
+                  <label
+                    className="pt-1 md:text-lg text-base "
+                    htmlFor="freeform "
+                  >
+                    {t("seller.orders.table.reason")} :
                   </label>
                   <textarea
                     id="freeform"
@@ -240,7 +276,7 @@ function SellerOrders({ orders, refetch }) {
                       <Ring size={25} lineWeight={5} speed={2} color="white" />
                     </div>
                   ) : (
-                    "Reject"
+                    router.locale == "ar" ? "أرفض الطلب" : "Reject Order"
                   )}
                 </button>
                 <button
@@ -254,7 +290,7 @@ function SellerOrders({ orders, refetch }) {
                       <Ring size={25} lineWeight={5} speed={2} color="white" />
                     </div>
                   ) : (
-                    "Accept"
+                    router.locale == "ar" ? "اقبل الطلب" : "Accept Order"
                   )}
                 </button>
               </div>

@@ -376,12 +376,12 @@ function CustomerPage({ data }) {
 
             <div className="w-full mb-7">
               <div className="py-3 mb-4">
-                <h1 className="text-center text-3xl text-gray-600">
+                <h2 className="text-center text-3xl text-gray-600">
                   {t("home.JoinUs")}
-                </h1>
+                </h2>
               </div>
-              <div className="flex lg:flex-row flex-col justify-center items-center mx-auto my-auto md:space-x-2 space-x-0 ">
-                <Link
+              <div className="flex lg:flex-row flex-col justify-center items-center mx-auto my-auto lg:space-x-4  ">
+                {/* <Link
                   href="/signup?user=seller"
                   className="lg:w-[40%] md:w-[60%] w-[90%] lg:my-0 my-2 flex flex-row space-x-2 rounded-md border-2 border-gray-300 hover:border-skin-primary shadow-md"
                 >
@@ -390,6 +390,7 @@ function CustomerPage({ data }) {
                     alt=""
                     width={150}
                     height={150}
+                    style={{width : "150px" , height : "150px"}}
                     className="object-cover rounded-l-lg overflow-hidden md:w-[40%] w-[50%] h-auto "
                   />
 
@@ -402,26 +403,51 @@ function CustomerPage({ data }) {
                       {t("home.seller")}
                     </p>
                   </div>
+                </Link> */}
+
+                <Link
+                  href="/signup?user=seller"
+                  className="lg:w-[40%] md:w-[60%] w-[70%] lg:my-0 my-2  flex flex-row space-x-2 rounded-md border-2 border-gray-300 hover:border-skin-primary shadow-md"
+                >
+                  <Image
+                    src={imagee}
+                    alt="become a seller"
+                    width={150}
+                    height={150}
+                    style={{width : "150px" , height : "150px"}}
+                    className="object-contain rounded-l-lg overflow-hidden md:w-[40%] min-w-[40%] w-[50%] h-auto "
+                  />
+
+                  <div className="flex flex-col justify-center gap-2">
+                    <h3 className="xl:text-2xl md:text-xl text-lg text-gray-600 font-medium">
+                      {" "}
+                      {t("home.BecomeASeller")}
+                    </h3>
+                    <p className="md:text-base text-sm text-gray-500 px-1">
+                    {t("home.seller")}
+                    </p>
+                  </div>
                 </Link>
 
                 <Link
                   href="/signup?user=customer"
-                  className="lg:w-[40%] md:w-[60%] w-[90%] lg:my-0 my-2  flex flex-row space-x-2 rounded-md border-2 border-gray-300 hover:border-skin-primary shadow-md"
+                  className="lg:w-[40%] md:w-[60%] w-[70%] lg:my-0 my-2  flex flex-row space-x-2 rounded-md border-2 border-gray-300 hover:border-skin-primary shadow-md"
                 >
                   <Image
                     src={images}
-                    alt=""
+                    alt="become a customer"
                     width={150}
                     height={150}
-                    className="object-cover rounded-l-lg overflow-hidden md:w-[40%] w-[50%] h-auto "
+                    style={{width : "150px" , height : "150px"}}
+                    className="object-contain rounded-l-lg overflow-hidden md:w-[40%] min-w-[40%] w-[50%] h-auto "
                   />
 
                   <div className="flex flex-col justify-center gap-2">
-                    <h1 className="md:text-2xl text-lg text-gray-600 font-medium">
+                    <h3 className=" xl:text-2xl md:text-xl text-lg text-gray-600 font-medium">
                       {" "}
                       {t("home.BecomeACustomer")}
-                    </h1>
-                    <p className="md:text-lg text-base text-gray-500">
+                    </h3>
+                    <p className="md:text-lg text-base text-gray-500 px-1">
                       {t("home.customer")}
                     </p>
                   </div>
@@ -442,9 +468,9 @@ function CustomerPage({ data }) {
                 />
               </div> */}
               <div className="flex flex-col space-y-2 md:mx-7 mx-2 md:my-0 my-2">
-                <h1 className="text-3xl text-gray-600 font-medium text-center">
+                <h4 className="text-3xl text-gray-600 font-medium text-center">
                   {t("home.TawasyApp")}
-                </h1>
+                </h4>
                 <p className="text-gray-500 md:my-3">{t("home.WhatYouNeed")}</p>
                 <Link
                 href={`https://www.app.tawasyme.com`}

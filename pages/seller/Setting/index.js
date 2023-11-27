@@ -22,6 +22,18 @@ import store from "../store";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 import { Ring } from "@uiball/loaders";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
+
+export async function getServerSideProps(context) {
+  const { locale } = context;
+  
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common"])),
+    },
+  };
+}
 
 const Setting = () => {
   const router = useRouter();
@@ -31,6 +43,7 @@ const Setting = () => {
   const [isSaving, setIsSaving] = useState(false);
   const openingTimeRef = useRef();
   const closingTimeRef = useRef();
+  const { t } = useTranslation("");
   const {
     data: storeData,
     isLoading,
@@ -165,10 +178,10 @@ const Setting = () => {
   return (
     <>
       {storeData && (
-        <div className="w-full h-full">
+        <div className="w-full h-full" dir={router.locale == "ar" ? "rtl" : "ltr"}>
           <div className="w-full bg-gray-100 py-1 md:px-4">
             <h1 className="text-2xl text-skin-primary">
-              Store Settings : {storeData.data.data.store.name}
+              {t("seller.setting.storeSettings")} : {storeData.data.data.store.name}
             </h1>
           </div>
           <form
@@ -176,7 +189,7 @@ const Setting = () => {
             onSubmit={saveEdits}
           >
             <div className="flex justify-center gap-3 md:w-[50%] w-[100%]">
-              <label className="md:text-xl text-base text-gray-600">Opening Time : </label>
+              <label className="md:text-xl text-base text-gray-600">{t("seller.setting.openingTime")} : </label>
               <br />
               <input
                 className="outline-none"
@@ -187,7 +200,7 @@ const Setting = () => {
             </div>
 
             <div className="flex justify-center gap-3md:w-[50%] w-[100%]">
-              <label className="md:text-xl text-base text-gray-600">Closing Time : </label>
+              <label className="md:text-xl text-base text-gray-600">{t("seller.setting.closingTime")} : </label>
               <br />
               <input
                 className="outline-none"
@@ -198,7 +211,7 @@ const Setting = () => {
             </div>
 
             <div className="md:flex md:flex-row sm:flex-col justify-center md:gap-3  w-[100%]">
-              <label className="md:text-xl text-base text-gray-600">Opening Days : </label>
+              <label className="md:text-xl text-base text-gray-600">{t("seller.setting.openingDays")} : </label>
               <br />
               <div className="print-value">
                 <input
@@ -223,7 +236,7 @@ const Setting = () => {
                   type="submit"
                   // onClick={() => console.log(checkedDays)}
                 >
-                  Save Change
+                  {t("seller.setting.saveChanges")}
                 </button>
               )}
             </div>
@@ -233,7 +246,7 @@ const Setting = () => {
 
       <Dialog open={open} onClose={closepopup} fullWidth maxWidth="sm">
         <DialogTitle>
-          Opening Days{" "}
+        {t("seller.setting.openingDays")}
           <IconButton onClick={closepopup} style={{ float: "right" }}>
             <MdClose />
           </IconButton>{" "}

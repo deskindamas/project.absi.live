@@ -6,11 +6,23 @@ import { useRouter } from "next/router";
 import createAxiosInstance from "@/API";
 import { useQuery } from "react-query";
 import TawasyLoader from "@/components/UI/tawasyLoader";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
+export async function getServerSideProps(context) {
+  const { locale } = context;
+  
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common"])),
+    },
+  };
+}
 const Orders = () => {
   const router = useRouter();
   const Api = createAxiosInstance(router);
   const [ordersType, setOrdersType] = useState();
+  const {t} = useTranslation("");
   const {
     data: orders,
     isLoading,
@@ -85,20 +97,20 @@ const Orders = () => {
   if (ordersType) {
     switch (ordersType) {
       case "pendingOrders":
-        title = "Pending Orders";
+        title = t("seller.sidebar.order.pending");
         break;
       case "rejectedOrders":
-        title = "Rejected Orders";
+        title = t("seller.sidebar.order.rejected");
         break;
       case "acceptedOrders":
-        title = "Accepted Orders";
+        title = t("seller.sidebar.order.accepted");
         break;
       case "allOrders":
-        title = "All Orders";
+        title = t("seller.sidebar.order.all");
         break;
     }
   } else {
-    title = "All Orders";
+    title = t("seller.sidebar.order.all");
   }
 
   // if (orders) {
@@ -107,7 +119,7 @@ const Orders = () => {
   // }
 
   return (
-    <div className="page-orders">
+    <div className="page-orders" dir={router.locale == "ar" ? "rtl" : "ltr"} >
       <div className="container">
         <div className="m-5 p-5">
           <h2 className="text-2xl text-stone-500 border-b-2 border-skin-primary pb-5 ">
@@ -128,15 +140,15 @@ const Orders = () => {
               <table className="w-full overflow-x-auto table-auto">
                 <thead className="bg-zinc-200 h-8 ">
                   <tr className="border-b-[#ff6600]">
-                    <th>Id</th>
-                    <th>Status</th>
-                    <th>Date</th>
-                    <th>Total </th>
-                    <th>Coupon</th>
+                    <th>{t("seller.orders.table.id")}</th>
+                    <th>{t("seller.orders.table.status")}</th>
+                    <th>{t("seller.orders.table.date")}</th>
+                    <th>{t("seller.orders.table.total")}</th>
+                    <th>{t("seller.orders.table.coupon")}</th>
                     {ordersType && ordersType == `rejectedOrders` && (
-                      <th>Reason of rejection</th>
+                      <th>{t("seller.orders.table.reason")}</th>
                     )}
-                    <th>Show Details</th>
+                    <th>{t("seller.orders.table.details")}</th>
                   </tr>
                 </thead>
                 <tbody className="text-xl">
@@ -152,7 +164,7 @@ const Orders = () => {
                 </tbody>
               </table>
               </div>
-            ) : <p className="w-full text-center" >There are no orders.</p>
+            ) : <p className="w-full text-center" >{t("seller.orders.noOrders")}.</p>
           )}
         </div>
       </div>

@@ -8,6 +8,18 @@ import { useRouter } from "next/router";
 import createAxiosInstance from "@/API";
 import ImageUpload from "@/components/ImageUpload/ImageUpload";
 import { Ring } from "@uiball/loaders";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
+
+export async function getServerSideProps(context) {
+  const { locale } = context;
+  
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common"])),
+    },
+  };
+}
 
 const AddNewProduct = () => {
   // const [users, setUsers] = useState([]);
@@ -25,6 +37,8 @@ const AddNewProduct = () => {
   const ArDescRef = useRef();
   const EnDescRef = useRef();
   const eanRef = useRef();
+  // const {t} = useTranslation("");
+  const { t } = useTranslation("");
 
   useEffect(() => {
     setImage(null);
@@ -93,7 +107,7 @@ const AddNewProduct = () => {
       <div className="container">
         <div className="flex justify-center">
           <h2 className="items-center text-2xl pt-9 pb-6 text-zinc-700">
-            Create New Product
+            {t("seller.addNewProduct.create")}
           </h2>
         </div>
         <form className="flex justify-center" onSubmit={requestProduct}>
@@ -103,7 +117,7 @@ const AddNewProduct = () => {
                 <input
                   className="md:w-[400px] w-full border-b-2 outline-none  text-xl focus:border-skin-primary transition-all duration-700 "
                   name="nameAr"
-                  placeholder="Arabic Name"
+                  placeholder={t("seller.addNewProduct.arProductName")}
                   ref={ArNameRef}
                   required={true}
                 />
@@ -112,7 +126,7 @@ const AddNewProduct = () => {
                 <input
                   className="md:w-[400px] w-full border-b-2  outline-none text-xl focus:border-skin-primary transition-all duration-700"
                   name="nameEn"
-                  placeholder="English Name"
+                  placeholder={t("seller.addNewProduct.engProductName")}
                   ref={EnNameRef}
                 />
               </div>
@@ -120,7 +134,7 @@ const AddNewProduct = () => {
                 <input
                   className="md:w-[400px] w-full border-b-2 outline-none  text-xl focus:border-skin-primary transition-all duration-700"
                   name="descriptionAr"
-                  placeholder="Arabic Description"
+                  placeholder={t("seller.addNewProduct.arDesc")}
                   ref={ArDescRef}
                 />
               </div>
@@ -128,7 +142,7 @@ const AddNewProduct = () => {
                 <input
                   className="md:w-[400px] w-full border-b-2  outline-none  text-xl focus:border-skin-primary transition-all duration-700"
                   name="descriptionEn"
-                  placeholder="English Description "
+                  placeholder={t("seller.addNewProduct.engDesc")}
                   ref={EnDescRef}
                 />
               </div>
@@ -136,7 +150,7 @@ const AddNewProduct = () => {
                 <input
                   className="md:w-[400px] w-full border-b-2  outline-none  text-xl focus:border-skin-primary transition-all duration-700"
                   name="EAN code"
-                  placeholder="EAN code "
+                  placeholder={t("seller.addNewProduct.eanCode")}
                   ref={eanRef}
                 />
               </div>
@@ -150,7 +164,7 @@ const AddNewProduct = () => {
                     }}
                   >
                     <option disabled selected value>
-                      -- select a brand for the product --
+                      -- {t("seller.addNewProduct.brandSelection")} --
                     </option>
                     {brands.map((brand) => {
                       return (
@@ -173,7 +187,7 @@ const AddNewProduct = () => {
                     required={true}
                   >
                     <option disabled selected value="">
-                      -- select a category for the product --{" "}
+                      -- {t("seller.addNewProduct.categorySelection")} --
                     </option>
                     {categories.map((category) => {
                       return (
@@ -187,7 +201,7 @@ const AddNewProduct = () => {
               )}
               <div className="flex flex-col justify-start items-start box-border pl-3 w-[80%] mx-auto ">
                 <label className=" border-b-2 border-skin-primary my-2  ">
-                  Product Image
+                  {t("seller.addNewProduct.productImage")}
                 </label>
                 <div className="w-[200px] h-[100px]">
                   <ImageUpload
@@ -208,7 +222,7 @@ const AddNewProduct = () => {
                       <Ring size={25} lineWeight={5} speed={2} color="white" />
                     </div>
                   ) : (
-                    "Add Product"
+                    t("seller.addNewProduct.addProduct")
                   )}
                 </button>
               </div>

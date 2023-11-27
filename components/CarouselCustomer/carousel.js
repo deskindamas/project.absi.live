@@ -34,16 +34,16 @@ export function ResponsiveCarousel({ ads }) {
     >
       {ads && ads.map((ad) => {
         return (
-          <div key={ad.id} className="relative  h-auto w-full ">
+          <div key={ad.id} className="relative  h-auto w-full shadow-xl ">
             <Image
               loading="eager"
               src={ad.image}
               // src="https://i0.wp.com/www.westlondonstudio.co.uk/wp-content/uploads/2020/11/Image-1920x540-Clip-for-ls-v06-00_00_07_19.Still001.jpg?ssl=1"
               width={1920}
               height={540}
-              style={{width : "auto" , height : "100%"}}
+              style={{width : "100%" , height : "auto"}}
               alt="image 1"
-              className="h-max"
+              className="h-max  "
             />
           </div>
         );

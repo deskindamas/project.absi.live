@@ -20,24 +20,25 @@ import { Ring } from "@uiball/loaders";
 import SellerSelectProduct from "@/components/sellerSelectProduct/SellerSelectProduct";
 import { useDispatch, useSelector } from "react-redux";
 import { selectedActions } from "@/Store/SelectedSlice";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
-const users = [
-  {
-    id: 1,
-  },
-  {
-    id: 2,
-  },
-  {
-    id: 3,
-  },
-];
+export async function getServerSideProps(context) {
+  const { locale } = context;
+  
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common"])),
+    },
+  };
+}
 
 function AddProducts() {
   const router = useRouter();
   const Api = createAxiosInstance(router);
   const [currentPage, setCurrentPage] = useState(1);
   const searchRef = useRef();
+  const {t} = useTranslation("");
   const { data, isLoading, isError, error, isFetching } = useQuery(
     ["sharedProducts", currentPage],
     () => fetchSharedProducts(currentPage),
@@ -153,7 +154,7 @@ function AddProducts() {
               className="w-full bg-gray-100 outline-none rounded-lg text-sm h-10"
               type="text"
               ref={searchRef}
-              placeholder="Search a product "
+              placeholder={t("seller.addProduct.search")}
               onClick={() => {
                 setInSearch(true);
               }}
@@ -170,12 +171,12 @@ function AddProducts() {
           )}
         </div>
         <div className="w-[50%] flex justify-center items-center">
-          <p className="text-gray-500 pr-2">If you do not find the product, you can create a new product</p>
+          <p className="text-gray-500 pr-2">{t("seller.addProduct.cantFind")}</p>
         <Link
           href={"/seller/products/addNewProduct"}
           className="bg-[#ff6600] px-3 py-3 text-white text-center md:w-auto w-[100%] "
         >
-          Add New Product
+          {t("seller.products.addNewProduct")}
         </Link>
         </div>
       </div>
@@ -205,7 +206,7 @@ function AddProducts() {
                 </div>
               ) : (
                 <div className="w-max mx-auto text-xl">
-                  There are no available products for your store type.
+                  {t("seller.addProduct.noAvailable")}
                 </div>
               )}
             </div>
@@ -237,7 +238,7 @@ function AddProducts() {
                   data.data.pagination.from
                 }
               >
-                Previous Page
+                {t("seller.addProduct.previousPage")}
               </button>
               {isFetching && (
                 <Ring size={20} lineWeight={5} speed={2} color="#ff6600" />
@@ -253,7 +254,7 @@ function AddProducts() {
                   data.data.pagination.last_page
                 }
               >
-                Next Page
+                {t("seller.addProduct.nextPage")}
               </button>
             </div>
           )}
@@ -267,7 +268,7 @@ function AddProducts() {
             onClose={closepopup}
           >
             <DialogTitle className="flex justify-between">
-              <h4 className="sm:text-2xl text-sm "> Selected Products:</h4>
+              <h4 className="sm:text-2xl text-sm "> {t("seller.addProduct.selectedProducts.selectedProducts")}:</h4>
               <MdClose
                 onClick={closepopup}
                 className="w-[35px] h-[35px] cursor-pointer "
@@ -284,13 +285,13 @@ function AddProducts() {
                           <thead className="md:text-xl text-base ">
                             <tr>
                               <th className="pb-4 md:px-0 px-4">
-                                Product Name
+                                {t("seller.addProduct.selectedProducts.table.productName")}
                               </th>
-                              <th className="pb-4 md:px-0 px-4">Brand</th>
-                              <th className="pb-4 md:px-0 px-4">Category</th>
-                              <th className="pb-4 md:px-0 px-4">Publish / Unpublish</th>
-                              <th className="pb-4 md:px-0 px-4">Image</th>
-                              <th className="pb-4 md:px-0 px-4">Price </th>
+                              <th className="pb-4 md:px-0 px-4">{t("seller.addProduct.selectedProducts.table.brand")}</th>
+                              <th className="pb-4 md:px-0 px-4">{t("seller.addProduct.selectedProducts.table.category")}</th>
+                              <th className="pb-4 md:px-0 px-4">{t("seller.addProduct.selectedProducts.table.publish")}</th>
+                              <th className="pb-4 md:px-0 px-4">{t("seller.addProduct.selectedProducts.table.image")}</th>
+                              <th className="pb-4 md:px-0 px-4">{t("seller.addProduct.selectedProducts.table.price")} </th>
                               <th className="pb-4 md:px-0 px-4"> </th>
                             </tr>
                           </thead>
@@ -310,15 +311,14 @@ function AddProducts() {
                     ) : (
                       <div className="w-full h-full flex justify-center items-center text-center">
                         <p>
-                          You did not select any product to add to your store
-                          yet.
+                        {t("seller.addProduct.selectedProducts.noProducts")}
                         </p>
                       </div>
                     )
                   ) : (
                     <div className="w-full h-full flex justify-center items-center text-center">
                       <p>
-                        You did not select any product to add to your store yet.
+                      {t("seller.addProduct.selectedProducts.noProducts")}
                       </p>
                     </div>
                   )}

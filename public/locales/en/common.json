@@ -352,5 +352,171 @@
         "info" : "management@tawasyme.com"
       }
     }
+  }, 
+  "seller" : {
+    "sidebar" : {
+      "dashbaord" : "Dashboard" ,
+      "orders" : "Orders" ,
+      "order" : {
+        "pending" : "Pending Orders" ,
+        "rejected" : "Rejected Orders" ,
+        "accepted" : "Accepted Orders",
+        "all" : "All Orders"
+      } , 
+      "products" : "Products" , 
+      "product" : {
+        "unpublished" : "Unpublished Products" ,
+        "published" : "Published Products",
+        "add" : "Add a Product",
+        "all" : "All Products"
+      } , 
+      "store" : "My Store",
+      "settings" : "Store Settings",
+      "logout" : "Logout"
+    } , 
+    "dashboard" : {
+      "mainDashboard" : "Main Dashboard" ,
+      "totalAvailableProducts" : "Total Available Products" ,
+      "totalOrders" : "Total Orders" ,
+      "totalPendingOrders" : "Total Pending Orders",
+      "totalProducts" : "Total Products" , 
+      "totalSales" : "Total Sales" ,
+      "totalUnavailableProducts" : "Total Unavailable Products" 
+    },
+    "orders" : {
+      "table" : {
+        "id" : "Id" , 
+        "status" : "Status" ,
+        "date" : "Date" ,
+        "total" : "Total",
+        "coupon" : "Coupon",
+        "reason" : "Reason of Rejection",
+        "details" : "Details"
+      } , 
+      "noOrders" : "There are no orders" , 
+      "orderDetails" : {
+        "storeName" : "Store Name",
+        "orderStatus" : "Order Status" ,
+        "orderDate" : "Order Date",
+        "orderId" : "Order Id" ,
+        "productName" : "Product Name" ,
+        "quantity" : "Quantity",
+        "price" : "Price" ,
+        "total" : "Total" ,
+        "coupon" : "Coupon" ,
+        "totalQuantity" : "Total Quantity" ,
+        "discount" : "Discount" ,
+        "totalPrice" : "Total Price",
+        "deliveryFee" : "Delivery Fee" ,
+        "finalPrice" :"Final Price" ,
+        "notes" : "Notes"
+      }
+    }, 
+    "products" : {
+      "addProduct" : "Add a Product to your store", 
+      "addNewProduct" : "Add a New Product to your store",
+      "table" : {
+        "id" : "Id",
+        "action" : "Action" ,
+        "name" : "Name",
+        "category" : "Category" ,
+        "image" : "Image" ,
+        "status" : "Status" ,
+        "brand" : "Brand" ,
+        "price" :"Price"
+      },
+      "action" :{
+        "edit" : {
+          "editProduct" : "Edit Product" ,
+          "save" : "Save" , 
+          "cancel" : "Cancel"
+        } ,
+        "delete" : {
+          "deleteProduct" : "Delete Product" ,
+          "areYouSure" : "Are you sure you want to delete this product from your store :" ,
+          "yes" : "Yes" ,
+          "no" : "No"
+        }
+      },
+      "noProducts" : "There are no products"
+    },
+    "addProduct" : {
+      "cantFind" : "If you could not find the desired product, You can create a new one.",
+      "search" : "Search a product by name",
+      "noAvailable" : "There are no available products for your store type." ,
+      "selectProduct" : "Select Product" ,
+      "nextPage" : "Next Page" ,
+      "previousPage" : "Previous Page" ,
+      "selectedProducts" : {
+        "selectedProducts" : "Selected Products" ,
+        "notCompatible" : "This Product is not compatible with your store type" ,
+        "noProducts" : "You did not select any product to add your store yet",
+        "table" : {
+          "price" : "Price" , 
+          "image" : "Image" ,
+          "publish" : "Publish/Unpublish" ,
+          "category" : "Category" ,
+          "brand" : "Brand" ,
+          "productName" : "Product Name"
+        }
+      }
+    },
+    "addNewProduct" : {
+      "create" : "Create a new Product",
+      "engProductName" : "English Product Name" , 
+      "arProductName" : "Arabic Product Name" , 
+      "engDesc" : "English Description" , 
+      "arDesc" : "Arabic Description" , 
+      "eanCode" : "EAN Code" ,
+      "brandSelection" : "Select a brand for the product" ,
+      "categorySelection" : "Select a category for this product" ,
+      "productImage" : "Product Image" ,
+      "addProduct" : "Add Product"
+    },
+    "setting" : {
+      "storeSettings" : "Store Settings" , 
+      "openingTime" : "Opening Time",
+      "closingTime" : "Closing time",
+      "openingDays" : "Opening Days",
+      "saveChanges" : "Save Changes"
+    },
+    "request" : {
+      "engName" : "English Store Name",
+      "arName" : "Arabic Store Name",
+      "area" : "Area",
+      "street" : "Street",
+      "storeType" : "Store Type",
+      "address" : "Address",
+      "storeImage" : "Store Image",
+      "storeLogo" : "Store Logo",
+      "submit" : "Submit Store",
+      "openingTime" : "Opening Time",
+      "closingTime" : "Closing time",
+      "openingDays" : "Opening Days"
+    }
+  },
+  "login" : {
+    "login" : "Login using your phone number", 
+    "number" : "Number",
+    "logins" : "Login" , 
+    "loginAs" : "Login As:" ,
+    "signup" : "SignUp"
+  },
+  "signup" : {
+    "customerRegister" : "Register as a Customer" , 
+    "sellerRegister" : "Register as a Seller" ,
+    "userName" : "Username" ,
+    "phone" : "Phone number" ,
+    "address" : "Address" , 
+    "ia" : "I agree to the" , 
+    "terms" : "Terms and conditions",
+    "andThe" : "and the" , 
+    "privacy" : " Privacy policy ",
+    "ofTawasy" : "of Tawasy",
+    "signupAs" : "Signup as" ,
+    "customer" : "Customer" ,
+    "seller" : "Seller" ,
+    "existing" : "Have an existing account?" , 
+    "login" : "Login"
   }
 }
