@@ -7,6 +7,7 @@ import { useTranslation } from "next-i18next";
 import createAxiosInstance from "@/API";
 import logo from "@/public/images/tawasylogo.png";
 import StoreComponent from "@/components/customerCommponents/StoreComponent";
+import logo from "@/public/images/tawasylogo.png";
 import {
   Magnifier,
   MOUSE_ACTIVATION,
@@ -62,7 +63,7 @@ function PublicProduct({ product }) {
             /> */}
 
               <SideBySideMagnifier
-                imageSrc={product.image}
+                imageSrc={product.image ? product.image : logo}
                 imageAlt={product.name}
                 // largeImageSrc={product.image}
                 alwaysInPlace={false}

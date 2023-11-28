@@ -2,6 +2,7 @@ import Image from "next/image";
 import lego from "../../public/images/lego.png";
 import image from "../../public/images/burger.jpeg";
 import Link from "next/link";
+import logo from "@/public/images/tawasylogo.png"
 
 function StoreComponent({store}) {
   return (
@@ -10,7 +11,7 @@ function StoreComponent({store}) {
       <Image 
        className=' object-cover select-none pointer-events-none '
         // src={`https://www.befunky.com/images/prismic/e8c80c0a-bc59-4df2-a86e-cc4eabd44285_hero-blur-image-1.jpg?auto=avif,webp&format=jpg&width=900`}
-        src={store.logo}
+        src={store.logo ? store.logo : logo}
         width={0}
         height={0}
         sizes="100vw"

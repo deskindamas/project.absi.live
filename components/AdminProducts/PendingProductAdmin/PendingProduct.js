@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import { Ring } from "@uiball/loaders";
 import Image from "next/image";
+import logo from "@/public/images/tawasylogo.png"
 
 function AdminPendingProduct({ product , refetch }) {
     
@@ -28,7 +29,7 @@ function AdminPendingProduct({ product , refetch }) {
         <td className="px-4 py-4">{product.descEn}</td>
         <td className="px-4 py-4">{product.category}</td>
         <td className="px-4 py-4">
-          <Image src={product.image} alt="photo" 
+          <Image src={product.image ? product.image : logo} alt="photo" 
                  width={0}
                  height={0}
                  sizes="100vw"

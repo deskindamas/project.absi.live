@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import logo from "@/public/images/tawasylogo.png"
 
 export function ResponsiveCarousel({ ads }) {
 
@@ -37,7 +38,7 @@ export function ResponsiveCarousel({ ads }) {
           <div key={ad.id} className="relative  h-auto w-full shadow-xl ">
             <Image
               loading="eager"
-              src={ad.image}
+              src={ad.image ? ad.image : logo}
               // src="https://i0.wp.com/www.westlondonstudio.co.uk/wp-content/uploads/2020/11/Image-1920x540-Clip-for-ls-v06-00_00_07_19.Still001.jpg?ssl=1"
               width={1920}
               height={540}

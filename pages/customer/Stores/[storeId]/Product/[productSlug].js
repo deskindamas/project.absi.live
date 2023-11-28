@@ -82,7 +82,7 @@ function Product({ product }) {
               style={{ width: "200px", height: "200px" }}
             /> */}
               <SideBySideMagnifier
-                imageSrc={product.image}
+                imageSrc={product.image ? product.image : logo}
                 imageAlt={product.name}
                 // largeImageSrc={product.image}
                 alwaysInPlace={false}

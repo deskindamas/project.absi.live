@@ -17,6 +17,8 @@ import ImageUpload from "../ImageUpload/ImageUpload";
 import { convertDate } from "../SellerOrders/sellerOrder";
 import TawasyLoader from "../UI/tawasyLoader";
 import { convertDateStringToDate } from "../AdminOrders/OrderAdmin";
+import logo from "@/public/images/tawasylogo.png";
+
 
 function StoreTypeMobileADS({ storetypemobileads, refetch }) {
   const [isDeleting, setIsDeleting] = useState(false);
@@ -96,7 +98,7 @@ function StoreTypeMobileADS({ storetypemobileads, refetch }) {
         <td className="px-4 py-4">{storetypemobileads.id}</td>
         <td className="px-4 py-4 flex justify-center">
           <Image
-            src={storetypemobileads.image}
+            src={storetypemobileads.image ? storetypemobileads.image : logo}
             width={0}
             height={0}
             sizes="100vw"

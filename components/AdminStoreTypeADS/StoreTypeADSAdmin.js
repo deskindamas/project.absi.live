@@ -18,6 +18,7 @@ import { convertDate } from "../SellerOrders/sellerOrder";
 import TawasyLoader from "../UI/tawasyLoader";
 import { convertDateStringToDate } from "../AdminOrders/OrderAdmin";
 import { toast } from "react-toastify";
+import logo from "@/public/images/tawasylogo.png"
 
 function StoreTypeADSAdmin({ storetypeads, refetch }) {
   const [isDeleting, setIsDeleting] = useState(false);
@@ -98,7 +99,7 @@ function StoreTypeADSAdmin({ storetypeads, refetch }) {
         <td className="px-4 py-4">{storetypeads.id}</td>
         <td className="px-4 py-4 flex justify-center">
           <Image
-            src={storetypeads.image}
+            src={storetypeads.image ? storetypeads.image : logo}
             width={0}
             height={0}
             sizes="100vw"

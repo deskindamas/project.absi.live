@@ -16,6 +16,7 @@ import Cookies from "js-cookie";
 import Image from "next/image";
 import Link from "next/link";
 import { useTranslation } from "next-i18next";
+import logo from "@/public/images/tawasylogo.png"
 
 function SellerProduct({ product , refetch }) {
   const [isToggled, setIsToggled] = useState(product.availability);
@@ -125,7 +126,7 @@ function SellerProduct({ product , refetch }) {
         {/* <td className="px-4 py-4">{product.description}</td> */}
         <td className="px-4 py-4">{product.category}</td>
         <td className="px-4 py-4">
-          <Image  src={product.image} alt="photo" width={100} height={100} className="object-contain"  />
+          <Image  src={product.image ? product.image : logo} alt="photo" width={100} height={100} className="object-contain"  />
         </td>
         <td onClick={handleAvailable} className="  ">
           {editingAvailability ? (
