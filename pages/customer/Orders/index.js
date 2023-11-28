@@ -40,8 +40,9 @@ const Orders = () => {
   return (
     <>
     <NextSeo
-        title={`Tawasy Shopping - My Orders`}
-        description={`View my Tawasy Shopping Orders`}
+        title={t("titles.orders")}
+        description={t("descs.orders")}
+        canonical="https://tawasyme.com/customer/Orders"
       />
       <div className="md:px-28 px-3 py-4">
         <div>

@@ -69,9 +69,9 @@ function MyProfile() {
       const response = await Api.post(`/api/customer/change-phone-number`, {
         new_phone_number: phoneRef.current.value,
       });
-      refetch();
+      Cookies.set(`number`, phoneRef.current.value, { expires: 365 * 10 });
       router.push(`/verification`);
-      Cookies.setItem(`number`, phoneRef.current.value, { expires: 365 * 10 });
+      refetch();
       setIsEditingPhone(false);
       setisSavingPhones(false);
     } catch (error) {
@@ -119,8 +119,9 @@ function MyProfile() {
   return (
     <div>
       <NextSeo
-        title={`Tawasy Shopping - My Profile`}
-        description={`view my Tawasy Profile`}
+        title={t("titles.profile")}
+        description={t("descs.profile")}
+        canonical="https://tawasyme.com/customer/MyProfile"
       />
       <h1 className="border-b-2 border-gray-300 py-4 text-2xl text-gray-700 font-medium px-7">
         {/* {`My Profile`} */}
@@ -143,7 +144,7 @@ function MyProfile() {
           <div>
             <form
               onSubmit={handleSaveNameClick}
-              className="flex justify-between items-center md:w-[400px] w-auto mb-4"
+              className="flex justify-between items-center md:w-[500px] w-auto mb-4"
             >
               <div className="flex">
                 <label className="md:text-xl text-base text-gray-700 font-medium pr-2 w-24">
@@ -195,16 +196,16 @@ function MyProfile() {
 
             <form
               onSubmit={handleSavePhoneClick}
-              className="flex justify-between md:w-[400px] w-auto mb-4"
+              className="flex justify-between md:w-[500px] w-auto mb-4"
             >
-              <div className="flex">
-                <label className="md:text-xl text-base text-gray-700 font-medium pr-2 w-24">
+              <div className="flex justify-between items-center">
+                <label className="md:text-xl text-base w-max text-gray-700 font-medium pr-2 ">
                   {/* {`Phone`} : */}
                   {t("profile.phone")} :
                 </label>
                 {isEditingPhone ? (
                   <input
-                    className="border-b-2 border-skin-primary outline-none"
+                    className="border-b-2 border-skin-primary outline-none  px-2"
                     type="number"
                     placeholder={profile.data.customer.phone_number}
                     ref={phoneRef}
@@ -250,7 +251,7 @@ function MyProfile() {
               </div>
             </form>
 
-            <div className="flex justify-between md:w-[400px] w-auto mb-4">
+            <div className="flex justify-between md:w-[500px] w-auto mb-4">
               <div className="flex">
                 <label className="md:text-xl text-base text-gray-700 font-medium pr-2 w-24">
                   {/* {`Address`} : */}

@@ -35,10 +35,8 @@ function App({ Component, pageProps }) {
       <QueryClientProvider client={queryClient}>
         <ThemeProvider>
           <DefaultSeo
-            title="Tawasy Shopping"
-            description="shopping has become more enjoyable after Tawasy Shopping was
-              able to collect more than 400 important
-              brands for you to shop from"
+            title={'Tawasy Shopping | تواصي شوبينغ'}
+            description={`Elsouq Bebitak | السوق ببيتك`}
           />
           <Provider store={store} >
             <Component {...pageProps} />

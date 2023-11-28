@@ -130,7 +130,7 @@ function Navbar() {
               </button>
             </div>
           )}
-          { (router.pathname == "/customer" || router.pathname == "/ContactUs" || router.pathname == "/AboutUs" ) && <LocaleSwitcher />}
+          { (router.pathname == "/customer" || router.pathname == "/ContactUs" || router.pathname == "/AboutUs" || router.pathname == "/customer/Orders" || router.pathname == "/customer/MyProfile" ) && <LocaleSwitcher />}
           {/* <div className="flex px-3 py-1 gap-2 text-white " >
             <LanguageSwitcher lang="ar">ar</LanguageSwitcher> |{" "}
             <LanguageSwitcher lang="en">en</LanguageSwitcher>

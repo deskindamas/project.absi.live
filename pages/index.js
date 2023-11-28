@@ -4,6 +4,7 @@ import Cookies from "js-cookie";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import Script from "next/script";
 import { useState } from "react";
 import { useEffect } from "react";
 
@@ -15,14 +16,14 @@ function Home() {
     const token = Cookies.get("AT");
     const user = Cookies.get("user");
     if (token) {
-      if(user){
+      if (user) {
         if (user === "seller") {
           router.replace("/seller");
         } else if (user === "customer") {
           router.replace("/customer");
         }
-      }else{
-      router.replace("/customer");
+      } else {
+        router.replace("/customer");
       }
     } else {
       router.replace("/customer");
@@ -31,17 +32,21 @@ function Home() {
   }, []);
 
   return (
-    <>
-      <Head>
-        <title>Tawasy Shopping</title>
-        <meta name="description" content="Tawasy Store" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <div className="w-screen h-screen">
-        <TawasyLoader />
-      </div>
-    </>
+    // <>
+    <div className="w-screen h-screen">
+      <Script async src="https://www.googletagmanager.com/gtag/js?id=G-BB3V9Y8M5T" />
+      <Script id="google-analytics">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+        
+          gtag('config', 'G-BB3V9Y8M5T');
+        `}
+      </Script>
+      <TawasyLoader />
+    </div>
+    // </>
   );
 }
 

@@ -153,7 +153,9 @@ function Products({ store }) {
   return (
     <>
       <NextSeo
-        canonical={`https://vercel.damaszone.com/customer/store/${store.store.name}`}
+      title={`${store.store.name} | ${t("titles.home")}`}
+      description={store.store.name}
+        canonical={`https://tawasyme.com/customer/store/${router.query.storeId}`}
       />
       <div className="">
         {store && (

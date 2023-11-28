@@ -34,7 +34,7 @@ function PublicAllProduct({ product , storeId }) {
     setAdding(false);
   }
 
-  console.log(product);
+  // console.log(product);
 
   return (
     <div className="shadow-lg flex flex-col sm:w-fit max-w-[288px] mx-auto border-2 md:min-h-[406px] min-h-[381px] border-gray-200 rounded-md ">

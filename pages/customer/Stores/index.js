@@ -11,6 +11,7 @@ import { useRouter } from "next/router";
 import TawasyLoader from "@/components/UI/tawasyLoader";
 import { Ring } from "@uiball/loaders";
 import { useQuery } from "react-query";
+import { NextSeo } from "next-seo";
 
 
 
@@ -85,6 +86,11 @@ function PublicStore() {
 
   return (
     <>
+    <NextSeo 
+      title={`${t("titles.allStores")} | ${t("titles.home")}`}
+      description={t("descs.allStores")}
+      canonical="https://tawasyme.com/customer/Stores"
+    />
       <div className="">
         <div className="bg-gray-100 w-full px-5 py-3" id="top" >
           <h1 className="text-3xl text-gray-600 font-medium w-[90%] mx-auto">{t("stores.ALLStore")}</h1>

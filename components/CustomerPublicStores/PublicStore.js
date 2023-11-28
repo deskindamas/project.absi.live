@@ -7,7 +7,7 @@ import Link from "next/link";
 function PublicStoreCard({ store }) {
 
   return (
-    <Link href={`/customer/Stores/${store.id}`} className="shadow-xl flex flex-col lg:h-[250px] md:h-[200px] h-[175px] ">
+    <Link href={`/customer/Stores/${store.slug}`} className="shadow-xl flex flex-col lg:h-[250px] md:h-[200px] h-[175px] ">
       <div className="bg-cover overflow-hidden flex justify-center items-center w-auto h-[50%] ">
         <Image
           src={store.image ? store.image : logo}
@@ -21,7 +21,7 @@ function PublicStoreCard({ store }) {
       </div>
       <div className="flex justify-between items-center w-[90%] mx-auto py-3">
         <div>
-          <h1>{store.name}</h1>
+          <h2>{store.name}</h2>
           <p>{store.location}</p>
         </div>
         {/* <div className=" w-[30%] h-auto p-4 "> */}

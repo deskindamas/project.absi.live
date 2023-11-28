@@ -97,6 +97,11 @@ const StoreType = ({ stores }) => {
 
   return (
     <div>
+      <NextSeo
+        title={`${stores.data.store_type.name} | ${t("titles.home")}`}
+        description={stores.data.store_type.name}
+        canonical={`https://tawasyme.com/customer/StoreType/${router.query.storeTypeId}`}
+      />
       {/* { stores && <NextSeo
         title={`Tawasy Shopping - ${stores.data.store_type.name}`}
         description={`Tawasy Shopping  ${stores.data.store_type.name}`}

@@ -39,13 +39,13 @@ const Footer = () => {
           <div className=" flex flex-col items-center justify-center space-y-5 ">
             <Link
               href="/customer/Products"
-              className="border-2 text-center bg-skin-primary border-skin-primary text-white py-1 w-[40%]"
+              className="border-2 text-center bg-skin-primary border-skin-primary text-white py-1 w-[40%] rounded-lg "
             >
               {t("footer.ALLProducts")}
             </Link>
             <Link
               href="/customer/Stores"
-              className="border-2 text-center border-skin-primary text-white py-1 w-[40%]"
+              className="border-2 text-center border-skin-primary text-white py-1 w-[40%] rounded-lg"
             >
               {t("footer.ALLStores")}
             </Link>
@@ -58,9 +58,9 @@ const Footer = () => {
                 {/* <p>{`Damascus , Syria`}</p> */}
                 <p>{t("footer.syria")}</p>
               </li>
-              {/* <li className="mb-2">
-                <p className="hover:text-skin-primary" >{t("footer.Advertise")}</p>
-              </li> */}
+              <li className="mb-2">
+                <Link href={`https://sellers.tawasyme.com/advertise-with-us`} target="_blank" className="hover:text-skin-primary text-base" >{t("footer.Advertise")}</Link>
+              </li>
               <li className="mb-2">
                 <Link href="mailto:sales@tawasyme.com" legacyBehavior>
                   <a
@@ -148,11 +148,11 @@ const Footer = () => {
               <MdCopyright />
             </div>
             <div className="flex justify-start items-center space-x-1">
-              <p>Design & Developed By</p>
+              <p className="px-2" >{t("footer.developed")}</p>
               <Link href={"https://deskindamas.com/"} legacyBehavior>
                 <a
                   target="_blank"
-                  className="text-base text-gray-400 hover:text-skin-primary w-max"
+                  className="text-base text-skin-primary w-max border-b-2 border-transparent hover:border-skin-primary transition-all duration-500"
                 >
                   desk in Damas
                 </a>
@@ -161,6 +161,7 @@ const Footer = () => {
             <div className="">
               <Link
                 href="/PrivacyPolicy"
+                target="_blank"
                 className=" border-b-2 border-transparent hover:text-skin-primary hover:border-skin-primary transition-all duration-500"
               >
                 {/* {`Privacy Policy`} */}
@@ -170,10 +171,21 @@ const Footer = () => {
             <div className="">
               <Link
                 href="/TermsAndConditions"
+                target="_blank"
                 className=" border-b-2 border-transparent hover:text-skin-primary hover:border-skin-primary transition-all duration-500"
               >
                 {/* {`Terms and Conditions`} */}
                 {t("footer.terms")}
+              </Link>
+            </div>
+            <div className="">
+              <Link
+                href="/TradeMarksPolicy"
+                target="_blank"
+                className=" border-b-2 border-transparent hover:text-skin-primary hover:border-skin-primary transition-all duration-500"
+              >
+                {/* {`Terms and Conditions`} */}
+                {t("tradeMark.title")}
               </Link>
             </div>
           </div>

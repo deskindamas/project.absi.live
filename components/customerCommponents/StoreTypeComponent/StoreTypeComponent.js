@@ -30,8 +30,8 @@ function StoreTypeComponent({ storeType }) {
           className={`object-cover ${router.locale == "ar" ? `rounded-r-lg`: `rounded-l-lg`} overflow-hidden w-[40%] h-auto`}
         />
         <div className="flex text-start flex-col justify-between space-y-2 px-2 h-[85%] my-auto rounded-r-xl w-[90%] " >
-          <h2 className="sm:text-xl line-clamp-2 text-ellipsis text-black text-sm " title={storeType.name} >{storeType.name} </h2>
-          <h6 className=" sm:text-base text-gray-600 text-sm " >{storeType.description}</h6>
+          <h3 className="sm:text-xl line-clamp-2 text-ellipsis text-black text-sm " title={storeType.name} >{storeType.name} </h3>
+          <p className=" sm:text-base text-gray-600 text-sm " >{storeType.description}</p>
           {/* <p className="group-hover:text-skin-primary md:text-lg font-medium text-sm " >Explore</p> */}
         </div>
        </div>

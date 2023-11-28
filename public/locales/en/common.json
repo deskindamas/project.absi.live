@@ -3,70 +3,70 @@
     "orders" : "Orders" , 
       "allOrders" : "All Orders" , 
       "storeName" : "Store Name" ,
-      "totalPrice" : "Total Price", 
-      "status" : "Status",
+      "totalPrice" : "Grand Total", 
+      "status" : "Order Status",
       "orderDetails" : {
         "name" : "Name" ,
         "date" : "Date" , 
         "quantity" : "Quantity",
         "price" : "Price" ,
         "totalQuantity" : "Total Quantity" ,
-        "deliveryPrice" : "Delivery Price" ,
+        "deliveryPrice" : "Delivery Cost" ,
         "discount" : "Discount" , 
-        "finalPrice" : "Final Price" ,
-        "reasonForCancel" : "Reason For cancelling the order. " ,
+        "finalPrice" : "Net Total" ,
+        "reasonForCancel" : "Order Cancelling Reason. " ,
         "reason" : "Reason" , 
-        "cancelOrder" : "Cancel Order" , 
+        "cancelOrder" : "Cancel The Order" , 
         "noOrders" : "You have no Orders Yet."
       }
-  } ,
+    },
     "nav" : {
       "orders" : "My Orders" , 
       "login" : "Login",
-      "SignUp" : "SignUp" 
+      "SignUp" : "Sign-Up" 
     },
     "profile": {
       "myprofile": "My Profile",
       "back" : "Back" ,
       "name" :"Name" , 
-      "phone" : "Phone" ,
+      "phone" : "Phone with WhatsApp" ,
       "address" : "Address" ,
-      "logout" : "LogOut" 
+      "logout" : "Log Out" 
     } , 
     "home" : {
       "search" : "Search for Store Type (Ex.Stationary) or Category (Ex.Pens) or Brand (Ex.Zero)" ,
       "storeType" : "Store Type" , 
       "storeTypes" : "Store Types" , 
       "category" : "Category" ,
-      "brand" : "Brand" ,
-      "discover" : "Discover Our Store Types" ,
+      "brand" : "Brands" ,
+      "discover" : "Discover our current store types" ,
       "stores" : "Stores" ,
       "BecomeASeller" : " Become A Seller ",
       "BecomeACustomer" : "Become A Customer " ,
-      "TawasyApp" : "Discover the Tawasy app" ,
+      "TawasyApp" : "Discover Tawasy Shopping App" ,
       "WhatYouNeed" : " Get what you need, when you need it.",
       "DownloadApp" : "Download App" ,
       "JoinUs" : "Join us",
-      "seller" : "Reach more customers and achieve growth with us" ,
+      "seller" : "Reach more buyers and achieve growth with us" ,
       "customer" : "Shop from your home with us"
     } , 
     "store" : {
       "openingTime" : "Opening Time" ,
       "closingTime" : "Closing time" ,
       "address" : "Address" ,
-      "openingDays" : "opening Days" ,
+      "openingDays" : "Opening Days" ,
       "search" :"Search",
       "product" : {
         "addToCart" : "Add To Cart"
       } 
-    } , 
+    } ,  
     "submitOrder" : {
       "submit" : "Submit Order" ,
       "useExisting" : "Use my existing Address" , 
       "useNew" : "Use new address" , 
-      "Note" : "Notes" ,
-      "differ" : "*The Delivery Fee my differ if you change your location."
-    }, 
+      "Note" : "Notes on the order" ,
+      "differ" : "*The delivery cost may differ if you change your location."
+    },  
     "footer" : {
       "syria" : "Damascus , Syria" , 
       "home" : "Home" , 
@@ -75,20 +75,21 @@
       "terms" : "Terms and conditions" ,
       "privacy" : " Privacy policy " ,
       "copyrights" : "Copyrights, Tawasy Shopping" ,
-      "ALLProducts" : "ALL Products",
-      "ALLStores" : "ALL Stores" ,
-      "Text" : "Never a Better Time Than Now To Start" ,
-      "Advertise" : "Advertise with tawasy",
+      "ALLProducts" : "All Products",
+      "ALLStores" : "All Stores" ,
+      "Text" : "Start Now! And Enjoy e-commercing" ,
+      "Advertise" : "Advertise with us",
       "developed" : "Designed & Developed By"
     } , 
     "cart" : {
-      "emptyCart" : "Your cart is Empty , Go and buy some of our products." ,
+      "emptyCart" : "You have not added any product to the Cart yet. " ,
       "cart" : "My Cart",
       "cancel" : "Cancel" ,
-      "addCoupon" : "Add Coupon" ,
-      "apply" : "Apply" , 
+      "addCoupon" : "Enter Coupon Code" ,
+      "apply" : "Use Coupon Code" , 
       "submitOrder" : "Proceed to submit the order"
     },
+
     "stores" : {
      "ALLStore" : "All Stores"
     },
@@ -102,20 +103,20 @@
      },
     "product" : {
       "storeSellers" :"Stores that sell this product" ,
-      "noStores" : "There are no stores the sells this product."
+      "noStores" : "There are currently no stores selling this product."
     },
     "verification" : {
       "contactUs" : "Please enter the verification code that was sent to you via WhatsApp or " ,
       "contactUsNumber" : "Contact Us",
-      "resendCode" : "Resend code" ,
-      "didntGetCode" : "Did not recieve a code ?"
+      "resendCode" : "Resend the code" ,
+      "didntGetCode" : "Didn’t recieve the code ?"
     }, 
     "pending" : {
       "thankyou" : "Thank you" ,
-      "meanwhile" : "Mean while; If you need any information please contact Us on 0987000888 We will contact you when it becomes available",
+      "meanwhile" : "Meanwhile; If you need any information please contact Us on 0987000888 We will contact you when it becomes available",
       "ourTeam" : "Our team will review the details soon and will revert back to you if we need any information" , 
       "weRecieved" : "We have recieved your request" 
-    }, 
+    },  
     "privacy" :{ 
       "title" : "Privacy Policy For Tawasy Shopping E-Platform." ,
       "intro" : {
@@ -518,5 +519,27 @@
     "seller" : "Seller" ,
     "existing" : "Have an existing account?" , 
     "login" : "Login"
+  },
+  "tradeMark" : {
+    "title" : "Trademark Usage Policy",
+    "info" : "Please find below our Trademark Usage Policy, which outlines our responsibility for the use of any trademarks, logos, and brand names. We would like to emphasize that all trademarks, logos, and brand names belong to their respective owners, and we do not hold any responsibility for their use unless we receive official communication from the owner to do so. ",
+    "contactTitle" : "Contact Information:",
+    "contactInfo" : "If you have any questions about this Policy, please contact the relevant Department of our company.",
+    "amendTitle" : "Amendments:" ,
+    "amendInfo" : "The Company has the right to modify this Policy at any time. Any updated version of this Policy will be published on the Company's e-platform."
+  },
+  "titles" : {
+    "home" : "Tawasy Shopping",
+    "allStores" : "All Stores",
+    "allProducts" : "All Products",
+    "profile" : "Profile",
+    "orders" : "Orders"
+  } ,
+  "descs" : {
+    "allStores" : "Browse all our stores",
+    "allProducts" : "Browse all our Products",
+    "profile" : "Your Profile",
+    "orders" : "Your Orders",
+    "home" : "Elsouq Bebitak"
   }
 }

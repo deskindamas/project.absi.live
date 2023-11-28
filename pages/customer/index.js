@@ -18,6 +18,7 @@ import { FadingCarousel } from "@/components/FadingCarouselCustomer/FadinCarouse
 import Link from "next/link";
 import { Ring } from "@uiball/loaders";
 import logo from "@/public/images/tawasylogo.png";
+import { NextSeo } from "next-seo";
 
 export async function getServerSideProps(context) {
   const { params, locale } = context;
@@ -270,6 +271,11 @@ function CustomerPage({ data }) {
 
   return (
     <>
+    <NextSeo
+      title={t("titles.home")}
+      description={t("descs.home")}
+      canonical="https://tawasyme.com"
+    />
       <div className="w-full h-full">
         {data && (
           <div className="relative flex flex-col justify-start items-center h-max w-full gap-4 ">
@@ -351,10 +357,11 @@ function CustomerPage({ data }) {
 
             {/* {inSearch === false && ( */}
             <div className="flex flex-col justify-start items-center h-full w-full space-y-5">
-              <h1 className=" md:text-4xl text-2xl text-black py-5 ">
+              <h1 className="hidden" >Tawasy Shopping</h1>
+              <h2 className=" md:text-4xl text-2xl text-black py-5 ">
                 {/* {`Discover Oxur Store Types`} */}
                 {t("home.discover")}
-              </h1>
+              </h2>
               {data && data.data ? (
                 <div className=" sm:w-[80%] w-[90%] h-[60%] grid grid-cols 2xl:grid-cols-3 xl:grid-cols-2 lg:grid-cols-2  md:grid-cols-1 sm:grid-cols-1  grid-cols-1 gap-y-6 gap-x-6 pb-20 ">
                   {data.data.map((storeType) => {
@@ -381,30 +388,6 @@ function CustomerPage({ data }) {
                 </h2>
               </div>
               <div className="flex lg:flex-row flex-col justify-center items-center mx-auto my-auto lg:space-x-4  ">
-                {/* <Link
-                  href="/signup?user=seller"
-                  className="lg:w-[40%] md:w-[60%] w-[90%] lg:my-0 my-2 flex flex-row space-x-2 rounded-md border-2 border-gray-300 hover:border-skin-primary shadow-md"
-                >
-                  <Image
-                    src={imagee}
-                    alt=""
-                    width={150}
-                    height={150}
-                    style={{width : "150px" , height : "150px"}}
-                    className="object-cover rounded-l-lg overflow-hidden md:w-[40%] w-[50%] h-auto "
-                  />
-
-                  <div className="flex flex-col justify-center gap-2">
-                    <h1 className="md:text-2xl text-lg text-gray-600 font-medium">
-                      {" "}
-                      {t("home.BecomeASeller")}
-                    </h1>
-                    <p className="md:text-lg text-base text-gray-500">
-                      {t("home.seller")}
-                    </p>
-                  </div>
-                </Link> */}
-
                 <Link
                   href="/signup?user=seller"
                   className="lg:w-[40%] md:w-[60%] w-[70%] lg:my-0 my-2  flex flex-row space-x-2 rounded-md border-2 border-gray-300 hover:border-skin-primary shadow-md"
@@ -419,10 +402,10 @@ function CustomerPage({ data }) {
                   />
 
                   <div className="flex flex-col justify-center gap-2">
-                    <h3 className="xl:text-2xl md:text-xl text-lg text-gray-600 font-medium">
+                    <p className="xl:text-2xl md:text-xl text-lg text-gray-600 font-medium">
                       {" "}
                       {t("home.BecomeASeller")}
-                    </h3>
+                    </p>
                     <p className="md:text-base text-sm text-gray-500 px-1">
                     {t("home.seller")}
                     </p>
@@ -443,10 +426,10 @@ function CustomerPage({ data }) {
                   />
 
                   <div className="flex flex-col justify-center gap-2">
-                    <h3 className=" xl:text-2xl md:text-xl text-lg text-gray-600 font-medium">
+                    <p className=" xl:text-2xl md:text-xl text-lg text-gray-600 font-medium">
                       {" "}
                       {t("home.BecomeACustomer")}
-                    </h3>
+                    </p>
                     <p className="md:text-lg text-base text-gray-500 px-1">
                       {t("home.customer")}
                     </p>
@@ -468,9 +451,9 @@ function CustomerPage({ data }) {
                 />
               </div> */}
               <div className="flex flex-col space-y-2 md:mx-7 mx-2 md:my-0 my-2">
-                <h4 className="text-3xl text-gray-600 font-medium text-center">
+                <h3 className="text-3xl text-gray-600 font-medium text-center">
                   {t("home.TawasyApp")}
-                </h4>
+                </h3>
                 <p className="text-gray-500 md:my-3">{t("home.WhatYouNeed")}</p>
                 <Link
                 href={`https://www.app.tawasyme.com`}

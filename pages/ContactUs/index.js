@@ -58,7 +58,7 @@ const ContactUs = () => {
           </p>
         </div>
 
-        <div className="flex flex-col justify-start items-center space-y-1 e ">
+        {/* <div className="flex flex-col justify-start items-center space-y-1 e ">
           <h2 className="font-semibold text-xl ">
             {t("contacUs.management.title")}
           </h2>
@@ -67,7 +67,7 @@ const ContactUs = () => {
             {t("contacUs.management.email.title")}{" "}
             {t("contacUs.management.email.info")}
           </p>
-        </div>
+        </div> */}
       </div>
 
       {/* <Form /> */}
