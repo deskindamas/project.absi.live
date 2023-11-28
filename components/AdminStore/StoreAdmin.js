@@ -19,6 +19,7 @@ import Locations from "../Location/Location";
 import logo from "@/public/images/tawasylogo.png";
 import TawasyLoader from "../UI/tawasyLoader";
 import { useEffect } from "react";
+import { toast } from "react-toastify";
 
 const openingDays = [
   "Saturday",
@@ -175,18 +176,34 @@ function StoreAdmin({ names, refetch }) {
       } catch (error) {}
     }
 
-    try {
-      const response = await Api.put(
-        `/api/admin/edit-store/${names.id}`,
-        editData
-      );
-      refetch();
+    if(Object.keys(editData).length < 1) {
+      toast.error(`Please fill all the fields | الرجاء تعبئة جميع الحقول المطلوبة `, {
+        toastId: `Please fill all the fields | الرجاء تعبئة جميع الحقول المطلوبة `,
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+      });
       setIsSaving(false);
-      setIsEditing(false);
-    } catch (error) {
-      setIsSaving(false);
-    }
-    setIsSaving(false);
+      return;
+    }else{
+      try {
+        const response = await Api.put(
+          `/api/admin/edit-store/${names.id}`,
+          editData
+          );
+          refetch();
+          setIsSaving(false);
+          setIsEditing(false);
+        } catch (error) {
+          setIsSaving(false);
+        }
+        setIsSaving(false);
+      }
 
     // console.log(editData);
   }

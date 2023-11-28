@@ -38,54 +38,6 @@ const tableheading = [
   },
 ];
 
-const coupons = [
-  {
-    id: 1,
-    code: "827635",
-    discount: "10",
-    expire_date: "10/10/2010",
-    store_id: "10",
-    created_at: "5/4/2013",
-    updated_at: "5/4/2013",
-  },
-
-  {
-    id: 2,
-    code: "827635",
-    discount: "30",
-    expire_date: "10/10/2010",
-    store_id: "10",
-    created_at: "5/4/2013",
-    updated_at: "5/4/2013",
-  },
-  {
-    id: 3,
-    code: "827635",
-    discount: "100",
-    expire_date: "10/10/2010",
-    store_id: "10",
-    created_at: "5/4/2013",
-    updated_at: "5/4/2013",
-  },
-  {
-    id: 4,
-    code: "827635",
-    discount: "10",
-    expire_date: "10/10/2010",
-    store_id: "10",
-    created_at: "5/4/2013",
-    updated_at: "5/4/2013",
-  },
-  {
-    id: 5,
-    code: "827635",
-    discount: "10",
-    expire_date: "10/10/2010",
-    store_id: "10",
-    created_at: "5/4/2013",
-    updated_at: "5/4/2013",
-  },
-];
 
 function Coupons() {
   const [open, openchange] = useState(false);

@@ -19,6 +19,7 @@ import { MdAdd, MdClose, MdHdrPlus } from "react-icons/md";
 import TawasyLoader from "../UI/tawasyLoader";
 import { useQuery } from "react-query";
 import logo from "@/public/images/tawasylogo.png";
+import { toast } from "react-toastify";
 
 function StoreTypeAdmin({ names, refetch }) {
   const router = useRouter();
@@ -99,7 +100,7 @@ function StoreTypeAdmin({ names, refetch }) {
       }
     }
 
-    // if (JSON.stringify(editData) !== "{}") {
+    if (Object.keys(editData).length > 1) {
     try {
       const response = await Api.put(
         `/api/admin/store-type/update/${names.id}`,
@@ -111,9 +112,21 @@ function StoreTypeAdmin({ names, refetch }) {
     } catch (error) {
       setEditing(false);
     }
-    // } else {
-    //   setEditing(false);
-    // }
+    } else {
+      setEditing(false);
+      // return
+      toast.error(`Please fill all the fields`, {
+        toastId: `Please fill all the fields`,
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+      })
+    }
     // console.log(editData);
     setEditing(false);
   }
@@ -149,7 +162,9 @@ function StoreTypeAdmin({ names, refetch }) {
       refetchStoreTypeCategories();
       setAddCategory(false);
       setSavingCategory(false);
-    } catch (error) {}
+    } catch (error) {
+    setSavingCategory(false);
+    }
   }
 
   return (
@@ -157,6 +172,7 @@ function StoreTypeAdmin({ names, refetch }) {
       <tr
         key={names.id}
         className="py-5 bg-gray-100 hover:bg-gray-200 font-medium   "
+        dir="ltr"
       >
         <td className="px-4 py-4">{names.id}</td>
         <td className="px-4 py-4">{names.name_ar}</td>
@@ -368,10 +384,10 @@ function StoreTypeAdmin({ names, refetch }) {
             </Stack>
           )}
         </DialogContent>
-        <DialogActions>
+        <DialogActions className="flex space-x-4" >
           <button
             type="button"
-            className="bg-lime-950 px-8 py-3 text-white rounded-lg "
+            className="bg-lime-950 px-8 py-3 mx-4 text-white rounded-lg "
             data-dismiss="modal"
             onClick={editStoreType}
           >

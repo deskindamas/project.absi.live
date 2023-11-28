@@ -12,6 +12,7 @@ import { Ring } from "@uiball/loaders";
 import { convertDateStringToDate } from "../AdminOrders/OrderAdmin";
 import { useRouter } from "next/router";
 import createAxiosInstance from "@/API";
+import { toast } from "react-toastify";
 
 function CategoryAdmin({ names, refetch }) {
   const router = useRouter();
@@ -44,19 +45,35 @@ function CategoryAdmin({ names, refetch }) {
     addIfDifferent(newsortOrder.current.value, "sort_order");
 
     // console.log(editData);
-    try {
-      const response = await Api.put(
-        `/api/admin/category/update/${names.id}`,
-        editData
-      );
-      refetch();
+    if(Object.keys(editData).length < 1){
+      toast.error(`Please fill all the fields | الرجاء تعبئة جميع الحقول المطلوبة `, {
+        toastId: `Please fill all the fields | الرجاء تعبئة جميع الحقول المطلوبة `,
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+      })
       setEditing(false);
-      setIsEditing(false);
-    } catch (error) {
-      setEditing(false);
+      return;
+    }else{
+      try {
+        const response = await Api.put(
+          `/api/admin/category/update/${names.id}`,
+          editData
+          );
+          refetch();
+          setEditing(false);
+          setIsEditing(false);
+        } catch (error) {
+          setEditing(false);
+        }
+        setEditing(false);
+      }
     }
-    setEditing(false);
-  }
 
   // async function deleteCategory() {
   //   setDeleting(true);

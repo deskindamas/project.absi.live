@@ -16,7 +16,8 @@ import Image from "next/image";
 import ImageUpload from "../ImageUpload/ImageUpload";
 import { convertDate } from "../SellerOrders/sellerOrder";
 import TawasyLoader from "../UI/tawasyLoader";
-import logo from '@/public/images/tawasylogo.png' ;
+import logo from "@/public/images/tawasylogo.png";
+import { toast } from "react-toastify";
 
 function AdminProduct({ product, refetch }) {
   const [isDeleting, setIsDeleting] = useState(false);
@@ -31,8 +32,8 @@ function AdminProduct({ product, refetch }) {
   const [category, setCategory] = useState();
   const [brand, setBrand] = useState();
   const [isSaving, setIsSaving] = useState(false);
-  const [isApproving , setIsApproving] = useState(false);
-  const [isDeclining , setIsDeclining] = useState(false);
+  const [isApproving, setIsApproving] = useState(false);
+  const [isDeclining, setIsDeclining] = useState(false);
   const newNameAr = useRef();
   const newNameEn = useRef();
   const newdescAr = useRef();
@@ -99,38 +100,57 @@ function AdminProduct({ product, refetch }) {
 
     if (logoImage) {
       // editData.image = logoImage;
-      try{
-        const response2 = await Api.post(`/api/admin/update-product-image/${product.id}`,  {
-          new_image : logoImage
-        } , {
-          headers: { "Content-Type": `multipart/form-data` },
-        })
-      }catch(error){
+      try {
+        const response2 = await Api.post(
+          `/api/admin/update-product-image/${product.id}`,
+          {
+            new_image: logoImage,
+          },
+          {
+            headers: { "Content-Type": `multipart/form-data` },
+          }
+        );
+      } catch (error) {
         // console.log(error);
       }
     }
 
     // console.log(editData);
-
-    try {
-      const response = await Api.put(
-        `/api/admin/update-product/${product.id}`,
-        editData,
-        {
-          // headers: { "Content-Type": `multipart/form-data` },
+    if (Object.keys(editData).length < 1) {
+      toast.error(`Please fill all the fields | الرجاء تعبئة جميع الحقول المطلوبة `, {
+        toastId: `Please fill all the fields | الرجاء تعبئة جميع الحقول المطلوبة `,
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+      })
+      setIsSaving(false);
+      return ;
+    } else {
+      try {
+        const response = await Api.put(
+          `/api/admin/update-product/${product.id}`,
+          editData,
+          {
+            // headers: { "Content-Type": `multipart/form-data` },
+          }
+        );
+        setIsSaving(false);
+        if (product.status != "pending") {
+          setIsEditing(false);
         }
-      );
-      setIsSaving(false);
-      if(product.status != 'pending'){
-        setIsEditing(false);
+        refetch();
+      } catch (error) {
+        setIsSaving(false);
+      } finally {
+        // setIsEditing(false);
+        setIsSaving(false);
+        // setIsEditing(false);
       }
-      refetch();
-    } catch (error) {
-      setIsSaving(false);
-    } finally {
-      // setIsEditing(false);
-      setIsSaving(false);
-      // setIsEditing(false);
     }
   }
 
@@ -147,31 +167,37 @@ function AdminProduct({ product, refetch }) {
     }
   }
 
-  async function declineProduct () {
+  async function declineProduct() {
     setIsDeclining(true);
-    try{
-      const response = await Api.put(`/api/admin/accept-decline-product/${product.id}` , {
-        status : 'declined'
-      }) ;
+    try {
+      const response = await Api.put(
+        `/api/admin/accept-decline-product/${product.id}`,
+        {
+          status: "declined",
+        }
+      );
       refetch();
       setIsDeclining(false);
       setIsEditing(false);
-    }catch(error){
+    } catch (error) {
       setIsDeclining(false);
     }
     setIsDeclining(false);
   }
 
-  async function approveProduct () {
-    setIsApproving(true) ;
-    try{
-      const response = await Api.put(`/api/admin/accept-decline-product/${product.id}` , {
-        status : 'approved'
-      }) ;
+  async function approveProduct() {
+    setIsApproving(true);
+    try {
+      const response = await Api.put(
+        `/api/admin/accept-decline-product/${product.id}`,
+        {
+          status: "approved",
+        }
+      );
       refetch();
       setIsApproving(false);
       setIsEditing(false);
-    }catch(error){
+    } catch (error) {
       setIsApproving(false);
     }
   }
@@ -210,17 +236,19 @@ function AdminProduct({ product, refetch }) {
         <td className="px-4  w-[10%]">{product.description_en}</td>
         <td className="px-4 ">{product.category}</td>
         <td className="px-4  h-full w-max ">
-        { product.image ? 
-          <Image
-            src={product.image ? product.image : logo}
-            alt={product.name_en}
-            width={0}
-            height={0}
-            sizes="100vw"
-            style={{ width: "75px", height: "75px" }}
-            className="object-center mx-auto "
-          /> : `No image`
-        }
+          {product.image ? (
+            <Image
+              src={product.image ? product.image : logo}
+              alt={product.name_en}
+              width={0}
+              height={0}
+              sizes="100vw"
+              style={{ width: "75px", height: "75px" }}
+              className="object-center mx-auto "
+            />
+          ) : (
+            `No image`
+          )}
         </td>
         <td className=" px-4  ">{product.status}</td>
         <td className="px-4 ">{product.brand && product.brand}</td>
@@ -243,7 +271,6 @@ function AdminProduct({ product, refetch }) {
         >
           {product.instores}
         </td>
-
       </tr>
 
       <Dialog
@@ -329,7 +356,11 @@ function AdminProduct({ product, refetch }) {
                     {categories &&
                       categories.map((category) => {
                         return (
-                          <option key={category.name_en} className="bg-white" value={category.name_en}>
+                          <option
+                            key={category.name_en}
+                            className="bg-white"
+                            value={category.name_en}
+                          >
                             {category.name_en}
                           </option>
                         );
@@ -355,7 +386,11 @@ function AdminProduct({ product, refetch }) {
                     {brands &&
                       brands.map((brand) => {
                         return (
-                          <option key={brand.name} className="bg-white" value={brand.name}>
+                          <option
+                            key={brand.name}
+                            className="bg-white"
+                            value={brand.name}
+                          >
                             {brand.name}
                           </option>
                         );
@@ -446,7 +481,7 @@ function AdminProduct({ product, refetch }) {
                 </div>
               </div>
               <hr className="text-gray-400" />
-              <div className="w-full flex justify-center items-center" >
+              <div className="w-full flex justify-center items-center">
                 <button
                   type="button"
                   className="bg-skin-primary px-8 py-3 hover:bg-orange-500 text-white rounded-lg w-[20%] mx-auto "
@@ -465,36 +500,38 @@ function AdminProduct({ product, refetch }) {
             </Stack>
           )}
         </DialogContent>
-        { product.status == "pending" &&  <DialogActions>
-          <button
-            type="button"
-            className="bg-lime-950 px-8 py-3 text-white rounded-lg "
-            data-dismiss="modal"
-            onClick={approveProduct}
-          >
-            {isApproving == true ? (
-              <div className="flex justify-center items-center">
-                <Ring size={20} lineWeight={4} speed={2} color="white" />
-              </div>
-            ) : (
-              "Approve Product"
-            )}
-          </button>
-          <button
-            type="button"
-            className="bg-red-500 px-8 py-3 text-white rounded-lg"
-            data-dismiss="modal"
-            onClick={declineProduct}
-          >
-            {isDeclining == true ? (
-              <div className="flex justify-center items-center">
-                <Ring size={20} lineWeight={4} speed={2} color="white" />
-              </div>
-            ) : (
-              "Decline Product"
-            )}
-          </button>
-        </DialogActions>}
+        {product.status == "pending" && (
+          <DialogActions>
+            <button
+              type="button"
+              className="bg-lime-950 px-8 py-3 text-white rounded-lg "
+              data-dismiss="modal"
+              onClick={approveProduct}
+            >
+              {isApproving == true ? (
+                <div className="flex justify-center items-center">
+                  <Ring size={20} lineWeight={4} speed={2} color="white" />
+                </div>
+              ) : (
+                "Approve Product"
+              )}
+            </button>
+            <button
+              type="button"
+              className="bg-red-500 px-8 py-3 text-white rounded-lg"
+              data-dismiss="modal"
+              onClick={declineProduct}
+            >
+              {isDeclining == true ? (
+                <div className="flex justify-center items-center">
+                  <Ring size={20} lineWeight={4} speed={2} color="white" />
+                </div>
+              ) : (
+                "Decline Product"
+              )}
+            </button>
+          </DialogActions>
+        )}
       </Dialog>
 
       <Dialog
@@ -513,7 +550,9 @@ function AdminProduct({ product, refetch }) {
               <p className="text-lg ">
                 Are you sure you want to delete this Product ?
               </p>
-              <p className="text-xl pt-4">{product.name_en ? product.name_en : product.name_ar}</p>
+              <p className="text-xl pt-4">
+                {product.name_en ? product.name_en : product.name_ar}
+              </p>
             </div>
           </Stack>
         </DialogContent>

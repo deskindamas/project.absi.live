@@ -29,39 +29,6 @@ const tableheading = [
   },
 ];
 
-const brands = [
-  {
-    id: 1,
-    name: "lorem1",
-    created_at: "5/4/2013",
-    updated_at: "5/4/2013",
-  },
-  {
-    id: 2,
-    name: "lorem2",
-    created_at: "5/4/2013",
-    updated_at: "5/4/2013",
-  },
-  {
-    id: 3,
-    name: "lorem3",
-    created_at: "5/4/2013",
-    updated_at: "5/4/2013",
-  },
-  {
-    id: 4,
-    name: "lorem4",
-    created_at: "5/4/2013",
-    updated_at: "5/4/2013",
-  },
-  {
-    id: 5,
-    name: "lorem5",
-    created_at: "5/4/2013",
-    updated_at: "5/4/2013",
-  },
-];
-
 function Brands() {
   const [open, openchange] = useState(false);
   const router = useRouter();
