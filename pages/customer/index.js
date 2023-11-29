@@ -287,7 +287,7 @@ function CustomerPage({ data }) {
             )}
 
             <div
-              className="md:absolute md:top-[90px] w-[80%] mx-auto justify-center items-center space-x-2"
+              className={`${(data.ads && data.ads.length > 0) ? `md:top-[90px] md:absolute` : ``}  w-[80%] mx-auto justify-center items-center space-x-2 pt-5`}
               dir="ltr"
             >
               <div className="flex flex-col justify-start items-center">
@@ -374,7 +374,7 @@ function CustomerPage({ data }) {
                   })}
                 </div>
               ) : (
-                <div className="w-max mx-auto text-lg">
+                <div className="w-[60%] text-center mx-auto text-lg">
                   {" "}
                   {data.message ? data.message : `There are no storeTypes`}{" "}
                 </div>
