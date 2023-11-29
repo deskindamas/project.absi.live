@@ -94,7 +94,10 @@
   },
 
     "stores" : {
-     "ALLStore" : "جميع المتاجر"
+     "ALLStore" : "جميع المتاجر",
+     "noStores" :"لا يوجد متاجر حالياً بعد",
+     "nextPage" : "الصفحة التالية",
+     "previousPage" : "الصفحة السابقة"
     },
     "products" : {
       "ALLProducts" : "جميع المنتجات",
