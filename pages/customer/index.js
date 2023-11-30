@@ -271,11 +271,11 @@ function CustomerPage({ data }) {
 
   return (
     <>
-    <NextSeo
-      title={t("titles.home")}
-      description={t("descs.home")}
-      canonical="https://tawasyme.com"
-    />
+      <NextSeo
+        title={t("titles.home")}
+        description={t("descs.home")}
+        canonical="https://tawasyme.com"
+      />
       <div className="w-full h-full">
         {data && (
           <div className="relative flex flex-col justify-start items-center h-max w-full gap-4 ">
@@ -408,7 +408,7 @@ function CustomerPage({ data }) {
                       {t("home.BecomeASeller")}
                     </p>
                     <p className="md:text-base text-sm text-gray-500 px-1">
-                    {t("home.seller")}
+                      {t("home.seller")}
                     </p>
                   </div>
                 </Link>
