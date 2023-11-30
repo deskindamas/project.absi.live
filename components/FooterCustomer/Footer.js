@@ -117,7 +117,7 @@ const Footer = () => {
                 </ul>
               </div>
             </ul>
-            <div className="grid  grid-cols-1 gap-4 text-white text-center py-4 ">
+            <div className="grid  grid-cols-1 gap-4 text-white text-center p-4 ">
               {/* <Link href= "#" > */}
               <Link href="/customer" className="hover:text-skin-primary">
                 {t("footer.home")}

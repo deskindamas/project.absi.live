@@ -51,7 +51,7 @@ function PublicProduct({ product }) {
       <div className="w-full h-full flex flex-col items-center justify-center space-y-4 py-10">
         <div className="w-[70%] shadow-[0_4px_9px_-4px_rgba(0,0,0,0.2)]  md:my-5 my-2">
           <div className="w-full flex  sm:flex-row flex-col sm:space-x-4 space-y-4 py-2">
-            <div className=" m-auto max-h-[200px] max-w-[200px] ">
+            <div className=" m-auto h-auto w-[200px] px-2 ">
               {/* <Image
               src={product.image ? product.image : logo}
               className="w-full object-contain transform transition duration-1000 "
@@ -75,7 +75,7 @@ function PublicProduct({ product }) {
                 fillGapRight={10}
                 fillGapBottom={200}
                 fillGapLeft={10}
-                className="zoom"
+                className="zoom object-contain "
                 zoomContainerBorder="1px solid #ccc"
                 zoomContainerBoxShadow="0 4px 8px rgba(0,0,0,.5)"
               />

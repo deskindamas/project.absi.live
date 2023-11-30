@@ -14,7 +14,7 @@ import { Provider } from "react-redux";
 import {store} from "../Store/index";
 
 const tawasyFont = localfont({
-  src: "../public/fonts/local/MYRIAAMI.ttf",
+  src: "../public/fonts/local/MYRIADAM.ttf",
 });
 
 const queryClient = new QueryClient();
@@ -31,7 +31,7 @@ function App({ Component, pageProps }) {
 
   return (
     <>
-      {/* <main className={tawasyFont.className}> */}
+      <main className={tawasyFont.className}>
       <QueryClientProvider client={queryClient}>
         <ThemeProvider>
           <DefaultSeo
@@ -44,7 +44,7 @@ function App({ Component, pageProps }) {
           <ToastContainer />
         </ThemeProvider>
       </QueryClientProvider>
-      {/* </main> */}
+      </main>
     </>
   );
 }
