@@ -21,7 +21,7 @@ function StoreTypeComponent({ storeType }) {
         sizes="100vw"
         style={{ width: "100%", height: "auto" }} // optional
       /> */}
-      <div className="border-2 border-gray-100  hover:scale-[103%] transition-all shadow-2xl duration-[333.3ms] flex justify-start rounded-lg space-x-2 "> 
+      <div className="border-2 border-gray-100  hover:scale-[103%] transition-all shadow-xl duration-[333.3ms] flex justify-start rounded-lg space-x-2 "> 
         <Image
           src={storeType.image ? storeType.image : logo }
           alt = {storeType.name}
