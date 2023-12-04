@@ -10,7 +10,7 @@ function generateSiteMap(posts) {
      <url>
        <loc>https://tawasyme.com</loc>
      </url>
-     ${customers
+     ${posts
        .map(({ id }) => {
          return `
        <url>
