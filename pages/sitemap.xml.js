@@ -1,4 +1,4 @@
-const EXTERNAL_DATA_URL = 'https://tawasyme.com/customer';
+const EXTERNAL_DATA_URL = 'https://tawasyme.com';
 
 function generateSiteMap(posts) {
   return `<?xml version="1.0" encoding="UTF-8"?>
@@ -8,7 +8,7 @@ function generateSiteMap(posts) {
        <loc>https://tawasyme.com</loc>
      </url>
      <url>
-       <loc>https://tawasyme.com/customer</loc>
+       <loc>https://tawasyme.com</loc>
      </url>
      ${customers
        .map(({ id }) => {
