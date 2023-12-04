@@ -1,10 +1,20 @@
-//robots.txt
-
-# Block all crawlers for /accounts
+# *
 User-agent: *
-Disallow: /admin
+Allow: /
+
+# Host
+Host: https://tawasyme.com
+
+# Sitemaps
+Sitemap: https://tawasyme.com/sitemap.xml
+
+# black-listed-bot
+User-agent: black-listed-bot
 Disallow: /seller
-
-# Allow all crawlers
-User-agent: *
-Allow: /customer
+Disallow: /admin
+Disallow: /PrivacyPolicy
+Disallow: /TermsAndConditions
+Disallow: /TradeMarksPolicy
+Disallow: /ar/TradeMarksPolicy
+Disallow: /ar/TermsAndConditions
+Disallow: /ar/PrivacyPolicy

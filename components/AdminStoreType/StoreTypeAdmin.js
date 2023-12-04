@@ -95,12 +95,13 @@ function StoreTypeAdmin({ names, refetch }) {
             headers: { "Content-Type": `multipart/form-data` },
           }
         );
+        setStoreTypeImage();
       } catch (error) {
         // console.log(error);
       }
     }
 
-    if (Object.keys(editData).length > 1) {
+    if (Object.keys(editData).length > 0) {
     try {
       const response = await Api.put(
         `/api/admin/store-type/update/${names.id}`,
@@ -115,17 +116,17 @@ function StoreTypeAdmin({ names, refetch }) {
     } else {
       setEditing(false);
       // return
-      toast.error(`Please fill all the fields`, {
-        toastId: `Please fill all the fields`,
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-      })
+      // toast.error(`Please fill all the fields`, {
+      //   toastId: `Please fill all the fields`,
+      //       position: "top-right",
+      //       autoClose: 5000,
+      //       hideProgressBar: false,
+      //       closeOnClick: true,
+      //       pauseOnHover: true,
+      //       draggable: true,
+      //       progress: undefined,
+      //       theme: "colored",
+      // })
     }
     // console.log(editData);
     setEditing(false);
