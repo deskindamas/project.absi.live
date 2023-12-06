@@ -6,6 +6,7 @@ import createAxiosInstance from "@/API";
 import { useQuery } from "react-query";
 import TawasyLoader from "@/components/UI/tawasyLoader";
 import { Ring } from "@uiball/loaders";
+import { toast } from "react-toastify";
 
 const AddNewProductAdmin = () => {
   const [image, setImage] = useState();
@@ -51,19 +52,24 @@ const AddNewProductAdmin = () => {
   async function createNewProduct(e) {
     e.preventDefault();
     setSaving(true);
+    if(!image){
+      toast.error("please insert a photo" , {theme : "colored"});
+    setSaving(false);
+      return ;
+    }
     try {
       const response = await Api.post(
         `/api/admin/add-product`,
         {
           name_ar: arNameRef.current.value,
           name_en: enNameRef.current.value,
-          description_ar: arDescRef.current.value,
-          description_en: enDescRef.current.value,
-          image: image,
+          description_ar: arDescRef.current.value ? arDescRef.current.value : null,
+          description_en: enDescRef.current.value ? enDescRef.current.value : null,
+          image: image ? image : null,
           sort_order: sortRef.current.value,
           category_name: category,
-          ean_code: eanRef.current.value,
-          sku: skuRef.current.value,
+          ean_code: eanRef.current.value ? eanRef.current.value : null,
+          sku: skuRef.current.value ? skuRef.current.value : null  ,
           brand_name: brand,
         },
         {
@@ -125,7 +131,6 @@ const AddNewProductAdmin = () => {
                 name="descriptionAr"
                 placeholder="Arabic Description"
                 ref={arDescRef}
-                required
               />
             </div>
             <div className="px-6 py-4">
@@ -134,7 +139,6 @@ const AddNewProductAdmin = () => {
                 name="descriptionEn"
                 placeholder="English Description "
                 ref={enDescRef}
-                required
               />
             </div>
 
@@ -199,7 +203,6 @@ const AddNewProductAdmin = () => {
                 placeholder="sku"
                 style={{ WebkitAppearance: "none", MozAppearance: "textfield" }}
                 ref={skuRef}
-                required
               />
             </div>
 
@@ -211,7 +214,6 @@ const AddNewProductAdmin = () => {
                 style={{ WebkitAppearance: "none", MozAppearance: "textfield" }}
                 placeholder="ean_code"
                 ref={eanRef}
-                required
               />
             </div>
 
