@@ -4,8 +4,10 @@ const { i18n } = require("./next-i18next.config");
   // useFileSystemPublicRoutes: false,
   // output : 'export',
   reactStrictMode: true,
+  // unoptimized : true ,
   images: {
     formats: ['image/webp', 'image/avif' ],
+    unoptimized : true ,
     dangerouslyAllowSVG: true,  
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
