@@ -175,7 +175,7 @@ function AllProducts() {
 
         {inSearch == false && (
           <div className="w-[90%] mx-auto py-5">
-            {products.data.products && products.data.products.length > 0 ? (
+            {products && products.data.products && products.data.products.length > 0 ? (
               <div className="grid 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 gap-y-7 mx-auto  ">
                 {products.data.products &&
                   products.data.products.map((product) => (

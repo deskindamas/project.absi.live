@@ -49,32 +49,7 @@ function PublicStore() {
   function scroll (id) {
     document.querySelector(`#${id}`).scrollIntoView({behavior : 'smooth' });
   }
-  // const searchRef = useRef();
-  // const [searchedResults, setSearchedResults] = useState();
-  // const [searching, setSearching] = useState(false);
-  // const [inSearch, setInSearch] = useState(false);
 
-  
-  // async function search() {
-  //   setSearching(true);
-  //   try {
-  //     const response = await Api.post(
-  //       `api/allstores`,
-  //       {
-  //         search_term: searchRef.current.value,
-  //       },
-  //       {
-  //         noSuccessToast: true,
-  //       }
-  //     );
-  //     setSearchedStores(response.data);
-  //     setSearching(false);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
-  // console.log(`stores`);
-  // console.log(stores);
 
   if (isLoading) {
     return (
@@ -95,47 +70,6 @@ function PublicStore() {
         <div className="bg-gray-100 w-full px-5 py-3" id="top" >
           <h1 className="text-3xl text-gray-600 font-medium w-[90%] mx-auto">{t("stores.ALLStore")}</h1>
         </div>
-
-        {/* <div className="flex justify-center items-center pt-5">
-          <form className="flex bg-gray-100 w-full sm:w-2/5 items-center rounded-lg px-2 border-2 border-transparent focus-within:border-skin-primary transition-all duration-700 ">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-4 w-4 mr-2"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              />
-            </svg>
-            <input
-            //  ref={searchRef}
-              className="w-full bg-gray-100 outline-none rounded-lg text-sm h-10  "
-              type="text"
-              placeholder="Search Stores by name"
-              // onClick={() => {
-              //   setInSearch(true);
-              // }}
-              required
-            />
-            <button type="submit">
-              <MdArrowForward
-                // onClick={search}
-                className="hover:border-b-2 border-skin-primary cursor-pointer"
-              />
-            </button>
-          </form>
-        </div> */}
-        {/* {inSearch == true && (
-            <MdClose
-              className="text-red-500 hover:text-red-600 w-[25px] h-[25px] hover:border-b-2 hover:border-red-600 cursor-pointer "
-              onClick={closeSearch}
-            />
-          )} */}
 
         <div className="w-[90%] mx-auto py-5 ">
           { stores.data.stores && stores.data.stores.length > 0 ? <div className=" grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4">

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import images from "@/public/images/kuala.jpg";
 import withLayoutCustomer from "@/components/wrapping components/WrappingCustomerLayout";
@@ -16,6 +16,78 @@ import {
 } from "react-image-magnifiers-v2";
 import { useRouter } from "next/router";
 import { NextSeo } from "next-seo";
+import { CarouselProduct } from "@/components/ProductCarousel/CarouselProduct";
+import Variations from "@/components/VariationsCustomer/Variations";
+
+const sizes = [
+  {
+    id : 1,
+    name : "sm" ,
+  },
+  {
+    id : 2,
+    name : "md" 
+  },
+  {
+    id : 3,
+    name : "lg" 
+  },
+  {
+    id : 4,
+    name : "xl" 
+  },
+] ;
+
+const colors = [
+  {
+    id : 1,
+    name : "red" ,
+  },
+  {
+    id : 2,
+    name : "green" 
+  },
+  {
+    id : 3,
+    name : "white" 
+  },
+  {
+    id : 4,
+    name : "black" 
+  },
+]
+
+
+const productVariations = {
+  success: true,
+  variations: [
+    {
+      id: 15,
+      attribute: "Size",
+      option: "Large",
+      image: null,
+    },
+    {
+      id: 16,
+      attribute: "Color",
+      option: "Blue",
+      image: null,
+    },
+    {
+      id: 17,
+      attribute: "Color",
+      option: "Red",
+      image: null,
+    },
+    {
+      id: 18,
+      attribute: "Size",
+      option: "Small",
+      image: null,
+    },
+  ],
+};
+
 
 export async function getServerSideProps(context) {
   const { params, locale } = context;
@@ -39,8 +111,23 @@ export async function getServerSideProps(context) {
 }
 
 function PublicProduct({ product }) {
+
+  // const [selectedSize, setSelectedSize] = useState();
+  // const [selectedColor, setSelectedColor] = useState();
+
   const router = useRouter();
   const { t } = useTranslation("");
+
+  const groupedVariations = {};
+  productVariations["variations"].forEach((variation) => {
+    const attribute = variation.attribute;
+    if (!groupedVariations[attribute]) {
+      groupedVariations[attribute] = [];
+    }
+    groupedVariations[attribute].push(variation);
+  });
+
+
   return (
     <>
     <NextSeo
@@ -48,38 +135,14 @@ function PublicProduct({ product }) {
       description={product.name}
       canonical={`https://tawasyme.com/customer/Products/${router.query.productSlug}`}
     />
-      <div className="w-full h-full flex flex-col items-center justify-center space-y-4 py-10">
-        <div className="w-[70%] shadow-[0_4px_9px_-4px_rgba(0,0,0,0.2)]  md:my-5 my-2">
-          <div className="w-full flex  sm:flex-row flex-col sm:space-x-4 space-y-4 py-2">
-            <div className=" m-auto max-h-[200px] max-w-[200px] ">
-              {/* <Image
-              src={product.image ? product.image : logo}
-              className="w-full object-contain transform transition duration-1000 "
-              width={0}
-              height={0}
-              sizes="100vw"
-              style={{ width: "200px", height: "200px" }}
-            /> */}
-
-              <SideBySideMagnifier
-                imageSrc={product.image ? product.image : logo}
-                imageAlt={product.name}
-                // largeImageSrc={product.image}
-                alwaysInPlace={false}
-                overlayOpacity={0.5}
-                switchSides={router.locale == "ar" ? true : false}
-                inPlaceMinBreakpoint={641}
-                fillAvailableSpace={true}
-                fillAlignTop={true}
-                fillGapTop={100}
-                fillGapRight={10}
-                fillGapBottom={200}
-                fillGapLeft={10}
-                className="zoom"
-                zoomContainerBorder="1px solid #ccc"
-                zoomContainerBoxShadow="0 4px 8px rgba(0,0,0,.5)"
-              />
+      <div className="w-full h-full flex flex-col items-center justify-center space-y-4 py-20">
+        <div className="md:w-[70%] w-[90%] shadow-[0_4px_9px_-4px_rgba(0,0,0,0.2)]  md:my-5 my-2">
+          <div className="w-full flex sm:flex-row flex-col sm:space-x-4 space-y-4 py-2">
+            
+            <div className="m-auto ml-5"> 
+            <CarouselProduct />
             </div>
+
             <div className="w-full flex flex-col space-y-2 justify-center">
               <div className="flex justify-between">
                 <h2 className="text-2xl text-gray-600 capitalize">
@@ -91,6 +154,9 @@ function PublicProduct({ product }) {
                   {product.brand}
                 </p>
               )}
+
+             <Variations publicProduct = {true} />
+
               <p className="text-gray-500 text-base border-t-2 border-gray-200 py-3 my-2">
                 {product.decription && product.description}
               </p>
@@ -117,8 +183,11 @@ function PublicProduct({ product }) {
           )}
         </div>
       </div>
+
+      
     </>
   );
 }
 
 export default withLayoutCustomer(PublicProduct);
+

@@ -12,6 +12,43 @@ import { useState } from "react";
 import { convertMoney } from "../SellerOrders/sellerOrder";
 import { useDispatch } from "react-redux";
 import { cartActions } from "@/Store/CartSlice";
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Stack,
+} from "@mui/material";
+import { CarouselProduct } from "../ProductCarousel/CarouselProduct";
+import Variations from "../VariationsCustomer/Variations";
+
+const variation = [
+  {
+    id :1,
+    option : "small , red" 
+  },
+  {
+    id :2,
+    option : "large , red"
+  },
+  {
+    id :3,
+    option : "small , green" 
+  },
+  {
+    id :4,
+    option : "small , red" 
+  },
+  {
+    id :5,
+    option : "large , red"
+  },
+  {
+    id :6,
+    option : "small , green" 
+  },
+  
+]
 
 function PublicAllProduct({ product , storeId }) {
   const { t } = useTranslation("");
@@ -19,6 +56,23 @@ function PublicAllProduct({ product , storeId }) {
   const dispatch = useDispatch();
   const Api = createAxiosInstance(router);
   const [adding, setAdding] = useState(false);
+  const [open, openchange] = useState(false);
+
+  const functionopenpopup = async () => {
+    openchange(true);
+  };
+  const closepopup = () => {
+    openchange(false);
+  };
+   
+
+  const [selectedOption, setSelectedOption] = useState('');
+
+  const handleOptionChange = (e) => {
+    setSelectedOption(e.target.value);
+  };
+
+  const isButtonEnabled = selectedOption ? true : false;
 
   async function addToCart() {
     setAdding(true);
@@ -37,6 +91,7 @@ function PublicAllProduct({ product , storeId }) {
   // console.log(product);
 
   return (
+    <>
     <div className="shadow-lg flex flex-col sm:w-fit max-w-[288px] mx-auto border-2 md:min-h-[406px] min-h-[381px] border-gray-200 rounded-md ">
       <Link
         href={
@@ -57,7 +112,7 @@ function PublicAllProduct({ product , storeId }) {
         />
       </Link>
       <div className="w-[90%] mx-auto py-3 flex flex-col gap-2 md:h-[100%] h-auto justify-between">
-        <h1
+        <h1  onClick={functionopenpopup}
           className="capitalize md:text-xl text-base text-gray-600 font-medium md:h-[50%] text-ellipsis line-clamp-3 "
           title={product.name}
         >
@@ -93,6 +148,74 @@ function PublicAllProduct({ product , storeId }) {
         )}
       </div>
     </div>
+
+  <Dialog open={open} onClose={closepopup} fullWidth maxWidth="md">
+     <DialogContent>
+      <div>
+     <div className="flex md:flex-row flex-col gap-4 items-center w-[100%]">
+      <div className="md:w-[40%] w-[100%]">
+        <CarouselProduct productDialog = {true} product={product} />
+      </div>
+      <div className="md:w-[60%] w-[100%]">
+      <div className="w-full flex flex-col gap-2 justify-center sm:items-start items-center">
+      <div className="flex md:flex-row flex-col justify-between w-full">
+      <h1 className=" md:text-xl sm:text-lg text-lg w-[70%] text-gray-600 capitalize">
+       {product.name}
+       </h1>
+      <p className="bg-gray-200 sm:text-lg  w-max text-sm h-max sm:flex-none flex py-2 px-2 text-gray-600 ">
+       {convertMoney(product.price)} S.P
+       </p>
+        </div>
+        <div className="flex flex-wrap gap-3">
+          {product.brand && product.brand && (
+             <p className="md:text-base sm:text-base text-sm text-skin-primary border-2 border-skin-primary w-max px-5 rounded-full">
+            {product.brand}
+           </p>
+         )}
+        {product.category && product.category && (
+         <p className=" md:text-lg sm:text-base text-sm text-skin-primary border-2 border-skin-primary w-max px-5 rounded-full">
+          {product.category}
+          </p>
+          )}
+        </div>
+
+        <form className="my-2">
+      <select 
+        className="form-select mb-7 text-zinc-500 pl-2 outline-none"
+        onChange={handleOptionChange}
+      >
+        <option disabled selected value>
+          Select a Size and color
+        </option>
+        {variation.map((data) => (
+          <option
+            key={data.id}
+            value={data.option}
+            disabled={data.option === selectedOption}
+          >
+            {data.option}
+          </option>
+        ))}
+      </select>
+
+      <button
+        className={`bg-skin-primary text-white w-[70%] py-1 rounded-md ${isButtonEnabled ? '' : 'cursor-not-allowed'}`}
+        onClick={addToCart}
+        disabled={!isButtonEnabled}
+      >
+        Add to Cart
+      </button>
+    </form>
+           
+        </div>
+
+      </div>
+
+      </div>
+      </div>
+   </DialogContent>
+   </Dialog>
+       </>
   );
 }
 
