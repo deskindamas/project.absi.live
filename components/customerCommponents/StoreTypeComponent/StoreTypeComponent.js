@@ -9,7 +9,7 @@ import logo from "@/public/images/tawasylogo.png"
 function StoreTypeComponent({ storeType }) {
   const router = useRouter();
   return (
-    <Link href={`/customer/StoreType/${storeType.slug}`}  className=" lg:w-full md:w-[70%] sm:w-full  mx-auto " >
+    <Link href={`/customer/StoreType/${storeType.slug}`}  className=" lg:w-full md:w-[70%] w-full  mx-auto " >
       {/* <h2 className = {`w-[50%] text-center flex items-center px-3 justify-center  z-10 xl:text-[120%] md:text-[98%] sm:text-[80%]  text-[100%] text-skin-primary h-full `} dir={router.locale == 'ar' ? 'rtl' : "ltr"} >
         {storeType.name}
       </h2>
@@ -21,7 +21,7 @@ function StoreTypeComponent({ storeType }) {
         sizes="100vw"
         style={{ width: "100%", height: "auto" }} // optional
       /> */}
-      <div className="border-2 border-gray-100  hover:scale-[103%] transition-all shadow-2xl duration-[333.3ms] flex justify-start rounded-lg space-x-2 "> 
+      <div className="border-2 border-gray-100  hover:scale-[103%] transition-all shadow-xl duration-[333.3ms] flex justify-start rounded-lg space-x-2 "> 
         <Image
           src={storeType.image ? storeType.image : logo }
           alt = {storeType.name}

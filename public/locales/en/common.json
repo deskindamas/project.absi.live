@@ -91,7 +91,10 @@
     },
 
     "stores" : {
-     "ALLStore" : "All Stores"
+     "ALLStore" : "All Stores", 
+     "noStores" :"There are currently no stores yet",
+     "nextPage" : "Next Page",
+     "previousPage" : "Previous Page"
     },
     "products" : {
       "ALLProducts" : "All Products",

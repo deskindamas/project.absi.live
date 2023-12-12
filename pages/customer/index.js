@@ -287,7 +287,7 @@ function CustomerPage({ data }) {
             )}
 
             <div
-              className="md:absolute md:top-[90px] w-[80%] mx-auto justify-center items-center space-x-2"
+              className={`${(data.ads && data.ads.length > 0) ? `md:top-[90px] md:absolute` : ``}  w-[80%] mx-auto justify-center items-center space-x-2 pt-5`}
               dir="ltr"
             >
               <div className="flex flex-col justify-start items-center">
@@ -324,7 +324,7 @@ function CustomerPage({ data }) {
                     />
                   </svg>
                   <input
-                    className="w-full bg-gray-100 outline-none rounded-lg text-sm h-10 placeholder:text-xs"
+                    className="w-full bg-gray-100 outline-none rounded-lg text-sm h-10 placeholder:text-xs placeholder:text-transparent placeholder:md:text-gray-400"
                     type="text"
                     ref={searchRef}
                     dir={router.locale == "ar" ? "rtl" : "ltr"}
@@ -336,7 +336,7 @@ function CustomerPage({ data }) {
                   />
                   {searching == true ? (
                     <Ring size={25} lineWeight={5} speed={2} color="#ff6600" />
-                  ) : (
+                    ) : (
                     <MdClose
                       className={`text-red-500 ${
                         inSearch == true ? `opacity-100` : `opacity-0`
@@ -344,9 +344,10 @@ function CustomerPage({ data }) {
                       onClick={() => {
                         setInSearch(false);
                       }}
-                    />
-                  )}
+                      />
+                      )}
                 </form>
+                      <p className="block md:hidden text-center text-xs text-gray-400" >{t("home.search")}</p>
                 {inSearch == true && searchedResults && searchType && (
                   <div className="px-4 z-10 mx-auto w-full lg:w-2/5 md:w-2/5 bg-white border border-gray-300 rounded-sm ">
                     {searchedResults}
@@ -363,7 +364,7 @@ function CustomerPage({ data }) {
                 {t("home.discover")}
               </h2>
               {data && data.data ? (
-                <div className=" sm:w-[80%] w-[90%] h-[60%] grid grid-cols 2xl:grid-cols-3 xl:grid-cols-2 lg:grid-cols-2  md:grid-cols-1 sm:grid-cols-1  grid-cols-1 gap-y-6 gap-x-6 pb-20 ">
+                <div className=" sm:w-[80%] w-[90%] sm:h-[60%] h-max grid grid-cols 2xl:grid-cols-3 xl:grid-cols-2 lg:grid-cols-2  md:grid-cols-1 sm:grid-cols-1  grid-cols-1 gap-y-6 gap-x-6 pb-20 ">
                   {data.data.map((storeType) => {
                     return (
                       <StoreTypeComponent
@@ -374,7 +375,7 @@ function CustomerPage({ data }) {
                   })}
                 </div>
               ) : (
-                <div className="w-max mx-auto text-lg">
+                <div className="w-[60%] text-center mx-auto text-lg">
                   {" "}
                   {data.message ? data.message : `There are no storeTypes`}{" "}
                 </div>
@@ -454,7 +455,7 @@ function CustomerPage({ data }) {
                 <h3 className="text-3xl text-gray-600 font-medium text-center">
                   {t("home.TawasyApp")}
                 </h3>
-                <p className="text-gray-500 md:my-3">{t("home.WhatYouNeed")}</p>
+                <p className="text-gray-500 md:my-3 text-center">{t("home.WhatYouNeed")}</p>
                 <Link
                 href={`https://www.app.tawasyme.com`}
                   legacyBehavior

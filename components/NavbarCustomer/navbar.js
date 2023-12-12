@@ -146,14 +146,14 @@ function Navbar() {
               <Link
                 href={"/login"}
                 // href={{ pathname :"/login" , query : query}}
-                className="text-white h-[80%] flex items-center justify-center md:border-[1px] md:border-white md:px-6 px-1 hover:bg-white hover:text-skin-primary rounded-md justify-self-end"
+                className="text-white h-[80%] sm:text-base text-xs flex items-center justify-center md:border-[1px] md:border-white md:px-6 px-1 hover:bg-white hover:text-skin-primary rounded-md justify-self-end"
               >
                 {/* {`Login`} */}
                 {t("nav.login")}
               </Link>
               <Link
                 href={"/signup"}
-                className="text-white mx-1 h-[80%] flex items-center justify-center md:border-[1px] md:border-white md:px-6 px-1 hover:bg-white hover:text-skin-primary rounded-md justify-self-end"
+                className="text-white mx-1 h-[80%] sm:text-base text-xs flex items-center justify-center md:border-[1px] md:border-white md:px-6 px-1 hover:bg-white hover:text-skin-primary rounded-md justify-self-end"
               >
                 {/* {`Login`} */}
                 {t("nav.SignUp")}

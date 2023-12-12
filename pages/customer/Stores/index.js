@@ -76,8 +76,8 @@ function PublicStore() {
             { stores.data.stores && stores.data.stores.map((store) => {
               return <PublicStoreCard key={store.id} store={store} />;
             })}
-          </div> : <div className="w-max mx-auto" > There are no stores right now . </div>}
-          {stores && stores.data.pagination && (
+          </div> : <div className="w-max mx-auto" >{t("stores.noStores")}</div>}
+          {stores && stores.data.stores && stores.data.stores.length > 0 && stores.data.pagination && (
                 <div className="w-fit mx-auto flex justify-center items-center h-max gap-4 py-4 ">
                   <button
                     className="px-2 py-1 bg-skin-primary text-white rounded-lg hover:bg-[#ff9100] disabled:opacity-50 disabled:cursor-not-allowed w-max"
@@ -91,7 +91,7 @@ function PublicStore() {
                       stores.data.pagination.from
                     }
                   >
-                    Previous Page
+                    {t("stores.previousPage")}
                   </button>
                   { isFetching && <Ring size={20} lineWeight={5} speed={2} color="#222222" />}
                   <button
@@ -105,7 +105,7 @@ function PublicStore() {
                       stores.data.pagination.last_page
                     }
                   >
-                    Next Page
+                   {t("stores.nextPage")}
                   </button>
                 </div>
               )}

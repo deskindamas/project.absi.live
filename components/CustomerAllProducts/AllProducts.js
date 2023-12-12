@@ -112,8 +112,8 @@ function PublicAllProduct({ product , storeId }) {
         />
       </Link>
       <div className="w-[90%] mx-auto py-3 flex flex-col gap-2 md:h-[100%] h-auto justify-between">
-        <h1  onClick={functionopenpopup}
-          className="capitalize md:text-xl text-base text-gray-600 font-medium md:h-[50%] text-ellipsis line-clamp-3 "
+        <h1
+          className="capitalize md:text-xl text-base text-gray-600 font-medium text-ellipsis line-clamp-2 "
           title={product.name}
         >
           {product.name}
@@ -123,7 +123,7 @@ function PublicAllProduct({ product , storeId }) {
             {convertMoney(product.price)} S.P
           </h2>
         )}
-        <p className="text-skin-primary text-lg md:h-[20%] ">{product.brand}</p>
+        <p className="text-skin-primary md:text-lg text-base ">{product.brand}</p>
         {!product.price && (
           <Link
             href={`/customer/Products/${product.slug}`}
@@ -135,7 +135,7 @@ function PublicAllProduct({ product , storeId }) {
         {product.price && (
           <button
             onClick={addToCart}
-            className="capitalize md:h-[20%] border-2 border-skin-primary px-4 rounded-full text-base transform duration-500"
+            className="capitalize md:h-[20%] border-2 border-skin-primary px-4 rounded-full my-auto text-base transform duration-500"
           >
             {adding == true ? (
               <div className="w-full h-full flex justify-center items-center">

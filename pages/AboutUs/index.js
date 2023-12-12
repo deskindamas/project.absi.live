@@ -16,6 +16,7 @@ const AboutUs = () => {
           <div>
             <Image
               src={about3}
+              unoptimized={false}
               alt="about us"
               width={0}
               height={0}
@@ -62,6 +63,7 @@ const AboutUs = () => {
       <div className="md:w-[40%] w-[90%]">
         <Image
           src={about1}
+          unoptimized={false}
           alt="about us"
           width={0}
           height={0}

@@ -156,7 +156,9 @@ function StoreAdmin({ names, refetch }) {
         {
           headers: { "Content-Type": `multipart/form-data` },
         }
-      );}catch(error){
+      );
+      setLogoImage();
+    }catch(error){
       setIsSaving(false);
         return ;
       }
@@ -173,21 +175,23 @@ function StoreAdmin({ names, refetch }) {
             headers: { "Content-Type": `multipart/form-data` },
           }
         );
+        setStoreImage();
       } catch (error) {}
     }
 
     if(Object.keys(editData).length < 1) {
-      toast.error(`Please fill all the fields | الرجاء تعبئة جميع الحقول المطلوبة `, {
-        toastId: `Please fill all the fields | الرجاء تعبئة جميع الحقول المطلوبة `,
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-      });
+      // toast.error(`Please fill all the fields | الرجاء تعبئة جميع الحقول المطلوبة `, {
+      //   toastId: `Please fill all the fields | الرجاء تعبئة جميع الحقول المطلوبة `,
+      //       position: "top-right",
+      //       autoClose: 5000,
+      //       hideProgressBar: false,
+      //       closeOnClick: true,
+      //       pauseOnHover: true,
+      //       draggable: true,
+      //       progress: undefined,
+      //       theme: "colored",
+      // });
+      setIsEditing(false);
       setIsSaving(false);
       return;
     }else{
