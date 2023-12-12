@@ -271,11 +271,11 @@ function CustomerPage({ data }) {
 
   return (
     <>
-    <NextSeo
-      title={t("titles.home")}
-      description={t("descs.home")}
-      canonical="https://tawasyme.com"
-    />
+      <NextSeo
+        title={t("titles.home")}
+        description={t("descs.home")}
+        canonical="https://tawasyme.com"
+      />
       <div className="w-full h-full">
         {data && (
           <div className="relative flex flex-col justify-start items-center h-max w-full gap-4 ">
@@ -364,7 +364,7 @@ function CustomerPage({ data }) {
                 {t("home.discover")}
               </h2>
               {data && data.data ? (
-                <div className=" sm:w-[80%] w-[90%] sm:h-[60%] h-max grid grid-cols 2xl:grid-cols-3 xl:grid-cols-2 lg:grid-cols-2  md:grid-cols-1 sm:grid-cols-1  grid-cols-1 gap-y-6 gap-x-6 pb-20 ">
+                <div className=" sm:w-[80%] w-[90%] sm:h-[60%] h-max grid 2xl:grid-cols-3 xl:grid-cols-2 lg:grid-cols-2 grid-cols-1 gap-6 pb-20 ">
                   {data.data.map((storeType) => {
                     return (
                       <StoreTypeComponent
@@ -408,7 +408,7 @@ function CustomerPage({ data }) {
                       {t("home.BecomeASeller")}
                     </p>
                     <p className="md:text-base text-sm text-gray-500 px-1">
-                    {t("home.seller")}
+                      {t("home.seller")}
                     </p>
                   </div>
                 </Link>

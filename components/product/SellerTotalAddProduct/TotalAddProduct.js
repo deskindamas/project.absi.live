@@ -18,51 +18,143 @@ function TotalAddProduct({ selectproduct, refetch }) {
   const Api = createAxiosInstance(router);
 
   async function saveProduct() {
-    setIsSaving(true);
-    try{
-      const response = await Api.post(`/api/seller/add-products-to-store/${selectproduct.product_id}` , {
-        price : priceRef.current.value ,
-        availability : available
-      });
-      refetch();
+    if (
+      selectproduct.product.variations &&
+      selectproduct.product.variations.length > 0
+    ) {
+      setIsSaving(true);
+      let varis = [];
+      const variations =
+        selectproduct.product.variations &&
+        selectproduct.product.variations.length > 0 &&
+        selectproduct.product.variations.map((variant) => {
+          varis.push(variant.id);
+        });
+      try {
+        const response = await Api.post(
+          `/api/seller/add-products-to-store/${selectproduct.product.id}`,
+          {
+            price: priceRef.current.value,
+            availability: available,
+            variations: varis,
+          }
+        );
+        refetch();
+        setIsSaving(false);
+      } catch (error) {
+        // console.log(error);
+      }
       setIsSaving(false);
-    }catch(error){
-      // console.log(error);
+    } else {
+      setIsSaving(true);
+      try {
+        const response = await Api.post(
+          `/api/seller/add-products-to-store/${selectproduct.product.id}`,
+          {
+            price: priceRef.current.value,
+            availability: available,
+          }
+        );
+        refetch();
+        setIsSaving(false);
+      } catch (error) {
+        // console.log(error);
+      }
+      setIsSaving(false);
     }
-    setIsSaving(false);
   }
 
   async function unSelectProduct() {
-    setIsDeleting(true);
-    try {
-      const response = await Api.post(
-        `/api/seller/unselect-product/${selectproduct.product_id}`
-      );
-      refetch();
+    if (
+      selectproduct.product.variations &&
+      selectproduct.product.variations.length > 0
+    ){
+      setIsDeleting(true);
+      let varis = [];
+      const variations =
+        selectproduct.product.variations &&
+        selectproduct.product.variations.length > 0 &&
+        selectproduct.product.variations.map((variant) => {
+          varis.push(variant.id);
+        });
+      try {
+        const response = await Api.post(
+          `/api/seller/unselect-product/${selectproduct.product.id}` , {
+            variations : varis
+          }
+        );
+        refetch();
+        setIsDeleting(false);
+      } catch (error) {
+        setIsDeleting(false);
+      }
       setIsDeleting(false);
-    } catch (error) {
+    }else{
+      setIsDeleting(true);
+      try {
+        const response = await Api.post(
+          `/api/seller/unselect-product/${selectproduct.product.id}`
+        );
+        refetch();
+        setIsDeleting(false);
+      } catch (error) {
+        setIsDeleting(false);
+      }
       setIsDeleting(false);
     }
-    setIsDeleting(false);
   }
+
+  // const variations = selectproduct.variations && selectproduct.variations.length > 0 && selectproduct.variations.option.join(`-`) ;
+  let varis = [];
+  const variations =
+    selectproduct.product.variations &&
+    selectproduct.product.variations.length > 0 &&
+    selectproduct.product.variations.map((variant) => {
+      varis.push(variant.option);
+    });
+  varis = varis.join(" / ");
 
   return (
     <>
       <tr
-        key={selectproduct.id}
+        key={selectproduct.product.id}
         className="even:bg-zinc-150 odd:bg-zinc-50 text-center py-1 border-b-2 border-slate-300"
       >
-        <td><Link href={`/customer/Products/${selectproduct.slug}`} legacyBehavior >
-            <a target="_blank" className="border-b border-transparent hover:border-gray-400" >
-            {selectproduct.name}
+        <td>
+          <Link
+            href={`/customer/Products/${selectproduct.slug}`}
+            legacyBehavior
+          >
+            <a
+              target="_blank"
+              className="border-b border-transparent hover:border-gray-400"
+            >
+              {selectproduct.product.name}
             </a>
-          </Link></td>
-        <td>{selectproduct.brand}</td>
-        <td>{selectproduct.category}</td>
+          </Link>
+        </td>
+        <td className="px-4">
+          {selectproduct.product.variations &&
+          selectproduct.product.variations.length > 0 ? (
+            <div className="flex justify-center items-center space-x-3">
+              {" "}
+              {/* {varis && varis.length > 0 && varis.map((variation) => {
+                  return <p className="">{variation}</p>;
+                })} */}
+              <p>{varis && varis}</p>
+            </div>
+          ) : (
+            <p className="text-base">This product has no variations</p>
+          )}
+        </td>
+        <td>{selectproduct.product.brand}</td>
+        <td>{selectproduct.product.category}</td>
         <td>
           {available ? (
             <BsToggleOn
-            onClick={() => {setAvailable(false)}}
+              onClick={() => {
+                setAvailable(false);
+              }}
               className="cursor-pointer"
               style={{
                 width: "25px",
@@ -73,7 +165,9 @@ function TotalAddProduct({ selectproduct, refetch }) {
             />
           ) : (
             <BsToggleOff
-            onClick={() => {setAvailable(true)}}
+              onClick={() => {
+                setAvailable(true);
+              }}
               className="cursor-pointer"
               style={{
                 width: "25px",
@@ -86,14 +180,16 @@ function TotalAddProduct({ selectproduct, refetch }) {
         </td>
         <td className="flex justify-center items-center">
           <img
-            src={selectproduct.image ? selectproduct.image : logo}
+            src={
+              selectproduct.product.image ? selectproduct.product.image : logo
+            }
             width={75}
             height={75}
             loading="lazy"
-            alt={selectproduct.name}
+            alt={selectproduct.product.name}
           />
         </td>
-        <td className="md:px-0 px-2" >
+        <td className="md:px-0 px-2">
           <input
             className="border-b-2 outline-none bg-transparent focus:border-skin-primary transition-all duration-700 md:w-[50%] w-full "
             name="price"
@@ -118,7 +214,7 @@ function TotalAddProduct({ selectproduct, refetch }) {
             )}
             {!isSaving ? (
               <MdCheck
-              onClick={saveProduct}
+                onClick={saveProduct}
                 style={{ width: "26px", height: "26px", color: "#005500" }}
                 className="cursor-pointer"
               />

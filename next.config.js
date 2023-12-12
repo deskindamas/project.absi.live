@@ -20,6 +20,12 @@ const { i18n } = require("./next-i18next.config");
         // pathname: '/storage/**',
       },
       {
+        protocol: 'https',
+        hostname: 'absi.damaszone.com',
+        port: '',
+        // pathname: '/storage/**',
+      },
+      {
         protocol: 'http',
         hostname: '192.168.1.201',
         port: '8000',

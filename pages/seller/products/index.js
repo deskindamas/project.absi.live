@@ -151,6 +151,10 @@ function Products() {
     title = t("seller.sidebar.product.all");
   }
 
+  if(products) {
+    console.log(products)
+  }
+
   return (
     <div dir={router.locale == "ar" ? "rtl" : "ltr"} >
       <div className="items-center w-full  mx-auto my-10 bg-white rounded-lg shadow-md sm:w-11/12">

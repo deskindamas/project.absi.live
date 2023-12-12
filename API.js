@@ -97,7 +97,7 @@ const createAxiosInstance = (router) => {
             error.config.url && error.config.url.includes("/admin/");
 
           if (isAdmin == true) {
-            router.push(`/admin/AdminLogin`);
+            router.push(`/admin/securelogin`);
           } else {
             // console.log(router);
             Cookies.set("url" , router.asPath , { expires: 365 * 10 });
