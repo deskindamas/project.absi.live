@@ -53,7 +53,7 @@ const Store = () => {
     refetch , 
     isRefetching, 
   } = useQuery(`sellerStore`, fetchSellerStoreData, {
-    staleTime: Infinity,
+    staleTime: 1,
     refetchOnMount: true,
     refetchOnWindowFocus: false,
   });
@@ -176,41 +176,6 @@ const Store = () => {
         )}
       </div>
 
-      {/* <div className="flex flex-col justify-around items-stretch w-full">
-        <div className="flex justify-around items-center border-b-2 border-skin-primary py-2 my-2">
-          <div className="flex justify-start items-center w-full gap-2 px-4   ">
-            <h2 className="text-2xl text-skin-primary font-medium  ">
-              Opening Time :
-            </h2>
-            <span className="text-gray-400 text-2xl  ">
-              {" "}
-              {convertTo12HourFormat(sellerStoreData.store.opening_time)}
-            </span>
-          </div>
-          <div className="flex justify-start items-center w-full gap-2 px-4  ">
-            <h2 className="text-2xl text-skin-primary font-medium  ">
-              Closing Time :
-            </h2>
-            <span className="text-gray-400 text-2xl  ">
-              {convertTo12HourFormat(sellerStoreData.store.closing_time)}
-            </span>
-          </div>
-        </div>
-        <div className="flex justify-center items-center w-full pb-5">
-          <h2 className="items-start text-xl text-gray-600 font-medium">
-            Opening Days :
-            {sellerStoreData.store.opening_days?.map((day, index) => {
-              return (
-                <span className="text-gray-400 uppercase px-2">
-                  {index !== sellerStoreData.store.opening_days.length -1 ? `${day} ,` : day}
-                </span>
-              );
-            })}
-          </h2>
-          <div> </div>
-        </div>
-      </div> */}
-
       <div className="flex justify-center bg-gray-200 w-full py-3 mb-10  ">
         <ul className="flex md:justify-center justify-start md:items-center items-start md:w-full w-[80%] mx-auto gap-6 md:overflow-auto overflow-x-scroll">
         {sellerStoreData && (
@@ -225,9 +190,10 @@ const Store = () => {
       <div className="flex justify-center w-full">
       <div className="grid 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-2 grid-col-1 gap-2 w-full mx-auto mb-10 ">
         {sellerStoreData &&
+          selectedCategory &&
           selectedCategoryData &&
-          selectedCategoryData.products.map((product) => (
-            <SellerStoreProduct key={product.id} product={product} refetch = {() => {refetch();}} />
+          selectedCategoryData.products.map((product , index) => (
+            <SellerStoreProduct key={index} product={product} refetch = {() => {refetch();}} />
             // <SellerStore key={product.id} store={product} refetch = {() => {refetch();}} />
           ))}
       </div>

@@ -33,7 +33,7 @@ const AdminLogin = () => {
       Cookies.remove("Sid");
       Cookies.set("AT", response.data.token , {expires : 365 * 10});
       setIsLoading(false);
-      router.push("/admin");
+      router.push("/admin/Dashboard");
     } catch (error) {
       setIsLoading(false);
     }

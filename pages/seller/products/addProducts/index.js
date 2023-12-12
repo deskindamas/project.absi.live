@@ -43,7 +43,7 @@ function AddProducts() {
     ["sharedProducts", currentPage],
     () => fetchSharedProducts(currentPage),
     {
-      staleTime: Infinity,
+      staleTime: 1,
       refetchOnMount: true,
       refetchOnWindowFocus: false,
       keepPreviousData: true,
@@ -82,12 +82,12 @@ function AddProducts() {
   const closepopup = () => {
     openchange(false);
   };
-  const transitionBuilder = (animationValues) => {
-    const translateX = animationValues.animationProgress * 100;
-    return {
-      transform: `translateX(${translateX}%)`,
-    };
-  };
+  // const transitionBuilder = (animationValues) => {
+  //   const translateX = animationValues.animationProgress * 100;
+  //   return {
+  //     transform: `translateX(${translateX}%)`,
+  //   };
+  // };
 
   if (isLoading == true) {
     return (
@@ -97,10 +97,10 @@ function AddProducts() {
     );
   }
 
-  // if (data) {
-  //   console.log(`shared products`);
-  //   console.log(data.data.approvedProducts);
-  // }
+  if (selectedProducts) {
+    console.log(`shared products`);
+    console.log(selectedProducts);
+  }
 
   function closeSearch() {
     setInSearch(false);
@@ -127,6 +127,10 @@ function AddProducts() {
       console.log(error);
     }
   }
+
+  // if(data){
+  //   console.log(data);
+  // }
 
   return (
     <div className="md:px-16 px-5">
@@ -225,7 +229,7 @@ function AddProducts() {
               </div>
             ))}
 
-          {data && data.data.pagination && inSearch == false && (
+          {data && data.data.pagination && data.data.approvedProducts.length > 0 && inSearch == false && (
             <div className="w-[50%] mx-auto flex justify-center items-center py-5 gap-4 ">
               <button
                 className="px-2 py-1 bg-skin-primary text-white rounded-lg hover:bg-[#ff9100] disabled:opacity-50 disabled:cursor-not-allowed w-[20%]"
@@ -259,8 +263,8 @@ function AddProducts() {
             </div>
           )}
           <Dialog
-            transitionDuration={500}
-            transitionBuilder={transitionBuilder}
+            disableAutoFocus
+            disableRestoreFocus
             className="h-full"
             fullWidth
             maxWidth="xl"
@@ -287,6 +291,7 @@ function AddProducts() {
                               <th className="pb-4 md:px-0 px-4">
                                 {t("seller.addProduct.selectedProducts.table.productName")}
                               </th>
+                              <th className="pb-4 md:px-0 px-4">{t("seller.addProduct.selectedProducts.table.variations")}</th>
                               <th className="pb-4 md:px-0 px-4">{t("seller.addProduct.selectedProducts.table.brand")}</th>
                               <th className="pb-4 md:px-0 px-4">{t("seller.addProduct.selectedProducts.table.category")}</th>
                               <th className="pb-4 md:px-0 px-4">{t("seller.addProduct.selectedProducts.table.publish")}</th>
@@ -334,8 +339,8 @@ function AddProducts() {
       )}
 
       <button
-        onClick={(e) => {
-          e.preventDefault();
+        onClick={() => {
+          // e.preventDefault();
           functionopenpopup();
         }}
       >

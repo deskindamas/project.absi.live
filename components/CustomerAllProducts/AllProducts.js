@@ -80,7 +80,7 @@ function PublicAllProduct({ product , storeId }) {
         {product.price && (
           <button
             onClick={addToCart}
-            className="capitalize md:h-[20%] border-2 border-skin-primary px-4 rounded-full my-auto text-base transform duration-500"
+            className="capitalize md:h-[20%] border-2 border-skin-primary px-4 rounded-full justify-self-end my-auto text-base transform duration-500"
           >
             {adding == true ? (
               <div className="w-full h-full flex justify-center items-center">

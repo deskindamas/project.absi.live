@@ -15,7 +15,7 @@ import { BsCartCheckFill, BsBox, BsColumns } from "react-icons/bs";
 import { CiLogout } from "react-icons/ci";
 import { MdPendingActions, MdOutlineDisabledVisible } from "react-icons/md";
 import { useRouter } from "next/router";
-import { TbBrandShopee, TbCategory2, TbTruckDelivery } from "react-icons/tb";
+import { TbBrandShopee, TbCategory2, TbGitBranch, TbTruckDelivery } from "react-icons/tb";
 import { RiCoupon2Line } from "react-icons/ri";
 import { FaStore } from "react-icons/fa";
 import Cookies from "js-cookie";
@@ -34,7 +34,7 @@ export default function SidebarAdmin(props) {
       const response = await Api.get(`/api/admin/logout`);
       Cookies.remove("AT");
       Cookies.remove("user");
-      router.replace("/admin/AdminLogin");
+      router.replace("/admin/securelogin");
       setLoggingOut(false);
     } catch (error) {
       setLoggingOut(false);
@@ -57,7 +57,7 @@ export default function SidebarAdmin(props) {
             <ul className="pt-5 pb-4 space-y-1 text-lg font-normal">
               <li className="rounded-sm pb-3">
                 <Link
-                  href="/admin"
+                  href="/admin/Dashboard"
                   className="flex items-center pl-2 space-x-3 rounded-md text-gray-100"
                 >
                   <BsColumns className="block text-[20px] text-white " />
@@ -71,7 +71,7 @@ export default function SidebarAdmin(props) {
                 htmlFor="customerbreaker"
                 className="text-white w-max mx-auto"
               >
-                Label
+                Customers & Orders
               </label>
               <hr id="customerbreaker"></hr>
 
@@ -184,7 +184,7 @@ export default function SidebarAdmin(props) {
                 htmlFor="productsbreaker"
                 className="text-white w-max mx-auto"
               >
-                Label
+                Products & related settings
               </label>
               <hr id="productsbreaker"></hr>
 
@@ -324,6 +324,18 @@ export default function SidebarAdmin(props) {
 
               <li className="rounded-sm pb-3">
                 <Link
+                  href="/admin/Variations"
+                  className="flex items-center pl-2 space-x-3 pt-2 pb-1 rounded-md text-gray-100"
+                >
+                  <TbGitBranch className="block text-[25px] text-white " />
+                  <p className="hidden md:block" style={{ marginLeft: "43px" }}>
+                    Variations
+                  </p>
+                </Link>
+              </li>
+
+              <li className="rounded-sm pb-3">
+                <Link
                   href="/admin/Brands"
                   className="flex items-center pl-2 space-x-3 pt-2 pb-1 rounded-md text-gray-100"
                 >
@@ -386,7 +398,7 @@ export default function SidebarAdmin(props) {
                 htmlFor="couponbreaker"
                 className="text-white w-max mx-auto"
               >
-                Label
+                Others
               </label>
               <hr id="couponbreaker"></hr>
 

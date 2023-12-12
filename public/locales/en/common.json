@@ -457,6 +457,7 @@
         "noProducts" : "You did not select any product to add your store yet",
         "table" : {
           "price" : "Price" , 
+          "variations" : "variations",
           "image" : "Image" ,
           "publish" : "Publish/Unpublish" ,
           "category" : "Category" ,
