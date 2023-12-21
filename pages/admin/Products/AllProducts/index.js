@@ -120,7 +120,7 @@ function ProductsAdmin() {
                 ))}
               </tr>
             </thead>
-            <tbody className="text-lg h-fit font-normal text-gray-700 text-center">
+            <tbody className="text-lg h-full font-normal text-gray-700 text-center">
               {response.data.data &&
                 response.data.data.map((names) => {
                   return (
@@ -295,7 +295,7 @@ function ProductsAdmin() {
                 <TawasyLoader width={300} height={300} />
               </div>
             ) : (
-              <div className=" mt-6 h-[70%]  overflow-auto">
+              <div className=" mt-6 h-[90%] overflow-auto">
                 {searchedResults && searchedResults}
               </div>
             ))}

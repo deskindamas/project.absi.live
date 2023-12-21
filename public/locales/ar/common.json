@@ -419,10 +419,13 @@
     "products" : {
       "addProduct" : "إضافة منتج لمتجرك", 
       "addNewProduct" : "إضافة منتج جديد",
+      "addCombinations" : "إضافة تشكيلات جديدة للمنتج ",
       "table" : {
         "id" : "المعرّف",
         "action" : "تعديل \" حذف" ,
         "name" : "الاسم",
+        "variations" : "الأنواع",
+        "partNumber" : "Part-Number",
         "category" : "التصنيف ",
         "image" : "الصورة" ,
         "status" : "الحالة" ,

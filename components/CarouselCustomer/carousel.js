@@ -30,12 +30,12 @@ export function ResponsiveCarousel({ ads }) {
       swipeable = {false}
       animationHandler="fade"
       // width={`70%`}
-      className="select-none"
+      className="select-none  "
       dynamicHeight={false}
     >
       {ads && ads.map((ad) => {
         return (
-          <div key={ad.id} className="relative  h-auto w-full shadow-xl ">
+          <div key={ad.id} className="relative  h-auto w-full shadow-xl bg-gray-200 ">
             <Image
               loading="eager"
               src={ad.image ? ad.image : logo}
@@ -44,7 +44,7 @@ export function ResponsiveCarousel({ ads }) {
               height={540}
               style={{width : "100%" , height : "auto"}}
               alt="image 1"
-              className="h-max  "
+              className="max-h-[540px] object-contain  "
             />
           </div>
         );

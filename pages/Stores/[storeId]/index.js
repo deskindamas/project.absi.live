@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from "react";
-import Logo from "../../../../public/images/item2.jpg";
+import Logo from "@/public/images/item2.jpg";
 import Image from "next/image";
-import Storeimage from "../../../../public/images/storeimage.jpg";
+import Storeimage from "@/public/images/storeimage.jpg";
 import FilterCategories from "@/components/SellerStore/filterCategory/filterCategories";
 import withLayoutCustomer from "@/components/wrapping components/WrappingCustomerLayout";
-import ItemProduct from "../../../../public/images/kuala.jpg";
+import ItemProduct from "@/public/images/kuala.jpg";
 import { Router, useRouter } from "next/router";
 import createAxiosInstance from "@/API";
 import { useQuery } from "react-query";
 import TawasyLoader from "@/components/UI/tawasyLoader";
 import ProductCustomer from "@/components/ProductsCustomer/products";
 import { convertTo12HourFormat } from "@/pages/seller/store";
-import styles from "../../../../components/componentsStyling/sellerStorePage.module.css";
+import styles from "@/components/componentsStyling/sellerStorePage.module.css";
 import { MdArrowForward, MdClose } from "react-icons/md";
 import { useRef } from "react";
 import { NextSeo } from "next-seo";
-import logo from "../../../../public/images/tawasylogo.png";
+import logo from "@/public/images/tawasylogo.png";
 // import { notFound } from "next/navigation";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
@@ -143,7 +143,10 @@ function Products({ store }) {
     );
     // console.log(selectedCategoryData);
   }
+  let days = [] ;
 
+  const beforeDays = JSON.parse(store.store.opening_days);
+  days = beforeDays.join(" - ")
   // if (store) {
   //   console.log(store.data);
   //   console.log(`asdasd`);
@@ -155,7 +158,7 @@ function Products({ store }) {
       <NextSeo
       title={`${store.store.name} | ${t("titles.home")}`}
       description={store.store.name}
-        canonical={`https://tawasyme.com/customer/store/${router.query.storeId}`}
+        canonical={`https://tawasyme.com/store/${router.query.storeId}`}
       />
       <div className="">
         {store && (
@@ -209,7 +212,7 @@ function Products({ store }) {
                           {/* {`Opening Days`} : */}
                           {t("store.openingDays")} :
                         </h3>
-                        {JSON.parse(store.store.opening_days)?.map(
+                        {/* {JSON.parse(store.store.opening_days)?.map(
                           (day, index) => {
                             return (
                               <span key={index} className="text-gray-400 mt-4">
@@ -219,7 +222,8 @@ function Products({ store }) {
                               </span>
                             );
                           }
-                        )}
+                        )} */}
+                        <p className="text-gray-500" >{days && days.length > 0 && days}</p>
                       </div>
                     </div>
                   </div>
@@ -233,7 +237,7 @@ function Products({ store }) {
               <div>
                 <h2 className="md:text-xl text-lg text-gray-600 font-medium sm:my-2">
                   {/* {`Opening Time`} : */}
-                  {t("store.openingTime")} :
+                  {`${t("store.openingTime")} : `}
                   <span className="text-gray-400 md:text-xl sm:text-lg text-sm px-1 ">
                     {convertTo12HourFormat(store.store.opening_time)}
                   </span>
@@ -242,7 +246,7 @@ function Products({ store }) {
               <div>
                 <h2 className="md:text-xl sm:text-lg text-sm text-gray-600 font-medium sm:my-3">
                   {/* {`Closing Time`} : */}
-                  {t("store.closingTime")} :
+                  {`${t("store.closingTime")} : `}
                   <span className="text-gray-400 md:text-xl sm:text-lg text-sm">
                     {convertTo12HourFormat(store.store.closing_time)}
                   </span>

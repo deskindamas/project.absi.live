@@ -121,7 +121,7 @@ function MyProfile() {
       <NextSeo
         title={t("titles.profile")}
         description={t("descs.profile")}
-        canonical="https://tawasyme.com/customer/MyProfile"
+        canonical="https://tawasyme.coms/MyProfile"
       />
       <h1 className="border-b-2 border-gray-300 py-4 text-2xl text-gray-700 font-medium px-7">
         {/* {`My Profile`} */}

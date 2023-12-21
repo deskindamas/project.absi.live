@@ -162,9 +162,9 @@ const Cart = ({ onClose, show, className }) => {
               >
                 {cart &&
                   cart.data.cart?.lines &&
-                  cart.data.cart.lines.map((item) => (
+                  cart.data.cart.lines.map((item , index) => (
                     <CartProduct
-                      key={item.product.id}
+                      key={index}
                       product={item}
                       storeid={cart.data.store_id}
                       refetch={() => {
@@ -267,7 +267,7 @@ const Cart = ({ onClose, show, className }) => {
                 <button
                   className="text-white bg-[#ff6600] px-16 py-2 rounded-full border-2 border-white hover:bg-white hover:text-skin-primary hover:border-skin-primary transition-all duration-500 "
                   onClick={() => {
-                    router.push(`/customer/SubmitOrder`);
+                    router.push(`/SubmitOrder`);
                   }}
                 >
                   {/* {`Submit Order`} */}

@@ -3,93 +3,6 @@ import Image from "next/image";
 import { useState } from "react";
 import Combination from "./Combination";
 
-// function VariationProduct({
-//   variation,
-//   selectVariation,
-//   deleteVariation,
-//   isSelecting = true,
-//   isDeleting,
-// }) {
-//   return (
-//     <div
-//       className={`w-full flex justify-around items-center py-2 border-b border-gray-300 `}
-//     >
-//       <p>{variation.name}</p>
-//       <p>{variation.color}</p>
-//       <p>{variation.size}</p>
-//       <Image
-//         src={variation.image}
-//         alt={variation.name}
-//         width={75}
-//         height={75}
-//       />
-//       <div className="flex justify-center items-center space-x-2 w-[20%] h-full">
-//         {isSelecting == true ? (
-//           <div  className="px-2 py-1 bg-green-500 text-white rounded-lg hover:bg-green-600 min-w-[40%] min-h-[100%] flex justify-center items-center ">
-//             <Ring size={20} speed={2} lineWeight={5} color="white" />
-//           </div>
-//         ) : (
-//           <button
-//             onClick={() => {
-//               selectVariation(variation.id);
-//             }}
-//             className="px-2 py-1 bg-green-500 text-white rounded-lg hover:bg-green-600 min-w-[40%] "
-//           >
-//             Select
-//           </button>
-//         )}
-//         <button
-//           onClick={() => {
-//             deleteVariation(variation.id);
-//           }}
-//           className="px-2 py-1 bg-red-500 text-white rounded-lg  hover:bg-red-600 min-w-[40%] "
-//         >
-//           Delete
-//         </button>
-//       </div>
-//     </div>
-//   );
-// }
-
-function cartesianProductWithIds(arrays) {
-  return arrays.reduce((acc, curr) => {
-    return (
-      acc.flatMap((x) =>
-        curr.map((y) => {
-          const combined = { ...x, ...y };
-          const ids = { ...x.id, [y.attribute + "_id"]: y.id };
-          console.log({ option: combined, ids: ids });
-          return { option: combined, ids: ids };
-        })
-      ),
-      [{}]
-    );
-  });
-}
-
-// function generateCombinations(attributes, currentCombination = {}, currentIndex = 0) {
-//   if (currentIndex === attributes.length) {
-//     // If currentIndex is equal to the length of attributes, it means we have a complete combination
-//     return [currentCombination];
-//   }
-
-//   const attributeKey = Object.keys(attributes[currentIndex])[0]; // Get the attribute key dynamically
-//   const currentAttribute = attributes[currentIndex][attributeKey];
-//   const combinations = [];
-
-//   for (const option of currentAttribute) {
-//     const newCombination = { ...currentCombination };
-//     newCombination[attributeKey] = option.option;
-//     newCombination[`${attributeKey}Id`] = option.id;
-
-//     // Recursively generate combinations for the next attribute
-//     const nextCombinations = generateCombinations(attributes, newCombination, currentIndex + 1);
-//     combinations.push(...nextCombinations);
-//   }
-
-//   return combinations;
-// }
-
 function generateCombinations(
   attributes,
   currentCombination = {},
@@ -199,7 +112,7 @@ function VariationProduct({ variations, image, productId }) {
             );
           })} */}
 
-          {allCombinations.map((combination, index) => {
+          {/* {allCombinations.map((combination, index) => {
             return (
               // <div
               //   key={index}
@@ -231,7 +144,7 @@ function VariationProduct({ variations, image, productId }) {
                 productId={productId}
               />
             );
-          })}
+          })} */}
 
           {/* {allCombinationsWithIds.forEach(())} */}
         </div>

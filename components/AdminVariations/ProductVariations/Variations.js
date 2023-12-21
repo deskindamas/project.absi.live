@@ -1,5 +1,5 @@
 import ImageUpload from "@/components/ImageUpload/ImageUpload";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MdClose } from "react-icons/md";
 import { toast } from "react-toastify";
 import Image from "next/image";
@@ -15,11 +15,23 @@ function Variations({ allVariations, allOptions , setVariants }) {
     setVariationImage(data);
   }
 
+  useEffect(() => {
+    console.log(`rendered`);
+    setVariation();
+    setOption();
+    setVariationImage();
+    setVariations([]);
+  } , [])
+
   function addAVariation() {
     const exists = variations.some(
       (v) => v.attribute_id === variation && v.option_id === option
     );
-      if(!variation || !option || !variationImage){
+    // console.log(`variation`) ;
+    // console.log(variation) ;
+    // console.log(`option`);
+    // console.log(option);
+      if(!variation || !option){
         toast.error("please fill all the required fields" , {theme : "colored"});
         return ;
       }
@@ -29,17 +41,9 @@ function Variations({ allVariations, allOptions , setVariants }) {
         {
           attribute_id: variation,
           option_id: option,
-          image: variationImage,
+          image: variationImage ? variationImage : null ,
         },
       ]
-      // setVariations((prevVariations) => [
-      //   ...prevVariations,
-      //   {
-      //     attribute_id: variation,
-      //     option_id: option,
-      //     image: variationImage,
-      //   },
-      // ]);
       setVariations(newVariations);
       setVariants(newVariations);
       setAddVariation(false);
@@ -77,7 +81,7 @@ function Variations({ allVariations, allOptions , setVariants }) {
         <div className="w-full flex flex-col justify-start items-start py-3 border-b border-skin-primary">
           <p className="text-2xl select-none" >All Variations :</p>
           {variations.length > 0 ? (
-            <div className="flex flex-col justify-start items-start space-y-5">
+            <div className="flex flex-col justify-start items-start space-y-5 py-2">
               {variations.map((vari, index) => {
                 return (
                   <div
@@ -88,11 +92,12 @@ function Variations({ allVariations, allOptions , setVariants }) {
                       Variation : {variationName(vari.attribute_id)}
                     </p>
                     <p className="text-xl select-none">Option : {optionName(vari.option_id)}</p>
-                    <Image
+                    { vari.image ? <Image
                       src={URL.createObjectURL(vari.image)}
+                      alt="variation image"
                       width={80}
                       height={80}
-                    />
+                    /> : <i className="text-gray-500" >no image provided.</i>}
                     <MdClose
                       onClick={() => {
                         removeVariation(vari.attribute_id, vari.option_id);
@@ -115,7 +120,7 @@ function Variations({ allVariations, allOptions , setVariants }) {
               }}
               className="px-2 py-1 w-[80%] mx-auto rounded-md h-max my-auto "
             >
-              <option value disabled bg-white selected className="font-mohave">
+              <option value selected disabled className=" bg-white">
                 Select a Variation
               </option>
               {allVariations.map((variation) => {
@@ -123,7 +128,7 @@ function Variations({ allVariations, allOptions , setVariants }) {
                   <option
                     key={variation.id}
                     value={variation.id}
-                    className="text-black font-mohave "
+                    className="text-black  "
                   >
                     {variation.name_en}
                   </option>
@@ -136,7 +141,7 @@ function Variations({ allVariations, allOptions , setVariants }) {
               }}
               className="px-2 py-1 w-[80%] mx-auto rounded-md h-max my-auto "
             >
-              <option value disabled bg-white selected className="font-mohave">
+              <option value disabled selected className=" bg-white">
                 Select an Option
               </option>
               {allOptions.map((option) => {
@@ -144,7 +149,7 @@ function Variations({ allVariations, allOptions , setVariants }) {
                   <option
                     key={option.id}
                     value={option.id}
-                    className="text-black font-mohave"
+                    className="text-black"
                   >
                     {option.value_en}
                   </option>

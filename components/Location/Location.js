@@ -7,7 +7,13 @@ import {
   Stack,
 } from "@mui/material";
 import { MdClose } from "react-icons/md";
-import { GoogleMap, MarkerF, useLoadScript } from "@react-google-maps/api";
+import {
+  GoogleMap,
+  MarkerF,
+  useLoadScript,
+  InfoWindow,
+  Autocomplete,
+} from "@react-google-maps/api";
 import { FaMapLocationDot } from "react-icons/fa6";
 const libraries = ["places"];
 
@@ -20,9 +26,14 @@ const center = {
   lng: 36.276527,
 };
 
+const placesLibrary = ['places'] ;
+
 const Locations = ({ onLocation, className, defaultAddress }) => {
   const [coordinates, setCoordinates] = useState();
   const [address, setAddress] = useState();
+  const [mapCenter, setMapCenter] = useState({ lat: center.lat, lng: center.lng });
+  const [markerPosition, setMarkerPosition] = useState(null);
+  const [autoComplete, setAutoComplete] = useState(null);
   let google;
   const [openlocation, openchangelocation] = useState(false);
   const functionopenpopuplocation = () => {
@@ -34,7 +45,7 @@ const Locations = ({ onLocation, className, defaultAddress }) => {
 
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: "AIzaSyALBvB0SHMQXa0IGf_sI-2ewEzPlhwg2xk",
-    libraries,
+    libraries : placesLibrary
   });
 
   if (isLoaded) {
@@ -52,6 +63,7 @@ const Locations = ({ onLocation, className, defaultAddress }) => {
   const onMapClick = (e) => {
     const coordinates = e.latLng;
     setCoordinates(coordinates);
+    setMarkerPosition(coordinates);
     const latitude = coordinates.lat();
     const longitude = coordinates.lng();
     const geocoder = new google.maps.Geocoder();
@@ -64,11 +76,36 @@ const Locations = ({ onLocation, className, defaultAddress }) => {
     });
   };
 
+  const onPlaceLoad = (autocomplete) => {
+    setAutoComplete(autocomplete);
+  };
+
+  const onPlaceSelected = () => {
+    if (autoComplete != null || autoComplete != undefined) {
+      const place = autoComplete.getPlace();
+      // console.log(autoComplete);
+      if (place.geometry && place.geometry.location) {
+        const newLocation = {
+          lat: place.geometry.location.lat(),
+          lng: place.geometry.location.lng(),
+        };
+        setMapCenter(newLocation);
+        setMarkerPosition(newLocation);
+        setCoordinates(newLocation);
+        setAddress(place.formatted_address);
+        onLocation({
+          address: place.formatted_address,
+          lat: newLocation.lat,
+          lng: newLocation.lng,
+        });
+      }
+    } else {
+      console.error("Autocomplete is not loaded yet.");
+    }
+  };
+
   return (
     <div className=" w-full ">
-      {/* <button className="p-2 border-2 white" 
-        
-      > */}
       <div className="flex w-full justify-start items-center space-x-3">
         <FaMapLocationDot
           onClick={functionopenpopuplocation}
@@ -77,21 +114,17 @@ const Locations = ({ onLocation, className, defaultAddress }) => {
         {/* {defaultAddress && <p>{defaultAddress}</p>} */}
         {address ? (
           // <p className="text-white truncate ">H9H4+6J5, Alassad Suburb, Syria H9H4+6J5, Alassad Suburb, Syria </p>
-          <p className={`text-white text-ellipsis truncate sm:max-w-sm ${className} max-w-[200px]`}>{address}</p>
+          <p
+            className={`text-white text-ellipsis truncate sm:max-w-sm ${className} max-w-[200px]`}
+          >
+            {address}
+          </p>
         ) : (
-          defaultAddress && <p className = {`${className} text-white`}>{defaultAddress}</p>
+          defaultAddress && (
+            <p className={`${className} text-white`}>{defaultAddress}</p>
+          )
         )}
       </div>
-
-      {/* </button> */}
-      {/* <span
-        id="InputAddress"
-
-        placeholder={defaultAddress ? defaultAddress : "Address"}
-        className={`${className}`}
-      >
-        {address && address}
-      </span> */}
 
       <Dialog
         open={openlocation}
@@ -99,11 +132,13 @@ const Locations = ({ onLocation, className, defaultAddress }) => {
         fullWidth
         maxWidth="md"
       >
-        <DialogTitle className="flex justify-between items-center" >
+        <DialogTitle className="flex justify-between items-center">
           Location
-          <IconButton onClick={closepopuplocation} >
+          <IconButton onClick={closepopuplocation}>
             {/* <MdClose className="text-black" /> */}
-            <p className="text-black sm:text-lg text-sm border-b border-transparent hover:border-black" >Save</p>
+            <p className="text-black sm:text-lg text-sm border-b border-transparent hover:border-black">
+              Save
+            </p>
           </IconButton>
         </DialogTitle>
         <DialogContent>
@@ -112,10 +147,36 @@ const Locations = ({ onLocation, className, defaultAddress }) => {
               <GoogleMap
                 mapContainerStyle={mapContainerStyle}
                 zoom={10}
-                center={center}
+                center={mapCenter}
                 onClick={onMapClick}
               >
-                {coordinates && <MarkerF position={coordinates} />}
+                {markerPosition && <MarkerF position={markerPosition} />}
+
+                <Autocomplete
+                   onLoad={onPlaceLoad}
+                   onPlaceChanged={onPlaceSelected}
+                >
+                  <input
+                    type="text"
+                    placeholder="Enter a location"
+                    autoComplete
+                    style={{
+                      boxSizing: "border-box",
+                      border: "1px solid transparent",
+                      width: "240px",
+                      height: "32px",
+                      padding: "0 12px",
+                      borderRadius: "3px",
+                      boxShadow: "0 2px 6px rgba(0, 0, 0, 0.3)",
+                      fontSize: "14px",
+                      outline: "none",
+                      textOverflow: "ellipses",
+                      position: "absolute",
+                      left: "50%",
+                      marginLeft: "-120px",
+                    }}
+                  />
+                </Autocomplete>
               </GoogleMap>
             )}
           </Stack>

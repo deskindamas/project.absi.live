@@ -218,10 +218,18 @@ function OrderAdmin({ names, refetch }) {
                   <tbody className="text-lg font-normal text-gray-700 text-center">
                     {orderDetails &&
                       orderDetails.order_details &&
-                      orderDetails.order_details.map((product) => {
+                      orderDetails.order_details.map((product , index) => {
+                        const nid = [];
+                    if (product.combination) {
+                      product?.combination?.variations.map((vari) => {
+                        nid.push(vari.option);
+                      });
+                      // nid.join(" / ");
+                    }
+                    const name = product.combination ? product.product_name + ` ( ${nid.join(" - ")} )` + ` [ ${product.combination?.part_number} ]` : product.product_name ;
                         return (
                           <tr
-                            key={product.product_name}
+                            key={index}
                             className="even:bg-zinc-200 odd:bg-zinc-50 text-center "
                           >
                             <td className="pb-5 pt-5">

@@ -63,9 +63,12 @@ const Order = () => {
       };
     }
     try {
-      const response = await Api.post(`/api/customer/convert-to-order`, postData);
+      const response = await Api.post(
+        `/api/customer/convert-to-order`,
+        postData
+      );
       // console.log(response);
-      router.replace(`/customer/Orders`);
+      router.replace(`/Orders`);
       setSubmitting(false);
     } catch (error) {
       // console.log(error);
@@ -77,44 +80,6 @@ const Order = () => {
   function GetLocation(data) {
     setAddress(data);
   }
-
-  const OrderItem = [
-    {
-      id: 1,
-      name: "iPhone 9 fhfdhhfd didisis shshs shsh shsh",
-      quantity: 3,
-      price: "230",
-      totalPrice: "1900",
-    },
-    {
-      id: 2,
-      name: "iPhone 9",
-      quantity: 2,
-      price: "130",
-      totalPrice: "900",
-    },
-    {
-      id: 3,
-      name: "iPhone 9",
-      quantity: 3,
-      price: "630",
-      totalPrice: "1900",
-    },
-    {
-      id: 4,
-      name: "iPhone",
-      quantity: 3,
-      price: "230",
-      totalPrice: "19600",
-    },
-    {
-      id: 5,
-      name: "iPhone 9 fhfdhhfd didisis shshs shsh shsh",
-      quantity: 3,
-      price: "230",
-      totalPrice: "1900",
-    },
-  ];
 
   if (isLoading == true || isRefetching == true) {
     return (
@@ -176,25 +141,40 @@ const Order = () => {
 
                 {submitOrder &&
                   submitOrder.data.cart.lines &&
-                  submitOrder.data.cart.lines.map((item) => (
-                    <div
-                      key={item.product.id}
-                      className="grid grid-cols-5  gap-4 md:py-10 py-2 text-gray-700 text-lg font-medium border-b-2 border-gray-300"
-                    >
-                      <div className="col-span-2">
-                        <h3 className="w-full">{item.product.name}</h3>
+                  submitOrder.data.cart.lines.map((item, index) => {
+                    const nid = [];
+                    if (item.combination) {
+                      item?.combination?.variations.map((vari) => {
+                        nid.push(vari.option);
+                      });
+                    }
+                    const name = item.combination
+                      ? item.product.name +
+                        ` ( ${nid.join(" - ")} )` +
+                        ` [ ${item.combination?.part_number} ]`
+                      : item.product.name;
+                    return (
+                      <div
+                        key={index}
+                        className="grid grid-cols-5  gap-4 md:py-10 py-2 text-gray-700 text-lg font-medium border-b-2 border-gray-300"
+                      >
+                        <div className="col-span-2">
+                          <h3 className="w-full">{name}</h3>
+                        </div>
+                        <div className="">
+                          <h3 style={{ paddingLeft: "20px" }}>
+                            {item.quantity}
+                          </h3>
+                        </div>
+                        <div className="">
+                          <h3>{item.price} S.P</h3>
+                        </div>
+                        <div className="">
+                          <h3>{item.lineTotal} S.P</h3>
+                        </div>
                       </div>
-                      <div className="">
-                        <h3 style={{ paddingLeft: "20px" }}>{item.quantity}</h3>
-                      </div>
-                      <div className="">
-                        <h3>{item.price} S.P</h3>
-                      </div>
-                      <div className="">
-                        <h3>{item.lineTotal} S.P</h3>
-                      </div>
-                    </div>
-                  ))}
+                    );
+                  })}
               </div>
 
               <div className="my-6">
@@ -243,7 +223,7 @@ const Order = () => {
                         {t("submitOrder.useExisting")}
                       </label>
                       <div className="flex flex-col justify-start items-center gap-1">
-                        <div className="flex justify-start items-center gap-3 w-full" >
+                        <div className="flex justify-start items-center gap-3 w-full">
                           <label>
                             <input
                               type="radio"
@@ -262,7 +242,11 @@ const Order = () => {
                             />
                           )}
                         </div>
-                        {!useExisting && <p className="text-black" >{t("submitOrder.differ")}</p>}
+                        {!useExisting && (
+                          <p className="text-black">
+                            {t("submitOrder.differ")}
+                          </p>
+                        )}
                       </div>
                     </div>
                     {/* <h4 className="py-3">{`Note`}:</h4> */}

@@ -97,10 +97,10 @@ function AddProducts() {
     );
   }
 
-  if (selectedProducts) {
-    console.log(`shared products`);
-    console.log(selectedProducts);
-  }
+  // if (selectedProducts) {
+  //   console.log(`shared products`);
+  //   console.log(selectedProducts);
+  // }
 
   function closeSearch() {
     setInSearch(false);

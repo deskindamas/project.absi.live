@@ -13,7 +13,7 @@ import Cookies from "js-cookie";
 import { MdCheck, MdClose, MdModeEdit } from "react-icons/md";
 import { convertMoney } from "../SellerOrders/sellerOrder";
 
-function SellerStoreProduct({ product }) {
+function SellerStoreProduct({ product, refetch }) {
   const { t } = useTranslation("");
   const router = useRouter();
   const [price, setPrice] = useState();
@@ -24,38 +24,72 @@ function SellerStoreProduct({ product }) {
   const Api = createAxiosInstance(router);
   const [adding, setAdding] = useState(false);
   const [varis, setVaris] = useState("");
+  const [image, setImage] = useState();
 
   useEffect(() => {
     if (product) {
-      setPrice(product.price);
+      const finalPrice = product.price.replace(/,/g, "");
+      setPrice(finalPrice);
       let nig = [];
       const variations =
         product.has_variation == true &&
-        product.variation_info &&
-        product.variation_info.length > 0 &&
-        product.variation_info.map((variant) => {
+        product.variations &&
+        product.variations.length > 0 &&
+        product.variations.map((variant) => {
           // console.log(`adasd`);
           // console.log(variant);
           nig.push(variant.option);
         });
+      // console.log(nig);
       nig = nig.join(" / ");
       setVaris(nig);
+      // let img ;
+      if (
+        product.has_variation == true &&
+        product.variations &&
+        product.variations.length > 0
+      ) {
+        for (const variant of product.variations) {
+          if (variant.image) {
+            setImage(variant.image);
+            return;
+          }
+        }
+        if(!image){
+          setImage(product.image)
+        }
+      }else{
+        setImage(product.image);
+      }
+      // product.variations.map((variant) => {
+      //   // console.log(`adasd`);
+      //   // console.log(variant);
+      //   // nig.push(variant.option);
+      //   if(variant.image){
+      //     setImage(variant.image);
+      //     return ;
+      //   }
+      // });
+      // console.log(varis);
     }
   }, [product]);
+
+  // console.log(product);
 
   async function savePrice() {
     if (
       product.has_variation == true &&
-      product.variation_info &&
-      product.variation_info.length > 0
+      product.variations &&
+      product.variations.length > 0
     ) {
+      console.log(newPriceRef.current.value);
       setSavingPrice(true);
       try {
         const response = await Api.put(
           `api/seller/store/${storeId}/product/${product.id}/price`,
           {
             price: newPriceRef.current.value,
-            variations: product.selected_variations,
+            variation: product.product_combination_id,
           }
         );
         setPrice(newPriceRef.current.value);
@@ -87,21 +121,25 @@ function SellerStoreProduct({ product }) {
   }
   const productName =
     product.has_variation == true &&
-    product.variation_info &&
-    product.variation_info.length > 0 &&
+    product.variations &&
+    product.variations.length > 0 &&
     varis
-      ? product.name + ` : ` + varis
+      ? product.name +
+        ` : ` +
+        varis +
+        (product.part_number ? ` - [${product.part_number}]` : "")
       : product.name;
   // console.log(varis);
   return (
     <div className="shadow-lg flex flex-col sm:w-fit max-w-[288px] border-2 md:min-h-[406px] min-h-[381px] border-gray-200 rounded-md ">
-      <Link href={`/customer/Products/${product.slug}`} legacyBehavior>
+      <Link href={`/Products/${product.slug}`} legacyBehavior>
         <a
           target="_blank"
           className="bg-cover overflow-hidden flex justify-center items-center min-w-[288px]  min-h-[260px] max-h-[260px]  "
         >
           <Image
-            src={product.image ? product.image : logo}
+            // src={product.image ? product.image : logo}
+            src={image ? image : logo}
             alt={product.name}
             className="w-full   transform transition duration-1000 object-contain object-center"
             width={0}
@@ -135,7 +173,7 @@ function SellerStoreProduct({ product }) {
               />
             ) : (
               <span className="text-white rounded-md w-24 flex justify-center items-center  bg-skin-primary">
-                {convertMoney(price)}
+                {price}
               </span>
             )}
             {editingPrice === true ? (

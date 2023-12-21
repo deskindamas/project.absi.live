@@ -25,46 +25,83 @@ function CartProduct({ product, storeid, refetch }) {
   let quantity = product.quantity;
 
   async function increaseQuantity() {
-    setIsAdding(true);
-    try {
-      const response = await Api.post(`/api/customer/cart/add`, {
-        product_id: product.product.id,
-        store_id: storeid,
-      });
-      // console.log(response);
-      // setQuantity((prev) => {return prev+1});
-      refetch();
+    if (product.combination) {
+      setIsAdding(true);
+      try {
+        const response = await Api.post(`/api/customer/cart/add`, {
+          product_id: product.product.id,
+          store_id: storeid,
+          variation: product.product_combination_id,
+        });
+        refetch();
+        setIsAdding(false);
+      } catch (error) {
+        setIsAdding(false);
+      }
       setIsAdding(false);
-    } catch (error) {
+    } else {
+      setIsAdding(true);
+      try {
+        const response = await Api.post(`/api/customer/cart/add`, {
+          product_id: product.product.id,
+          store_id: storeid,
+        });
+        refetch();
+        setIsAdding(false);
+      } catch (error) {
+        setIsAdding(false);
+      }
       setIsAdding(false);
     }
-    setIsAdding(false);
   }
 
   async function reduceQuantity() {
-    setIsReducing(true);
-    try {
-      const response = await Api.post(`/api/customer/cart/remove`, {
-        product_id: product.product.id,
-      });
-      // console.log(response);
-      refetch();
+    if (product.combination) {
+      setIsReducing(true);
+      try {
+        const response = await Api.post(`/api/customer/cart/remove`, {
+          product_id: product.product.id,
+          variation: product.product_combination_id,
+        });
+        // console.log(response);
+        refetch();
+        setIsReducing(false);
+      } catch (error) {
+        setIsReducing(false);
+      }
       setIsReducing(false);
-    } catch (error) {
+    } else {
+      setIsReducing(true);
+      try {
+        const response = await Api.post(`/api/customer/cart/remove`, {
+          product_id: product.product.id,
+        });
+        // console.log(response);
+        refetch();
+        setIsReducing(false);
+      } catch (error) {
+        setIsReducing(false);
+      }
       setIsReducing(false);
     }
-    setIsReducing(false);
   }
+  const nid = [];
+  if (product.combination) {
+    product?.combination?.variations.map((vari) => {
+      nid.push(vari.option);
+    });
+    // nid.join(" / ");
+  }
+  const name = product.combination ? product.product.name + ` ( ${nid.join(" - ")} )` + ` [ ${product.combination?.part_number} ]` : product.product.name ;
 
   return (
     <div className={`py-3 border-b-2 border-gray-300`}>
-      <div className="flex gap-5 h-full  " key={product.product.id}>
+      <div className="flex gap-5 h-full">
         <div className="relative w-[20%]">
           {/* <div className="top-0 -translate-x-2.5 -translate-y-2.5 left-0 z-30  absolute bg-gray-400 border-1 text-center border-black hover:bg-red-600 w-[25px] h-[25px] rounded-full flex justify-center items-center ">
             <AiOutlineClose className="text-lg text-white " />
           </div> */}
           <Image
-            // src={`https://as1.ftcdn.net/v2/jpg/01/05/57/38/1000_F_105573812_cvD4P5jo6tMPhZULX324qUYFbNpXlisD.jpg`}
             src={product.product.image ? product.product.image : logo}
             alt="product"
             className="rounded-xl object-contain "
@@ -76,11 +113,17 @@ function CartProduct({ product, storeid, refetch }) {
         </div>
         <div className=" flex flex-col justify-center items-start gap-2  w-[50%]">
           <Link
-            href={`/customer/Products/${product.product.slug}`}
+            href={`/Products/${product.product.slug}`}
             legacyBehavior
             className="  "
           >
-            <a target="_blank" className="text-gray-500 text-lg font-medium border-b-2 border-transparent hover:border-gray-500 cursor-pointer" >{product.product.name}</a>
+            <a
+              target="_blank"
+              className="text-gray-500 text-lg font-medium border-b-2 border-transparent hover:border-gray-500 cursor-pointer"
+            >
+              {name}
+              {/* {product.product.name} */}
+            </a>
           </Link>
           <p className=" text-skin-primary text-base font-light ">
             {product.price} S.P

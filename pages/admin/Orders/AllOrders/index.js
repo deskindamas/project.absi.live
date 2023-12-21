@@ -28,53 +28,6 @@ const tableheading = [
   },
 ];
 
-const orders = [
-  {
-    id: 1,
-    store_name: "lorem1",
-    customerName: "lorem1",
-    status: "lorem",
-    location: "syria",
-    created: "12/3/2022",
-    update: "12/3/2022",
-  },
-  {
-    id: 2,
-    store_name: "lorem2",
-    customerName: "lorem1",
-    status: "lorem",
-    location: "syria",
-    created: "12/3/2022",
-    update: "12/3/2022",
-  },
-  {
-    id: 3,
-    store_name: "lorem3",
-    customerName: "lorem1",
-    status: "lorem",
-    location: "syria",
-    created: "12/3/2022",
-    update: "12/3/2022",
-  },
-  {
-    id: 4,
-    store_name: "lorem4",
-    customerName: "lorem1",
-    status: "lorem",
-    location: "syria",
-    created: "12/3/2022",
-    update: "12/3/2022",
-  },
-  {
-    id: 5,
-    store_name: "lorem5",
-    customerName: "lorem1",
-    status: "lorem",
-    location: "syria",
-    created: "12/3/2022",
-    update: "12/3/2022",
-  },
-];
 
 function AllOrdersAdmin() {
   const router = useRouter();
@@ -116,20 +69,20 @@ function AllOrdersAdmin() {
             <thead className="">
               <tr className="text-sm font-semibold text-center border-b-2 border-gray-400 uppercase">
                 <th>Id</th>
-                {tableheading.map((index) => (
-                  <th className="px-4 " key={index.id}>
-                    {index.heading}
+                {tableheading.map((head , i) => (
+                  <th className="px-4 " key={i}>
+                    {head.heading}
                   </th>
                 ))}
               </tr>
             </thead>
             <tbody className="text-lg font-normal text-gray-700 text-center">
               {response.data.data &&
-                response.data.data.map((customer) => {
+                response.data.data.map((customer , index) => {
                   return (
                     <OrderAdmin
                       names={customer}
-                      key={customer.id}
+                      key={index}
                       refetch={() => {
                         refetch();
                       }}

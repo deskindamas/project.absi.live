@@ -20,7 +20,7 @@ import { useTranslation } from "next-i18next";
 
 export async function getServerSideProps(context) {
   const { locale } = context;
-  
+
   return {
     props: {
       ...(await serverSideTranslations(locale, ["common"])),
@@ -48,12 +48,12 @@ const Store = () => {
   const {
     data: sellerStoreData,
     isLoading,
-    isError,
-    error,
-    refetch , 
-    isRefetching, 
+    refetch,
+    isRefetching,
   } = useQuery(`sellerStore`, fetchSellerStoreData, {
     staleTime: 1,
+    cacheTime: 1,
+    keepPreviousData: false,
     refetchOnMount: true,
     refetchOnWindowFocus: false,
   });
@@ -71,18 +71,22 @@ const Store = () => {
 
   useEffect(() => {
     if (sellerStoreData && sellerStoreData.categories.length > 0) {
-      setSelectedCategory(sellerStoreData.categories[0].name);
+      if (selectedCategory == null || selectedCategory == undefined) {
+        setSelectedCategory(sellerStoreData.categories[0].name);
+      }
     }
   }, [sellerStoreData]);
 
-  let selectedCategoryData;
-
-  if (sellerStoreData && selectedCategory) {
-    selectedCategoryData = sellerStoreData.category.find(
-      (category) => category.name === selectedCategory
-    );
-    // console.log(selectedCategoryData);
-  }
+  // let selectedCategoryData;
+  const [selectedCategoryData, setSelectedCategoryData] = useState();
+  useEffect(() => {
+    if (sellerStoreData && selectedCategory) {
+      const Data = sellerStoreData.category.find(
+        (category) => category.name === selectedCategory
+      );
+      setSelectedCategoryData(Data);
+    }
+  }, [sellerStoreData, selectedCategory]);
 
   if (isLoading) {
     return (
@@ -92,30 +96,40 @@ const Store = () => {
     );
   }
 
+  if(sellerStoreData){
+    console.log(sellerStoreData);
+  }
+
   return (
-    <div className="md:px-7 w-full h-full flex flex-col justify-start items-center " dir={router.locale == "ar" ? "rtl" : "ltr"} >
+    <div
+      className="md:px-7 w-full h-full flex flex-col justify-start items-center "
+      dir={router.locale == "ar" ? "rtl" : "ltr"}
+    >
       {sellerStoreData && (
         <div className=" relative lg:h-[400px] md:h-[300px]  h-[200px] w-full box-border ">
           <Image
-            src={sellerStoreData.store.image ? sellerStoreData.store.image : logo}
+            src={
+              sellerStoreData.store.image ? sellerStoreData.store.image : logo
+            }
             alt={sellerStoreData.store.name}
             width={0}
             height={0}
             sizes="100vw"
             style={{ width: "100%", height: "100%" }} // optional
-            className={`w-full h-full object-cover select-none pointer-events-none `}
+            className={`w-full h-full object-contain select-none pointer-events-none `}
           />
         </div>
       )}
-       
 
-       <div className="md:flex md:justify-between items-center mx-auto w-[90%] ">
-        { sellerStoreData && (
+      <div className="md:flex md:justify-between items-center mx-auto w-[90%] ">
+        {sellerStoreData && (
           <div className="flex md:flex-row flex-col md:justify-start justify-center items-center my-10 ">
             <div className=" md:w-[200px] w-[200px] md:h-[200px] h-[200px]">
               <Image
                 className=" shadow md:w-[90%] md:h-[90%] object-cover rounded-md"
-                src={sellerStoreData.store.logo ? sellerStoreData.store.logo : logo}
+                src={
+                  sellerStoreData.store.logo ? sellerStoreData.store.logo : logo
+                }
                 alt={sellerStoreData.store.name}
                 width={0}
                 height={0}
@@ -126,28 +140,29 @@ const Store = () => {
 
             <div className="mx-6">
               <h1 className="text-4xl text-gray-800 font-medium capitalize">
-              {sellerStoreData.store.name}
+                {sellerStoreData.store.name}
               </h1>
               <div className="flex flex-col justify-center items-start w-full pb-5">
-                  <div className="flex flex-col md:flex-row justify-start items-center gap-2 w-full">
-                    <div className="md:text-2xl text-lg text-gray-500 font-medium">
-                      <h3 className="my-2 capitalize">
-                       {router.locale == "ar" ? "ايام توافر المتجر" : "opening days"} :
-                      </h3>
-                      {sellerStoreData.store.opening_days?.map(
-                        (day, index) => {
-                          return (
-                            <span key={index} className="text-gray-400 mt-4">
-                              {index !==
-                             sellerStoreData.store.opening_days.length - 1
-                                ? `${day} ,`
-                                : day}
-                            </span>
-                          );
-                        }
-                      )}
-                    </div>
+                <div className="flex flex-col md:flex-row justify-start items-center gap-2 w-full">
+                  <div className="md:text-2xl text-lg text-gray-500 font-medium">
+                    <h3 className="my-2 capitalize">
+                      {router.locale == "ar"
+                        ? "ايام توافر المتجر"
+                        : "opening days"}{" "}
+                      :
+                    </h3>
+                    {sellerStoreData.store.opening_days?.map((day, index) => {
+                      return (
+                        <span key={index} className="text-gray-400 mt-4">
+                          {index !==
+                          sellerStoreData.store.opening_days.length - 1
+                            ? `${day} ,`
+                            : day}
+                        </span>
+                      );
+                    })}
                   </div>
+                </div>
               </div>
             </div>
           </div>
@@ -157,19 +172,19 @@ const Store = () => {
           <div className="flex flex-col md:items-end items-center">
             <div>
               <h2 className="md:text-xl text-lg text-gray-600 font-medium my-2">
-                { router.locale == "ar" ? "من الساعة" :  "Opening Time"} :
+                {router.locale == "ar" ? "من الساعة" : "Opening Time"} :
                 <span className="text-gray-400 text-2xl  ">
-              {" "}
-              {convertTo12HourFormat(sellerStoreData.store.opening_time)}
-            </span>
+                  {" "}
+                  {convertTo12HourFormat(sellerStoreData.store.opening_time)}
+                </span>
               </h2>
             </div>
             <div>
               <h2 className="md:text-xl text-lg text-gray-600 font-medium my-3">
-              { router.locale == "ar" ? "إلى الساعة" :  "Closing Time"} :
+                {router.locale == "ar" ? "إلى الساعة" : "Closing Time"} :
                 <span className="text-gray-400 text-2xl  ">
-              {convertTo12HourFormat(sellerStoreData.store.closing_time)}
-            </span>
+                  {convertTo12HourFormat(sellerStoreData.store.closing_time)}
+                </span>
               </h2>
             </div>
           </div>
@@ -178,32 +193,34 @@ const Store = () => {
 
       <div className="flex justify-center bg-gray-200 w-full py-3 mb-10  ">
         <ul className="flex md:justify-center justify-start md:items-center items-start md:w-full w-[80%] mx-auto gap-6 md:overflow-auto overflow-x-scroll">
-        {sellerStoreData && (
-          <FilterCategories
-            categories={sellerStoreData?.categories}
-            selectedCategory={selectedCategory}
-            onSelectCategory={onSelectCategory}
-          />
-        )}
+          {sellerStoreData && (
+            <FilterCategories
+              categories={sellerStoreData?.categories}
+              selectedCategory={selectedCategory}
+              onSelectCategory={onSelectCategory}
+            />
+          )}
         </ul>
       </div>
       <div className="flex justify-center w-full">
-      <div className="grid 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-2 grid-col-1 gap-2 w-full mx-auto mb-10 ">
-        {sellerStoreData &&
-          selectedCategory &&
-          selectedCategoryData &&
-          selectedCategoryData.products.map((product , index) => (
-            <SellerStoreProduct key={index} product={product} refetch = {() => {refetch();}} />
-            // <SellerStore key={product.id} store={product} refetch = {() => {refetch();}} />
-          ))}
-      </div>
+        <div className="grid 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-2 grid-col-1 gap-2 w-full mx-auto mb-10 ">
+          {sellerStoreData &&
+            selectedCategory &&
+            selectedCategoryData &&
+            selectedCategoryData.products.map((product, index) => (
+              <SellerStoreProduct
+                key={index + `${product.name}`}
+                product={product}
+                refetch={() => {
+                  refetch();
+                }}
+              />
+              // <SellerStore key={product.id} store={product} refetch = {() => {refetch();}} />
+            ))}
+        </div>
       </div>
     </div>
   );
 };
 
 export default withLayout(Store);
-
-
-
-

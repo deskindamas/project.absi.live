@@ -419,10 +419,13 @@
     "products" : {
       "addProduct" : "Add a Product to your store", 
       "addNewProduct" : "Add a New Product to your store",
+      "addCombinations" : "Add Combinations To Product",
       "table" : {
         "id" : "Id",
         "action" : "Action" ,
         "name" : "Name",
+        "variations" : "Variations",
+        "partNumber" : "Part-Number",
         "category" : "Category" ,
         "image" : "Image" ,
         "status" : "Status" ,

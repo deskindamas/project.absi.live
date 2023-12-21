@@ -90,7 +90,7 @@ function Navbar() {
         <div
           className="flex justify-start md:pl-10 sm:w-[20%] w-fit h-auto pl-10 cursor-pointer"
           onClick={() => {
-            router.push(`/customer`);
+            router.push(`/`);
           }}
         >
           <Image
@@ -105,11 +105,11 @@ function Navbar() {
             <div className="flex justify-end items-center w-full sm:gap-2  ">
               <Link
                 className="text-white sm:text-base text-xs w-max "
-                href={"/customer/Orders"}
+                href={"/Orders"}
               >
                 {t("nav.orders")}
               </Link>
-              {router.pathname != `/customer/SubmitOrder` && (
+              {router.pathname != `/SubmitOrder` && (
                 <button onClick={handleCartButtonClick} className="relative">
                   <IoCartOutline className="text-white w-[40px] h-[20px]  " />
                   {/* {cart?.data?.cart?.lines &&
@@ -122,7 +122,7 @@ function Navbar() {
 
               <button
                 onClick={() => {
-                  router.push(`/customer/MyProfile`);
+                  router.push(`/MyProfile`);
                 }}
                 className="flex justify-center items-center"
               >
@@ -130,7 +130,7 @@ function Navbar() {
               </button>
             </div>
           )}
-          { (router.pathname == "/customer" || router.pathname == "/ContactUs" || router.pathname == "/AboutUs" || router.pathname == "/customer/Orders" || router.pathname == "/customer/MyProfile" ) && <LocaleSwitcher />}
+          { (router.pathname == "/" || router.pathname == "/ContactUs" || router.pathname == "/AboutUs" || router.pathname == "/Orders" || router.pathname == "/MyProfile" ) && <LocaleSwitcher />}
           {/* <div className="flex px-3 py-1 gap-2 text-white " >
             <LanguageSwitcher lang="ar">ar</LanguageSwitcher> |{" "}
             <LanguageSwitcher lang="en">en</LanguageSwitcher>

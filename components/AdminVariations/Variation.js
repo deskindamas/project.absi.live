@@ -65,19 +65,6 @@ function Variation({ variation, refetch }) {
     }
   }
 
-  //   async function deleteBrand () {
-  //     setDeleting(true);
-  //     try{
-  //       const response = await Api.delete(`/api/admin/brand/delete/${names.id}`);
-  //       refetch();
-  //     setDeleting(false);
-  //     setIsDeleting(false);
-  //     }catch(error){
-  //     setDeleting(false);
-  //     }
-  //     setDeleting(false);
-  //   }
-
   return (
     <>
       <tr
@@ -138,8 +125,8 @@ function Variation({ variation, refetch }) {
                   <input
                     className="my-3 w-[50%] text-black placeholder:text-zinc-500 pl-2 outline-none border-b-2 focus:border-skin-primary transition-all duration-700"
                     type="text"
-                    placeholder={variation.name_en}
-                    //   defaultValue={variation.name_en}
+                    // placeholder={variation.name_en}
+                      defaultValue={variation.name_en}
                     ref={newEnName}
                     required
                   />
@@ -151,8 +138,8 @@ function Variation({ variation, refetch }) {
                   <input
                     className="my-3 w-[50%] text-black placeholder:text-zinc-500 pl-2 outline-none border-b-2 focus:border-skin-primary transition-all duration-700"
                     type="text"
-                    placeholder={variation.name_ar}
-                    // defaultValue={variation.name_ar}
+                    // placeholder={variation.name_ar}
+                    defaultValue={variation.name_ar}
                     ref={newArName}
                     required
                   />

@@ -244,7 +244,7 @@ function StoreTypeAdmin({ names, refetch }) {
                   <input
                     className="my-3 w-[70%] text-black placeholder:text-zinc-500 pl-2 outline-none border-b-2 focus:border-skin-primary transition-all duration-700"
                     type="text"
-                    placeholder={names.name_ar}
+                    defaultValue={names.name_ar}
                     ref={newNameAr}
                     required
                   />
@@ -255,7 +255,7 @@ function StoreTypeAdmin({ names, refetch }) {
                   <input
                     className="my-3 w-[70%] text-black placeholder:text-zinc-500 pl-2 outline-none border-b-2 focus:border-skin-primary transition-all duration-700"
                     type="text"
-                    placeholder={names.name_en}
+                    defaultValue={names.name_en}
                     ref={newNameEn}
                     required
                   />
@@ -270,7 +270,7 @@ function StoreTypeAdmin({ names, refetch }) {
                       WebkitAppearance: "none",
                       MozAppearance: "textfield",
                     }}
-                    placeholder={names.sort_order}
+                    defaultValue={names.sort_order}
                     ref={newsortOrder}
                     required
                   />

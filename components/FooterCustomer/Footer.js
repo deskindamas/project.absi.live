@@ -27,7 +27,7 @@ const Footer = () => {
       <div className="bg-[#262626] bottom-0 w-full">
         <div className="grid md:grid-cols-3 sm:grid-cols-1 grid-col-1 gap-4 py-10">
           <div className="text-white flex flex-col justify-center items-center text-center">
-            <Link href="/customer">
+            <Link href="/">
               <Image src={Logo} alt="logo" className="w-[30%] mx-auto" />
             </Link>
 
@@ -38,13 +38,13 @@ const Footer = () => {
 
           <div className=" flex flex-col items-center justify-center space-y-5 ">
             <Link
-              href="/customer/Products"
+              href="/Products"
               className="border-2 text-center bg-skin-primary border-skin-primary text-white py-1 w-[40%] rounded-lg "
             >
               {t("footer.ALLProducts")}
             </Link>
             <Link
-              href="/customer/Stores"
+              href="/Stores"
               className="border-2 text-center border-skin-primary text-white py-1 w-[40%] rounded-lg"
             >
               {t("footer.ALLStores")}
@@ -119,7 +119,7 @@ const Footer = () => {
             </ul>
             <div className="grid  grid-cols-1 gap-4 text-white text-center p-4 ">
               {/* <Link href= "#" > */}
-              <Link href="/customer" className="hover:text-skin-primary">
+              <Link href="/" className="hover:text-skin-primary">
                 {t("footer.home")}
                 {/* {`Home Page`} */}
               </Link>

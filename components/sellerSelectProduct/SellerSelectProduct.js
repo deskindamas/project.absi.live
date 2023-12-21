@@ -23,6 +23,9 @@ import {
 import VariationProduct from "../SellerVariations/variationProduct";
 import { useQuery } from "react-query";
 import TawasyLoader from "../UI/tawasyLoader";
+import Combination from "../SellerVariations/Combination";
+import SellerCombination from "../SellerVariations/SellerCombination";
+import Cookies from "js-cookie";
 
 // const productVariations = {
 //   success: true,
@@ -86,9 +89,10 @@ function SellerSelectProduct({ product }) {
   const dispatch = useDispatch();
   const [openPopUp, setOpenPopUp] = useState(false);
   const [selectedVariations, setSelectedVariations] = useState([]);
+  const storeId = Cookies.get("Sid");
   const { data: productVariations, isLoading: loadingVariations } = useQuery(
     ["productVariation", openPopUp],
-    fetchProductVariation,
+    fetchProductCombinations,
     {
       enabled: openPopUp,
       staleTime: 1,
@@ -97,13 +101,14 @@ function SellerSelectProduct({ product }) {
     }
   );
 
-  async function fetchProductVariation() {
-    return await Api.get(`/api/product-variation/${product.id}`);
+  async function fetchProductCombinations() {
+    return await Api.get(`/api/seller/get-product-combination-seller/${storeId}/${product.id}`);;
   }
 
   const [adding, setAdding] = useState(false);
 
   async function saveProduct() {
+    // console.log(product);
     if (product.has_variation == true) {
       setOpenPopUp(true);
     } else {
@@ -123,7 +128,7 @@ function SellerSelectProduct({ product }) {
   return (
     <>
       <div className="shadow-lg flex flex-col sm:w-fit max-w-[288px] border-2 md:min-h-[406px] min-h-[381px] border-gray-200 rounded-md ">
-        <Link href={`/customer/Products/${product.slug}`} legacyBehavior>
+        <Link href={`/Products/${product.slug}`} legacyBehavior>
           <a
             target="_blank"
             className="bg-cover overflow-hidden flex justify-center items-center min-w-[288px]  min-h-[260px] max-h-[260px]  "
@@ -184,11 +189,11 @@ function SellerSelectProduct({ product }) {
           setOpenPopUp(false);
         }}
         fullWidth
-        maxWidth="md"
+        maxWidth="lg"
       >
         <DialogTitle className=" border-b-2 border-gray-200">
           <h3 className="py-2 pl-3 text-gray-600">
-            Variations for Product : {product.name}
+          {t("seller.products.addCombinations")} : {product.name}
           </h3>
         </DialogTitle>
         <DialogContent>
@@ -197,23 +202,18 @@ function SellerSelectProduct({ product }) {
               <div className="w-full h-full flex justify-center items-center">
                 <TawasyLoader width={200} height={200} />
               </div>
-            ) : productVariations && (
-              <VariationProduct
-                variations={productVariations.data}
-                productId = {product.id}
-                // variations={productVariations.data}
-                selectVariation={(data) => {
-                  setSelectedVariations(data);
-                }}
-                image={product.image ? product.image : logo}
-              />
-             )} 
+            ) : productVariations && productVariations.data.product_combination && 
+            productVariations.data.product_combination.map((combination , index) => {
+              // return <Combination combination={combination.product} productId={product.id} />
+             return  <SellerCombination key={index} product={combination.product} />
+            }) 
+          }
           </Stack>
         </DialogContent>
 
         <DialogActions className="w=full my-3 box-border ">
           <button onClick={() => {setOpenPopUp(false)}} className="px-2 py-1 mx-auto bg-green-500 hover:bg-green-600 rounded-lg text-white min-w-[20%] text-center">
-            Confirm
+          {t("seller.products.action.edit.save")}
           </button>
         </DialogActions>
       </Dialog>

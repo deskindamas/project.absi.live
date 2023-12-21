@@ -18,11 +18,20 @@ import { convertDate } from "../SellerOrders/sellerOrder";
 import TawasyLoader from "../UI/tawasyLoader";
 import logo from "@/public/images/tawasylogo.png";
 import { toast } from "react-toastify";
+import { IoMdGitNetwork } from "react-icons/io";
+import { useQuery } from "react-query";
+import ProductCombination from "../AdminVariations/ProductVariations/ProductCombination";
+import { MdAdd, MdClose } from "react-icons/md";
+import { generateCombinations } from "@/pages/admin/Products/addNewProduct";
+import Combination from "../SellerVariations/Combination";
+import Variations from "../AdminVariations/ProductVariations/Variations";
+import AdminProductVariation from "../AdminVariations/AdminProductVariation";
 
 function AdminProduct({ product, refetch }) {
   const [isDeleting, setIsDeleting] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const [isEditingVariations, setIsEditingVariations] = useState(false);
   const [logoImage, setLogoImage] = useState();
   const [categories, setCategories] = useState();
   const [brands, setBrands] = useState();
@@ -32,19 +41,106 @@ function AdminProduct({ product, refetch }) {
   const [category, setCategory] = useState();
   const [brand, setBrand] = useState();
   const [isSaving, setIsSaving] = useState(false);
+  const [isSavingVariations, setIsSavingVariations] = useState(false);
+  const [isAdding, setIsAdding] = useState(false);
+  const [deletingVariation, setDeletingVariation] = useState(false);
+  const [isAddingVariation, setIsAddingVariation] = useState(false);
+  const [savingAdd, setSavingAdd] = useState(false);
   const [isApproving, setIsApproving] = useState(false);
   const [isDeclining, setIsDeclining] = useState(false);
+  const [combinations, setCombinations] = useState();
+  const [loading, setLoading] = useState(false);
+  const [loadingProductVariations, setLoadingProductVariations] =
+    useState(false);
+  // const [varis, setVaris] = useState();
+  // const [options, setOptions] = useState();
+  const [variants, setVariants] = useState();
   const newNameAr = useRef();
   const newNameEn = useRef();
   const newdescAr = useRef();
   const newdescEn = useRef();
-  // const newCategory = useRef();
-  // const newBrand = useRef();
   const newSku = useRef();
   const newEanCode = useRef();
   const newSortOrder = useRef();
   const router = useRouter();
   const Api = createAxiosInstance(router);
+  const {
+    data: variations,
+    isLoading: loadingVariations,
+    isFetching,
+    isRefetching: isRefetchingVariations,
+    refetch: refetchCombinations,
+  } = useQuery([`proVariations`, isEditingVariations], fetchProductVariations, {
+    enabled: isEditingVariations,
+    staleTime: 1,
+    refetchOnMount: true,
+    refetchOnWindowFocus: false,
+  });
+
+  const {
+    data: productVariations,
+    isLoading: productVariationsLoading,
+    isFetching: isFetchingProductVariations,
+    isRefetching: isRefetchingProductVariations,
+    refetch: refetchProductVariations,
+  } = useQuery([`productVaiants`, isEditingVariations], fetchVariations, {
+    enabled: isEditingVariations,
+    staleTime: 1,
+    refetchOnMount: true,
+    refetchOnWindowFocus: false,
+  });
+
+  const {
+    data: options,
+    isLoading: optionsLoading,
+    isFetching: optionsFetching,
+    isRefetching: isRefetchingOptions,
+  } = useQuery(["options", isEditingVariations], fetchOptions, {
+    staleTime: 1,
+    enabled: isEditingVariations,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+  });
+
+  const {
+    data: varis,
+    isLoading: varisLoading,
+    isFetching: varisFetching,
+    isRefetching: isRefetchingVaris,
+  } = useQuery(["varis", isEditingVariations], fetchVaris, {
+    staleTime: 1,
+    enabled: isEditingVariations,
+    refetchOnMount: true,
+    refetchOnWindowFocus: false,
+  });
+
+  async function fetchVaris() {
+    try {
+      const response = await Api.get(`/api/admin/attributes`);
+      return response.data.data;
+    } catch (error) {}
+  }
+
+  async function fetchOptions() {
+    try {
+      const response = await Api.get(`/api/admin/options`);
+      return response.data.data;
+    } catch (error) {}
+  }
+
+  async function fetchProductVariations() {
+    try {
+      return await Api.get(`/api/admin/get-product-combination/${product.id}`);
+    } catch (error) {}
+  }
+
+  async function fetchVariations() {
+    return await Api.get(`/api/product-variation/${product.id}`);
+  }
+
+  useEffect(() => {
+    setVariants();
+  }, []);
 
   function handleLogoImage(data) {
     setLogoImage(data);
@@ -131,7 +227,7 @@ function AdminProduct({ product, refetch }) {
       // })
       setIsEditing(false);
       setIsSaving(false);
-      return ;
+      return;
     } else {
       try {
         const response = await Api.put(
@@ -204,6 +300,107 @@ function AdminProduct({ product, refetch }) {
     }
   }
 
+  async function openVariations() {
+    setIsEditingVariations(true);
+  }
+
+  async function addCombination() {
+    setIsAdding(true);
+    setLoading(true);
+    try {
+      const groupedVariations = {};
+      productVariations.data.variations.forEach((variation) => {
+        const attribute = variation.attribute;
+        if (!groupedVariations[attribute]) {
+          groupedVariations[attribute] = [];
+        }
+        groupedVariations[attribute].push(variation);
+      });
+      const attributeArray = Object.entries(groupedVariations).map(
+        ([key, value]) => ({ [key]: value })
+      );
+      const allCombinations = await generateCombinations(attributeArray);
+      const filteredCombinations = allCombinations.filter(
+        (combination) =>
+          !variations.data.product_combination.some((product) =>
+            combination.idArray.every((id) =>
+              product.product.variations.some(
+                (variation) => variation.id === id
+              )
+            )
+          )
+      );
+      setCombinations(filteredCombinations);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+    }
+    setLoading(false);
+  }
+
+  async function deleteVariation() {
+    await refetchCombinations();
+    await refetchProductVariations();
+    setIsAdding(false);
+    setIsAddingVariation(false);
+  }
+
+  async function addVariation() {
+    setIsAddingVariation(true);
+    // setLoadingProductVariations(true);
+    // try {
+    //   const response = await Api.get(`/api/admin/attributes`);
+    //   setVaris(response.data.data);
+    //   const response2 = await Api.get(`/api/admin/options`);
+    //   setOptions(response2.data.data);
+    // } catch (error) {
+    //   setLoadingProductVariations(false);
+    // }
+    // setLoadingProductVariations(false);
+  }
+
+  async function saveVariations() {
+    setIsSavingVariations(true);
+    if (
+      variants == undefined ||
+      variants == null ||
+      (Array.isArray(variants) && variants.length < 1)
+    ) {
+      toast.error(
+        "You are saving without providing any variations , Either cancel the addition or provide at least 1 variation",
+        { theme: "colored" }
+      );
+      setIsSavingVariations(false);
+      return;
+    } else {
+      let data = {};
+      variants.forEach((item, index) => {
+        data[`variations[${index}][attribute_id]`] = item.attribute_id;
+        data[`variations[${index}][option_id]`] = item.option_id;
+        data[`variations[${index}][image]`] = item.image;
+      });
+      console.log(data);
+      try {
+        const response = await Api.post(
+          `/api/admin/add-variation/${product.id}`,
+          {
+            ...data,
+          },
+          {
+            headers: { "Content-Type": `multipart/form-data` },
+          }
+        );
+        setIsAdding(false);
+        setIsAddingVariation(false);
+        refetchProductVariations();
+        setVariants();
+      } catch (error) {
+        setIsSavingVariations(false);
+      }
+    }
+    setIsSavingVariations(false);
+  }
+
   return (
     <>
       <tr
@@ -212,13 +409,21 @@ function AdminProduct({ product, refetch }) {
       >
         <td className="px-4 ">{product.id}</td>
         <td class="px-4 py-4">
-          <div class="flex-col lg:flex-row lg:space-x-2 items-center space-y-2 lg:space-y-0">
+          <div class="flex space-x-3 justify-center items-center ">
             <button
               onClick={openDialog}
               class="items-center px-2 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none"
             >
               <FiEdit />
             </button>
+            {/* {product.has_variation == true && ( */}
+            <button
+              onClick={openVariations}
+              class="items-center px-2 py-2 text-white bg-yellow-500 rounded-md hover:bg-yellow-600 focus:outline-none"
+            >
+              <IoMdGitNetwork />
+            </button>
+            {/* // )} */}
             {/* <button
               class="items-center px-2 py-2 text-white bg-red-500 rounded-md hover:bg-red-600 focus:outline-none"
               onClick={() => {
@@ -284,9 +489,9 @@ function AdminProduct({ product, refetch }) {
         maxWidth="lg"
       >
         <DialogTitle className="flex justify-between border-b-2 border-black">
-          <h4 className="text-gray-500 md:pl-6 font-medium">
+          <p className="text-gray-500 md:pl-6 font-medium">
             Edit Product : {product.name_en}
-          </h4>
+          </p>
         </DialogTitle>
         <DialogContent>
           {isLoading ? (
@@ -301,9 +506,9 @@ function AdminProduct({ product, refetch }) {
                   <input
                     className="my-3 w-[70%] text-black placeholder:text-zinc-500 pl-2 outline-none border-b-2 focus:border-skin-primary transition-all duration-700"
                     type="text"
-                    placeholder={product.name_ar}
+                    // placeholder={product.name_ar}
+                    defaultValue={product.name_ar}
                     ref={newNameAr}
-                    required
                   />
                 </div>
 
@@ -312,9 +517,9 @@ function AdminProduct({ product, refetch }) {
                   <input
                     className="my-3 w-[70%] text-black placeholder:text-zinc-500 pl-2 outline-none border-b-2 focus:border-skin-primary transition-all duration-700"
                     type="text"
-                    placeholder={product.name_en}
+                    // placeholder={product.name_en}
+                    defaultValue={product.name_en}
                     ref={newNameEn}
-                    required
                   />
                 </div>
 
@@ -323,9 +528,9 @@ function AdminProduct({ product, refetch }) {
                   <input
                     className="my-3 w-[70%] text-black placeholder:text-zinc-500 pl-2 outline-none border-b-2 focus:border-skin-primary transition-all duration-700"
                     type="numbere"
-                    placeholder={product.description_ar}
+                    // placeholder={product.description_ar}
+                    defaultValue={product.description_ar}
                     ref={newdescAr}
-                    required
                   />
                 </div>
 
@@ -334,9 +539,9 @@ function AdminProduct({ product, refetch }) {
                   <input
                     className="my-3 w-[70%] text-black placeholder:text-zinc-500 pl-2 outline-none border-b-2 focus:border-skin-primary transition-all duration-700"
                     type="numbere"
-                    placeholder={product.description_en}
+                    // placeholder={product.description_en}
+                    defaultValue={product.description_en}
                     ref={newdescEn}
-                    required
                   />
                 </div>
 
@@ -356,10 +561,10 @@ function AdminProduct({ product, refetch }) {
                       Select a category
                     </option>
                     {categories &&
-                      categories.map((category) => {
+                      categories.map((category, index) => {
                         return (
                           <option
-                            key={category.name_en}
+                            key={index}
                             className="bg-white"
                             value={category.name_en}
                           >
@@ -405,10 +610,10 @@ function AdminProduct({ product, refetch }) {
                   <input
                     className="my-3 w-[70%] text-black placeholder:text-zinc-500 pl-2 outline-none border-b-2 focus:border-skin-primary transition-all duration-700"
                     type="text"
-                    placeholder={product.sku}
+                    // placeholder={product.sku}
+                    defaultValue={product.sku}
                     min={0}
                     ref={newSku}
-                    required
                   />
                 </div>
 
@@ -417,9 +622,9 @@ function AdminProduct({ product, refetch }) {
                   <input
                     className="my-3 w-[70%] text-black placeholder:text-zinc-500 pl-2 outline-none border-b-2 focus:border-skin-primary transition-all duration-700"
                     type="text"
-                    placeholder={product.ean_code}
+                    // placeholder={product.ean_code}
+                    defaultValue={product.ean_code}
                     ref={newEanCode}
-                    required
                   />
                 </div>
 
@@ -467,9 +672,9 @@ function AdminProduct({ product, refetch }) {
                   <input
                     className="my-3 w-[70%] text-black placeholder:text-zinc-500 pl-2 outline-none border-b-2 focus:border-skin-primary transition-all duration-700 "
                     type="text"
-                    placeholder={product.sort_order}
+                    // placeholder={product.sort_order}
+                    defaultValue={product.sort_order}
                     ref={newSortOrder}
-                    required
                   />
                 </div>
 
@@ -544,7 +749,7 @@ function AdminProduct({ product, refetch }) {
         fullWidth
       >
         <DialogTitle className="flex justify-between border-b-2 border-black ">
-          <h4 className="">Delete Product:</h4>
+          <p className="">Delete Product:</p>
         </DialogTitle>
         <DialogContent>
           <Stack spacing={1} margin={3}>
@@ -584,6 +789,228 @@ function AdminProduct({ product, refetch }) {
             Cancel
           </button>
         </DialogActions>
+      </Dialog>
+
+      <Dialog
+        open={isEditingVariations}
+        onClose={() => {
+          setIsAdding(false);
+          setIsEditingVariations(false);
+          setIsAddingVariation(false);
+        }}
+        fullWidth
+        maxWidth="lg"
+      >
+        <DialogTitle className="flex justify-between border-b-2 border-black ">
+          <p className="">Product Variations: {product.name_en}</p>
+          <MdClose
+            onClick={() => {
+              setIsAdding(false);
+              setIsEditingVariations(false);
+              setIsAddingVariation(false);
+            }}
+            className="w-[25px] h-[25px] text-black cursor-pointer hover:text-red-500 transition-all duration-300"
+          />
+        </DialogTitle>
+        <DialogContent>
+          {loadingVariations ||
+          // isFetching ||
+          // isFetchingProductVariations ||
+          // optionsFetching ||
+          optionsLoading ||
+          // varisFetching ||
+          varisLoading ||
+          productVariationsLoading == true ? (
+            <div className="w-full h-full flex justify-center items-center">
+              <TawasyLoader width={300} height={300} />
+            </div>
+          ) : (
+            // variations && (
+            <Stack spacing={3} margin={3}>
+              {variations && (
+                <div className="flex flex-col justify-start items-start w-full ">
+                  <div className="flex flex-col space-y-2 justify-start items-start w-full">
+                    <div className="py-1 text-xl border-b border-gray-300 w-full flex justify-start items-center space-x-2 ">
+                      <p>Variation Combinations</p>
+                      {isRefetchingVariations == true && (
+                        <Ring
+                          size={17}
+                          speed={2}
+                          lineWeight={5}
+                          color="#ff6600"
+                        />
+                      )}
+                    </div>
+                    {variations.data.product_combination &&
+                    variations.data.product_combination.length > 0 ? (
+                      variations.data.product_combination.map((variation , i) => {
+                        return (
+                          <ProductCombination
+                          key={i}
+                            product={variation.product}
+                            refetch={() => {
+                              refetchCombinations();
+                            }}
+                          />
+                        );
+                      })
+                    ) : (
+                      <div> This Products has no variation combinations. </div>
+                    )}
+                  </div>
+                </div>
+              )}
+              {isAdding == false ? (
+                <button
+                  onClick={addCombination}
+                  className="flex justify-start items-center border-b-2 border-transparent w-max cursor-pointer hover:border-black transition-all duration-300"
+                >
+                  <MdAdd />
+                  Add Combination
+                </button>
+              ) : loading == true ? (
+                <div className="flex justify-center items-center w-full">
+                  <Ring size={50} speed={2} lineWeight={3} color="#ff6600" />
+                </div>
+              ) : combinations && combinations.length > 0 ? (
+                <div className="w-full">
+                  {combinations.map((combination, index) => {
+                    return (
+                      <Combination
+                        key={index}
+                        combination={combination}
+                        productId={product.id}
+                        refetch={() => {
+                          refetchCombinations();
+                          setIsAdding(false);
+                        }}
+                      />
+                    );
+                  })}
+                </div>
+              ) : (
+                <div className="flex justify-center items-center space-x-2 ">
+                  <p className="text-center">
+                    There are no other combinations.
+                  </p>
+                  <button
+                    onClick={() => {
+                      refetchCombinations();
+                    }}
+                    className="px-2 py-1 bg-skin-primary hover:opacity-70 text-white rounded-lg "
+                  >
+                    Refresh
+                  </button>
+                </div>
+              )}
+              <hr />
+              <div className="py-1 text-xl border-b border-gray-300 w-full flex justify-start items-center space-x-2 ">
+                <p>Product Variations</p>
+                {isRefetchingProductVariations == true && (
+                  <Ring size={20} speed={2} lineWeight={5} color="#ff6600" />
+                )}
+              </div>
+              {productVariations &&
+              varis &&
+              productVariations?.data?.variations?.length > 0 ? (
+                productVariations?.data?.variations?.map((variant, index) => {
+                  return (
+                    // <div
+                    //   key={index}
+                    //   className="flex w-full justify-start space-x-4 items-center py-1 border-b border-gray-300"
+                    // >
+                    //   <p>{variant.attribute} :</p>
+                    //   <p>{variant.option}</p>
+                    //   <button
+                    //     onClick={() => {
+                    //       deleteVariation(variant.id);
+                    //     }}
+                    //     disabled={deletingVariation == true}
+                    //     className="px-2 py-1 bg-red-500 text-center hover:opacity-80 rounded-lg text-white"
+                    //   >
+                    //     Delete Variation
+                    //   </button>
+                    //   {/* {deletingVariation == true && (
+                    //       <div>
+                    //         <Ring
+                    //           size={20}
+                    //           speed={2}
+                    //           lineWeight={5}
+                    //           color="#ff6600"
+                    //         />
+                    //       </div>
+                    //     )} */}
+                    // </div>
+                    <AdminProductVariation
+                      key={variant.id}
+                      variant={variant}
+                      productId={product.id}
+                      deleteV={deleteVariation}
+                      options={options}
+                    />
+                  );
+                })
+              ) : (
+                <div> There are no variations. </div>
+              )}
+              {isAddingVariation == false ? (
+                <button
+                  onClick={addVariation}
+                  className="flex justify-start items-center border-b-2 border-transparent w-max cursor-pointer hover:border-black transition-all duration-300"
+                >
+                  <MdAdd />
+                  Add Variation
+                </button>
+              ) : loadingProductVariations == true ? (
+                <div className="flex justify-center items-center w-full">
+                  <Ring size={50} speed={2} lineWeight={3} color="#ff6600" />
+                </div>
+              ) : (
+                varis &&
+                options && (
+                  <div className="w-full p-6">
+                    <Variations
+                      setVariants={(data) => {
+                        setVariants(data);
+                      }}
+                      allVariations={varis}
+                      allOptions={options}
+                    />
+                    {isSavingVariations == true ? (
+                      <div>
+                        <Ring
+                          size={20}
+                          speed={2}
+                          lineWeight={5}
+                          color="#ff6600"
+                        />
+                      </div>
+                    ) : (
+                      <div className="flex justify-start items-center space-x-3">
+                        <button
+                          onClick={saveVariations}
+                          className="px-2 py-1 text-center  bg-green-500 rounded-lg text-white"
+                        >
+                          Done
+                        </button>
+                        <button
+                          onClick={() => {
+                            setVariants();
+                            setIsAddingVariation(false);
+                          }}
+                          className="px-2 py-1 bg-red-500 text-center rounded-lg text-white"
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                )
+              )}
+            </Stack>
+            // )
+          )}
+        </DialogContent>
       </Dialog>
     </>
   );

@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build ",
-    "postbuild": "next-sitemap" ,
+    "postbuild": "next-sitemap",
     "start": "next start -H 0.0.0.0 -p 3000",
     "lint": "next lint"
   },
@@ -44,6 +44,7 @@
     "react-i18next": "^13.3.1",
     "react-icons": "^4.11.0",
     "react-image-magnifiers-v2": "^2.0.1",
+    "react-medium-image-zoom": "^5.1.9",
     "react-parallax-tilt": "^1.7.171",
     "react-pro-sidebar": "^1.1.0-alpha.1",
     "react-query": "^3.39.3",

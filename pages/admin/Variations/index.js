@@ -359,9 +359,9 @@ function AdminVariations() {
                     </option>
                     { variations && variations.data.data &&
                       variations.data.data.length > 0 &&
-                      variations.data.data.map((variation) => {
+                      variations.data.data.map((variation , i) => {
                         return (
-                          <option value={variation.name_ar}>
+                          <option key={i} value={variation.name_ar}>
                             {variation.name_ar}
                           </option>
                         );

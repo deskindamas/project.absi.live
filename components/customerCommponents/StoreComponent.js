@@ -6,7 +6,7 @@ import logo from "@/public/images/tawasylogo.png"
 
 function StoreComponent({store}) {
   return (
-    <Link href={`/customer/Stores/${store.slug}`} className=" 2xl:w-[70%] lg:w-[90%] md:w-[70%] sm:w-[80%] w-[90%] cursor-pointer bg-white shadow-xl flex justify-start items-center gap-4 rounded-lg overflow-hidden pr-2 border-2 border-gray-200 hover:scale-105 transition-all duration-500 mx-auto ">
+    <Link href={`/Stores/${store.slug}`} className=" 2xl:w-[70%] lg:w-[90%] md:w-[70%] sm:w-[80%] w-[90%] cursor-pointer bg-white shadow-xl flex justify-start items-center gap-4 rounded-lg overflow-hidden pr-2 border-2 border-gray-200 hover:scale-105 transition-all duration-500 mx-auto ">
       <div className=" md:w-[100px] w-[100px] md:h-[100px] h-[100px]">
       <Image 
        className=' object-cover select-none pointer-events-none '

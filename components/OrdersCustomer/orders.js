@@ -27,44 +27,6 @@ function OrdersCustomer({ order, refetch }) {
   const [canceling, setCanceling] = useState(false);
   const { t } = useTranslation("");
 
-  const OrderItem = [
-    {
-      id: 1,
-      name: "iPhone 9 fhfdhhfd didisis shshs shsh shsh",
-      quantity: 3,
-      price: "230",
-      totalPrice: "1900",
-    },
-    {
-      id: 2,
-      name: "iPhone 9",
-      quantity: 2,
-      price: "130",
-      totalPrice: "900",
-    },
-    {
-      id: 3,
-      name: "iPhone 9",
-      quantity: 3,
-      price: "630",
-      totalPrice: "1900",
-    },
-    {
-      id: 4,
-      name: "iPhone",
-      quantity: 3,
-      price: "230",
-      totalPrice: "19600",
-    },
-    {
-      id: 5,
-      name: "iPhone 9 fhfdhhfd didisis shshs shsh shsh",
-      quantity: 3,
-      price: "230",
-      totalPrice: "1900",
-    },
-  ];
-
   const [open, openchange] = useState(false);
 
   const functionopenpopup = async () => {
@@ -86,17 +48,20 @@ function OrdersCustomer({ order, refetch }) {
 
   async function cancelOrder() {
     if (reasonRef.current.value.trim() == "" || !reasonRef.current.value) {
-      toast.error(`Please give us a reason for cancelling the order | الرجاء تزويدنا بسبب رفض الطلب `, {
-        toastId: `Please give us a reason for cancelling the order | الرجاء تزويدنا بسبب رفض الطلب `,
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-      });
+      toast.error(
+        `Please give us a reason for cancelling the order | الرجاء تزويدنا بسبب رفض الطلب `,
+        {
+          toastId: `Please give us a reason for cancelling the order | الرجاء تزويدنا بسبب رفض الطلب `,
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        }
+      );
       return;
     } else {
       setCanceling(true);
@@ -120,7 +85,6 @@ function OrdersCustomer({ order, refetch }) {
   return (
     <>
       <div
-        key={order.order_id}
         onClick={functionopenpopup}
         className="bg-gray-100 rounded-md my-1 px-4 cursor-pointer border-2 border-white hover:border-skin-primary transition-all duration-700 "
       >
@@ -152,7 +116,10 @@ function OrdersCustomer({ order, refetch }) {
               <div
                 className={`${order.status == `pending` && `text-yellow-500`} ${
                   order.status == `accepted` && `text-green-500`
-                } ${order.status == `declined` && `text-red-500`}`}
+                } ${
+                  (order.status == `declined` || order.status == `cancelled`) &&
+                  `text-red-500`
+                }`}
               >
                 {order.status}
               </div>
@@ -213,8 +180,8 @@ function OrdersCustomer({ order, refetch }) {
 
                 <div className="md:px-16 px-2">
                   <div className="w-[100%]">
-                    <div className="grid grid-cols-5  md:gap-4 gap-1 text-gray-800 md:text-xl text-xs font-medium bg-gray-200 py-2">
-                      <div className="col-span-2">
+                    <div className="grid grid-cols-6  md:gap-4 gap-1 text-gray-800 md:text-xl text-xs font-medium bg-gray-200 py-2">
+                      <div className="col-span-3">
                         {/* <h4>{`Name`}</h4> */}
                         <h4>{t("orders.orderDetails.name")}</h4>
                       </div>
@@ -233,27 +200,41 @@ function OrdersCustomer({ order, refetch }) {
                       </div>
                     </div>
 
-                    {orderDetails.order_details.map((item) => (
-                      <div
-                        key={item.id}
-                        className="grid grid-cols-5  md:gap-4 gap-1 md:py-10 py-2 text-gray-700 md:text-lg text-sm font-medium border-b-2 border-gray-300"
-                      >
-                        <div className="col-span-2">
-                          <h3 className="w-full">{item.product_name}</h3>
+                    {orderDetails.order_details.map((item, index) => {
+                      const nid = [];
+                      if (item.combination) {
+                        item?.combination?.variations.map((vari) => {
+                          nid.push(vari.option);
+                        });
+                        // nid.join(" / ");
+                      }
+                      const name = item.combination
+                        ? item.product_name +
+                          ` ( ${nid.join(" - ")} )` +
+                          ` [ ${item.combination?.part_number} ]`
+                        : item.product_name;
+                      return (
+                        <div
+                          key={index}
+                          className="grid grid-cols-6  md:gap-4 gap-1 md:py-10 py-2 text-gray-700 md:text-lg text-sm font-medium border-b-2 border-gray-300"
+                        >
+                          <div className="col-span-3">
+                            <h3 className="w-full">{name}</h3>
+                          </div>
+                          <div className="">
+                            <h3 style={{ paddingLeft: "20px" }}>
+                              {item.quantity}
+                            </h3>
+                          </div>
+                          <div className="">
+                            <h3>{item.price} S.P</h3>
+                          </div>
+                          <div className="">
+                            <h3>{item.line_total} S.P</h3>
+                          </div>
                         </div>
-                        <div className="">
-                          <h3 style={{ paddingLeft: "20px" }}>
-                            {item.quantity}
-                          </h3>
-                        </div>
-                        <div className="">
-                          <h3>{item.price} S.P</h3>
-                        </div>
-                        <div className="">
-                          <h3>{item.line_total} S.P</h3>
-                        </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                   <div className="my-6">
                     <div className="grid md:grid-cols-2 gap-4 font-medium text-gray-800">

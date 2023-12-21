@@ -47,7 +47,7 @@ function TermsAndConditions() {
               height={290}
               className="mx-3"
             />
-            <Link href={`/customer`} className="box-border">
+            <Link href={`/`} className="box-border">
               <div className="w-max px-2 py-1 border-2 border-skin-primary">
                 Home
               </div>
@@ -66,7 +66,7 @@ function TermsAndConditions() {
             />
             <div className="flex justify-between items-center">
               <LocaleSwitcher color={`text-black hover:text-skin-primary`} />
-              <Link href={`/customer`} className="box-border">
+              <Link href={`/`} className="box-border">
                 <div className="w-max px-2 py-1 border-2 border-skin-primary">
                   Home
                 </div>

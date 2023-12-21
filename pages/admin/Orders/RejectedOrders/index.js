@@ -71,17 +71,17 @@ function DeclinedOrdersAdmin() {
             <thead className="sticky top-0 bg-white border-b-2 border-blue-500">
               <tr className="text-sm font-semibold text-center border-b-2 border-gray-400 uppercase">
                 <th>Id</th>
-                {tableheading.map((index) => (
-                  <th key={index.id}>{index.heading}</th>
+                {tableheading.map((head , i) => (
+                  <th key={i}>{head.heading}</th>
                 ))}
               </tr>
             </thead>
             <tbody className="text-lg font-normal text-gray-700 text-center">
-              {allOrders && allOrders.data.data.map((order) => {
+              {allOrders && allOrders.data.data.map((order , index) => {
                 return (
                   <OrderAdmin
                     names={order}
-                    key={order.id}
+                    key={index}
                     refetch={() => {
                       refetch();
                     }}

@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import createAxiosInstance from "@/API";
 import { useQuery } from "react-query";
 import TawasyLoader from "@/components/UI/tawasyLoader";
+import { Ring } from "@uiball/loaders";
 
 const tableheading = [
   {
@@ -61,19 +62,20 @@ const tableheading = [
 function ActiveStoreAdmin() {
   const router = useRouter();
   const Api = createAxiosInstance(router);
-  const { data:activeStores, isLoading, refetch } = useQuery(
-    `activeStores`,
-    fetchActiveStores,
+  const [currentPage, setCurrentPage] = useState(1);
+  const { data:activeStores, isLoading, refetch , isFetching } = useQuery(
+    [`activeStores` , currentPage],
+     () => fetchActiveStores(currentPage),
     { staleTime: 1, refetchOnMount: true, refetchOnWindowFocus: false }
   );
 
-  async function fetchActiveStores() {
+  async function fetchActiveStores(currentPage) {
     try {
-      return await Api.get(`/api/admin/approved-stores`);
+      return await Api.get(`/api/admin/approved-stores?page=${currentPage}`);
     } catch (error) {}
   }
 
-  if (isLoading) {
+  if (isLoading == true) {
     return (
       <div className="w-full h-full">
         <TawasyLoader width={400} height={400} />
@@ -121,6 +123,37 @@ function ActiveStoreAdmin() {
             <div className="w-max mx-auto">{`There are no active Stores.`}</div>
           )}
         </div>
+        {activeStores && activeStores.data.pagination && (
+            <div className="w-[50%] mx-auto flex justify-center items-center h-max gap-4 ">
+              <button
+                className="px-2 py-1 bg-skin-primary text-white rounded-lg hover:bg-[#ff9100] disabled:opacity-50 disabled:cursor-not-allowed w-[20%]"
+                onClick={() => {
+                  setCurrentPage(activeStores.data.pagination.current_page - 1);
+                }}
+                disabled={
+                  activeStores.data.pagination.current_page ===
+                  activeStores.data.pagination.from
+                }
+              >
+                Previous Page
+              </button>
+              {isFetching && (
+                <Ring size={20} lineWeight={5} speed={2} color="#222222" />
+              )}
+              <button
+                className="px-2 py-1 bg-skin-primary text-white rounded-lg hover:bg-[#ff9100] disabled:opacity-50 disabled:cursor-not-allowed w-[20%]"
+                onClick={() => {
+                  setCurrentPage(activeStores.data.pagination.current_page + 1);
+                }}
+                disabled={
+                  activeStores.data.pagination.current_page ===
+                  activeStores.data.pagination.last_page
+                }
+              >
+                Next Page
+              </button>
+            </div>
+          )}
       </div>
     </div>
   );

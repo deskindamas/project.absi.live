@@ -37,54 +37,6 @@ const tableheading = [
   },
 ];
 
-const categories = [
-  {
-    id: 1,
-    nameAr: "lorem1",
-    nameEn: "lorem1",
-    sortOrder: "5",
-    store_type: "item1",
-    created_at: "5/4/2013",
-    updated_at: "5/4/2013",
-  },
-  {
-    id: 2,
-    nameAr: "lorem2",
-    nameEn: "lorem2",
-    sortOrder: "25",
-    store_type: "item1",
-    created_at: "5/4/2013",
-    updated_at: "5/4/2013",
-  },
-  {
-    id: 3,
-    nameAr: "lorem3",
-    nameEn: "lorem3",
-    sortOrder: "25",
-    store_type: "item1",
-    created_at: "5/4/2013",
-    updated_at: "5/4/2013",
-  },
-  {
-    id: 4,
-    nameAr: "lorem4",
-    nameEn: "lorem3",
-    sortOrder: "25",
-    store_type: "item1",
-    created_at: "5/4/2013",
-    updated_at: "5/4/2013",
-  },
-  {
-    id: 5,
-    nameAr: "lorem5",
-    nameEn: "lorem3",
-    sortOrder: "25",
-    store_type: "item1",
-    created_at: "5/4/2013",
-    updated_at: "5/4/2013",
-  },
-];
-
 function Categories() {
   const [open, openchange] = useState(false);
   const router = useRouter();

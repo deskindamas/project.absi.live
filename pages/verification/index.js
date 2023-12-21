@@ -99,7 +99,7 @@ const Code = () => {
         //   router.replace(formerUrl);
         //   Cookies.remove("url");
         // } else {
-          router.replace("/customer");
+          router.replace("/");
         // }
         setIsLoading(false);
         if (response.status !== 200) {

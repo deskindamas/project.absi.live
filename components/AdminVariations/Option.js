@@ -133,8 +133,8 @@ function Option({ option, refetch }) {
                   <input
                     className="my-3 w-[50%] text-black placeholder:text-zinc-500 pl-2 outline-none border-b-2 focus:border-skin-primary transition-all duration-700"
                     type="text"
-                    placeholder={option.value_en}
-                    //   defaultValue={variation.name_en}
+                    // placeholder={option.value_en}
+                      defaultValue={option.value_en}
                     ref={newEnName}
                     required
                   />
@@ -146,8 +146,8 @@ function Option({ option, refetch }) {
                   <input
                     className="my-3 w-[50%] text-black placeholder:text-zinc-500 pl-2 outline-none border-b-2 focus:border-skin-primary transition-all duration-700"
                     type="text"
-                    placeholder={option.value_ar}
-                    // defaultValue={variation.name_ar}
+                    // placeholder={option.value_ar}
+                    defaultValue={option.value_ar}
                     ref={newArName}
                     required
                   />

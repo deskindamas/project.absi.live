@@ -19,24 +19,17 @@ function TotalAddProduct({ selectproduct, refetch }) {
 
   async function saveProduct() {
     if (
-      selectproduct.product.variations &&
-      selectproduct.product.variations.length > 0
+      selectproduct.variations &&
+      selectproduct.variations.length > 0
     ) {
       setIsSaving(true);
-      let varis = [];
-      const variations =
-        selectproduct.product.variations &&
-        selectproduct.product.variations.length > 0 &&
-        selectproduct.product.variations.map((variant) => {
-          varis.push(variant.id);
-        });
       try {
         const response = await Api.post(
-          `/api/seller/add-products-to-store/${selectproduct.product.id}`,
+          `/api/seller/add-products-to-store/${selectproduct.product_id}`,
           {
             price: priceRef.current.value,
             availability: available,
-            variations: varis,
+            variation: selectproduct.line_id,
           }
         );
         refetch();
@@ -49,7 +42,7 @@ function TotalAddProduct({ selectproduct, refetch }) {
       setIsSaving(true);
       try {
         const response = await Api.post(
-          `/api/seller/add-products-to-store/${selectproduct.product.id}`,
+          `/api/seller/add-products-to-store/${selectproduct.product_id}`,
           {
             price: priceRef.current.value,
             availability: available,
@@ -66,21 +59,14 @@ function TotalAddProduct({ selectproduct, refetch }) {
 
   async function unSelectProduct() {
     if (
-      selectproduct.product.variations &&
-      selectproduct.product.variations.length > 0
+      selectproduct.variations &&
+      selectproduct.variations.length > 0
     ){
       setIsDeleting(true);
-      let varis = [];
-      const variations =
-        selectproduct.product.variations &&
-        selectproduct.product.variations.length > 0 &&
-        selectproduct.product.variations.map((variant) => {
-          varis.push(variant.id);
-        });
       try {
         const response = await Api.post(
-          `/api/seller/unselect-product/${selectproduct.product.id}` , {
-            variations : varis
+          `/api/seller/unselect-product/${selectproduct.product_id}` , {
+            variation : selectproduct.line_id
           }
         );
         refetch();
@@ -93,7 +79,7 @@ function TotalAddProduct({ selectproduct, refetch }) {
       setIsDeleting(true);
       try {
         const response = await Api.post(
-          `/api/seller/unselect-product/${selectproduct.product.id}`
+          `/api/seller/unselect-product/${selectproduct.product_id}`
         );
         refetch();
         setIsDeleting(false);
@@ -107,9 +93,9 @@ function TotalAddProduct({ selectproduct, refetch }) {
   // const variations = selectproduct.variations && selectproduct.variations.length > 0 && selectproduct.variations.option.join(`-`) ;
   let varis = [];
   const variations =
-    selectproduct.product.variations &&
-    selectproduct.product.variations.length > 0 &&
-    selectproduct.product.variations.map((variant) => {
+    selectproduct.variations &&
+    selectproduct.variations.length > 0 &&
+    selectproduct.variations.map((variant) => {
       varis.push(variant.option);
     });
   varis = varis.join(" / ");
@@ -117,25 +103,25 @@ function TotalAddProduct({ selectproduct, refetch }) {
   return (
     <>
       <tr
-        key={selectproduct.product.id}
+        key={selectproduct.product_id}
         className="even:bg-zinc-150 odd:bg-zinc-50 text-center py-1 border-b-2 border-slate-300"
       >
         <td>
           <Link
-            href={`/customer/Products/${selectproduct.slug}`}
+            href={`/Products/${selectproduct.slug}`}
             legacyBehavior
           >
             <a
               target="_blank"
               className="border-b border-transparent hover:border-gray-400"
             >
-              {selectproduct.product.name}
+              {selectproduct.name}
             </a>
           </Link>
         </td>
         <td className="px-4">
-          {selectproduct.product.variations &&
-          selectproduct.product.variations.length > 0 ? (
+          {selectproduct.variations &&
+          selectproduct.variations.length > 0 ? (
             <div className="flex justify-center items-center space-x-3">
               {" "}
               {/* {varis && varis.length > 0 && varis.map((variation) => {
@@ -147,8 +133,8 @@ function TotalAddProduct({ selectproduct, refetch }) {
             <p className="text-base">This product has no variations</p>
           )}
         </td>
-        <td>{selectproduct.product.brand}</td>
-        <td>{selectproduct.product.category}</td>
+        <td>{selectproduct.brand}</td>
+        <td>{selectproduct.category}</td>
         <td>
           {available ? (
             <BsToggleOn
@@ -181,12 +167,12 @@ function TotalAddProduct({ selectproduct, refetch }) {
         <td className="flex justify-center items-center">
           <img
             src={
-              selectproduct.product.image ? selectproduct.product.image : logo
+              selectproduct.image ? selectproduct.image : logo
             }
             width={75}
             height={75}
             loading="lazy"
-            alt={selectproduct.product.name}
+            alt={selectproduct.name}
           />
         </td>
         <td className="md:px-0 px-2">

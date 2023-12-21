@@ -63,6 +63,12 @@ function Products() {
       heading: t("seller.products.table.name"),
     },
     {
+      heading: t("seller.products.table.variations"),
+    },
+    {
+      heading: t("seller.products.table.partNumber"),
+    },
+    {
       heading: t("seller.products.table.category"),
     },
     {
@@ -124,10 +130,10 @@ function Products() {
     setLoaded(true);
   }, [router.query.type]);
 
-  // if(products) {
-  //   console.log(products);
-  //   console.log(Array.isArray(products));
-  // }
+  if(products) {
+    console.log(products);
+    // console.log(Array.isArray(products));
+  }
 
   const closepopup = () => {
     openchange(false);
@@ -185,7 +191,7 @@ function Products() {
             <div className="mt-6 overflow-x-auto  ">
               <table className="w-full overflow-x-auto table-auto">
                 <thead className="">
-                  <tr className="text-sm font-semibold text-center border-b-2 border-blue-500 uppercase">
+                  <tr className="text-sm font-semibold text-center border-b-2 border-blue-500 capitalize">
                     <th>{t("seller.products.table.id")}</th>
                     {tableheading.map((index) => (
                       <th key={index.heading}>{index.heading}</th>
@@ -193,8 +199,8 @@ function Products() {
                   </tr>
                 </thead>
                 <tbody className="text-lg font-normal text-gray-700 text-center">
-                  { products.map((names) => {
-                    return <SellerProduct product={names} key={names.id} refetch={() => {refetch();}} />;
+                  { products.map((names , index) => {
+                    return <SellerProduct product={names} key={index} refetch={() => {refetch();}} />;
                   })}
                 </tbody>
               </table>

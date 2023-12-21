@@ -8,7 +8,7 @@ import React from "react";
 import { useQuery } from "react-query";
 import {useTranslation} from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import grayLogo from '../../../public/images/logo-tawasy--gray.png' ;
+import grayLogo from '@/public/images/logo-tawasy--gray.png' ;
 import { NextSeo } from "next-seo";
 
 const Orders = () => {
@@ -42,7 +42,7 @@ const Orders = () => {
     <NextSeo
         title={t("titles.orders")}
         description={t("descs.orders")}
-        canonical="https://tawasyme.com/customer/Orders"
+        canonical="https://tawasyme.com/Orders"
       />
       <div className="md:px-28 px-3 py-4">
         <div>
@@ -53,8 +53,8 @@ const Orders = () => {
         </div>
         {orders && orders.data.orders && orders.data.orders.length > 0 ? (
           <div className="grid md:grid-cols-3 sm:grid-cols-1 grid-col-1 gap-4 ">
-            {orders.data.orders.map((order) => {
-              return <OrdersCustomer key={order.order_id} order={order} refetch = {() => {
+            {orders.data.orders.map((order , index) => {
+              return <OrdersCustomer key={index} order={order} refetch = {() => {
                 // console.log(`refetching`);
                 refetch();
               }} />;

@@ -38,6 +38,7 @@ function SellerOrders({ orders, refetch }) {
   const [accepting, setAccepting] = useState(false);
   const reasonRef = useRef();
   const { t } = useTranslation("");
+  const [proName , setProName] = useState();
 
   async function fetchOrderDetails() {
     setIsLoading(true);
@@ -149,11 +150,11 @@ function SellerOrders({ orders, refetch }) {
 
       <Dialog open={open} onClose={closepopup} fullWidth maxWidth="lg" dir={router.locale == "ar" ? "rtl" : "ltr"}>
         {isLoading !== true && orderDetails && (
-          <DialogTitle className="md:flex  justify-between mx-auto border-b-2 border-skin-primary ">
-            <h4>{t("seller.orders.orderDetails.storeName")}: {orderDetails.store_name} </h4>
-            <h4>{t("seller.orders.orderDetails.orderStatus")}: {orderDetails.status} </h4>
-            <h6>{t("seller.orders.orderDetails.orderDate")}: {convertDate(orderDetails.date)}</h6>
-            <h6>{t("seller.orders.orderDetails.orderId")}: {orderDetails.order_id}</h6>
+          <DialogTitle className="md:flex justify-between mx-auto border-b-2 border-skin-primary ">
+            <span className="md:text-lg text-sm" >{t("seller.orders.orderDetails.storeName")}: {orderDetails.store_name} </span>
+            <span className="md:text-lg text-sm">{t("seller.orders.orderDetails.orderStatus")}: {orderDetails.status} </span>
+            <span className="md:text-lg text-sm" >{t("seller.orders.orderDetails.orderDate")}: {convertDate(orderDetails.date)}</span>
+            <span className="md:text-lg text-sm" >{t("seller.orders.orderDetails.orderId")}: {orderDetails.order_id}</span>
           </DialogTitle>
         )}
         <DialogContent
@@ -169,18 +170,26 @@ function SellerOrders({ orders, refetch }) {
             <div>
               <table className=" w-full">
                 <thead className="bg-zinc-200 h-8">
-                  <tr className="md:text-xl text-sm">
-                    <th className="pb-2 pt-2">{t("seller.orders.orderDetails.productName")}</th>
+                  <tr className="md:text-xl grid grid-cols-6 text-sm">
+                    <th className="pb-2 pt-2 col-span-3 ">{t("seller.orders.orderDetails.productName")}</th>
                     <th className="pb-2 pt-2">{t("seller.orders.orderDetails.quantity")}</th>
                     <th className="pb-2 pt-2">{t("seller.orders.orderDetails.price")}</th>
                     <th className="pb-2 pt-2">{t("seller.orders.orderDetails.total")}</th>
                   </tr>
                 </thead>
                 <tbody className="text-center md:text-xl text-sm">
-                  {orderDetails?.order_details.map((product) => {
+                  {orderDetails?.order_details.map((product , index) => {
+                    const nid = [];
+                    if (product.combination) {
+                      product?.combination?.variations.map((vari) => {
+                        nid.push(vari.option);
+                      });
+                      // nid.join(" / ");
+                    }
+                    const name = product.combination ? product.product_name + ` ( ${nid.join(" - ")} )` + ` [ ${product.combination?.part_number} ]` : product.product_name ;
                     return (
-                      <tr key={product.product_name} className="text-center">
-                        <td className="pb-2 pt-2">{product.product_name}</td>
+                      <tr key={index} className="text-center grid grid-cols-6">
+                        <td className="pb-2 pt-2 col-span-3">{name}</td>
                         <td className="pb-2 pt-2">{product.quantity}</td>
                         <td className="pb-2 pt-2">{product.price}</td>
                         <td className="pb-2 pt-2">{product.line_total}</td>

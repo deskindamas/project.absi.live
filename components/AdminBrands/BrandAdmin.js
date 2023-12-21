@@ -108,7 +108,7 @@ function BrandAdmin({ names, refetch }) {
                 <input
                   className="my-3 w-[80%] text-black placeholder:text-zinc-500 pl-2 outline-none border-b-2 focus:border-skin-primary transition-all duration-700"
                   type="text"
-                  placeholder={names.name}
+                  defaultValue={names.name}
                   ref={newName}
                   required
                 />

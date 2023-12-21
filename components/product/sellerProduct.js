@@ -16,9 +16,12 @@ import Cookies from "js-cookie";
 import Image from "next/image";
 import Link from "next/link";
 import { useTranslation } from "next-i18next";
-import logo from "@/public/images/tawasylogo.png"
+import logo from "@/public/images/tawasylogo.png";
+import { IoMdGitBranch } from "react-icons/io";
+import SellerCombination from "../SellerVariations/SellerCombination";
+import TawasyLoader from "../UI/tawasyLoader";
 
-function SellerProduct({ product , refetch }) {
+function SellerProduct({ product, refetch }) {
   const [isToggled, setIsToggled] = useState(product.availability);
   const [isDeleting, setIsDeleting] = useState(false);
   const [deleting, setDeleting] = useState(false);
@@ -26,11 +29,21 @@ function SellerProduct({ product , refetch }) {
   const [editingAvailability, setEditingAvailability] = useState(false);
   const [editingPrice, setEditingPrice] = useState(false);
   const [price, setPrice] = useState(product.price);
+  const [isAddingCombination, setIsAddingCobination] = useState(false);
+  const [loadingVariations, setIsLoadingVariations] = useState(false);
   const newPrice = useRef();
   const router = useRouter();
   const Api = createAxiosInstance(router);
   const storeId = Cookies.get("Sid");
-  const {t} = useTranslation("");
+  const [productVariations, setCombinations] = useState();
+  const { t } = useTranslation("");
+
+  const nid = [];
+  if (product.combination) {
+    product?.combination?.variations.map((vari) => {
+      nid.push(vari.option);
+    });
+  }
 
   async function handleAvailable() {
     setEditingAvailability(true);
@@ -41,12 +54,22 @@ function SellerProduct({ product , refetch }) {
       } else if (isToggled == false) {
         availability = true;
       }
-      const response = await Api.put(
-        `api/seller/store/${storeId}/product/${product.id}/availability`,
-        {
-          availability: availability,
-        }
-      );
+      if (product.combination != null) {
+        const response = await Api.put(
+          `api/seller/store/${storeId}/product/${product.id}/availability`,
+          {
+            availability: availability,
+            variation: product.product_combination_id,
+          }
+        );
+      } else {
+        const response = await Api.put(
+          `api/seller/store/${storeId}/product/${product.id}/availability`,
+          {
+            availability: availability,
+          }
+        );
+      }
       // console.log(`availability change`);
       // console.log(response);
     } catch (error) {
@@ -62,12 +85,22 @@ function SellerProduct({ product , refetch }) {
   async function savePrice() {
     setEditingPrice(true);
     try {
-      const response = await Api.put(
-        `api/seller/store/${storeId}/product/${product.id}/price`,
-        {
-          price: newPrice.current.value,
-        }
-      );
+      if (product.combination) {
+        const response = await Api.put(
+          `api/seller/store/${storeId}/product/${product.id}/price`,
+          {
+            price: newPrice.current.value,
+            variation: product.product_combination_id,
+          }
+        );
+      } else {
+        const response = await Api.put(
+          `api/seller/store/${storeId}/product/${product.id}/price`,
+          {
+            price: newPrice.current.value,
+          }
+        );
+      }
       setPrice(newPrice.current.value);
       setIsEditing(false);
     } catch (error) {
@@ -80,10 +113,20 @@ function SellerProduct({ product , refetch }) {
   async function deleteProduct() {
     setDeleting(true);
     try {
-      const response = await Api.delete(
-        `api/seller/store/${storeId}/product/${product.id}`
-      );
-        refetch() ;
+      if (product.combination) {
+        const response = await Api.delete(
+          `api/seller/store/${storeId}/product/${product.id}`,
+          {
+            headers: {},
+            data: { variation: product.product_combination_id },
+          }
+        );
+      } else {
+        const response = await Api.delete(
+          `api/seller/store/${storeId}/product/${product.id}`
+        );
+      }
+      refetch();
       setIsDeleting(false);
       setDeleting(false);
     } catch (error) {
@@ -91,6 +134,21 @@ function SellerProduct({ product , refetch }) {
       setDeleting(false);
       // console.log(error);
     }
+  }
+
+  async function openAddVariation() {
+    setIsAddingCobination(true);
+    setIsLoadingVariations(true);
+    try {
+      const response = await Api.get(
+        `/api/seller/get-product-combination-seller/${storeId}/${product.id}`
+      );
+      setCombinations(response);
+      setIsLoadingVariations(false);
+    } catch (error) {
+      setIsLoadingVariations(false);
+    }
+    setIsLoadingVariations(false);
   }
 
   return (
@@ -101,7 +159,7 @@ function SellerProduct({ product , refetch }) {
       >
         <td className="px-4 py-4">{product.id}</td>
         <td class="px-4 py-4">
-          <div class="md:flex-row flex-col items-center space-y-3 lg:space-y-0">
+          <div class="flex md:flex-wrap flex-col items-center space-y-3 lg:space-y-1">
             <button
               onClick={() => setIsEditing(true)}
               class="items-center px-2 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none"
@@ -116,17 +174,44 @@ function SellerProduct({ product , refetch }) {
             >
               <RiDeleteBin6Line />
             </button>
+            {product.combination && (
+              <button
+                class="items-center px-2 py-2 text-white bg-yellow-500 rounded-md hover:bg-yellow-600 focus:outline-none"
+                onClick={() => {
+                  openAddVariation();
+                }}
+              >
+                <IoMdGitBranch />
+              </button>
+            )}
           </div>
         </td>
-        <td className="px-4 py-4"><Link href={`/customer/Products/${product.slug}`} legacyBehavior >
-              <a target="_blank" className="border-b border-transparent hover:border-gray-400 cursor-pointer" >
+        <td className="px-4 py-4">
+          <Link href={`/Products/${product.slug}`} legacyBehavior>
+            <a
+              target="_blank"
+              className="border-b border-transparent hover:border-gray-400 cursor-pointer"
+            >
               {product.name}
-              </a>
-          </Link></td>
+            </a>
+          </Link>
+        </td>
         {/* <td className="px-4 py-4">{product.description}</td> */}
+        <td className="px-4 py-4">
+          {product.combination ? nid.join(" - ") : `-`}
+        </td>
+        <td className="px-4 py-4">
+          {product.combination ? product.combination.part_number : `-`}
+        </td>
         <td className="px-4 py-4">{product.category}</td>
         <td className="px-4 py-4">
-          <Image  src={product.image ? product.image : logo} alt="photo" width={100} height={100} className="object-contain"  />
+          <Image
+            src={product.image ? product.image : logo}
+            alt="photo"
+            width={100}
+            height={100}
+            className="object-contain"
+          />
         </td>
         <td onClick={handleAvailable} className="  ">
           {editingAvailability ? (
@@ -157,8 +242,7 @@ function SellerProduct({ product , refetch }) {
         </td>
         <td className="px-4 py-4">{product.brand && product.brand.name}</td>
         {/* <td className="px-4 py-4">{product.sold_quantity}</td> */}
-        <td className="px-4 py-4" >{price}</td>
-        
+        <td className="px-4 py-4">{price}</td>
       </tr>
 
       <Dialog
@@ -170,7 +254,9 @@ function SellerProduct({ product , refetch }) {
         dir={router.locale == "ar" ? "rtl" : "ltr"}
       >
         <DialogTitle className="flex justify-between border-b-2 border-black ">
-          <h4 className="">{t("seller.products.action.edit.editProduct")}: {product.name}</h4>
+          <h4 className="">
+            {t("seller.products.action.edit.editProduct")}: {product.name}
+          </h4>
         </DialogTitle>
         <DialogContent>
           <Stack spacing={1} margin={3}>
@@ -220,13 +306,15 @@ function SellerProduct({ product , refetch }) {
         dir={router.locale == "ar" ? "rtl" : "ltr"}
       >
         <DialogTitle className="flex justify-between border-b-2 border-black ">
-          <h4 className="">{t("seller.products.action.delete.deleteProduct")}:</h4>
+          <h4 className="">
+            {t("seller.products.action.delete.deleteProduct")}:
+          </h4>
         </DialogTitle>
         <DialogContent>
           <Stack spacing={1} margin={3}>
             <div className="flex flex-col justify-start items-start w-full ">
               <p className="text-lg ">
-              {t("seller.products.action.delete.areYouSure")}
+                {t("seller.products.action.delete.areYouSure")}
               </p>
               <p className="text-xl">{product.name}</p>
             </div>
@@ -256,6 +344,57 @@ function SellerProduct({ product , refetch }) {
             }}
           >
             {t("seller.products.action.delete.no")}
+          </button>
+        </DialogActions>
+      </Dialog>
+
+      <Dialog
+        open={isAddingCombination}
+        onClose={() => {
+          setIsAddingCobination(false);
+          setCombinations();
+        }}
+        fullWidth
+        maxWidth="lg"
+      >
+        <DialogTitle className=" border-b-2 border-gray-200">
+          <h3 className="py-2 pl-3 text-gray-600">
+            {t("seller.products.addCombinations")} : {product.name}
+          </h3>
+        </DialogTitle>
+        <DialogContent>
+          <Stack spacing={2} margin={2}>
+            {loadingVariations == true ? (
+              <div className="w-full h-full flex justify-center items-center">
+                <TawasyLoader width={200} height={200} />
+              </div>
+            ) : (
+              productVariations &&
+              productVariations.data.product_combination &&
+              productVariations.data.product_combination.map(
+                (combination, index) => {
+                  return (
+                    <SellerCombination
+                      key={index}
+                      product={combination.product}
+                    />
+                  );
+                }
+              )
+            )}
+          </Stack>
+        </DialogContent>
+
+        <DialogActions className="w=full my-3 box-border ">
+          <button
+            onClick={() => {
+              router.push("/seller/products/addProducts?type=allProducts");
+              setIsAddingCobination(false);
+              setCombinations();
+            }}
+            className="px-2 py-1 mx-auto bg-green-500 hover:bg-green-600 rounded-lg text-white min-w-[20%] text-center"
+          >
+            {t("seller.products.action.edit.save")}
           </button>
         </DialogActions>
       </Dialog>
